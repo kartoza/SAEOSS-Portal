@@ -2,7 +2,6 @@ import json
 import logging
 import typing
 import datetime
-import uuid
 from urllib.parse import quote, urlparse, parse_qsl, urlencode
 from html import escape as html_escape
 from pathlib import Path
@@ -15,7 +14,7 @@ from ckan.lib.helpers import build_nav_main as core_build_nav_main
 from ckan.logic import NotAuthorized
 
 from . import constants
-from .logic.action.emc import show_version
+from .logic.action.saeoss import show_version
 from .constants import DCPRRequestStatus
 from .model.dcpr_request import DCPRRequest
 
@@ -27,15 +26,15 @@ from ckan.lib.dictization import table_dictize
 logger = logging.getLogger(__name__)
 
 
-def get_sasdi_themes(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
-    logger.debug(f"inside get_sasdi_themes {args=} {kwargs=}")
+def get_saeoss_themes(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
+    logger.debug(f"inside get_saeoss_themes {args=} {kwargs=}")
     try:
-        sasdi_themes = toolkit.get_action("tag_list")(
-            data_dict={"vocabulary_id": constants.SASDI_THEMES_VOCABULARY_NAME}
+        saeoss_themes = toolkit.get_action("tag_list")(
+            data_dict={"vocabulary_id": constants.SAEOSS_THEMES_VOCABULARY_NAME}
         )
     except toolkit.ObjectNotFound:
-        sasdi_themes = []
-    return [{"value": t, "label": t} for t in sasdi_themes]
+        saeoss_themes = []
+    return [{"value": t, "label": t} for t in saeoss_themes]
 
 
 def get_iso_topic_categories(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
@@ -155,7 +154,7 @@ def user_is_staff_member(user_id: str) -> bool:
     memberships_action = toolkit.get_action("organization_list_for_user")
     memberships = memberships_action(context={"user": user_id}, data_dict={})
     portal_staff = toolkit.config.get(
-        "ckan.saeoss.portal_staff_organization_name", "sasdi emc staff"
+        "ckan.saeoss.portal_staff_organization_name", "saeoss staff"
     )
     for group in memberships:
         is_org = group.get("type", "organization") == "organization"

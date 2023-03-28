@@ -123,7 +123,7 @@ class DcprRequestCreateView(MethodView):
                 {"value": org.id, "text": org.name} for org in current_memberships
             ]
             # else:
-            #     current_memberships = toolkit.h["emc_org_memberships"](
+            #     current_memberships = toolkit.h["saeoss_org_memberships"](
             #         toolkit.g.userobj.id
             #     )
             #     relevant_orgs = [
@@ -669,8 +669,8 @@ class DcprRequestBecomeReviewerView(MethodView):
             )
         else:
             action = {
-                constants.NSIF_ORG_NAME: "become NSIF reviewer",
-                constants.CSI_ORG_NAME: "become CSI reviewer",
+                "nsif": "become NSIF reviewer",
+                "csi": "become CSI reviewer",
             }.get(organization)
             result = toolkit.render(
                 "dcpr/ask_for_confirmation.html",

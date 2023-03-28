@@ -25,27 +25,21 @@ from .. import (
     helpers,
 )
 from ..blueprints.dcpr import dcpr_blueprint
-from ..blueprints.emc import emc_blueprint
+from ..blueprints.saeoss import saeoss_blueprint
 from ..blueprints.error_report import error_report_blueprint
 from ..blueprints.xml_parser import xml_parser_blueprint
 from ..blueprints.publish import publish_blueprint
 from ..blueprints.saved_searches import saved_searches_blueprint
 from ..blueprints.news import news_blueprint
-from ..blueprints.error_report import error_report_blueprint
 from ..blueprints.contact import contact_blueprint
 from ..blueprints.sys_stats import stats_blueprint
 from ..cli import commands
-from ..cli.legacy_sasdi import commands as legacy_sasdi_commands
 from ..logic.action import ckan as ckan_actions
 from ..logic.action.dcpr import create as dcpr_create_actions
 from ..logic.action.dcpr import delete as dcpr_delete_actions
 from ..logic.action.dcpr import get as dcpr_get_actions
 from ..logic.action.dcpr import update as dcpr_update_actions
-from ..logic.action import emc as emc_actions
-from ..logic.action.error_report import create as report_create_actions
-from ..logic.action.error_report import update as report_update_actions
-from ..logic.action.error_report import get as report_get_actions
-from ..logic.action.error_report import delete as report_delete_actions
+from ..logic.action import saeoss as saeoss_actions
 
 from ..logic import (
     converters,
@@ -55,8 +49,7 @@ from ..logic import (
 from ..logic.auth import ckan as ckan_auth
 from ..logic.auth import pages as ckanext_pages_auth
 from ..logic.auth import dcpr as dcpr_auth
-from ..logic.auth import emc as emc_auth
-from ..logic.auth import error_report as error_report_auth
+from ..logic.auth import saeoss as saeoss_auth
 from ..model.user_extra_fields import UserExtraFields
 
 import ckanext.saeoss.plugins.utils as utils
@@ -64,7 +57,7 @@ import ckanext.saeoss.plugins.utils as utils
 logger = logging.getLogger(__name__)
 
 
-class DalrrdEmcDcprPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
+class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IActions)
     plugins.implements(plugins.IAuthFunctions)
     plugins.implements(plugins.IClick)
@@ -84,7 +77,7 @@ class DalrrdEmcDcprPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     def after_load(self, service):
         """Control plugin loading mechanism
 
-        This method is implemented by the DalrrdEmcDcprPlugin because we are adding
+        This method is implemented by the SaeossPlugin because we are adding
         a 1:1 relationship between our `UserExtraFields` model and CKAN's `User` model.
 
         SQLAlchemy expects relationships to be configured on both sides, which means
@@ -236,12 +229,11 @@ class DalrrdEmcDcprPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     def update_config(self, config_):
         toolkit.add_template_directory(config_, "../templates")
         toolkit.add_public_directory(config_, "../public")
-        toolkit.add_resource("../assets", "ckanext-dalrrdemcdcpr")
+        toolkit.add_resource("../assets", "ckanext-saeoss")
 
     def get_commands(self):
         return [
-            commands.dalrrd_emc_dcpr,
-            legacy_sasdi_commands.legacy_sasdi,
+            commands.saeoss,
             commands.shell,
         ]
 
@@ -277,34 +269,9 @@ class DalrrdEmcDcprPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "ckanext_pages_update": ckanext_pages_auth.authorize_edit_page,
             "ckanext_pages_delete": ckanext_pages_auth.authorize_delete_page,
             "ckanext_pages_show": ckanext_pages_auth.authorize_show_page,
-            "emc_request_dataset_maintenance": (
-                emc_auth.authorize_request_dataset_maintenance
+            "request_dataset_maintenance": (
+                saeoss_auth.authorize_request_dataset_maintenance
             ),
-            "error_report_create_auth": error_report_auth.error_report_create_auth,
-            "error_report_show_auth": error_report_auth.error_report_show_auth,
-            "error_report_update_by_owner_auth": error_report_auth.error_report_update_by_owner_auth,
-            "error_report_update_by_nsif_auth": error_report_auth.error_report_update_by_nsif_auth,
-            "error_report_nsif_moderate_auth": error_report_auth.error_report_nsif_moderate_auth,
-            "my_error_reports_auth": error_report_auth.my_error_reports_auth,
-            "error_report_submitted_auth": error_report_auth.error_report_submitted_auth,
-            "error_report_list_public_auth": error_report_auth.error_report_list_public_auth,
-            "my_error_report_list_auth": error_report_auth.my_error_report_list_auth,
-            "rejected_error_reports_auth": error_report_auth.rejected_error_reports_auth,
-            "error_report_delete_auth": error_report_auth.error_report_delete_auth,
-            "emc_request_dataset_publication": (
-                emc_auth.authorize_request_dataset_publication
-            ),
-            "error_report_create_auth": error_report_auth.error_report_create_auth,
-            "error_report_show_auth": error_report_auth.error_report_show_auth,
-            "error_report_update_by_owner_auth": error_report_auth.error_report_update_by_owner_auth,
-            "error_report_update_by_nsif_auth": error_report_auth.error_report_update_by_nsif_auth,
-            "error_report_nsif_moderate_auth": error_report_auth.error_report_nsif_moderate_auth,
-            "my_error_reports_auth": error_report_auth.my_error_reports_auth,
-            "error_report_submitted_auth": error_report_auth.error_report_submitted_auth,
-            "error_report_list_public_auth": error_report_auth.error_report_list_public_auth,
-            "my_error_report_list_auth": error_report_auth.my_error_report_list_auth,
-            "rejected_error_reports_auth": error_report_auth.rejected_error_reports_auth,
-            "error_report_delete_auth": error_report_auth.error_report_delete_auth,
         }
 
     def get_actions(self) -> typing.Dict[str, typing.Callable]:
@@ -312,11 +279,7 @@ class DalrrdEmcDcprPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "package_create": ckan_actions.package_create,
             "package_update": ckan_actions.package_update,
             "package_patch": ckan_actions.package_patch,
-            "dcpr_error_report_create": dcpr_create_actions.dcpr_error_report_create,
             "dcpr_request_create": dcpr_create_actions.dcpr_request_create,
-            "dcpr_geospatial_request_create": (
-                dcpr_create_actions.dcpr_geospatial_request_create
-            ),
             "dcpr_request_list_public": dcpr_get_actions.dcpr_request_list_public,
             "dcpr_request_list_under_preparation": dcpr_get_actions.dcpr_request_list_under_preparation,
             "my_dcpr_request_list": dcpr_get_actions.my_dcpr_request_list,
@@ -338,30 +301,20 @@ class DalrrdEmcDcprPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "dcpr_request_nsif_moderate": dcpr_update_actions.dcpr_request_nsif_moderate,
             "dcpr_request_csi_moderate": dcpr_update_actions.dcpr_request_csi_moderate,
             "dcpr_request_delete": dcpr_delete_actions.dcpr_request_delete,
-            "emc_version": emc_actions.show_version,
-            "emc_request_dataset_maintenance": emc_actions.request_dataset_maintenance,
-            "emc_request_dataset_publication": emc_actions.request_dataset_publication,
-            "emc_user_patch": ckan_actions.user_patch,
+            "saeoss_version": saeoss_actions.show_version,
+            "request_dataset_maintenance": saeoss_actions.request_dataset_maintenance,
+            "request_dataset_publication": saeoss_actions.request_dataset_publication,
+            "user_patch": ckan_actions.user_patch,
             "user_update": ckan_actions.user_update,
             "user_create": ckan_actions.user_create,
             "user_show": ckan_actions.user_show,
-            "error_report_create": report_create_actions.error_report_create,
-            "error_report_update_by_owner": report_update_actions.error_report_update_by_owner,
-            "error_report_update_by_nsif": report_update_actions.error_report_update_by_nsif,
-            "error_report_nsif_moderate": report_update_actions.error_report_nsif_moderate,
-            "error_report_show": report_get_actions.error_report_show,
-            "error_report_list_public": report_get_actions.error_report_list_public,
-            "my_error_report_list": report_get_actions.my_error_report_list,
-            "rejected_error_reports": report_get_actions.rejected_error_reports,
-            "submitted_error_report_list": report_get_actions.submitted_error_report_list,
-            "error_report_delete": report_delete_actions.error_report_delete,
         }
 
     def get_validators(self) -> typing.Dict[str, typing.Callable]:
         return {
-            "value_or_true": validators.emc_value_or_true_validator,
-            "emc_srs_validator": validators.emc_srs_validator,
-            "emc_bbox_converter": converters.emc_bbox_converter,
+            "value_or_true": validators.value_or_true_validator,
+            "srs_validator": validators.srs_validator,
+            "bbox_converter": converters.bbox_converter,
             "dcpr_end_date_after_start_date_validator": validators.dcpr_end_date_after_start_date_validator,
             "dcpr_moderation_choices_validator": validators.dcpr_moderation_choices_validator,
             "spatial_resolution_converter": converters.spatial_resolution_converter,
@@ -386,22 +339,22 @@ class DalrrdEmcDcprPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "saeoss_default_spatial_search_extent": partial(
                 helpers.get_default_spatial_search_extent, 0.001
             ),
-            "emc_build_nav_main": helpers.build_pages_nav_main,
-            "emc_default_bounding_box": helpers.get_default_bounding_box,
-            "emc_convert_geojson_to_bounding_box": helpers.convert_geojson_to_bbox,
-            "emc_extent_to_bbox": helpers.convert_string_extent_to_bbox,
-            "emc_sasdi_themes": helpers.get_sasdi_themes,
-            "emc_iso_topic_categories": helpers.get_iso_topic_categories,
-            "emc_show_version": helpers.helper_show_version,
-            "emc_user_is_org_member": helpers.user_is_org_member,
-            "emc_org_member_list": helpers.org_member_list,
-            "emc_user_is_staff_member": helpers.user_is_staff_member,
-            "emc_get_featured_datasets": helpers.get_featured_datasets,
-            "emc_get_recently_modified_datasets": helpers.get_recently_modified_datasets,
-            "emc_get_all_datasets_count": helpers.get_all_datasets_count,
+            "build_nav_main": helpers.build_pages_nav_main,
+            "default_bounding_box": helpers.get_default_bounding_box,
+            "convert_geojson_to_bounding_box": helpers.convert_geojson_to_bbox,
+            "extent_to_bbox": helpers.convert_string_extent_to_bbox,
+            "saeoss_themes": helpers.get_saeoss_themes,
+            "iso_topic_categories": helpers.get_iso_topic_categories,
+            "saeoss_show_version": helpers.helper_show_version,
+            "user_is_org_member": helpers.user_is_org_member,
+            "org_member_list": helpers.org_member_list,
+            "user_is_staff_member": helpers.user_is_staff_member,
+            "get_featured_datasets": helpers.get_featured_datasets,
+            "get_recently_modified_datasets": helpers.get_recently_modified_datasets,
+            "get_all_datasets_count": helpers.get_all_datasets_count,
             "dcpr_get_next_intermediate_dcpr_request_status": helpers.get_next_intermediate_dcpr_status,
             "dcpr_user_is_dcpr_request_owner": helpers.user_is_dcpr_request_owner,
-            "emc_org_memberships": helpers.get_org_memberships,
+            "saeoss_org_memberships": helpers.get_org_memberships,
             "dcpr_requests_approved_by_nsif": helpers.get_dcpr_requests_approved_by_nsif,
             "is_dcpr_request": helpers.is_dcpr_request,
             "get_dcpr_request_action": helpers.get_dcpr_request_action,
@@ -430,7 +383,7 @@ class DalrrdEmcDcprPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     def get_blueprint(self) -> typing.List[Blueprint]:
         return [
             dcpr_blueprint,
-            emc_blueprint,
+            saeoss_blueprint,
             error_report_blueprint,
             xml_parser_blueprint,
             publish_blueprint,
@@ -445,15 +398,14 @@ class DalrrdEmcDcprPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         self, facets_dict: typing.OrderedDict, package_type: str
     ) -> typing.OrderedDict:
         if package_type != HARVEST_DATASET_TYPE_NAME:
-            facets_dict[f"vocab_{constants.SASDI_THEMES_VOCABULARY_NAME}"] = toolkit._(
-                "SASDI Themes"
+            facets_dict[f"vocab_{constants.SAEOSS_THEMES_VOCABULARY_NAME}"] = toolkit._(
+                "SAEOSS Themes"
             )
             facets_dict[
                 f"vocab_{constants.ISO_TOPIC_CATEGOY_VOCABULARY_NAME}"
             ] = toolkit._("ISO Topic Categories")
             # facets_dict["reference_date"] = toolkit._("Reference Date")
             facets_dict["harvest_source_title"] = toolkit._("Harvest source")
-            facets_dict["dcpr_request"] = toolkit._("DCPR Request")
             facets_dict["featured"] = toolkit._("Featured Metadata records")
         return facets_dict
 

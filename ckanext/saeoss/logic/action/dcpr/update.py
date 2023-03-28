@@ -14,7 +14,6 @@ from ....constants import (
 from ... import schema as dcpr_schema
 from ....model import dcpr_request
 from .... import dcpr_dictization
-from .. import create_dcpr_management_activity
 
 logger = logging.getLogger(__name__)
 

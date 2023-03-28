@@ -31,7 +31,7 @@ def authorize_request_dataset_publication(
 def _is_dataset_editor(user_obj, dataset_id: str):
     """Checks if current user is an editor of the same org where dataset belongs."""
     dataset = toolkit.get_action("package_show")(data_dict={"id": dataset_id})
-    is_editor = toolkit.h["emc_user_is_org_member"](
+    is_editor = toolkit.h["user_is_org_member"](
         dataset["owner_org"], user_obj, role="editor"
     )
     result = {"success": False}

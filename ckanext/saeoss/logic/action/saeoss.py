@@ -21,7 +21,7 @@ def show_version(
 ) -> typing.Dict:
     """return the current version of this project"""
     return {
-        "version": pkg_resources.require("ckanext-dalrrd-emc-dcpr")[0].version,
+        "version": pkg_resources.require("ckanext-saeoss")[0].version,
         "git_sha": os.getenv("GIT_COMMIT"),
     }
 
@@ -31,7 +31,7 @@ def list_featured_datasets(
     context: typing.Dict,
     data_dict: typing.Optional[typing.Dict] = None,
 ) -> typing.List:
-    toolkit.check_access("emc_authorize_list_featured_datasets", context, data_dict)
+    toolkit.check_access("authorize_list_featured_datasets", context, data_dict)
     data_ = data_dict.copy() if data_dict is not None else {}
     include_private = data_.get("include_private", False)
     limit = data_.get("limit", 10)
@@ -65,7 +65,7 @@ def request_dataset_maintenance(context: typing.Dict, data_dict: typing.Dict):
 
     """
 
-    toolkit.check_access("emc_request_dataset_maintenance", context, data_dict)
+    toolkit.check_access("request_dataset_maintenance", context, data_dict)
     activity = create_dataset_management_activity(
         data_dict["pkg_id"], DatasetManagementActivityType.REQUEST_MAINTENANCE
     )
@@ -77,7 +77,7 @@ def request_dataset_maintenance(context: typing.Dict, data_dict: typing.Dict):
 
 
 def request_dataset_publication(context: typing.Dict, data_dict: typing.Dict):
-    toolkit.check_access("emc_request_dataset_publication", context, data_dict)
+    toolkit.check_access("request_dataset_publication", context, data_dict)
     activity = create_dataset_management_activity(
         data_dict["pkg_id"], DatasetManagementActivityType.REQUEST_PUBLICATION
     )
@@ -89,7 +89,7 @@ def request_dataset_publication(context: typing.Dict, data_dict: typing.Dict):
 
 
 def _ensure_user_is_notifiable(user_id: str, dataset_id):
-    toolkit.get_action("emc_user_patch")(
+    toolkit.get_action("user_patch")(
         data_dict={"id": user_id, "activity_streams_email_notifications": True}
     )
     try:

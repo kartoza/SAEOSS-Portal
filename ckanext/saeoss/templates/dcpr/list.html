@@ -1,8 +1,8 @@
 {% extends "page.html" %}
 
 {% set able_to_create_request = h.check_access('dcpr_request_create_auth') %}
-{% set is_nsif_member = h.emc_user_is_org_member('nsif', g.userobj) %}
-{% set is_csi_member = h.emc_user_is_org_member('csi', g.userobj) %}
+{% set is_nsif_member = h.user_is_org_member('nsif', g.userobj) %}
+{% set is_csi_member = h.user_is_org_member('csi', g.userobj) %}
 {% set is_sysadmin = g.userobj.sysadmin %}
 {% set has_multiple_request_types = able_to_create_request or is_nsif_member or is_csi_member %}
 

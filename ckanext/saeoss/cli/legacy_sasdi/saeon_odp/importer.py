@@ -159,7 +159,7 @@ def _get_bbox(record: typing.Dict) -> typing.Dict:
             break
     else:  # did not find any geoLocationBox, lets use a default
         geojson_bbox = toolkit.h["saeoss_default_spatial_search_extent"]()
-    return toolkit.h["emc_convert_geojson_to_bounding_box"](geojson_bbox)
+    return toolkit.h["convert_geojson_to_bounding_box"](geojson_bbox)
 
 
 def _build_tag_name(raw_name: str) -> typing.Optional[str]:

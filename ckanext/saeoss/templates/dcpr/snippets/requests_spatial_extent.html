@@ -1,12 +1,12 @@
 {% import "macros/form.html"  as form %}
 
-{% asset "ckanext-dalrrdemcdcpr/dataset-spatial-extent-map-js" %}
-{% asset "ckanext-dalrrdemcdcpr/dataset-spatial-extent-map-css" %}
-{% asset "ckanext-dalrrdemcdcpr/spatial-search-js" %}
+{% asset "ckanext-saeoss/dataset-spatial-extent-map-js" %}
+{% asset "ckanext-saeoss/dataset-spatial-extent-map-css" %}
+{% asset "ckanext-saeoss/spatial-search-js" %}
 
 {% set map_config = h.get_common_map_config() %}
-{% set default_bounding_box = h.emc_default_bounding_box() %}
-{% set field_bounding_box = h.emc_extent_to_bbox(data.get(field.field_name, None)) %}
+{% set default_bounding_box = h.default_bounding_box() %}
+{% set field_bounding_box = h.extent_to_bbox(data.get(field.field_name, None)) %}
 {% set input_id = ["field", field.field_name]|join("-") %}
 
 {% call form.input(

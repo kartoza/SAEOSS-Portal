@@ -24,7 +24,6 @@
                     {% set logged = True %}
                 {% endif %}
                 {% set able_to_create_request = h.check_access('dcpr_request_create_auth') %}
-                {% set able_to_create_error_report = h.check_access('error_report_create_auth') %}
                 <div class="row gx-5 justify-content-center" data-module="check-access" data-access="{{ h.check_access('package_create') }}"
                 data-logged="{{ logged }}" style="margin-left: -15px; margin-right: -15px">
                      <!-- FORM E1-->
@@ -60,21 +59,6 @@
                         </div>
                     </div>
                     </a>
-                     <!-- FORM D-->
-                     <a href="{{'/error_report/new/' if able_to_create_error_report else '/user/login' }}" data-link="" class="new-dataset">
-                     <div class="col-sm-3 projects">
-                        <div class="card">
-                            <div class="card-body p-5">
-                                <div class="text-uppercase fw-bold text-muted text-primary">FORM D</div>
-                                <div class="mb-3">
-                                    <span class="text-muted">Users or distributors of spatial information​ must report any error or deficiency detected in the quality of spatial information to the relevant data custodian or data distributor. The user or distributor must complete and submit
-                                        <strong>FORM D: REPORT REGARDING ERROR OR PERCEIVED DEFICIENCY IN THE QUALITY OF SPATIAL INFORMATION </strong>within 20 working days from the date on which such error or deficiency has been discovered, unless a shorter period has been agreed on in any agreement by the relevant parties.</span>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                     </a>
                     <!-- FORM F-->
                     <a href="{{'/dcpr/public' }}" data-link="" class="new-dataset">
                     <div class="col-sm-3 projects">

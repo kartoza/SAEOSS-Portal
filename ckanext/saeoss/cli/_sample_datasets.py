@@ -8,7 +8,7 @@ from ckan.plugins import toolkit
 
 from ..constants import ISO_TOPIC_CATEGORIES
 from . import (
-    _CkanEmcDataset,
+    _CkanSaeossDataset,
     _CkanResource,
 )
 
@@ -26,7 +26,7 @@ def generate_sample_datasets(
     latitude_range_end: float = -21,
     longitude_range_start: float = 16.3,
     longitude_range_end: float = 33,
-) -> typing.Iterator[_CkanEmcDataset]:
+) -> typing.Iterator[_CkanSaeossDataset]:
     possible_dates = _get_days(temporal_range_start, temporal_range_end)
     sasdi_themes = [
         t
@@ -42,7 +42,7 @@ def generate_sample_datasets(
             longitude_range_start,
             longitude_range_end,
         )
-        yield _CkanEmcDataset(
+        yield _CkanSaeossDataset(
             name=name,
             private=random.choice((True, False)),
             notes=f"Abstract for {name}",

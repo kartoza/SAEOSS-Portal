@@ -4,7 +4,7 @@
 #}
 
 {% block subtitle %}Metadata record{% endblock %}
-{% set total =  h.emc_get_all_datasets_count(g) %}
+{% set total =  h.get_all_datasets_count(g) %}
 
 {% block breadcrumb_content %}
     <div class="page-header">

@@ -6,12 +6,8 @@ from ckan import model
 from ckan.plugins import toolkit
 from ckan.tests import factories, helpers
 
-from ckanext.dalrrd_emc_dcpr.constants import (
-    CSI_ORG_NAME,
-    NSIF_ORG_NAME,
-)
-from ckanext.dalrrd_emc_dcpr.model import dcpr_request
-from ckanext.dalrrd_emc_dcpr.constants import DCPRRequestStatus
+from ckanext.saeoss.model import dcpr_request
+from ckanext.saeoss.constants import DCPRRequestStatus
 
 pytestmark = pytest.mark.integration
 
@@ -56,8 +52,8 @@ def test_dcpr_request_list_public_auth_anonymous():
 
 @pytest.mark.usefixtures("emc_clean_db", "with_plugins", "with_request_context")
 def test_dcpr_request_list_pending_auth():
-    csi_org = factories.Organization(name=CSI_ORG_NAME)
-    nsif_org = factories.Organization(name=NSIF_ORG_NAME)
+    csi_org = factories.Organization(name="csi")
+    nsif_org = factories.Organization(name="nsif")
     nsif_member = factories.User()
     _create_membership(nsif_member, nsif_org)
     csi_member = factories.User()
@@ -767,13 +763,13 @@ def _get_dcpr_request(user, organization):
 
 
 def _prepare_dcpr_request_auth_test_items():
-    nsif_org = factories.Organization(name=NSIF_ORG_NAME)
+    nsif_org = factories.Organization(name="nsif")
     nsif_member = factories.User()
     nsif_reviewer = factories.User()
     _create_membership(nsif_member, nsif_org)
     _create_membership(nsif_reviewer, nsif_org)
 
-    csi_org = factories.Organization(name=CSI_ORG_NAME)
+    csi_org = factories.Organization(name="csi")
     csi_member = factories.User()
     csi_reviewer = factories.User()
     _create_membership(csi_member, csi_org)

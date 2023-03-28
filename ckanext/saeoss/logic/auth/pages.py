@@ -34,7 +34,7 @@ def authorize_edit_page(
 
     result = {"success": False}
     user = context["auth_user_obj"]
-    if toolkit.h["emc_user_is_staff_member"](user.id):
+    if toolkit.h["user_is_staff_member"](user.id):
         result["success"] = True
     else:
         result["msg"] = toolkit._("You are not authorized to edit pages")
@@ -61,7 +61,7 @@ def authorize_delete_page(
 
     result = {"success": False}
     user = context["auth_user_obj"]
-    if toolkit.h["emc_user_is_staff_member"](user.id):
+    if toolkit.h["user_is_staff_member"](user.id):
         result["success"] = True
     else:
         result["msg"] = toolkit._("You are not authorized to delete pages")
@@ -99,7 +99,7 @@ def authorize_show_page(
         else:  # universal page, lets see if page is private and/or if user is staff
             if out.private:  # user can only see it if it is from staff
                 user = context["auth_user_obj"]
-                if toolkit.h["emc_user_is_staff_member"](user.id):
+                if toolkit.h["user_is_staff_member"](user.id):
                     result["success"] = True
                 else:
                     result["msg"] = toolkit._(

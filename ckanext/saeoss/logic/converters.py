@@ -17,7 +17,7 @@ Invalid = df.Invalid
 logger = logging.getLogger(__name__)
 
 
-def emc_bbox_converter(value: str) -> str:
+def bbox_converter(value: str) -> str:
     error_msg = toolkit._(
         "Invalid bounding box. Please provide a comma-separated list of values "
         "with upper left lat, upper left lon, lower right lat, lower right lon."

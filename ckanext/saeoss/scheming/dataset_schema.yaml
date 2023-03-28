@@ -4,7 +4,7 @@
 
 scheming_version: 2
 dataset_type: dataset
-about: CKAN schema for the SASDI EMC. This schema holds SANS1878-related fields
+about: CKAN schema for the SAEOSS portal. This schema holds SANS1878-related fields
 
 dataset_fields:
 
@@ -25,7 +25,7 @@ dataset_fields:
     required: false
     help_text: Should this metadata record be featured on the EMC front page?
     validators: boolean_validator
-    preset: emc_checkbox
+    preset: saeoss_checkbox
 
   - field_name: doi
     label: DOI
@@ -228,7 +228,7 @@ dataset_fields:
   - field_name: owner_org
     label: Responsible organisation Name
     required: true
-    preset: emc_dataset_organization
+    preset: dataset_organization
     help_text: Organisation responsible for the metadata record. This is a SANS 1878 mandatory field
 
   - field_name: responsible_party
@@ -312,8 +312,8 @@ dataset_fields:
       label: Postal Code
       required: false
 
-  - field_name: topic_and_sasdi_theme
-    label: Topic category and SASDI theme
+  - field_name: topic_and_saeoss_themes
+    label: Topic category and Saeoss theme
     preset: modified_repeating_subfields
     repeating_subfields:
 
@@ -321,7 +321,7 @@ dataset_fields:
       label: Topic Category
       help_text: ISO 19115 Topic Category for the metadata record - This is a SANS 1878 mandatory field
       required: true
-      choices_helper: emc_iso_topic_categories
+      choices_helper: iso_topic_categories
       validators: >-
         ignore_missing
         convert_to_tags(iso_topic_categories)
@@ -332,31 +332,25 @@ dataset_fields:
       display_snippet: "vocab_tag_display.html"
       # display_snippet: null
 
-    - field_name: sasdi_theme
-      label: SASDI Theme
+    - field_name: saeoss_theme
+      label: SAEOSS Theme
       help_text: South African Spatial Data Infrastructure Theme
-      choices_helper: emc_sasdi_themes
+      choices_helper: saeoss_themes
       validators: >-
         ignore_missing
-        convert_to_tags(sasdi_themes)
+        convert_to_tags(saeoss_themes)
       output_validators: >-
         scheming_required
         scheming_choices
-        convert_from_tags(sasdi_themes)
+        convert_from_tags(saeoss_themes)
         ignore_missing
       form_snippet: vocab_select.html
       display_snippet: vocab_tag_display.html
     # display_snippet: null
 
-  # - field_name: custom_tags
-  #   label: Custom_tags
-  # preset: emc_free_tags_tag_string_autocomplete
-  #   required: false
-  #   form_snippet: custom_tags.html tag_select
-
   - field_name: tag_string
     label: Tags
-    preset: emc_free_tags_tag_string_autocomplete
+    preset: free_tags_tag_string_autocomplete
     form_snippet: tag_select.html
     help_text: >-
       Additional keywords useful for describing the metadata record. In order to optimize searchability, it is
@@ -1331,7 +1325,7 @@ dataset_fields:
     help_text: >-
       Bounding box for the metadata record, expressed as the geographic coordinates of the upper left and lower right
       corners - This is a SANS 1878 mandatory field
-    preset: emc_dataset_spatial_extent
+    preset: dataset_spatial_extent
     display_snippet: null
 
   - field_name: spatial_parameters
@@ -1377,7 +1371,7 @@ dataset_fields:
     - field_name: spatial_reference_system
       label: Spatial Reference System Identifier
       required: false
-      validators: emc_srs_validator
+      validators: srs_validator
       help_text: >-
         "Name of spatial reference system. Provide it as a colon-separated sequence of <ref>:<code> with the
         respective code for the metadata record's spatial coordinate

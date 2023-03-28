@@ -3,7 +3,7 @@ import typing
 
 from ckan.plugins import toolkit
 from ...model import dcpr_request as dcpr_request
-from ...constants import DCPRRequestStatus, CSI_ORG_NAME, NSIF_ORG_NAME
+from ...constants import DCPRRequestStatus
 
 logger = logging.getLogger(__name__)
 
@@ -54,8 +54,8 @@ def dcpr_request_list_pending_csi_auth(
     if context["auth_user_obj"].sysadmin:
         result["success"] = True
     else:
-        result["success"] = toolkit.h["emc_user_is_org_member"](
-            CSI_ORG_NAME, context["auth_user_obj"]
+        result["success"] = toolkit.h["user_is_org_member"](
+            "csi", context["auth_user_obj"]
         )
     return result
 
@@ -69,8 +69,8 @@ def dcpr_request_list_pending_nsif_auth(
         result["success"] = True
     else:
         result = {
-            "success": toolkit.h["emc_user_is_org_member"](
-                NSIF_ORG_NAME, context["auth_user_obj"]
+            "success": toolkit.h["user_is_org_member"](
+                "nsif", context["auth_user_obj"]
             )
         }
     return result
@@ -141,11 +141,11 @@ def dcpr_request_show_auth(context: typing.Dict, data_dict: typing.Dict) -> typi
             # request has already been moderated, so everyone can see it
             result["success"] = True
         else:
-            is_nsif_member = toolkit.h["emc_user_is_org_member"](
-                NSIF_ORG_NAME, context["auth_user_obj"]
+            is_nsif_member = toolkit.h["user_is_org_member"](
+                "nsif", context["auth_user_obj"]
             )
-            is_csi_member = toolkit.h["emc_user_is_org_member"](
-                CSI_ORG_NAME, context["auth_user_obj"]
+            is_csi_member = toolkit.h["user_is_org_member"](
+                "csi", context["auth_user_obj"]
             )
             if current_status in nsif_statuses:
                 result["success"] = is_nsif_member
@@ -362,8 +362,8 @@ def dcpr_request_claim_nsif_reviewer_auth(
                 "The DCPR request owner cannot be involved in the moderation stage"
             )
         else:
-            is_nsif_member = toolkit.h["emc_user_is_org_member"](
-                NSIF_ORG_NAME, context["auth_user_obj"]
+            is_nsif_member = toolkit.h["user_is_org_member"](
+                "nsif", context["auth_user_obj"]
             )
             if is_nsif_member:
                 if request_obj.status == DCPRRequestStatus.AWAITING_NSIF_REVIEW.value:
@@ -397,8 +397,8 @@ def dcpr_request_claim_csi_moderator_auth(
                 "The DCPR request owner cannot be involved in the moderation stage"
             )
         else:
-            is_csi_member = toolkit.h["emc_user_is_org_member"](
-                CSI_ORG_NAME, context["auth_user_obj"]
+            is_csi_member = toolkit.h["user_is_org_member"](
+                "csi", context["auth_user_obj"]
             )
             if is_csi_member:
                 if request_obj.status == DCPRRequestStatus.AWAITING_CSI_REVIEW.value:

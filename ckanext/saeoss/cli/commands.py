@@ -29,28 +29,24 @@ from ckanext.harvest import utils as harvest_utils
 from .. import provide_request_context
 from ckanext.saeoss.model.dcpr_request import (
     DCPRRequest,
-    DCPRGeospatialRequest,
 )
-from ckanext.saeoss.model.dcpr_error_report import DCPRErrorReport
 
 from .. import jobs
 from ..constants import (
     ISO_TOPIC_CATEGOY_VOCABULARY_NAME,
     ISO_TOPIC_CATEGORIES,
-    SASDI_THEMES_VOCABULARY_NAME,
+    SAEOSS_THEMES_VOCABULARY_NAME, 
 )
 from ..email_notifications import get_and_send_notifications_for_all_users
 
 from . import utils
-from ._bootstrap_data import PORTAL_PAGES, SASDI_ORGANIZATIONS
+from ._bootstrap_data import PORTAL_PAGES, SAEOSS_ORGANIZATIONS
 from ._sample_datasets import (
     SAMPLE_DATASET_TAG,
     generate_sample_datasets,
 )
 from ._sample_organizations import SAMPLE_ORGANIZATIONS
 from ._sample_users import SAMPLE_USERS
-from ._sample_dcpr_requests import SAMPLE_REQUESTS, SAMPLE_GEOSPATIAL_REQUESTS
-from ._sample_dcpr_error_reports import SAMPLE_ERROR_REPORTS
 
 logger = logging.getLogger(__name__)
 _xml_parser = etree.XMLParser(resolve_entities=False)
@@ -68,7 +64,7 @@ _PYCSW_MATERIALIZED_VIEW_NAME = "public.saeoss_pycsw_view"
 @click.group()
 @click.option("--verbose", is_flag=True)
 def saeoss(verbose: bool):
-    """Commands related to the dalrrd-emc-dcpr extension."""
+    """Commands related to the saeoss extension."""
     click_handler = utils.ClickLoggingHandler()
     logging.basicConfig(
         level=logging.DEBUG if verbose else logging.INFO, handlers=(click_handler,)
@@ -101,12 +97,12 @@ def send_email_notifications():
 
 @saeoss.group()
 def bootstrap():
-    """Bootstrap the dalrrd-emc-dcpr extension"""
+    """Bootstrap the saeoss extension"""
 
 
 @saeoss.group()
 def delete_data():
-    """Delete dalrrd-emc-dcpr bootstrapped and sample data"""
+    """Delete saeoss bootstrapped and sample data"""
 
 
 @saeoss.group()
@@ -161,10 +157,10 @@ def shell():
 
 
 @bootstrap.command()
-def create_sasdi_themes():
-    """Create SASDI themes
+def create_saeoss_themes():
+    """Create SAEOSS themes
 
-    This command adds a CKAN vocabulary for the SASDI themes and creates each theme
+    This command adds a CKAN vocabulary for the SAEOSS themes and creates each theme
     as a CKAN tag.
 
     This command can safely be called multiple times - it will only ever create the
@@ -173,25 +169,25 @@ def create_sasdi_themes():
     """
 
     logger.info(
-        f"Creating {SASDI_THEMES_VOCABULARY_NAME!r} CKAN tag vocabulary and adding "
-        f"configured SASDI themes to it..."
+        f"Creating {SAEOSS_THEMES_VOCABULARY_NAME!r} CKAN tag vocabulary and adding "
+        f"configured SAEOSS themes to it..."
     )
 
     user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {})
     context = {"user": user["name"]}
     vocab_list = toolkit.get_action("vocabulary_list")(context)
     for voc in vocab_list:
-        if voc["name"] == SASDI_THEMES_VOCABULARY_NAME:
+        if voc["name"] == SAEOSS_THEMES_VOCABULARY_NAME:
             vocabulary = voc
             logger.info(
-                f"Vocabulary {SASDI_THEMES_VOCABULARY_NAME!r} already exists, "
+                f"Vocabulary {SAEOSS_THEMES_VOCABULARY_NAME!r} already exists, "
                 f"skipping creation..."
             )
             break
     else:
-        logger.info(f"Creating vocabulary {SASDI_THEMES_VOCABULARY_NAME!r}...")
+        logger.info(f"Creating vocabulary {SAEOSS_THEMES_VOCABULARY_NAME!r}...")
         vocabulary = toolkit.get_action("vocabulary_create")(
-            context, {"name": SASDI_THEMES_VOCABULARY_NAME}
+            context, {"name": SAEOSS_THEMES_VOCABULARY_NAME}
         )
 
     for theme_name in toolkit.config.get(
@@ -202,7 +198,7 @@ def create_sasdi_themes():
             if not already_exists:
                 logger.info(
                     f"Adding tag {theme_name!r} to "
-                    f"vocabulary {SASDI_THEMES_VOCABULARY_NAME!r}..."
+                    f"vocabulary {SAEOSS_THEMES_VOCABULARY_NAME!r}..."
                 )
                 toolkit.get_action("tag_create")(
                     context, {"name": theme_name, "vocabulary_id": vocabulary["id"]}
@@ -210,16 +206,16 @@ def create_sasdi_themes():
             else:
                 logger.info(
                     f"Tag {theme_name!r} is already part of the "
-                    f"{SASDI_THEMES_VOCABULARY_NAME!r} vocabulary, skipping..."
+                    f"{SAEOSS_THEMES_VOCABULARY_NAME!r} vocabulary, skipping..."
                 )
     logger.info("Done!")
 
 
 @delete_data.command()
-def delete_sasdi_themes():
+def delete_saeoss_themes():
     """Delete SASDI themes
 
-    This command adds a CKAN vocabulary for the SASDI themes and creates each theme
+    This command adds a CKAN vocabulary for the SAEOSS themes and creates each theme
     as a CKAN tag.
 
     This command can safely be called multiple times - it will only ever delete the
@@ -230,26 +226,26 @@ def delete_sasdi_themes():
     user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {})
     context = {"user": user["name"]}
     vocabulary_list = toolkit.get_action("vocabulary_list")(context)
-    if SASDI_THEMES_VOCABULARY_NAME in [voc["name"] for voc in vocabulary_list]:
+    if SAEOSS_THEMES_VOCABULARY_NAME in [voc["name"] for voc in vocabulary_list]:
         logger.info(
-            f"Deleting {SASDI_THEMES_VOCABULARY_NAME!r} CKAN tag vocabulary and "
+            f"Deleting {SAEOSS_THEMES_VOCABULARY_NAME!r} CKAN tag vocabulary and "
             f"respective tags... "
         )
         existing_tags = toolkit.get_action("tag_list")(
-            context, {"vocabulary_id": SASDI_THEMES_VOCABULARY_NAME}
+            context, {"vocabulary_id": SAEOSS_THEMES_VOCABULARY_NAME}
         )
         for tag_name in existing_tags:
             logger.info(f"Deleting tag {tag_name!r}...")
             toolkit.get_action("tag_delete")(
-                context, {"id": tag_name, "vocabulary_id": SASDI_THEMES_VOCABULARY_NAME}
+                context, {"id": tag_name, "vocabulary_id": SAEOSS_THEMES_VOCABULARY_NAME}
             )
-        logger.info(f"Deleting vocabulary {SASDI_THEMES_VOCABULARY_NAME!r}...")
+        logger.info(f"Deleting vocabulary {SAEOSS_THEMES_VOCABULARY_NAME!r}...")
         toolkit.get_action("vocabulary_delete")(
-            context, {"id": SASDI_THEMES_VOCABULARY_NAME}
+            context, {"id": SAEOSS_THEMES_VOCABULARY_NAME}
         )
     else:
         logger.info(
-            f"Vocabulary {SASDI_THEMES_VOCABULARY_NAME!r} does not exist, nothing to do"
+            f"Vocabulary {SAEOSS_THEMES_VOCABULARY_NAME!r} does not exist, nothing to do"
         )
     logger.info("Done!")
 
@@ -306,6 +302,43 @@ def create_iso_topic_categories():
                 )
     logger.info("Done!")
 
+@delete_data.command()
+def delete_iso_topic_categories():
+    """Delete ISO Topic Categories.
+
+    This command can safely be called multiple times - it will only ever delete the
+    vocabulary and themes once, if they exist.
+
+    """
+
+    user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {})
+    context = {"user": user["name"]}
+    vocabulary_list = toolkit.get_action("vocabulary_list")(context)
+    if ISO_TOPIC_CATEGOY_VOCABULARY_NAME in [voc["name"] for voc in vocabulary_list]:
+        logger.info(
+            f"Deleting {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r} CKAN tag vocabulary and "
+            f"respective tags... "
+        )
+        existing_tags = toolkit.get_action("tag_list")(
+            context, {"vocabulary_id": ISO_TOPIC_CATEGOY_VOCABULARY_NAME}
+        )
+        for tag_name in existing_tags:
+            logger.info(f"Deleting tag {tag_name!r}...")
+            toolkit.get_action("tag_delete")(
+                context,
+                {"id": tag_name, "vocabulary_id": ISO_TOPIC_CATEGOY_VOCABULARY_NAME},
+            )
+        logger.info(f"Deleting vocabulary {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r}...")
+        toolkit.get_action("vocabulary_delete")(
+            context, {"id": ISO_TOPIC_CATEGOY_VOCABULARY_NAME}
+        )
+    else:
+        logger.info(
+            f"Vocabulary {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r} does not exist, "
+            f"nothing to do"
+        )
+    logger.info(f"Done!")
+
 
 @bootstrap.command()
 def create_pages():
@@ -349,51 +382,13 @@ def delete_pages():
     logger.info("Done!")
 
 
-@delete_data.command()
-def delete_iso_topic_categories():
-    """Delete ISO Topic Categories.
-
-    This command can safely be called multiple times - it will only ever delete the
-    vocabulary and themes once, if they exist.
-
-    """
-
-    user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {})
-    context = {"user": user["name"]}
-    vocabulary_list = toolkit.get_action("vocabulary_list")(context)
-    if ISO_TOPIC_CATEGOY_VOCABULARY_NAME in [voc["name"] for voc in vocabulary_list]:
-        logger.info(
-            f"Deleting {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r} CKAN tag vocabulary and "
-            f"respective tags... "
-        )
-        existing_tags = toolkit.get_action("tag_list")(
-            context, {"vocabulary_id": ISO_TOPIC_CATEGOY_VOCABULARY_NAME}
-        )
-        for tag_name in existing_tags:
-            logger.info(f"Deleting tag {tag_name!r}...")
-            toolkit.get_action("tag_delete")(
-                context,
-                {"id": tag_name, "vocabulary_id": ISO_TOPIC_CATEGOY_VOCABULARY_NAME},
-            )
-        logger.info(f"Deleting vocabulary {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r}...")
-        toolkit.get_action("vocabulary_delete")(
-            context, {"id": ISO_TOPIC_CATEGOY_VOCABULARY_NAME}
-        )
-    else:
-        logger.info(
-            f"Vocabulary {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r} does not exist, "
-            f"nothing to do"
-        )
-    logger.info(f"Done!")
-
-
 @bootstrap.command()
-def create_sasdi_organizations():
-    """Create main SASDI organizations
+def create_saeoss_organizations():
+    """Create main Saeoss organizations
 
-    This command creates the main SASDI organizations.
+    This command creates the main Saeoss organizations.
 
-    This function may fail if the SASDI organizations already exist but are disabled,
+    This function may fail if the Saeoss organizations already exist but are disabled,
     which can happen if they are deleted using the CKAN web frontend.
 
     This is a product of a CKAN limitation whereby it is not possible to retrieve a
@@ -405,12 +400,12 @@ def create_sasdi_organizations():
     existing_organizations = toolkit.get_action("organization_list")(
         context={},
         data_dict={
-            "organizations": [org.name for org in SASDI_ORGANIZATIONS],
+            "organizations": [org.name for org in SAEOSS_ORGANIZATIONS],
             "all_fields": False,
         },
     )
     user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {})
-    for org_details in SASDI_ORGANIZATIONS:
+    for org_details in SAEOSS_ORGANIZATIONS:
         if org_details.name not in existing_organizations:
             logger.info(f"Creating organization {org_details.name!r}...")
             try:
@@ -432,10 +427,10 @@ def create_sasdi_organizations():
 
 
 @delete_data.command()
-def delete_sasdi_organizations():
-    """Delete the main SASDI organizations.
+def delete_saeoss_organizations():
+    """Delete the main Saeoss organizations.
 
-    This command will delete the SASDI organizations from the CKAN DB - CKAN refers to
+    This command will delete the Saeoss organizations from the CKAN DB - CKAN refers to
     this as purging the organizations (the CKAN default behavior is to have the delete
     command simply disable the existing organizations, but keeping them in the DB).
 
@@ -445,7 +440,7 @@ def delete_sasdi_organizations():
     """
 
     user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {})
-    for org_details in SASDI_ORGANIZATIONS:
+    for org_details in SAEOSS_ORGANIZATIONS:
         logger.info(f"Purging  organization {org_details.name!r}...")
         try:
             toolkit.get_action("organization_purge")(
@@ -461,92 +456,6 @@ def delete_sasdi_organizations():
 @saeoss.group()
 def load_sample_data():
     """Load sample data into non-production deployments"""
-
-
-@load_sample_data.command()
-def create_sample_dcpr_error_reports():
-    """Create sample DCPR error reports"""
-    user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {})
-
-    convert_user_name_or_id_to_id = toolkit.get_converter(
-        "convert_user_name_or_id_to_id"
-    )
-
-    package = model.Session.query(model.Package).first()
-    package_id = package.id if package else None
-
-    user_id = convert_user_name_or_id_to_id(user["name"], {"session": model.Session})
-
-    create_report_action = toolkit.get_action("dcpr_error_report_create")
-    logger.info(f"Creating sample dcpr error reports ...")
-    for report in SAMPLE_ERROR_REPORTS:
-        logger.info(f"Creating report with id {report.csi_reference_id!r}...")
-        try:
-            create_report_action(
-                context={
-                    "user": user["name"],
-                },
-                data_dict={
-                    "csi_reference_id": report.csi_reference_id,
-                    "owner_user": user_id,
-                    "csi_reviewer": user_id,
-                    "metadata_record": package_id,
-                    "notification_targets": [{"user_id": user_id, "group_id": None}],
-                    "status": report.status,
-                    "request_date": report.request_date,
-                    "error_application": report.error_application,
-                    "error_description": report.error_description,
-                    "solution_description": report.solution_description,
-                    "csi_moderation_notes": report.csi_moderation_notes,
-                    "csi_review_additional_documents": report.csi_review_additional_documents,
-                    "csi_moderation_date": report.csi_moderation_date,
-                },
-            )
-        except toolkit.ValidationError:
-            logger.exception(
-                f"Could not create report with id {report.csi_reference_id!r}"
-            )
-            logger.info(f"Attempting to re-enable possibly deleted report...")
-            sample_report = DCPRErrorReport.get(report.id)
-            if sample_report is None:
-                logger.error(
-                    f"Could not find sample report with id {report.csi_reference_id!r}"
-                )
-                continue
-            else:
-                sample_report.undelete()
-                model.repo.commit()
-
-
-@load_sample_data.command()
-@click.option("-o", "--owner-user", default="tester3")
-def create_sample_dcpr_requests(owner_user: str):
-    """Create sample DCPR requests"""
-    logger.info(f"Creating sample dcpr requests ...")
-    for request in SAMPLE_REQUESTS:
-        logger.info(f"Creating DCPR request {request.proposed_project_name!r}...")
-        existing = (
-            model.Session.query(DCPRRequest)
-            .filter(DCPRRequest.proposed_project_name == request.proposed_project_name)
-            .all()
-        )
-        if len(existing) > 0:
-            logger.info(
-                f"DCPR request {request.proposed_project_name!r} already exists, skipping..."
-            )
-        else:
-            try:
-                toolkit.get_action("dcpr_request_create")(
-                    context={
-                        "user": owner_user,
-                    },
-                    data_dict=request.to_data_dict(),
-                )
-            except toolkit.ValidationError:
-                logger.exception(
-                    f"Could not create DCPR request {request.proposed_project_name!r}"
-                )
-
 
 @load_sample_data.command()
 def create_sample_users():

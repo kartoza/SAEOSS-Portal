@@ -424,7 +424,7 @@ def test_reject_dcpr_request(name, user_available, owner_logged):
         **data_dict,
     )
 
-    csi_reviewers = toolkit.h["emc_org_member_list"]("csi", role="editor")
+    csi_reviewers = toolkit.h["org_member_list"]("csi", role="editor")
     csi_user = toolkit.get_action("user_show")(
         {"ignore_auth": True}, {"id": csi_reviewers[0]}
     )

@@ -1,8 +1,8 @@
 {% ckan_extends %}
-{% set emc_version = h.emc_show_version() %}
+{% set saeoss_version = h.saeoss_show_version() %}
 {#
     below we reimplement the default footer_links block in order to include the current version of
-    CKAN and of the EMC
+    CKAN and of the Saeoss
 #}
 {% block footer_content %}
     <div class="content">
@@ -17,10 +17,10 @@
 
     </div>
 {% endblock %}
-{# {% set emc_version = h.emc_show_version() %} #}
+{# {% set saeoss_version = h.saeoss_show_version() %} #}
 
 {#{% block footer_links %}#}
-{#    <li>SASDI EMC/DCPR v{{ emc_version.version }} (git sha: {{ emc_version.git_sha }})</li>#}
+{#    <li>Saeoss v{{ saeoss_version.version }} (git sha: {{ saeoss_version.git_sha }})</li>#}
 {#    <li>CKAN v{{ h.ckan_version() }}</li>#}
 {#{% endblock %}#}
 

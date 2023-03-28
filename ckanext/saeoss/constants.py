@@ -1,7 +1,7 @@
 import enum
 import typing
 
-SASDI_THEMES_VOCABULARY_NAME: typing.Final[str] = "sasdi_themes"
+SAEOSS_THEMES_VOCABULARY_NAME: typing.Final[str] = "saeoss_themes"
 
 ISO_TOPIC_CATEGOY_VOCABULARY_NAME: typing.Final[str] = "iso_topic_categories"
 
@@ -27,16 +27,14 @@ ISO_TOPIC_CATEGORIES: typing.Final[typing.List[typing.Tuple[str, str]]] = [
     ("utilitiesCommuinication", "Utilities, Communication"),
 ]
 
-NSIF_ORG_NAME = "nsif"
-CSI_ORG_NAME = "csi"
-
+SANSA_ORG_NAME = "sansa"
 
 class DatasetManagementActivityType(enum.Enum):
     REQUEST_MAINTENANCE = "requested dataset maintenance"
     REQUEST_PUBLICATION = "requested dataset publication"
 
 
-class DcprManagementActivityType(enum.Enum):
+class DcprManagementActivityType(enum.Enum): # used with dcpr blueprint CRUD actions
     CREATE_DCPR_REQUEST = "created DCPR request"
     DELETE_DCPR_REQUEST = "deleted DCPR request"
     UPDATE_DCPR_REQUEST_BY_OWNER = "updated own DCPR request"
@@ -80,19 +78,6 @@ class DcprRequestModerationAction(enum.Enum):
     REJECT = "REJECT"
     REQUEST_CLARIFICATION = "REQUEST_CLARIFICATION"
     RESIGN = "RESIGN"
-
-
-class ErrorReportStatus(enum.Enum):
-    SUBMITTED = "SUBMITTED"
-    MODIFICATION_REQUESTED = "MODIFICATION_REQUESTED"
-    APPROVED = "APPROVED"
-    REJECTED = "REJECTED"
-
-
-class ErrorReportModerationAction(enum.Enum):
-    APPROVE = "APPROVE"
-    REJECT = "REJECT"
-    REQUEST_MODIFICATION = "REQUEST_MODIFICATION"
 
 
 DATASET_MINIMAL_SET_OF_FIELDS = [

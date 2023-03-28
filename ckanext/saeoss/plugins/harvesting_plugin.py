@@ -12,7 +12,7 @@ from ckan.model.license import LicenseNotSpecified
 
 from ckanext.spatial.interfaces import ISpatialHarvester
 
-from ..cli import _CkanEmcDataset, _CkanResource
+from ..cli import _CkanSaeossDataset, _CkanResource
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ class HarvestingPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     As an alternative, we have implemented the current plugin class with the aim
     to use it strictly for customization of the harvesters (_i.e._ implement the
     ISpatialHarvester interface) while the main plugin class
-    (emc_dcpr_plugin.DalrrdEmcDcprPlugin) is still handling all of the other EMC-DCPR
+    (emc_dcpr_plugin.SaeossPlugin) is still handling all of the other EMC-DCPR
     customizations.
 
     """
@@ -65,7 +65,7 @@ class HarvestingPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         dataset_language = _get_language_code(declared_dataset_language or "en")
         iso_topic_category = _get_possibly_list_item(iso_values, "topic-category")
         equivalent_scale = _get_possibly_list_item(iso_values, "equivalent-scale")
-        dataset = _CkanEmcDataset(
+        dataset = _CkanSaeossDataset(
             type="dataset",
             private=True,
             featured=False,

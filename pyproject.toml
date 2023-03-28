@@ -12,7 +12,7 @@ packages = [
 docker_entrypoint = "ckanext.saeoss.cli.docker_entrypoint:cli"
 
 [tool.poetry.plugins."ckan.plugins"]
-saeoss = "ckanext.saeoss.plugins.saeoss_plugin:DalrrdEmcDcprPlugin"
+saeoss = "ckanext.saeoss.plugins.saeoss_plugin:SaeossPlugin"
 saeoss_harvesting = "ckanext.saeoss.plugins.harvesting_plugin:HarvestingPlugin"
 
 [tool.poetry.plugins."babel.extractors"]

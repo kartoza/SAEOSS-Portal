@@ -36,6 +36,7 @@ def main():
 
 
 def run_compose_up(args):
+    # raise SystemExit(f"the args are {args}")
     image_tag = args.image_tag if args.image_tag else _get_image_tag_name()
     if image_tag is not None:
         exec_env = _set_exec_environment(image_tag) # this what sets the CKAN_IMAGE_TAG env variable
@@ -65,7 +66,7 @@ def run_compose_restart(args):
 def _get_compose_command(fragment: str, compose_file: typing.List[str]) -> str:
     files_fragment = " ".join(f"--file={path}" for path in compose_file)
     template = "docker-compose --project-name={project} {files} {fragment}"
-    return template.format(project="emc-dcpr", files=files_fragment, fragment=fragment)
+    return template.format(project="saeoss", files=files_fragment, fragment=fragment)
 
 
 def _get_image_tag_name() -> typing.Optional[str]:
@@ -104,6 +105,7 @@ def _run_docker_compose(
     environment: typing.Optional[typing.Dict[str, str]] = None,
 ):
     env = environment or os.environ.copy()
+    # raise SystemExit("the command fragment:", compose_file)
     command = _get_compose_command(command_fragment, compose_file)
     logger.debug(
         f"About to replace the current process with the one that results from running "

@@ -15,4 +15,4 @@ pytestmark = pytest.mark.unit
     ],
 )
 def test_emc_bbox_validator(value, expected):
-    assert converters.emc_bbox_converter(value) == expected
+    assert converters.bbox_converter(value) == expected

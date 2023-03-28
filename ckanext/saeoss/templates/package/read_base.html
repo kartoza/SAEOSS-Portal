@@ -13,7 +13,7 @@
         admins (i.e. publishers)
 
      #}
-    {% set user_is_editor = h.emc_user_is_org_member(pkg.owner_org, g.userobj, role="editor") %}
+    {% set user_is_editor = h.user_is_org_member(pkg.owner_org, g.userobj, role="editor") %}
 
 
     {% if user_is_editor %}

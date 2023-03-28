@@ -18,5 +18,5 @@ pytestmark = pytest.mark.unit
     ],
 )
 def test_value_or_true_validator(value, expected):
-    result = validators.emc_value_or_true_validator(value)
+    result = validators.value_or_true_validator(value)
     assert result == expected

@@ -51,7 +51,7 @@ class _CkanResource:
 
 
 @dataclasses.dataclass
-class _CkanEmcDataset:
+class _CkanSaeossDataset:
     name: str
     private: bool
     notes: str
@@ -86,114 +86,6 @@ class _CkanEmcDataset:
         if result.get("title") is None:
             result["title"] = self.name
         result["lineage"] = f"Dummy lineage for {self.name}"
-        return result
-
-
-@dataclasses.dataclass
-class _CkanBootstrapErrorReport:
-    csi_reference_id: uuid.UUID
-    status: str
-    error_application: str
-    error_description: str
-    solution_description: str
-    request_date: str
-    nsif_review_additional_documents: str
-    nsif_moderation_notes: str
-    nsif_moderation_date: str
-
-    def to_data_dict(self) -> typing.Dict:
-        result = {}
-        for name, value in vars(self).items():
-            if value is not None:
-                result[name] = _to_data_dict(value)
-        return result
-
-
-@dataclasses.dataclass
-class _CkanBootstrapDcprDataset:
-    proposed_dataset_title: str
-    dataset_purpose: str
-    dataset_custodian: typing.Optional[bool] = False
-    data_type: typing.Optional[str] = None
-    proposed_abstract: typing.Optional[str] = None
-    lineage_statement: typing.Optional[str] = None
-    associated_attributes: typing.Optional[str] = None
-    data_usage_restrictions: typing.Optional[str] = None
-    capture_method: typing.Optional[str] = None
-
-    def to_data_dict(self) -> typing.Dict:
-        result = {}
-        for name, value in vars(self).items():
-            if value is not None:
-                result[name] = _to_data_dict(value)
-        return result
-
-
-@dataclasses.dataclass
-class _CkanBootstrapDCPRRequest:
-    proposed_project_name: str
-    capture_start_date: str
-    capture_end_date: str
-    cost: int
-    organization_id: str
-    request_date: str
-    csi_reference_id: typing.Optional[str] = None
-    csi_moderator: typing.Optional[str] = None
-    nsif_reviewer: typing.Optional[str] = None
-    additional_project_context: typing.Optional[str] = ""
-    spatial_extent: typing.Optional[str] = None
-    spatial_resolution: typing.Optional[str] = None
-    data_capture_urgency: typing.Optional[str] = "low"
-    submission_date: typing.Optional[str] = None
-    nsif_review_date: typing.Optional[str] = None
-    nsif_review_notes: typing.Optional[str] = None
-    csi_moderation_date: typing.Optional[str] = None
-    datasets: typing.List[_CkanBootstrapDcprDataset] = dataclasses.field(
-        default_factory=list
-    )
-    # organization_name: str
-    # organization_level: str
-    # organization_address: str
-    # additional_information: str
-    # nsif_recommendation: str
-    # nsif_review_additional_documents: str
-    # csi_moderation_notes: str
-    # csi_moderation_additional_documents: str
-
-    def to_data_dict(self) -> typing.Dict:
-        result = {}
-        for name, value in vars(self).items():
-            if value is not None:
-                result[name] = _to_data_dict(value)
-        return result
-
-
-@dataclasses.dataclass
-class _CkanBootstrapDCPRGeospatialRequest:
-    csi_reference_id: uuid.UUID
-    status: str
-    organization_name: str
-    dataset_purpose: str
-    interest_region: str
-    resolution_scale: str
-    additional_information: str
-    request_date: str
-    submission_date: str
-    nsif_review_date: str
-    nsif_review_notes: str
-    nsif_review_additional_documents: str
-    csi_moderation_notes: str
-    csi_review_additional_documents: str
-    csi_moderation_date: str
-    dataset_sasdi_category: str
-    custodian_organization: str
-    data_type: str
-
-    def to_data_dict(self) -> typing.Dict:
-        result = {}
-        for name, value in vars(self).items():
-            if value is not None:
-                result[name] = _to_data_dict(value)
         return result
 
 
