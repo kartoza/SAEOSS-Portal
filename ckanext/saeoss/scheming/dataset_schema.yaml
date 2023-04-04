@@ -320,7 +320,7 @@ dataset_fields:
     - field_name: iso_topic_category
       label: Topic Category
       help_text: ISO 19115 Topic Category for the metadata record - This is a SANS 1878 mandatory field
-      required: true
+      required: false
       choices_helper: iso_topic_categories
       validators: >-
         ignore_missing
