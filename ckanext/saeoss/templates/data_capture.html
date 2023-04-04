@@ -1,0 +1,81 @@
+{% extends "page.html" %}
+{% block subtitle %}{{ _("Data Capture Project Register (DCPR)") }}{% endblock %}
+{% block content %}
+    <div class="container">
+    <section class="py-5 border-bottom" xmlns="http://www.w3.org/1999/html">
+                <div class="mb-3">
+                    <h1 class="fw-bolder mb-5">Data Capture Project Register (DCPR)</h1>
+                   <span class="text-muted">
+                        In terms of section 6.1.3(d) of the Base Dataset Custodianship Policy, base dataset custodians must register their </br>
+                       data capture projects on the Data Capture Project Register (DCPR) prior to undertaking projects and update the register when
+                       </br>changing the status of projects.
+                   </span>
+                    <h5 class="mb-0 fw-bolder mb-5">The purpose DCPR is to achieve the following:</h5>
+                    <ul class="text-muted">
+                    <li>Reduce duplication of spatial data capture</li>
+                    <li>Ensure efficient, effective and economical spatial data capture</li>
+                    <li>Facilitate the sharing of spatial information</li>
+                    </ul>
+
+                    <h5 class="mb-0 fw-bolder mb-5">Registering Projects</h5>
+                </div>
+                {% set logged = False %}
+                {% if c.userobj %}
+                    {% set logged = True %}
+                {% endif %}
+                {% set able_to_create_request = h.check_access('dcpr_request_create_auth') %}
+                <div class="row gx-5 justify-content-center" data-module="check-access" data-access="{{ h.check_access('package_create') }}"
+                data-logged="{{ logged }}" style="margin-left: -15px; margin-right: -15px">
+                     <!-- FORM E1-->
+                    <a href="{{'/dcpr/request/new/e1' if able_to_create_request else '/user/login' }}" data-link="" class="new-dataset">
+                    <div class="col-sm-3 projects">
+                        <div class="card">
+                            <div class="card-body p-5">
+                                <div class="text-uppercase fw-bold text-primary">FORM E1</div>
+                                <div class="mb-3">
+                                    <span class="text-muted">
+                                        It is compulsory for Non-Base Dataset Custodians* to request permission from the CSI to collect spatial data and they must complete <strong>FORM E1: REQUEST APPROVAL FROM COMMITTEE FOR SPATIAL INFORMATION TO CAPTURE SPATIAL DATA </strong>
+                                        <p>Note* Non-Base Dataset Custodians refers to other users (not listed in the Base Dataset Custodianship Study conducted by the CSI) interested in capturing spatial data and metadata. A Non-Base Dataset Custodian requesting to register a project must follow the approval process.</p>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                    <!-- FORM E2 -->
+                    <a href="{{'/dcpr/request/new/e2' if able_to_create_request else '/user/login' }}" data-link="" class="new-dataset">
+                    <div class="col-sm-3 projects">
+                        <div class="card">
+                            <div class="card-body p-5">
+                                <div class="text-uppercase fw-bold text-primary">
+                                    FORM E2
+                                </div>
+                                <div class="mb-3">
+                                    <span class="text-muted">Base Dataset Custodians must inform the CSI of their intention to collect spatial data and complete <strong>FORM E2: INFORM COMMITTEE FOR SPATIAL INFORMATION OF THE INTENTION TO CAPTURE SPATIAL DATA</strong></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                    <!-- FORM F-->
+                    <a href="{{'/dcpr/public' }}" data-link="" class="new-dataset">
+                    <div class="col-sm-3 projects">
+                        <div class="card">
+                            <div class="card-body p-5">
+                                <div class="text-uppercase fw-bold text-muted text-primary">List DCPR requests</div>
+                                <div class="mb-3">
+                                    <span class="text-muted">
+                                        Lists of DCPR requests according to permissions and degree of accessibility you have
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,59 @@
+# NOTE: this file expects to find the $CKAN_IMAGE_TAG variable in its environment
+
+version: "3.8"
+
+services:
+
+  ckan-web:
+    image: saeoss:${CKAN_IMAGE_TAG}
+
+  ckan-background-worker:
+    image: saeoss:${CKAN_IMAGE_TAG}
+    command: ["launch-ckan-cli", "jobs", "worker"]
+
+  ckan-harvesting-gatherer:
+    image: saeoss:${CKAN_IMAGE_TAG}
+    command: ["launch-ckan-cli", "harvester", "gather-consumer"]
+
+  ckan-harvesting-fetcher:
+    image: saeoss:${CKAN_IMAGE_TAG}
+    command: ["launch-ckan-cli", "harvester", "fetch-consumer"]
+
+  # NOTE: This needs to be ran as a periodic command, check the
+  # docker-compose.dev.yml file for additional comment
+  ckan-harvesting-runner:
+    image: saeoss:${CKAN_IMAGE_TAG}
+    command: ["launch-ckan-cli", "harvester", "run"]
+
+  ckan-mail-sender:
+    image: saeoss:${CKAN_IMAGE_TAG}
+
+  pycsw:
+    image: "geopython/pycsw@sha256:84382cbbd18e9788e9b1bb75299ce24b31403f3b3a4afc036c55c4a96a78cdae"
+    volumes:
+      - type: bind
+        source: $PWD/pycsw/pycsw-config.cfg
+        target: /etc/pycsw/pycsw.cfg
+      - type: bind
+        source: $PWD/pycsw/pycsw_repository_mappings.py
+        target: /etc/pycsw/pycsw_repository_mappings.py
+
+  # NOTE: This needs to be ran as a periodic command, check the
+  # docker-compose.dev.yml file for additional comment
+  pycsw-refresher:
+    image: saeoss:${CKAN_IMAGE_TAG}
+
+  ckan-db:
+    image: postgis/postgis:13-3.1
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+  solr:
+    image: ckan/ckan-solr:2.9-solr8-spatial
+    volumes:
+      - type: bind
+        source: $PWD/solr/schema.xml
+        target: /opt/solr/server/solr/ckan/conf/schema.xml
+
+  redis:
+    image: redis:6.2

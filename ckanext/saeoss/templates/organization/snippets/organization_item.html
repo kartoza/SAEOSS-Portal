@@ -1,0 +1,50 @@
+{% ckan_extends %}
+
+{# org count is not showing right for non-users #}
+{% set is_user_org_memeber = h.user_is_org_member(organization.id, c.userobj) %}
+{% if is_user_org_memeber == true or c.userobj.sysadmin %}
+  {% set package_count = organization.package_count %}
+{% else %}
+  {% set package_count = h.get_org_public_records_count(organization.id) %}
+{% endif %}
+
+{% block item %}
+<div class="media-organization-item col-sm-3 ">
+{% block item_inner %}
+  {% block image %}
+    <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}" class="img-responsive media-image">
+  {% endblock %}
+  {% block title %}
+    <h2 class="media-heading">{{ organization.display_name }}</h2>
+  {% endblock %}
+  {% block description %}
+    {% if organization.description %}
+      <p class="media-description">{{ h.markdown_extract(organization.description, extract_length=80) }}</p>
+    {% endif %}
+  {% endblock %}
+  {% block datasets %}
+    {% if organization.package_count %}
+      <strong class="count">{{ ungettext('{num} Metadata Record', '{num} Metadata Records', organization.package_count).format(num=package_count) }}</strong>
+    {% else %}
+      <span class="count">{{ _('0 Metadata Records') }}</span>
+    {% endif %}
+  {% endblock %}
+  {% block capacity %}
+    {% if show_capacity and organization.capacity %}
+
+    {# the client required admin to be labeled publisher #}
+    {%  set new_roles_translated = h.roles_translated()  %}
+    {% do new_roles_translated.update({"admin":"Publisher"})
+    %}
+    <p><span class="label label-default">{{ new_roles_translated.get(organization.capacity, organization.capacity) }}</span></p>
+    {% endif %}
+  {% endblock %}
+  {% block link %}
+  <a href="{{ url }}" title="{{ _('View {organization_name}').format(organization_name=organization.display_name) }}" class="media-view">
+    <span>{{ _('View {organization_name}').format(organization_name=organization.display_name) }}</span>
+  </a>
+  {% endblock %}
+  {% endblock %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% ckan_extends %}
+
+{% block meta %}
+    {{ super() }}
+    <meta name="title" content="{{ g.site_title }}" />
+    <meta name="author" value="{{ h.get_seo_metatags('site_author') }}" />
+    <meta name="description" content="{{ h.get_seo_metatags('site_description') }}" />
+    <meta name="keywords" content="{{ h.get_seo_metatags('site_keywords') }}" />
+{% endblock %}
+
+{% block styles %}
+{#    {{ super() }}#}
+    {% asset 'ckanext-saeoss/ckan-base-css' %}
+    {% asset 'ckanext-saeoss/dalrrd-emc-dcpr-css' %}
+    {% asset 'ckanext-saeoss/dataset-spatial-extent-map-css' %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {% asset 'ckanext-saeoss/xml-parser-js' %}
+    {% asset 'ckanext-saeoss/custom-select-js' %}
+    {% asset 'ckanext-saeoss/spatial-search-js' %}
+    {% asset 'ckanext-saeoss/change-dataset-word-js' %}
+    {% asset 'ckanext-saeoss/apply-save-search-js' %}
+    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="fa255ba6-f1be-4ba5-9507-7bd6e7addbf3";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+    {% asset "ckanext-saeoss/vendor-plot-js"  %}
+    {# {% asset "ckanext-saeoss/plotter-js" %} #}
+    {% asset "ckanext-saeoss/utils-js" %}
+
+
+
+
+{% endblock %}
