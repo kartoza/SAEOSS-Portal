@@ -8,16 +8,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ h.url_for('home.index') }}"></a>
+      <a class="navbar-brand" href="{{ h.url_for('home.index') }}">
+          <img src="/images/Logo.jpg" height="70">
+      </a>
     </div>
       <div class="collapse navbar-collapse" id="main-navigation-toggle">
       {% block header_site_navigation %}
         <ul class="nav navbar-nav">
             {% block header_site_navigation_tabs %}
-                <li> <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata') }}">
-                <li> <a href="{{ url_for('publish.index') }}" class="image" title="{{ _('Map') }}"></a></li>
-                <li> <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('Organisations') }}">
-                <li> <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('About') }}"></a></li>
+                <li> <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata') }}">{{ _('Metadata') }}</a></li>
+                <li> <a href="{{ url_for('publish.index') }}" class="image" title="{{ _('Map') }}">{{ _('Map') }}</a></li>
+                <li> <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('Organisations') }}">{{ _('Organisations') }}</a></li>
+                <li> <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('About') }}">{{ _('About') }}</a></li>
 
                 {#
                 {{ h.build_nav_icon(
