@@ -86,9 +86,6 @@ a {
   float: left;
   height: auto;
   padding: 0;
-  height: 105px;
-  width: 260px;
-  background: url("/images/Logo.jpg") no-repeat;
  }
 
 .navbar-nav {
