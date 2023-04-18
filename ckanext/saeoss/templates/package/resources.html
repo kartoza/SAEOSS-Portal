@@ -10,7 +10,7 @@
     </ul>
   {% else %}
     {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}
-      <p class="empty">This metadata record has no links, <a href="{{ url }}">why not add some?</a></p>
+      <p class="empty">This metadata has no links, <a href="{{ url }}">why not add some?</a></p>
     {% endtrans %}
   {% endif %}
 {% endblock %}

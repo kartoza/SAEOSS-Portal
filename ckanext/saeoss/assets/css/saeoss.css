@@ -78,7 +78,7 @@ body::after {
 }
 
 a {
-  color: #2e9aff;
+  color: #5E8DC0;
   text-decoration: none;
 }
 
@@ -100,7 +100,7 @@ a {
  }
 
 .navbar-default .navbar-text {
-  color: #2e9aff;
+  color: #5E8DC0;
  }
 
 .navbar {
@@ -113,7 +113,7 @@ a {
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: #2e9aff;
+  color: #5E8DC0;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
@@ -143,31 +143,31 @@ body {
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #2e9aff;
-  border-color: #2e9aff;
+  background-color: #5E8DC0;
+  border-color: #5E8DC0;
 }
 
 .btn-primary {
-  background-color: #2e9aff;
-  border-color: #2e9aff;
+  background-color: #5E8DC0;
+  border-color: #5E8DC0;
 }
 
 .btn-primary:focus,
 .btn-primary.focus {
   color: #fff;
-  background-color: #2e9aff;
-  border-color: #2e9aff;
+  background-color: #5E8DC0;
+  border-color: #5E8DC0;
 }
 
 .btn-secondary {
-  background-color: #2e9aff;
+  background-color: #5E8DC0;
 }
 
  /* btn-default */
 .btn-default {
   color: #fff;
-  background-color: #2e9aff;
-  border-color: #2e9aff;
+  background-color: #5E8DC0;
+  border-color: #5E8DC0;
 }
 
 .btn-default:focus,
@@ -211,7 +211,7 @@ fieldset[disabled] .btn-default:focus,
 .btn-default[disabled].focus,
 fieldset[disabled] .btn-default.focus {
   color: #fff;
-  background-color: #2e9aff;
+  background-color: #5E8DC0;
 }
 .btn-default .badge {
   color: #fff;
@@ -392,7 +392,7 @@ fieldset[disabled] .btn-default.focus {
 }
 
 .dataset-heading a {
-  color: #2e9aff;
+  color: #5E8DC0;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
@@ -430,11 +430,11 @@ fieldset[disabled] .btn-default.focus {
 
 .panel-title-link[aria-expanded="true"]::after {
   content: "\f106";
-  color: #2e9aff;
+  color: #5E8DC0;
 }
 
 .panel-title-link[aria-expanded="true"]{
-  color: #2e9aff;
+  color: #5E8DC0;
 }
 
 .panel-heading-full.panel-heading {
@@ -465,7 +465,7 @@ fieldset[disabled] .btn-default.focus {
 }
 
 .expanded{
-  border: 1px solid #2e9aff;
+  border: 1px solid #5E8DC0;
 }
 
 .nav-simple > li, .nav-aside > li {
@@ -484,10 +484,10 @@ fieldset[disabled] .btn-default.focus {
 .nav-aside li.active a {
   position: relative;
   color: #FFF;
-  background-color: #F3881C;
+  background-color: #5E8DC0;
 }
 .nav-item.active > a > .badge{
-  color: #F3881C;
+  color: #5E8DC0;
   background-color: #FFF;
   display: none;
 }
@@ -499,7 +499,7 @@ fieldset[disabled] .btn-default.focus {
 .nav-item.active > a:hover,
 .nav-facet li.active a:hover {
   color: #FFF;
-  background-color: #F3881C;
+  background-color: #5E8DC0;
 }
 
 .nav-item.active > a::before, .nav-aside li.active a::before {
@@ -534,7 +534,7 @@ fieldset[disabled] .btn-default.focus {
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  background-color: #F3881C;
+  background-color: #5E8DC0;
   border-radius: 10px;
 }
 
@@ -549,7 +549,7 @@ fieldset[disabled] .btn-default.focus {
 }
 
 .progress-bar {
-  background-color: #F3881C;
+  background-color: #5E8DC0;
 }
 
 .nav-facet .nav-item.active > a::after {
@@ -585,19 +585,19 @@ fieldset[disabled] .btn-default.focus {
 
 /* Landing page */
 .btn-warning {
-  background-color: #ec971f;
+  background-color: #5E8DC0;
 }
 
 .btn-warning:focus,
 .btn-warning.focus {
   color: #fff;
-  background-color: #F3881C;
-  border-color: #F3881C;
+  background-color: #5E8DC0;
+  border-color: #5E8DC0;
 }
 .btn-warning:hover {
   color: #fff;
-  background-color: #F3881C;
-  border-color: #F3881C;
+  background-color: #5E8DC0;
+  border-color: #5E8DC0;
 }
 
 .header-title {
@@ -607,7 +607,7 @@ fieldset[disabled] .btn-default.focus {
 
 .index-search {
   position: relative;
-  color: #2e9aff;
+  color: #5E8DC0;
   background-color: #FFFFFF;
 
 }
@@ -673,7 +673,7 @@ footer {
 .site-footer {
   margin-bottom: initial;
   color: #3A744E;
-  background: #2e9aff url("../../../base/images/bg.png");
+  background: #5E8DC0 url("../../../base/images/bg.png");
   padding: 0px 0;
 }
 
@@ -801,8 +801,8 @@ footer {
 
 .context-info .follow_button .btn-success {
   color: #fff;
-  background-color: #F3881C;
-  border-color: #F3881C;
+  background-color: #5E8DC0;
+  border-color: #5E8DC0;
 }
 
 .context-info .follow_button .btn {
@@ -818,7 +818,7 @@ footer {
 
 .module .read-more {
   font-weight: bold;
-  color: #F3881C;
+  color: #5E8DC0;
   pointer-events: auto;
 }
 
@@ -828,7 +828,7 @@ footer {
 }
 
 .module .read-more a{
-  color: #F3881C;
+  color: #5E8DC0;
 }
 
 .publish-heading{
@@ -1005,7 +1005,7 @@ footer {
   padding: 25px; */
 
   /* background-color:none ; */
-  color: #2e9aff;
+  color: #5E8DC0;
   /* border-radius: 50%; */
   /* border: 1px solid white; */
   /* padding: 10px; */
@@ -1013,7 +1013,7 @@ footer {
 
 .save_search_button_icon{
   /* background-color:none ; */
-  color: #2e9aff;
+  color: #5E8DC0;
 }
 
 .saved-searches-container{
