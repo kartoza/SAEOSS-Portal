@@ -16,11 +16,5 @@
     {% if free_tags|length > 0 %}
         {% snippet "package/snippets/tags.html", tags=free_tags %}
     {% endif %}
-    <section class="iso-topic-category">
-        <h3> {{ _("ISO Topic Category") }}</h3>
-        <div class="row">
-            <p>{{ pkg.iso_topic_category|first }}</p>
-        </div>
-    </section>
 
 {% endblock %}

@@ -24,9 +24,7 @@ from .. import (
     constants,
     helpers,
 )
-from ..blueprints.dcpr import dcpr_blueprint
 from ..blueprints.saeoss import saeoss_blueprint
-from ..blueprints.error_report import error_report_blueprint
 from ..blueprints.xml_parser import xml_parser_blueprint
 from ..blueprints.publish import publish_blueprint
 from ..blueprints.saved_searches import saved_searches_blueprint
@@ -35,10 +33,6 @@ from ..blueprints.contact import contact_blueprint
 from ..blueprints.sys_stats import stats_blueprint
 from ..cli import commands
 from ..logic.action import ckan as ckan_actions
-from ..logic.action.dcpr import create as dcpr_create_actions
-from ..logic.action.dcpr import delete as dcpr_delete_actions
-from ..logic.action.dcpr import get as dcpr_get_actions
-from ..logic.action.dcpr import update as dcpr_update_actions
 from ..logic.action import saeoss as saeoss_actions
 
 from ..logic import (
@@ -48,7 +42,6 @@ from ..logic import (
 
 from ..logic.auth import ckan as ckan_auth
 from ..logic.auth import pages as ckanext_pages_auth
-from ..logic.auth import dcpr as dcpr_auth
 from ..logic.auth import saeoss as saeoss_auth
 from ..model.user_extra_fields import UserExtraFields
 
@@ -242,30 +235,6 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "package_publish": ckan_auth.authorize_package_publish,
             "package_update": ckan_auth.package_update,
             "package_patch": ckan_auth.package_patch,
-            "dcpr_error_report_create_auth": dcpr_auth.dcpr_report_create_auth,
-            "dcpr_request_create_auth": dcpr_auth.dcpr_request_create_auth,
-            "my_dcpr_request_list_auth": dcpr_auth.my_dcpr_request_list_auth,
-            "dcpr_request_list_public_auth": dcpr_auth.dcpr_request_list_public_auth,
-            "dcpr_request_list_private_auth": dcpr_auth.dcpr_request_list_private_auth,
-            "dcpr_request_list_under_preparation_auth": dcpr_auth.dcpr_request_list_under_preparation_auth,
-            "dcpr_request_list_pending_csi_auth": (
-                dcpr_auth.dcpr_request_list_pending_csi_auth
-            ),
-            "dcpr_request_list_pending_nsif_auth": (
-                dcpr_auth.dcpr_request_list_pending_nsif_auth
-            ),
-            "dcpr_request_show_auth": dcpr_auth.dcpr_request_show_auth,
-            "dcpr_request_update_by_owner_auth": dcpr_auth.dcpr_request_update_by_owner_auth,
-            "dcpr_request_update_by_nsif_auth": dcpr_auth.dcpr_request_update_by_nsif_auth,
-            "dcpr_request_update_by_csi_auth": dcpr_auth.dcpr_request_update_by_csi_auth,
-            "dcpr_request_submit_auth": dcpr_auth.dcpr_request_submit_auth,
-            "dcpr_request_claim_nsif_reviewer_auth": dcpr_auth.dcpr_request_claim_nsif_reviewer_auth,
-            "dcpr_request_claim_csi_moderator_auth": dcpr_auth.dcpr_request_claim_csi_moderator_auth,
-            "dcpr_request_resign_nsif_reviewer_auth": dcpr_auth.dcpr_request_resign_nsif_reviewer_auth,
-            "dcpr_request_resign_csi_reviewer_auth": dcpr_auth.dcpr_request_resign_csi_reviewer_auth,
-            "dcpr_request_nsif_moderate_auth": dcpr_auth.dcpr_request_nsif_moderate_auth,
-            "dcpr_request_csi_moderate_auth": dcpr_auth.dcpr_request_csi_moderate_auth,
-            "dcpr_request_delete_auth": dcpr_auth.dcpr_request_delete_auth,
             "ckanext_pages_update": ckanext_pages_auth.authorize_edit_page,
             "ckanext_pages_delete": ckanext_pages_auth.authorize_delete_page,
             "ckanext_pages_show": ckanext_pages_auth.authorize_show_page,
@@ -279,28 +248,6 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "package_create": ckan_actions.package_create,
             "package_update": ckan_actions.package_update,
             "package_patch": ckan_actions.package_patch,
-            "dcpr_request_create": dcpr_create_actions.dcpr_request_create,
-            "dcpr_request_list_public": dcpr_get_actions.dcpr_request_list_public,
-            "dcpr_request_list_under_preparation": dcpr_get_actions.dcpr_request_list_under_preparation,
-            "my_dcpr_request_list": dcpr_get_actions.my_dcpr_request_list,
-            "dcpr_request_list_awaiting_csi_moderation": (
-                dcpr_get_actions.dcpr_request_list_awaiting_csi_moderation
-            ),
-            "dcpr_request_list_awaiting_nsif_moderation": (
-                dcpr_get_actions.dcpr_request_list_awaiting_nsif_moderation
-            ),
-            "dcpr_request_show": dcpr_get_actions.dcpr_request_show,
-            "dcpr_request_update_by_owner": dcpr_update_actions.dcpr_request_update_by_owner,
-            "dcpr_request_submit": dcpr_update_actions.dcpr_request_submit,
-            "dcpr_request_update_by_nsif": dcpr_update_actions.dcpr_request_update_by_nsif,
-            "dcpr_request_update_by_csi": dcpr_update_actions.dcpr_request_update_by_csi,
-            "claim_dcpr_request_nsif_reviewer": dcpr_update_actions.claim_dcpr_request_nsif_reviewer,
-            "claim_dcpr_request_csi_reviewer": dcpr_update_actions.claim_dcpr_request_csi_reviewer,
-            "resign_dcpr_request_nsif_reviewer": dcpr_update_actions.resign_dcpr_request_nsif_reviewer,
-            "resign_dcpr_request_csi_reviewer": dcpr_update_actions.resign_dcpr_request_csi_reviewer,
-            "dcpr_request_nsif_moderate": dcpr_update_actions.dcpr_request_nsif_moderate,
-            "dcpr_request_csi_moderate": dcpr_update_actions.dcpr_request_csi_moderate,
-            "dcpr_request_delete": dcpr_delete_actions.dcpr_request_delete,
             "saeoss_version": saeoss_actions.show_version,
             "request_dataset_maintenance": saeoss_actions.request_dataset_maintenance,
             "request_dataset_publication": saeoss_actions.request_dataset_publication,
@@ -315,8 +262,6 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "value_or_true": validators.value_or_true_validator,
             "srs_validator": validators.srs_validator,
             "bbox_converter": converters.bbox_converter,
-            "dcpr_end_date_after_start_date_validator": validators.dcpr_end_date_after_start_date_validator,
-            "dcpr_moderation_choices_validator": validators.dcpr_moderation_choices_validator,
             "spatial_resolution_converter": converters.spatial_resolution_converter,
             "convert_choices_select_to_int": converters.convert_choices_select_to_int,
             "check_if_number": converters.check_if_number,
@@ -352,23 +297,13 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "get_featured_datasets": helpers.get_featured_datasets,
             "get_recently_modified_datasets": helpers.get_recently_modified_datasets,
             "get_all_datasets_count": helpers.get_all_datasets_count,
-            "dcpr_get_next_intermediate_dcpr_request_status": helpers.get_next_intermediate_dcpr_status,
-            "dcpr_user_is_dcpr_request_owner": helpers.user_is_dcpr_request_owner,
             "saeoss_org_memberships": helpers.get_org_memberships,
-            "dcpr_requests_approved_by_nsif": helpers.get_dcpr_requests_approved_by_nsif,
-            "is_dcpr_request": helpers.is_dcpr_request,
-            "get_dcpr_request_action": helpers.get_dcpr_request_action,
             "mod_scheming_flatten_subfield": helpers.mod_scheming_flatten_subfield,
             "get_today_date": helpers.get_today_date,
             "get_maintenance_custom_other_field_data": helpers.get_maintenance_custom_other_field_data,
             "get_release": helpers.get_current_release,
             "get_saved_searches": helpers.get_saved_searches,
             "get_recent_news": helpers.get_recent_news,
-            "get_public_dcpr_requests_count": helpers.get_public_dcpr_requests_count,
-            "get_my_dcpr_requests_count": helpers.get_my_dcpr_requests_count,
-            "get_under_preparation_dcpr_requests_count": helpers.get_under_preparation_dcpr_requests_count,
-            "get_dcpr_requests_awaiting_csi_moderation_count": helpers.get_dcpr_requests_awaiting_csi_moderation_count,
-            "get_dcpr_requests_awaiting_nsif_moderation_count": helpers.get_dcpr_requests_awaiting_nsif_moderation_count,
             "get_featured_datasets_count": helpers.get_featured_datasets_count,
             "get_user_name": helpers.get_user_name,
             "get_user_name_from_url": helpers.get_user_name_from_url,
@@ -382,14 +317,11 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     def get_blueprint(self) -> typing.List[Blueprint]:
         return [
-            dcpr_blueprint,
             saeoss_blueprint,
-            error_report_blueprint,
             xml_parser_blueprint,
             publish_blueprint,
             saved_searches_blueprint,
             news_blueprint,
-            error_report_blueprint,
             contact_blueprint,
             stats_blueprint,
         ]

@@ -1,4 +1,4 @@
-"""CKAN CLI commands for the dalrrd-emc-dcpr extension"""
+"""CKAN CLI commands for the saeoss extension"""
 
 import datetime as dt
 import inspect
@@ -27,9 +27,6 @@ from sqlalchemy import text as sla_text
 from ckanext.harvest import utils as harvest_utils
 
 from .. import provide_request_context
-from ckanext.saeoss.model.dcpr_request import (
-    DCPRRequest,
-)
 
 from .. import jobs
 from ..constants import (
@@ -890,7 +887,7 @@ def test_background_job(job_name, job_arg, job_kwarg):
     Example:
 
     \b
-        ckan dalrrd-emc-dcpr test-background-job \\
+        ckan saeoss test-background-job \\
             notify_org_admins_of_dataset_maintenance_request \\
             --job-arg=f1733d0c-5188-43b3-8039-d95efb76b4f5
 
@@ -1004,7 +1001,7 @@ def refresh_pycsw_materialized_view(ctx, post_run_delay_seconds: int):
     mode, as these offer other ways to control periodic services. In that case you can
     simply configure a periodic service and then use
 
-    `launch-ckan-cli dalrrd-emc-dcpr pycsw refresh-materizalied-view`
+    `launch-ckan-cli saeoss pycsw refresh-materizalied-view`
 
     as the container's CMD instruction.
 
