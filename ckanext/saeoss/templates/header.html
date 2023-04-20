@@ -17,7 +17,7 @@
         <ul class="nav navbar-nav">
             {% block header_site_navigation_tabs %}
                 <li> <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata') }}">{{ _('Metadata') }}</a></li>
-                <li> <a href="{{ url_for('publish.index') }}" class="image" title="{{ _('Map') }}">{{ _('Map') }}</a></li>
+                <li> <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Map') }}">{{ _('Map') }}</a></li>
                 <li> <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('Organisations') }}">{{ _('Organisations') }}</a></li>
                 <li> <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('About') }}">{{ _('About') }}</a></li>
 

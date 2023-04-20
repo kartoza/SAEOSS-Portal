@@ -26,7 +26,7 @@ from .. import (
 )
 from ..blueprints.saeoss import saeoss_blueprint
 from ..blueprints.xml_parser import xml_parser_blueprint
-from ..blueprints.publish import publish_blueprint
+from ..blueprints.map import map_blueprint
 from ..blueprints.saved_searches import saved_searches_blueprint
 from ..blueprints.news import news_blueprint
 from ..blueprints.contact import contact_blueprint
@@ -319,7 +319,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         return [
             saeoss_blueprint,
             xml_parser_blueprint,
-            publish_blueprint,
+            map_blueprint,
             saved_searches_blueprint,
             news_blueprint,
             contact_blueprint,
