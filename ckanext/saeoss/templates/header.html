@@ -20,53 +20,7 @@
                 <li> <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Map') }}">{{ _('Map') }}</a></li>
                 <li> <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('Organisations') }}">{{ _('Organisations') }}</a></li>
                 <li> <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('About') }}">{{ _('About') }}</a></li>
-
-                {#
-                {{ h.build_nav_icon(
-                    ('dataset.search', _('Search Metadata'), icon="search"),
-                    ('organization.index', _('Organisations')),
-                    ('publish.index', _('Publish Metadata')),
-                    ('dcpr.index', _('Register a Project')),
-                    ('group.index', _('Groups')),
-                    ('home.about', _('About'))
-                     ) }}
-                     #}
             {% endblock %}
-{#            <li class="dropdown">#}
-{#                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >#}
-{#            <i class="fa fa-cogs"></i><span class="help"> Resources</span></a>#}
-{#                <ul class="dropdown-menu">#}
-{#                    <li> <a href="/pages/about" class="image" title="{{ _('About EMC-DCPR') }}">#}
-{#                        <span class="text">{{ _('About EMC-DCPR') }}</span></a></li>#}
-{#                    <li> <a href="/pages/help" class="image" title="{{ _('Help overview') }}">#}
-{#                        <span class="text">{{ _('Help Overview') }}</span></a></li>#}
-{#                    <li> <a href="/pages/frequently-asked-questions" class="image" title="{{ _('FAQ') }}">#}
-{#                        <span class="text">{{ _('FAQ') }}</span></a></li>#}
-{#                    <li> <a href="/pages/search-and-discovery" class="image" title="{{ _('Search and Discovery') }}">#}
-{#                        <span class="text">{{ _('Search and Discovery') }}</span></a></li>#}
-{#                    <li> <a href="/pages/user-registration-and-profile-management" class="image" title="{{ _('User Registration and Profile Management') }}">#}
-{#                        <span class="text">{{ _('User Registration and Profile Management') }}</span></a></li>#}
-{#                    <li> <a href="/pages/documentation-and-help" class="image" title="{{ _('Documentation and Help') }}">#}
-{#                        <span class="text">{{ _('Documentation and Help') }}</span></a></li>#}
-{#                    <li> <a href="/pages/systems-notifications" class="image" title="{{ _('Systems Notifications') }}">#}
-{#                        <span class="text">{{ _('Systems Notifications') }}</span></a></li>#}
-{#                    <li> <a href="/pages/organisation-management-and-membership" class="image" title="{{ _('Organization Management and Membership') }}">#}
-{#                        <span class="text">{{ _('Organization Management and Membership') }}</span></a></li>#}
-{#                    <li> <a href="/pages/metadata-capturing-and-publishing" class="image" title="{{ _('Metadata Capturing and Publishing') }}">#}
-{#                        <span class="text">{{ _('Metadata Capturing and Publishing') }}</span></a></li>#}
-{#                    <li> <a href="/pages/dcpr-record-management" class="image" title="{{ _('DCPR Record Management') }}">#}
-{#                        <span class="text">{{ _('DCPR Record Management') }}</span></a></li>#}
-{#                    <li> <a href="/pages/error-reporting" class="image" title="{{ _('Error Reporting') }}">#}
-{#                        <span class="text">{{ _('Error Reporting') }}</span></a></li>#}
-{#                    <li> <a href="/pages/system-usage-reporting" class="image" title="{{ _('System Usage Reporting') }}">#}
-{#                        <span class="text">{{ _('System Usage Reporting') }}</span></a></li>#}
-{#                </ul>#}
-{#            </li>#}
-{#            <li>#}
-{#                <a href="/contact" class="" data-toggle="" role="button" aria-haspopup="true" aria-expanded="false" >#}
-{#                    <i class="fa fa-address-card"></i> <span class="">Contact</span>#}
-{#            </a>#}
-{#            </li>#}
         </ul>
       {% endblock %}
       <ul class="nav navbar-nav navbar-right">

@@ -1,7 +1,14 @@
 {% extends 'page.html' %}
+{% asset "ckanext-saeoss/web-mapping-js" %}
+{% asset "ckanext-saeoss/dataset-spatial-extent-map-css" %}
+
 {% block subtitle %}Map{% endblock %}
 
-
+{% block content %}
+    <div class="web-mapping" data-module="saeossWebMapping">
+    <div class="map" id="map"></div>
+    </div>
+{% endblock %}
 {% block footer %}
 {% endblock %}
 

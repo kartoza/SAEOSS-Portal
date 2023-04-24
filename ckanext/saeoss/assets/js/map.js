@@ -1,23 +1,17 @@
 "use strict";
 
-/* datasetSpatialExtentMap
-*
-* Displays a leaflet map
-*
-* */
 var LeafletMapFromExtentModule
-ckan.module("saeossDatasetSpatialExtentMap", function(jQuery, _){
+ckan.module("saeossWebMapping", function(jQuery, _) {
     return {
         options: {
-            i18n: {
-            },
+            i18n: {},
             styles: {
-                point:{
+                point: {
                     iconUrl: '/img/marker.png',
                     iconSize: [14, 25],
                     iconAnchor: [7, 25]
                 },
-                default_:{
+                default_: {
                     color: '#B52',
                     weight: 2,
                     opacity: 1,
@@ -27,22 +21,22 @@ ckan.module("saeossDatasetSpatialExtentMap", function(jQuery, _){
             }
         },
 
-        initialize: function() {
-            this.formInputElement = document.getElementById(this.options.formInputId)
+        initialize: function () {
 
 
-            // console.log(
-            //     `Hi there, I'm running inside the saeossDatasetSpatialExtentMap module. ` +
-            //     `Oh, and my bound element is ${this.el} and the Jinja template passed me this as the default extent: ${this.options.defaultExtent}`
-            // )
+
+            console.log(
+                `Hi there, I'm running inside the saeossDatasetSpatialExtentMap module. ` +
+                `Oh, and my bound element is ${this.el} and the Jinja template passed me this as the default extent: ${this.options.defaultExtent}`
+            )
 
             jQuery.proxyAll(this, /_on/);
             this.el.ready(this._onReady);
 
         },
 
-        _onReady: function() {
-            this.map = L.map("dataset-spatial-extent-map-container", this.options.mapConfig, {
+        _onReady: function () {
+            this.map = L.map("map", this.options.mapConfig, {
                 attributionControl: false
             })
             this.map.pm.addControls({
@@ -90,50 +84,5 @@ ckan.module("saeossDatasetSpatialExtentMap", function(jQuery, _){
 
             LeafletMapFromExtentModule = this.map
         },
-
-        _onRemove: function (event) {
-            this.formInputElement.setAttribute("value", "")
-        },
-
-        _onCreate: function (event) {
-            // console.log("Created new")
-            event.layer.on("pm:edit", this._onLayerEdit)
-            event.layer.on("pm:dragend", this._onLayerDrag)
-            this.formInputElement.setAttribute("value", this._getBboxString(event.layer.getBounds()))
-            this.rectangleLayer = event.layer
-        },
-
-        _onDrawStart: function (event) {
-            // console.log("Started drawing")
-            this.map.removeLayer(this.rectangleLayer)
-        },
-
-        _onLayerEdit: function (event) {
-            this.formInputElement.setAttribute("value", this._getBboxString(event.layer.getBounds()))
-        },
-
-        _onLayerDrag: function (event) {
-            this.formInputElement.setAttribute("value", this._getBboxString(event.layer.getBounds()))
-        },
-
-        _onBoundingBoxManuallyUpdated: function (event) {
-            const userInput = event.target.value.split(",").map(Number)
-            if (!Number.isNaN(userInput[0])) {
-                const newBounds = [
-                    [userInput[0], userInput[1]],
-                    [userInput[2], userInput[3]],
-                ]
-                this.rectangleLayer.setBounds(newBounds)
-            }
-        },
-
-        _getBboxString: function (bounds) {
-            return `${bounds.getNorth()}, ${bounds.getWest()}, ${bounds.getSouth()}, ${bounds.getEast()}`
-        },
-
-        captializeFirstLetter: function(name){
-            return name.charAt(0).toUpperCase() + name.slice(1);
-        }
-
     }
 })
