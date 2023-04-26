@@ -72,13 +72,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 ],
                 {pmIgnore: false}
             )
-            this.map.on("pm:drawstart", this._onDrawStart)
-            this.map.on("pm:create", this._onCreate)
-            this.map.on("pm:remove", this._onRemove)
-            this.rectangleLayer.on("pm:edit", this._onLayerEdit)
-            this.rectangleLayer.on("pm:dragend", this._onLayerDrag)
-            this.formInputElement.addEventListener("change", this._onBoundingBoxManuallyUpdated)
-
+            
             //this.map.addLayer(this.rectangleLayer)
             this.map.fitBounds(this.rectangleLayer.getBounds())
 
