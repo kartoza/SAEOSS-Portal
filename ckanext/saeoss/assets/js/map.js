@@ -39,22 +39,8 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             this.map = L.map("map", this.options.mapConfig, {
                 attributionControl: false
             })
-            this.map.pm.addControls({
-                position: "topleft",
-                drawMarker: false,
-                drawCircleMarker: false,
-                drawPolyline: false,
-                drawRectangle: true,
-                drawPolygon: false,
-                drawCircle: false,
-                cutPolygon: false,
-                removalMode: true,
-                rotateMode: false,
-                pinningOption: false,
-                snappingOption: false,
-                splitMode: false,
-                scaleMode: false,
-            })
+            
+            this.map.zoomControl.setPosition('topright')
 
             // This is based on the base map used in ckanext-spatial
             const baseLayerUrl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png';
