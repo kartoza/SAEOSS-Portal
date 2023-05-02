@@ -654,6 +654,8 @@ header.masthead{
   width: 200px;
 }
 
+
+
 .btn-account {
   border-radius: 2px;
   margin: 10px;
@@ -1258,4 +1260,14 @@ label[for=field-online_resource-0-description]{
 select[id$="field-dataset_custodian"]{
   background-color: #eee !important;
   opacity: 1 !important;
+}
+
+/* Web Mapping */
+
+#map{
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
 }

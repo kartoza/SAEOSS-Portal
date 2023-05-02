@@ -22,6 +22,16 @@ dataset-spatial-extent-map-js:
       - base/main
       - ckanext-saeoss/vendorized-leaflet-geoman-js
 
+web-mapping-js:
+  output: ckanext-saeoss/%(version)s_webMapping.js
+  contents:
+    - js/map.js
+  filter: rjsmin
+  extra:
+    preload:
+      - base/main
+      - ckanext-saeoss/vendorized-leaflet-geoman-js
+
 dataset-spatial-extent-map-css:
   output: ckanext-saeoss/%(version)s_datasetSpatialExtentMap.css
   contents:
@@ -30,6 +40,7 @@ dataset-spatial-extent-map-css:
   extra:
     preload:
       - ckanext-saeoss/vendorized-leaflet-geoman-css
+
 
 dcpr-request-datasets-js:
   output: ckanext-saeoss/%(version)s_dcprRequestDatasets.js
