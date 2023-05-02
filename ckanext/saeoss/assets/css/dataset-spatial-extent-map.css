@@ -21,3 +21,7 @@
 .contact-title{
     color: #2e9aff;
 }
+
+.leaflet-top .leaflet-control{
+  margin-top: 80px;
+}
