@@ -1,10 +1,6 @@
 import enum
 import typing
 
-SAEOSS_THEMES_VOCABULARY_NAME: typing.Final[str] = "saeoss_themes"
-
-ISO_TOPIC_CATEGOY_VOCABULARY_NAME: typing.Final[str] = "iso_topic_categories"
-
 ISO_TOPIC_CATEGORIES: typing.Final[typing.List[typing.Tuple[str, str]]] = [
     ("farming", "Farming"),
     ("biota", "Biota"),
@@ -29,55 +25,10 @@ ISO_TOPIC_CATEGORIES: typing.Final[typing.List[typing.Tuple[str, str]]] = [
 
 SANSA_ORG_NAME = "sansa"
 
+
 class DatasetManagementActivityType(enum.Enum):
     REQUEST_MAINTENANCE = "requested dataset maintenance"
     REQUEST_PUBLICATION = "requested dataset publication"
-
-
-class DcprManagementActivityType(enum.Enum): # used with dcpr blueprint CRUD actions
-    CREATE_DCPR_REQUEST = "created DCPR request"
-    DELETE_DCPR_REQUEST = "deleted DCPR request"
-    UPDATE_DCPR_REQUEST_BY_OWNER = "updated own DCPR request"
-    UPDATE_DCPR_REQUEST_BY_NSIF = "updated DCPR request on behalf of NSIF"
-    UPDATE_DCPR_REQUEST_BY_CSI = "updated DCPR request on behalf of CSI"
-    SUBMIT_DCPR_REQUEST = "submitted DCPR request for review and moderation"
-    BECOME_NSIF_REVIEWER_DCPR_REQUEST = "became DCPR request reviewer on behalf of NSIF"
-    RESIGN_NSIF_REVIEWER_DCPR_REQUEST = (
-        "resigned from DCPR request reviewer on behalf of NSIF"
-    )
-    BECOME_CSI_REVIEWER_DCPR_REQUEST = "became DCPR request reviewer on behalf of CSI"
-    RESIGN_CSI_REVIEWER_DCPR_REQUEST = (
-        "resigned from DCPR request reviewer on behalf of CSI"
-    )
-    ACCEPT_DCPR_REQUEST_NSIF = "accepted DCPR request on behalf of NSIF"
-    REJECT_DCPR_REQUEST_NSIF = "rejected DCPR request on behalf of NSIF"
-    REQUEST_CLARIFICATION_DCPR_REQUEST_NSIF = (
-        "requested clarification on DCPR request on behalf of NSIF"
-    )
-    ACCEPT_DCPR_REQUEST_CSI = "accepted DCPR request on behalf of CSI"
-    REJECT_DCPR_REQUEST_CSI = "rejected DCPR request on behalf of CSI"
-    REQUEST_CLARIFICATION_DCPR_REQUEST_CSI = (
-        "requested clarification on DCPR request on behalf of CSI"
-    )
-
-
-class DCPRRequestStatus(enum.Enum):
-    UNDER_PREPARATION = "UNDER_PREPARATION"
-    UNDER_MODIFICATION_REQUESTED_BY_NSIF = "UNDER_MODIFICATION_REQUESTED_BY_NSIF"
-    UNDER_MODIFICATION_REQUESTED_BY_CSI = "UNDER_MODIFICATION_REQUESTED_BY_CSI"
-    AWAITING_NSIF_REVIEW = "AWAITING_NSIF_REVIEW"
-    UNDER_NSIF_REVIEW = "UNDER_NSIF_REVIEW"
-    AWAITING_CSI_REVIEW = "AWAITING_CSI_REVIEW"
-    UNDER_CSI_REVIEW = "UNDER_CSI_REVIEW"
-    ACCEPTED = "ACCEPTED"
-    REJECTED = "REJECTED"
-
-
-class DcprRequestModerationAction(enum.Enum):
-    APPROVE = "APPROVE"
-    REJECT = "REJECT"
-    REQUEST_CLARIFICATION = "REQUEST_CLARIFICATION"
-    RESIGN = "RESIGN"
 
 
 DATASET_MINIMAL_SET_OF_FIELDS = [
@@ -164,7 +115,6 @@ DATASET_FULL_SET_OF_FIELDS = [
     "metadata_reference_date_and_stamp-0-stamp_date_type",
 ]
 
-
 XML_DATASET_NAMING_MAPPING = {
     "title": "title",
     "name": "name",
@@ -214,7 +164,6 @@ XML_DATASET_NAMING_MAPPING = {
     "ContactInformationFacsimile": "contact_information-0-facsimile",
 }
 
-
 # this is necessary to ensure consistancy with saeon extra names
 
 DATASET_SUBFIELDS_MAPPING = {
@@ -257,28 +206,3 @@ DATASET_SUBFIELDS_MAPPING = {
     "contact_information-0-facsimile": "contact_information_facsimile",
 }
 
-
-class DCPRRequestRequiredFields(enum.Enum):
-    DATASET_LANGUAGE = "en"
-    DATASET_CHARACTER_SET = "ucs-2"
-    METADATA_CHARACTER_SET = "ucs-2"
-    DISTRIBUTION_FORMAT_NAME = "Electronic Metadata Record"
-    DISTRIBUTION_FORMAT_VERSION = "1.0"
-    EQUIVALENT_SCALE = "10"
-    ISO_TOPIC_CATEGORY = "location"
-    LINEAGE_LEVEL = "001"
-    LINEAGE_STATEMENT = "Formed from a DCPR request"
-    LINEAGE_PROCESS_DESCRIPTION = "Formed from a DCPR request"
-    METADATA_LANGUAGE = "en"
-    METADATA_STANDARD_NAME = "SANS 1878"
-    METADATA_STANDARD_VERSION = "1.1"
-    NOTES = "Default notes"
-    PURPOSE = "Purpose"
-    SPATIAL_REFERENCE_SYSTEM = "EPSG:4326"
-    SPATIAL_REPRESENTATION_TYPE = "001"
-    STATUS = "completed"
-    REFERENCE_DATE_TYPE = "Creation"
-    STAMP_DATE_TYPE = "Creation"
-    RESPONSIBLE_PARTY_INDIVIDUAL_NAME = "individual_name"
-    RESPONSIBLE_PARTY_POSITION_NAME = "dataset custodian"
-    RESPONSIBLE_PARTY_ROLE = "originator"

@@ -21,7 +21,6 @@ from ckanext.harvest.harvesters.ckanharvester import CKANHarvester
 
 
 from .. import (
-    constants,
     helpers,
 )
 from ..blueprints.saeoss import saeoss_blueprint
@@ -249,8 +248,6 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "package_update": ckan_actions.package_update,
             "package_patch": ckan_actions.package_patch,
             "saeoss_version": saeoss_actions.show_version,
-            "request_dataset_maintenance": saeoss_actions.request_dataset_maintenance,
-            "request_dataset_publication": saeoss_actions.request_dataset_publication,
             "user_patch": ckan_actions.user_patch,
             "user_update": ckan_actions.user_update,
             "user_create": ckan_actions.user_create,
@@ -330,12 +327,6 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         self, facets_dict: typing.OrderedDict, package_type: str
     ) -> typing.OrderedDict:
         if package_type != HARVEST_DATASET_TYPE_NAME:
-            facets_dict[f"vocab_{constants.SAEOSS_THEMES_VOCABULARY_NAME}"] = toolkit._(
-                "SAEOSS Themes"
-            )
-            facets_dict[
-                f"vocab_{constants.ISO_TOPIC_CATEGOY_VOCABULARY_NAME}"
-            ] = toolkit._("ISO Topic Categories")
             # facets_dict["reference_date"] = toolkit._("Reference Date")
             facets_dict["harvest_source_title"] = toolkit._("Harvest source")
             facets_dict["featured"] = toolkit._("Featured Metadata records")

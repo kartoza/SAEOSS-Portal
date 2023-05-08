@@ -34,17 +34,4 @@
       </div>
     </div>
   {% endif %}
-
-{% if pkg.sasdi_theme|length > 0 %}
-    <div class="module module-narrow module-shallow context-info">
-            <h2 class="module-heading"> {{ _("SASDI Theme") }}</h2>
-            <section class="module-content">
-                {% set sasdi = pkg.sasdi_theme|first %}
-                {% set icon_name = sasdi.replace(' ', '-')|lower + '.svg' %}
-            <p><img  src="{{ url_for('static', filename = 'images/sasdi-themes-svg/'+icon_name) }}" alt="{{ sasdi }}" width="35px">
-            <span class="sasdi-theme-name">{{ pkg.sasdi_theme|first }}</span></p>
-            </section>
-        </div>
-
-{% endif %}
 {% endblock %}
