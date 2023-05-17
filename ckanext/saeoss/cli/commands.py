@@ -11,7 +11,12 @@ import traceback
 import typing
 from concurrent import futures
 from pathlib import Path
-
+import glob
+from cmath import log
+from datetime import datetime
+from xml.dom.minidom import parse
+import traceback
+import shutil
 import alembic.command
 import alembic.config
 import alembic.util.exc
@@ -39,15 +44,31 @@ from ._sample_datasets import (
 )
 from ._sample_organizations import SAMPLE_ORGANIZATIONS
 from ._sample_users import SAMPLE_USERS
+import xml.dom.minidom as dom
+from ._cbers import (
+    get_geometry,
+    get_radiometric_resolution,
+    get_projection,
+    get_quality,
+    get_dates,
+    get_scene_path,
+    get_scene_row,
+    get_band_count,
+    get_sensor_inclination,
+    get_original_product_id,
+    get_solar_azimuth_angle,
+    get_spatial_resolution_x,
+    get_spatial_resolution_y
+)
 
 logger = logging.getLogger(__name__)
 _xml_parser = etree.XMLParser(resolve_entities=False)
 
 _DEFAULT_LEGACY_SASDI_RECORD_DIR = (
-    Path.home() / "data/storage/legacy_sasdi_downloader/csw_records"
+        Path.home() / "data/storage/legacy_sasdi_downloader/csw_records"
 )
 _DEFAULT_LEGACY_SASDI_THUMBNAIL_DIR = (
-    Path.home() / "data/storage/legacy_sasdi_downloader/thumbnails"
+        Path.home() / "data/storage/legacy_sasdi_downloader/thumbnails"
 )
 _DEFAULT_MAX_WORKERS = 5
 _PYCSW_MATERIALIZED_VIEW_NAME = "public.saeoss_pycsw_view"
@@ -90,6 +111,11 @@ def send_email_notifications():
 @saeoss.group()
 def bootstrap():
     """Bootstrap the saeoss extension"""
+
+
+@saeoss.group()
+def ingest():
+    """ Ingest a collection to metadata"""
 
 
 @saeoss.group()
@@ -264,6 +290,7 @@ def delete_saeoss_organizations():
 @saeoss.group()
 def load_sample_data():
     """Load sample data into non-production deployments"""
+
 
 @load_sample_data.command()
 def create_sample_users():
@@ -444,13 +471,13 @@ def delete_sample_organizations():
 @click.option("-x", "--longitude-range", nargs=2, type=float, default=(16.3, 33.0))
 @click.option("-y", "--latitude-range", nargs=2, type=float, default=(-35.0, -21.0))
 def create_sample_datasets(
-    owner_org,
-    num_datasets,
-    name_prefix,
-    name_suffix,
-    temporal_range,
-    longitude_range,
-    latitude_range,
+        owner_org,
+        num_datasets,
+        name_prefix,
+        name_suffix,
+        temporal_range,
+        longitude_range,
+        latitude_range,
 ):
     """Create multiple sample datasets"""
     user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {})
@@ -561,8 +588,8 @@ def add_db_revision(message, autogenerate):
     "--command-kwarg",
     multiple=True,
     help=(
-        "Provide each keyword argument as a colon-separated string of "
-        "key_name:value. This option can be provided multiple times"
+            "Provide each keyword argument as a colon-separated string of "
+            "key_name:value. This option can be provided multiple times"
     ),
 )
 def defer_to_alembic(alembic_command, collect_args, command_arg, command_kwarg):
@@ -685,8 +712,8 @@ class AlembicWrapper:
     "--job-kwarg",
     multiple=True,
     help=(
-        "Provide each keyword argument as a colon-separated string of "
-        "key_name:value. This option can be provided multiple times"
+            "Provide each keyword argument as a colon-separated string of "
+            "key_name:value. This option can be provided multiple times"
     ),
 )
 def test_background_job(job_name, job_arg, job_kwarg):
@@ -825,3 +852,210 @@ def refresh_pycsw_materialized_view(ctx, post_run_delay_seconds: int):
     logger.info(f"Sleeping for {post_run_delay_seconds!r} seconds...")
     time.sleep(post_run_delay_seconds)
     logger.info("Done!")
+
+
+@ingest.command()
+@click.option(
+    "--source-path",
+    help="A path where CBERS xml source locate",
+)
+@click.option(
+    "--user",
+    help="user added the dataset",
+)
+def cbers(source_path,
+          user,
+          test_only_flag=True,
+          verbosity_level=2,
+          halt_on_error_flag=True,
+          ):
+    """
+        Ingest a collection of CBERS metadata folders.
+
+        :param test_only_flag: Whether to do a dummy run ( database will not be
+            updated. Default False.
+        :type test_only_flag: bool
+
+        :param source_path: A CBERS created CBERS 04 metadata xml file and thumbnail.
+        :type source_path: str
+
+        :param verbosity_level: How verbose the logging output should be. 0-2
+            where 2 is very very very very verbose! Default is 1.
+        :type verbosity_level: int
+
+        :param halt_on_error_flag: Whather we should stop processing when the first
+            error is encountered. Default is True.
+        :type halt_on_error_flag: bool
+
+        :param ignore_missing_thumbs: Whether we should raise an error
+            if we find we are missing a thumbnails. Default is False.
+        :type ignore_missing_thumbs: bool
+        """
+
+    def log_message(message, level=1):
+        """Log a message for a given leven.
+
+        :param message: A message.
+        :param level: A log level.
+        """
+        if verbosity_level >= level:
+            print(message)
+
+    log_message((
+                    'Running CBERS 04 Importer with these options:\n'
+                    'Test Only Flag: %s\n'
+                    'Source Dir: %s\n'
+                    'Verbosity Level: %s\n'
+                    'Halt on error: %s\n'
+                    '------------------')
+                % (test_only_flag, source_path, verbosity_level,
+                   halt_on_error_flag), 2)
+
+    # Scan the source folder and look for any sub-folders
+    # The sub-folder names should be e.g.
+    # L5-_TM-_HRF_SAM-_0176_00_0078_00_920606_080254_L0Ra_UTM34S
+    log_message('Scanning folders in %s' % source_path, 1)
+    # Loop through each folder found
+
+    ingestor_version = 'CBERS 04 ingestor version 1.1'
+    record_count = 0
+    updated_record_count = 0
+    created_record_count = 0
+    failed_record_count = 0
+    log_message('Starting directory scan...', 2)
+    list_dataset = glob.glob(os.path.join(source_path, '*.XML'))
+    # workers = len(list_dataset)
+    with futures.ThreadPoolExecutor(3) as executor:
+        to_do = []
+        for cbers_folder in list_dataset:
+            record_count += 1
+
+            try:
+                log_message('', 2)
+                log_message('---------------', 2)
+                # Get the folder name
+                product_folder = os.path.split(cbers_folder)[-1]
+                log_message(product_folder, 2)
+
+                # Find the first and only xml file in the folder
+                # search_path = os.path.join(str(cbers_folder), '*.XML')
+                log_message(cbers_folder, 2)
+                xml_file = glob.glob(cbers_folder)[0]
+                file = os.path.basename(xml_file)
+                file_name = os.path.splitext(file)[0]
+                original_product_id = get_original_product_id(file_name)
+
+                # Create a DOM document from the file
+                dom = parse(xml_file)
+
+                # First grab all the generic properties that any CBERS will have...
+                geometry = get_geometry(log_message, dom)
+                start_date_time, center_date_time = get_dates(
+                    log_message, dom)
+                # projection for GenericProduct
+                projection = get_projection(dom)
+
+                # Band count for GenericImageryProduct
+                band_count = get_band_count(dom)
+                row = get_scene_row(dom)
+                path = get_scene_path(dom)
+                solar_azimuth_angle = get_solar_azimuth_angle(dom)
+                sensor_inclination = get_sensor_inclination()
+                # # Spatial resolution x for GenericImageryProduct
+                spatial_resolution_x = float(get_spatial_resolution_x(dom))
+                # # Spatial resolution y for GenericImageryProduct
+                spatial_resolution_y = float(
+                    get_spatial_resolution_y(dom))
+                log_message('Spatial resolution y: %s' % spatial_resolution_y, 2)
+
+                # # Spatial resolution for GenericImageryProduct calculated as (x+y)/2
+                spatial_resolution = (spatial_resolution_x + spatial_resolution_y) / 2
+                log_message('Spatial resolution: %s' % spatial_resolution, 2)
+                radiometric_resolution = get_radiometric_resolution(dom)
+                log_message('Radiometric resolution: %s' % radiometric_resolution, 2)
+                quality = get_quality(dom)
+                # ProductProfile for OpticalProduct
+                # product_profile = get_product_profile(log_message, original_product_id)
+
+                # Do the ingestion here...
+
+                data = {
+                    'title': original_product_id,
+                    'owner_org': '',
+                    'spatial': geometry,
+                    'spatial_representation_type': '007',
+                    'spatial_reference_system': projection,
+                    'reference': center_date_time,
+                    'reference_date_type': '001',
+                    'equivalent_scale': radiometric_resolution,
+                    'name': 'SANSA',
+                    'version': '1.0',
+                    'radiometric_resolution': radiometric_resolution,
+                    'band_count': band_count,
+                    'unique_product_id': original_product_id,
+                    'spatial_resolution_x': spatial_resolution_x,
+                    'spatial_resolution_y': spatial_resolution_y,
+                    'spatial_resolution': spatial_resolution,
+                    'product_acquisition_start': start_date_time,
+                    'sensor_inclination_angle': sensor_inclination,
+                    'solar_azimuth_angle': solar_azimuth_angle,
+                    'row': row,
+                    'path': path,
+                    'quality': quality
+                }
+                data["id"] = data["unique_product_id"]
+                data["lineage"] = data["path"]
+                data["notes"] = data["radiometric_resolution"]
+                data["owner_org"] = 'sample-org-1'
+                data["spatial"] = [
+                [16.4699, -34.8212],
+                [32.8931, -34.8212],
+                [32.8931, -22.1265],
+                [16.4699, -22.1265],
+                [16.4699, -34.8212]
+            ]
+
+                logger.debug('catalogue=======> just after', str(data))
+
+                # Check if it's already in catalogue:
+                # try:
+                #     today = datetime.today()
+                #     time_stamp = today.strftime("%Y-%m-%d")
+                #     log_message('Time Stamp: %s' % time_stamp, 2)
+                # except Exception as e:
+                #     print(e.message)
+
+                # update_mode = True
+
+            except Exception as e:
+                log_message('Error on dataset value')
+
+            logger.debug('catalogue=======>', str(data))
+            user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
+            future = executor.submit(utils.create_single_dataset, user, data)
+            to_do.append(future)
+            num_created = 0
+            num_already_exist = 0
+            num_failed = 0
+            for done_future in futures.as_completed(to_do):
+                try:
+                    result = done_future.result()
+                    if result == utils.DatasetCreationResult.CREATED:
+                        num_created += 1
+                    elif result == utils.DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS:
+                        num_already_exist += 1
+                except dictization_functions.DataError:
+                    logger.exception(f"Could not create dataset")
+                    num_failed += 1
+                except ValueError:
+                    logger.exception(f"Could not create dataset")
+                    num_failed += 1
+
+    # To decide: should we remove ingested product folders?
+
+    print('===============================')
+    print('Products processed : %s ' % record_count)
+    print('Products updated : %s ' % updated_record_count)
+    print('Products imported : %s ' % created_record_count)
+    print('Products failed to import : %s ' % failed_record_count)
+    print('===============================')
