@@ -285,7 +285,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "default_bounding_box": helpers.get_default_bounding_box,
             "convert_geojson_to_bounding_box": helpers.convert_geojson_to_bbox,
             "extent_to_bbox": helpers.convert_string_extent_to_bbox,
-            "saeoss_themes": helpers.get_saeoss_themes,
+            # "saeoss_themes": helpers.get_saeoss_themes,
             "iso_topic_categories": helpers.get_iso_topic_categories,
             "saeoss_show_version": helpers.helper_show_version,
             "user_is_org_member": helpers.user_is_org_member,

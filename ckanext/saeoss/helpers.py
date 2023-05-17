@@ -24,15 +24,15 @@ from ckan.lib.dictization import table_dictize
 logger = logging.getLogger(__name__)
 
 
-def get_saeoss_themes(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
-    logger.debug(f"inside get_saeoss_themes {args=} {kwargs=}")
-    try:
-        saeoss_themes = toolkit.get_action("tag_list")(
-            data_dict={"vocabulary_id": constants.SAEOSS_THEMES_VOCABULARY_NAME}
-        )
-    except toolkit.ObjectNotFound:
-        saeoss_themes = []
-    return [{"value": t, "label": t} for t in saeoss_themes]
+# def get_saeoss_themes(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
+#     logger.debug(f"inside get_saeoss_themes {args=} {kwargs=}")
+#     try:
+#         saeoss_themes = toolkit.get_action("tag_list")(
+#             data_dict={"vocabulary_id": constants.SAEOSS_THEMES_VOCABULARY_NAME}
+#         )
+#     except toolkit.ObjectNotFound:
+#         saeoss_themes = []
+#     return [{"value": t, "label": t} for t in saeoss_themes]
 
 
 def get_iso_topic_categories(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:

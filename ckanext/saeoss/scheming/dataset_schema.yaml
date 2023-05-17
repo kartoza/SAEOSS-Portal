@@ -185,20 +185,20 @@ dataset_fields:
       display_snippet: "vocab_tag_display.html"
       # display_snippet: null
 
-    - field_name: saeoss_theme
-      label: SAEOSS Theme
-      help_text: South African Spatial Data Infrastructure Theme
-      choices_helper: saeoss_themes
-      validators: >-
-        ignore_missing
-        convert_to_tags(saeoss_themes)
-      output_validators: >-
-        scheming_required
-        scheming_choices
-        convert_from_tags(saeoss_themes)
-        ignore_missing
-      form_snippet: vocab_select.html
-      display_snippet: vocab_tag_display.html
+    # - field_name: saeoss_theme
+    #   label: SAEOSS Theme
+    #   help_text: South African Spatial Data Infrastructure Theme
+    #   choices_helper: saeoss_themes
+    #   validators: >-
+    #     ignore_missing
+    #     convert_to_tags(saeoss_themes)
+    #   output_validators: >-
+    #     scheming_required
+    #     scheming_choices
+    #     convert_from_tags(saeoss_themes)
+    #     ignore_missing
+    #   form_snippet: vocab_select.html
+    #   display_snippet: vocab_tag_display.html
     # display_snippet: null
 
   - field_name: tag_string

@@ -9,8 +9,8 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS {{ view_name }} AS
                p.metadata_modified,
                p.notes,
                p.author,
-               g.title AS org_name,
                p.maintainer,
+               g.title AS org_name,
                json_object_agg(pe.key, pe.value) AS extras,
                array_agg(DISTINCT t.name) AS tags,
                (select json_build_object('title', res.name,'description', res.description,'type', res.format, 'href', res.url)::text) As links
@@ -21,9 +21,10 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS {{ view_name }} AS
             JOIN tag AS t on pt.tag_id = t.id
             JOIN "resource" AS res on p.id = res.package_id
         WHERE p.state = 'active'
-        AND p.private = false
+        -- AND p.private = false        
         GROUP BY p.id, g.title, res.id
-    )
+
+        )
     SELECT
            c.id AS identifier,
            c.name AS dataset_name,
@@ -35,7 +36,6 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS {{ view_name }} AS
            NULL AS metadata,
            NULL AS metadata_type,
            concat_ws(' ', c.name, c.notes) AS anytext,
-        --    c.extras->>'metadata_language' AS language,
            'english' AS language,
            c.title AS title,
            c.notes AS abstract,
