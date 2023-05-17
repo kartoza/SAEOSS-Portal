@@ -1,6 +1,5 @@
 "use strict";
 
-var LeafletMapFromExtentModule
 ckan.module("saeossWebMapping", function(jQuery, _) {
     return {
         options: {
@@ -36,33 +35,22 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
         },
 
         _onReady: function () {
-            this.map = L.map("map", this.options.mapConfig, {
-                attributionControl: false
-            })
-            
-            this.map.zoomControl.setPosition('topright')
+            const map = new maplibregl.Map({
+                container: 'map',
+                style: 'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL', // stylesheet location
+                center: [23.335, -25.443], // starting position [lng, lat]
+                zoom: 4 // starting zoom
+            });
 
-            // This is based on the base map used in ckanext-spatial
-            const baseLayerUrl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png';
-            let leafletBaseLayerOptions = {
-                subdomains: this.options.mapConfig.subdomains || "abcd",
-                attribution: this.options.mapConfig.attribution || 'Map tiles by <a href="http://stamen.com">Stamen Design</a> (<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>). Data by <a href="http://openstreetmap.org">OpenStreetMap</a> (<a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>)'
-            }
-            const baseLayer = new L.TileLayer(baseLayerUrl, leafletBaseLayerOptions)
-            this.map.addLayer(baseLayer)
+            // zoom control
+            map.addControl(new maplibregl.NavigationControl(
+                {showCompass: false}
+            ));
 
-            this.rectangleLayer = L.rectangle(
-                [
-                    [this.options.defaultExtent[2], this.options.defaultExtent[1]],
-                    [this.options.defaultExtent[0], this.options.defaultExtent[3]],
-                ],
-                {pmIgnore: false}
-            )
-            
-            //this.map.addLayer(this.rectangleLayer)
-            this.map.fitBounds(this.rectangleLayer.getBounds())
+            // disable rotation
+            map.touchZoomRotate.disableRotation();
 
-            LeafletMapFromExtentModule = this.map
+
         },
     }
 })

@@ -3,8 +3,9 @@
 {% block subtitle %}Map{% endblock %}
 
 {% block scripts %}
-{% asset "ckanext-saeoss/web-mapping-js" %}
-{% asset "ckanext-saeoss/dataset-spatial-extent-map-css" %}
+    <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
+    {% asset "ckanext-saeoss/web-mapping-js" %}
 {% endblock %}
 
 {% set map_config = h.get_common_map_config() %}
