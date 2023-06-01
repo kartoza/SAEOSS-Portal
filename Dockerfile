@@ -47,7 +47,7 @@ USER appuser
 
 RUN mkdir /home/appuser/app  && \
     mkdir /home/appuser/data && \
-    python opt/install-poetry.py --yes --version 1.1.11
+    python opt/install-poetry.py --yes --version 1.4.2
 
 ENV PATH="$PATH:/home/appuser/.local/bin" \
     # This allows us to get traces whenever some C code segfaults
