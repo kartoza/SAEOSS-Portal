@@ -14,7 +14,7 @@ from pathlib import Path
 import glob
 from xml.dom.minidom import parse
 import traceback
-import validators
+#import validators
 import alembic.command
 import alembic.config
 import alembic.util.exc
@@ -1103,9 +1103,9 @@ def create_stac_dataset(user, url, max=10):
     collection1 = list(catalog.get_collections())[0]
     collection_items = collection1.get_items()
     data_dict = {}
-    if not validators.parse(url):
-        logger.info("url is not valid, exiting")
-        return
+    # if not validators.parse(url):
+    #     logger.info("url is not valid, exiting")
+    #     return
     
     try:
         max = int(max)
