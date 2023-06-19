@@ -135,10 +135,22 @@ docker exec -ti saeoss_ckan_web_1 poetry run ckan dalrrd-emc-dcpr pycsw create-m
 ```
 
 
+#### Ingest a collection of metadata from a given directory (currently CBERS xml files)
+
+create datasets (metadata records) from files stored in a directory
+
+```bash
+docker exec -ti saeoss_ckan_web_1 poetry run ckan saeoss ingest cbers --source-path <path> --user <username>
+```
+
+
 #### Perform STAC Fetch and create datasets from STAC endpoint  
 
-create datasets (metadata records) from stac endppint
+create datasets (metadata records) from stac endpoint
 
 ```bash
 docker exec -ti saeoss_ckan_web_1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --max <max_number_of_records>
 ```
+
+
+

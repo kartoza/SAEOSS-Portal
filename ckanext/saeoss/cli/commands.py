@@ -131,7 +131,7 @@ def extra_commands():
 
 @saeoss.group()
 def stac():
-    """ Commnads related to STAC catalogues"""
+    """Commnads related to STAC catalogues"""
 
 
 
