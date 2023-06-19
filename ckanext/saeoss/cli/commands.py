@@ -131,7 +131,7 @@ def extra_commands():
 
 @saeoss.group()
 def stac():
-    """ Commnds to stac catalogues and create dataset from stac items"""
+    """ Commnads related to STAC catalogues"""
 
 
 
@@ -938,8 +938,6 @@ def cbers(source_path,
             record_count += 1
 
             try:
-                log_message('', 2)
-                log_message('---------------', 2)
                 # Get the folder name
                 product_folder = os.path.split(cbers_folder)[-1]
                 log_message(product_folder, 2)
