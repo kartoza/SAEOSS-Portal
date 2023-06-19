@@ -90,7 +90,7 @@ After having initialized the database you can now create the first CKAN
 sysadmin user.
 
 ```
-docker exec -ti emc-dcpr_ckan-web_1 poetry run ckan sysadmin add admin
+docker exec -ti saeoss_ckan_web_1 poetry run ckan sysadmin add admin
 ```
 
 Answer the prompts in order to provide the details for this new user.
@@ -105,13 +105,13 @@ the ckan image's entrypoint explicitly does not take care of this, as
 mentioned above). Run the following command:
 
 ```
-docker exec -ti emc-dcpr_ckan-web_1 poetry run ckan db init
+docker exec -ti saeoss_ckan_web_1 poetry run ckan db init
 ```
 
 Afterwards, proceed to run any migrations required by the ckanext-dlarrd-emc-dcpr extension
 
 ```
-docker exec -ti emc-dcpr_ckan-web_1 poetry run ckan db upgrade --plugin dalrrd_emc_dcpr
+docker exec -ti saeoss_ckan_web_1 poetry run ckan db upgrade --plugin dalrrd_emc_dcpr
 ```
 
 Now you should be able to go to `http://localhost:5000` and see the ckan
@@ -121,7 +121,7 @@ signal to the gunicorn application server (which is running our ckan
 flask app):
 
 ```
-docker exec -ti emc-dcpr_ckan-web_1 bash -c 'kill -HUP 1'
+docker exec -ti saeoss_ckan_web_1 bash -c 'kill -HUP 1'
 ```
 
 
@@ -131,6 +131,26 @@ In order to be able to serve the system's datasets through various OGC standards
 in order to integrate with pycsw:
 
 ```bash
-docker exec -ti emc-dcpr_ckan-web_1 poetry run ckan dalrrd-emc-dcpr pycsw create-materialized-view
+docker exec -ti saeoss_ckan_web_1 poetry run ckan dalrrd-emc-dcpr pycsw create-materialized-view
 ```
+
+
+#### Ingest a collection of metadata from a given directory (currently CBERS xml files)
+
+create datasets (metadata records) from files stored in a directory
+
+```bash
+docker exec -ti saeoss_ckan_web_1 poetry run ckan saeoss ingest cbers --source-path <path> --user <username>
+```
+
+
+#### Perform STAC Fetch and create datasets from STAC endpoint  
+
+create datasets (metadata records) from stac endpoint
+
+```bash
+docker exec -ti saeoss_ckan_web_1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --max <max_number_of_records>
+```
+
+
 
