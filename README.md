@@ -24,14 +24,14 @@ cd SAEOSS-Portal/docker
 ./build.sh
 ```
 
-Run and down the project
+Start up and Run down the project
 
 ```
 ./compose.py --compose-file docker-compose.yml --compose-file docker-compose.dev.yml up
 ./compose.py --compose-file docker-compose.yml --compose-file docker-compose.dev.yml down
 ```
 
-After running, the project is available on your local host at http://localhost:5000 
+After starting up, the project is available on your local host at http://localhost:5000 
 
 
 ## Operations
