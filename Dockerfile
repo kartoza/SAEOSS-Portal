@@ -57,6 +57,10 @@ ENV PATH="$PATH:/home/appuser/.local/bin" \
 # Only copy the dependencies for now and install them
 WORKDIR /home/appuser/app
 COPY --chown=appuser:appuser pyproject.toml poetry.lock ./
+# as we are adding deps, sometimes the toml is not synced with the lock, this increases the build time
+#sometimes it's better to comment this line, poetry will complain during the build if there is a mismatch
+# betweem the toml and the lock file.
+RUN poetry lock --no-update
 RUN poetry install --no-root --no-dev
 
 EXPOSE 5000

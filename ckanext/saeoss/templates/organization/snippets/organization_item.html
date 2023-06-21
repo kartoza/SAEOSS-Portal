@@ -1,11 +1,11 @@
 {% ckan_extends %}
 
 {# org count is not showing right for non-users #}
-{% set is_user_org_memeber = h.user_is_org_member(organization.id, c.userobj) %}
+{% set is_user_org_memeber = h.user_is_org_member(organization, c.userobj) %}
 {% if is_user_org_memeber == true or c.userobj.sysadmin %}
   {% set package_count = organization.package_count %}
 {% else %}
-  {% set package_count = h.get_org_public_records_count(organization.id) %}
+  {% set package_count = h.get_org_public_records_count(organization) %}
 {% endif %}
 
 {% block item %}
