@@ -116,7 +116,7 @@ def user_is_org_member(
 ) -> bool:
     """Check if user has editor role in the input organization."""
     result = False
-    if user is not None:
+    if user is not None and user!="":
         member_list_action = toolkit.get_action("member_list")
         try:
             org_members = member_list_action(
@@ -124,8 +124,6 @@ def user_is_org_member(
             )
         except:
             return result
-        logger.debug(f"{user.id=}")
-        logger.debug(f"{org_members=}")
         for member_id, _, member_role in org_members:
             if user.id == member_id:
                 if role is None or member_role.lower() == role.lower():
