@@ -61,7 +61,7 @@ COPY --chown=appuser:appuser pyproject.toml poetry.lock ./
 #sometimes it's better to comment this line, poetry will complain during the build if there is a mismatch
 # betweem the toml and the lock file.
 RUN poetry lock --no-update
-RUN poetry install --no-root --no-dev
+RUN poetry install --no-root --no-dev --no-cache
 
 EXPOSE 5000
 
