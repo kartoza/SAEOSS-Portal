@@ -1,5 +1,5 @@
 import typing
-from ckan.logic.schema import default_create_activity_schema
+from ckanext.activity.logic.schema import default_create_activity_schema
 from ckan.plugins import toolkit
 
 from ...constants import (
