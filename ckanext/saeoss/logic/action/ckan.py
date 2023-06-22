@@ -9,7 +9,7 @@ from ckan.model.domain_object import DomainObject
 from ...model.user_extra_fields import UserExtraFields
 from .dataset_versioning_control import handle_versioning
 from .handle_repeating_subfields import handle_repeating_subfields_naming
-from .add_named_url import handle_named_url
+from .add_named_url import populate_dataset_name
 
 import datetime
 
@@ -92,8 +92,9 @@ def package_create(original_action, context, data_dict):
     Intercepts the core `package_create` action to check if package
      is being published after being created.
     """
-    named_url = handle_named_url(data_dict)
-    data_dict["name"] = named_url
+    dataset_name = populate_dataset_name(data_dict, context)
+    data_dict["name"] = dataset_name
+    logger.debug(f"inside package_create action: {data_dict=}")
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 

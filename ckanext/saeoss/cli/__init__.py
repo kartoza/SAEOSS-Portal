@@ -114,3 +114,43 @@ def _to_data_dict(value):
     else:
         result = _to_data_dict(value)
     return result
+
+
+@dataclasses.dataclass
+class StacItem:
+    id: str
+    owner_org: str
+    title: str
+    name: str
+    notes: str
+    responsible_party_individual_name: str
+    responsible_party_role: str
+    responsible_party_position_name: str
+    dataset_reference_date_reference: str
+    dataset_reference_date_reference_date_type: str
+    private: bool
+    metadata_language_and_character_set_dataset_language: str
+    metadata_language_and_character_set_metadata_language: str
+    metadata_language_and_character_set_dataset_character_set: str
+    metadata_language_and_character_set_metadata_character_set: str
+    lineage: str
+    distribution_format_name: str
+    distribution_format_version: str
+    topic_and_sasdi_theme_iso_topic_category: str
+    spatial: str
+    spatial_parameters_spatial_representation_type: str
+    spatial_parameters_spatial_resolution: str
+    spatial_parameters_equivalent_scale: str
+    resources: typing.List    
+    assetlink: str
+
+    def to_data_dict(self) -> typing.Dict:
+        """ creates Dictionary from StacItem object
+            temporarly provides default values
+            for missed sans fields 
+        """
+        
+        pass
+        # for link in item1.links:
+        #     if link.rel == "thumbnail":
+        #         data_dict["resources"].append({"name":link.target,"url":link.target, "format": "jpg", "format_version": "1.0"})

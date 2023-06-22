@@ -12,11 +12,9 @@ import typing
 from concurrent import futures
 from pathlib import Path
 import glob
-from cmath import log
-from datetime import datetime
 from xml.dom.minidom import parse
 import traceback
-import shutil
+#import validators
 import alembic.command
 import alembic.config
 import alembic.util.exc
@@ -28,7 +26,6 @@ from ckan import model
 from ckan.lib.navl import dictization_functions
 from lxml import etree
 from sqlalchemy import text as sla_text
-
 from ckanext.harvest import utils as harvest_utils
 
 from .. import provide_request_context
@@ -60,6 +57,11 @@ from ._cbers import (
     get_spatial_resolution_x,
     get_spatial_resolution_y
 )
+
+from pystac_client import Client
+from pystac import ItemCollection
+
+
 
 logger = logging.getLogger(__name__)
 _xml_parser = etree.XMLParser(resolve_entities=False)
@@ -126,6 +128,11 @@ def delete_data():
 @saeoss.group()
 def extra_commands():
     """Extra commands that are less relevant"""
+
+@saeoss.group()
+def stac():
+    """Commnads related to STAC catalogues"""
+
 
 
 # @saeoss.command()
@@ -931,8 +938,6 @@ def cbers(source_path,
             record_count += 1
 
             try:
-                log_message('', 2)
-                log_message('---------------', 2)
                 # Get the folder name
                 product_folder = os.path.split(cbers_folder)[-1]
                 log_message(product_folder, 2)
@@ -1059,3 +1064,88 @@ def cbers(source_path,
     print('Products imported : %s ' % created_record_count)
     print('Products failed to import : %s ' % failed_record_count)
     print('===============================')
+
+@stac.command()
+@click.option(
+    "--url",
+    help="url of the catalogue",
+)
+@click.option(
+    "--user",
+    help="auhtorized user name to create the dataset",
+)
+@click.option(
+    "--max",
+    help="maximum number of stac items to create datasets from",
+)
+def create_stac_dataset(user, url, max=10):
+    """
+    fetch data from a valid stac catalog
+    and create datasets out of stack items
+    
+    :param user: authorized user name to create the dataset
+    :type user: str
+    
+    :param url: url of the catalogue
+    :type url: str
+
+    todo:
+    1. enchance the resources preview
+    2. remove the filler data
+    3. add proper checks for params (user, url, max)
+    """
+    # following url is used for tests
+    #catalog = Client.open("https://planetarycomputer.microsoft.com/api/stac/v1")
+    # pattern = "^https:\/\/[0-9A-z.]+.[0-9A-z.]+.[a-z]+$"
+    catalog = Client.open(url)
+    collection1 = list(catalog.get_collections())[0]
+    collection_items = collection1.get_items()
+    data_dict = {}
+    # if not validators.parse(url):
+    #     logger.info("url is not valid, exiting")
+    #     return
+    
+    try:
+        max = int(max)
+    except:
+        max = 10
+        logger.info("max is not an integer, setting it to 10")
+    
+    for i in range(max+1):
+        item1 = next(collection_items)
+        data_dict["id"] = catalog.id + item1.id
+        data_dict["title"] = item1.id
+        data_dict["name"] = item1.id
+        # there might or might not be notes, let's take the notes of the catalog for the moment
+        data_dict["notes"] = catalog.description
+        data_dict["responsible_party-0-individual_name"] = "responsible individual name"
+        data_dict["responsible_party-0-role"] = "owner"
+        data_dict["responsible_party-0-position_name"] = "position name"
+        data_dict["dataset_reference_date-0-reference"] = "2022-1-5"
+        data_dict["dataset_reference_date-0-reference_date_type"] = "001"
+        data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
+        data_dict["owner_org"] = "kartoza"
+        data_dict["private"] = False
+        data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
+        data_dict["metadata_language_and_character_set-0-metadata_language"] = "en"
+        data_dict["metadata_language_and_character_set-0-dataset_character_set"] = "utf-8"
+        data_dict["metadata_language_and_character_set-0-metadata_character_set"] = "utf-8"
+        data_dict["lineage"] = "lineage statement"
+        data_dict["distribution_format-0-name"] = "distribution format"
+        data_dict["distribution_format-0-version"] = "1.0"
+        data_dict["spatial"] = item1.bbox
+        data_dict["spatial_parameters-0-equivalent_scale"] = "equivalent scale"
+        data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
+        data_dict["spatial_parameters-0-spatial_reference_system"] = "EPSG:3456"
+        data_dict["metadata_date"] = "metadata"
+        data_dict["resources"] = []
+        for link in item1.links:
+            if link.rel == "thumbnail":
+                data_dict["resources"].append({"name":link.target,"url":link.target, "format": "jpg", "format_version": "1.0"})
+
+        with futures.ThreadPoolExecutor(3) as executor:
+
+            user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
+            logger.debug('stac_item:', str(data_dict))
+            future = executor.submit(utils.create_single_dataset, user, data_dict)
+            logger.debug(future.result())
