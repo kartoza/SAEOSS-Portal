@@ -2,13 +2,7 @@
 
 {% block package_item %}
     {# this is a dcpr request #}
-    {% if 'csi_reference_id' in package %}
-      {% for request in package["datasets"] %}
-        <li class="{{ item_class or "dataset-item" }}">
-          {% snippet 'snippets/dcpr_request_item.html', dataset=request, package=package %}
-        </li>
-      {% endfor %}
-    {% else %}
+    
       <li class="{{ item_class or "dataset-item" }}">
         {% block content %}
           {% set date_string = package['metadata_modified']|string %}
@@ -33,32 +27,6 @@
                         </span>
                       {% endif %}
                     {% endblock %}
-
-                    {% block dcpr %}
-                      {% if h.is_dcpr_request(package) %}
-                        <span class="dataset-dcpr label label-default pull-right">
-                            <i class="fa"></i>
-                            {{ _('DCPR') }}
-                        </span>
-                        <br>
-                        {% set action = h.get_dcpr_request_action(package) %}
-                        {% if action == "ACCEPT" %}
-                        <span class="dataset-dcpr label label-success pull-right"
-                            title="Metadata record is from an approved DCPR request">
-                          <i class="fa"></i>
-                          {{ _('Accepted') }}
-                        </span>
-                        {% else %}
-                        <span class="dataset-dcpr label label-danger pull-right"
-                            title="Metadata record is from a rejected DCPR request">
-                          <i class="fa"></i>
-                          {{ _('Rejected') }}
-                        </span>
-                        {% endif %}
-                      {% endif %}
-
-                    {% endblock %}
-
                     {% block heading_meta %}
                       {% if package.get('state', '').startswith('draft') %}
                         <span class="label label-info">{{ _('Draft') }}</span>
@@ -104,5 +72,5 @@
           </div>
         {% endblock %}
       </li>
-  {% endif %}
+  
 {% endblock %}

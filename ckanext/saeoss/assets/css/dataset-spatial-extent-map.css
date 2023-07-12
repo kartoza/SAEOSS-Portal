@@ -21,3 +21,7 @@
 .contact-title{
     color: #2e9aff;
 }
+
+.mapboxgl-ctrl-top-right, .maplibregl-ctrl-top-right{
+  margin-top: 80px;
+}

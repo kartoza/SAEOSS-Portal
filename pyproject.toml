@@ -62,7 +62,7 @@ pytz = "2021.1"
 PyUtilib = "6.0.0"
 pyyaml = "5.4.1"
 "repoze.who" = "2.3"
-requests = "2.25.1"
+requests = "2.27.1"
 Routes = "1.13"
 rq = "1.9.0"
 simplejson = "3.17.2"
@@ -104,11 +104,12 @@ ckanext-geoview = {git = "https://github.com/ckan/ckanext-geoview.git", rev = "v
 
 gunicorn = "^20.1.0"
 Flask-DebugToolbar = "^0.11.0"
-ckanext-scheming = {git = "https://github.com/ckan/ckanext-scheming.git", rev = "79270b1"}
+ckanext-scheming = {git = "https://github.com/ckan/ckanext-scheming.git", rev = "4347d67"}
 ckanext-pages = {git = "https://github.com/ckan/ckanext-pages.git", rev = "v0.3.4"}
 httpx = "^0.22.0"
 python-slugify = "^6.1.1"
 langcodes = {git = "https://github.com/rspeer/langcodes.git", rev = "v3.2.1"}
+pystac-client = "0.6.1"
 
 
 [tool.poetry.dev-dependencies]

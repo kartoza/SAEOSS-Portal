@@ -22,6 +22,16 @@ dataset-spatial-extent-map-js:
       - base/main
       - ckanext-saeoss/vendorized-leaflet-geoman-js
 
+web-mapping-js:
+  output: ckanext-saeoss/%(version)s_webMapping.js
+  contents:
+    - js/map.js
+  filter: rjsmin
+  extra:
+    preload:
+      - base/main
+      - ckanext-saeoss/vendorized-leaflet-geoman-js
+
 dataset-spatial-extent-map-css:
   output: ckanext-saeoss/%(version)s_datasetSpatialExtentMap.css
   contents:
@@ -31,10 +41,11 @@ dataset-spatial-extent-map-css:
     preload:
       - ckanext-saeoss/vendorized-leaflet-geoman-css
 
+
 dcpr-request-datasets-js:
   output: ckanext-saeoss/%(version)s_dcprRequestDatasets.js
   contents:
-    - js/dcprRequestDatasets.js
+    - js/saeossRequestDatasets.js
   filter: rjsmin
   extra:
     preload:
@@ -43,7 +54,7 @@ dcpr-request-datasets-js:
 remove-dcpr-request-datasets-js:
   output: ckanext-saeoss/%(version)s_removeDcprRequestDatasets.js
   contents:
-    - js/removeDcprRequestDatasets.js
+    - js/removeSAEOSSDatasets.js
   filter: rjsmin
   extra:
     preload:
@@ -55,10 +66,10 @@ ckan-base-css:
     - css/main.css
   filter: cssrewrite
 
-dalrrd-emc-dcpr-css:
-  output: ckanext-saeoss/%(version)s_dalrrd_emc_dcpr.css
+saeoss-css:
+  output: ckanext-saeoss/%(version)s_saeoss.css
   contents:
-    - css/dalrrd-emc-dcpr.css
+    - css/saeoss.css
   filter: cssrewrite
 
 temporal-query-js:

@@ -15,8 +15,6 @@ from ckan.logic import NotAuthorized
 
 from . import constants
 from .logic.action.saeoss import show_version
-from .constants import DCPRRequestStatus
-from .model.dcpr_request import DCPRRequest
 
 from ckan.common import c
 from ckan.lib.dictization.model_dictize import package_dictize
@@ -26,15 +24,15 @@ from ckan.lib.dictization import table_dictize
 logger = logging.getLogger(__name__)
 
 
-def get_saeoss_themes(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
-    logger.debug(f"inside get_saeoss_themes {args=} {kwargs=}")
-    try:
-        saeoss_themes = toolkit.get_action("tag_list")(
-            data_dict={"vocabulary_id": constants.SAEOSS_THEMES_VOCABULARY_NAME}
-        )
-    except toolkit.ObjectNotFound:
-        saeoss_themes = []
-    return [{"value": t, "label": t} for t in saeoss_themes]
+# def get_saeoss_themes(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
+#     logger.debug(f"inside get_saeoss_themes {args=} {kwargs=}")
+#     try:
+#         saeoss_themes = toolkit.get_action("tag_list")(
+#             data_dict={"vocabulary_id": constants.SAEOSS_THEMES_VOCABULARY_NAME}
+#         )
+#     except toolkit.ObjectNotFound:
+#         saeoss_themes = []
+#     return [{"value": t, "label": t} for t in saeoss_themes]
 
 
 def get_iso_topic_categories(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
@@ -249,7 +247,7 @@ def get_all_datasets_count(user_obj):
     """
     fixes a bug when applying
     solr active search
-    https://github.com/kartoza/ckanext-dalrrd-emc-dcpr/issues/116
+
     """
     # context = {"user":c.user, "auth_user_obj":c.userobj}
     # return len(packages)
@@ -289,8 +287,6 @@ def get_org_public_records_count(org_id: str) -> int:
 def get_datasets_thumbnail(data_dict):
     """
     Generate thumbnails based on metadataset
-    https://github.com/kartoza/ckanext-dalrrd-emc-dcpr/issues/400
-    https://github.com/kartoza/ckanext-dalrrd-emc-dcpr/issues/399
     """
     data_thumbnail = "https://www.linkpicture.com/q/Rectangle-55.png"
     if data_dict.get("metadata_thumbnail"):
@@ -317,60 +313,6 @@ def _pad_geospatial_extent(extent: typing.Dict, padding: float) -> typing.Dict:
     return geometry.mapping(oriented_padded)
 
 
-def get_status_labels() -> typing.Dict:
-    """Get status labels for the DCPR requests"""
-    status_labels = {
-        constants.DCPRRequestStatus.UNDER_PREPARATION.value: (
-            toolkit._("Under preparation"),
-            "info",
-        ),
-        constants.DCPRRequestStatus.AWAITING_NSIF_REVIEW.value: (
-            toolkit._("Waiting for NSIF review"),
-            "info",
-        ),
-        constants.DCPRRequestStatus.AWAITING_CSI_REVIEW.value: (
-            toolkit._("Waiting for CSI review"),
-            "info",
-        ),
-        constants.DCPRRequestStatus.ACCEPTED.value: (toolkit._("Accepted"), "success"),
-        constants.DCPRRequestStatus.REJECTED.value: (toolkit._("Rejected"), "danger"),
-    }
-
-    return status_labels
-
-
-def get_next_intermediate_dcpr_status(current_status: str) -> typing.Optional[str]:
-    workflow_order = [
-        DCPRRequestStatus.UNDER_PREPARATION,
-        DCPRRequestStatus.AWAITING_NSIF_REVIEW,
-        DCPRRequestStatus.UNDER_NSIF_REVIEW,
-        DCPRRequestStatus.AWAITING_CSI_REVIEW,
-        DCPRRequestStatus.UNDER_CSI_REVIEW,
-    ]
-    result = None
-    try:
-        current_index = workflow_order.index(DCPRRequestStatus(current_status))
-        try:
-            next_status = workflow_order[current_index + 1]
-            result = next_status.value
-        except IndexError:
-            # current_index + 1 is out of bounds for the workflow_list
-            pass
-    except ValueError:
-        # input status is not present in the workflow_order list
-        pass
-    return result
-
-
-def user_is_dcpr_request_owner(user_id, dcpr_request_id) -> bool:
-    request_obj = DCPRRequest.get(dcpr_request_id)
-    if request_obj is not None:
-        result = user_id == request_obj.owner_user
-    else:
-        result = False
-    return result
-
-
 def get_org_memberships(user_id: str):
     """Return a list of organizations and roles where the input user is a member"""
     query = (
@@ -385,104 +327,6 @@ def get_org_memberships(user_id: str):
         .order_by(model.Group.name)
     )
     return query.all()
-
-
-def get_public_dcpr_requests_count():
-    """
-    used by the dcpr facet
-    """
-    public_requests = toolkit.get_action("dcpr_request_list_public")(
-        {"context": {"auth_user_obj": c.userobj}, "data_dict": {}}
-    )
-    return len(public_requests)
-
-
-def get_my_dcpr_requests_count():
-    """
-    used by the dcpr facet
-    """
-    try:
-        my_requests = toolkit.get_action("my_dcpr_request_list")(
-            {"context": {"auth_user_obj": c.userobj}, "data_dict": {}}
-        )
-    except NotAuthorized:
-        return ""
-
-    return len(my_requests)
-
-
-def get_under_preparation_dcpr_requests_count():
-    """
-    used by the dcpr facet
-    """
-    try:
-        requests = toolkit.get_action("dcpr_request_list_under_preparation")(
-            {"context": {"auth_user_obj": c.userobj}, "data_dict": {}}
-        )
-    except NotAuthorized:
-        return ""
-
-    return len(requests)
-
-
-def get_dcpr_requests_awaiting_csi_moderation_count():
-    """
-    used by the dcpr facet
-    """
-    try:
-        requests = toolkit.get_action("dcpr_request_list_awaiting_csi_moderation")(
-            {"context": {"auth_user_obj": c.userobj}, "data_dict": {}}
-        )
-    except NotAuthorized:
-        return ""
-
-    return len(requests)
-
-
-def get_dcpr_requests_awaiting_nsif_moderation_count():
-    """
-    used by the dcpr facet
-    """
-    try:
-        requests = toolkit.get_action("dcpr_request_list_awaiting_nsif_moderation")(
-            {"context": {"auth_user_obj": c.userobj}, "data_dict": {}}
-        )
-    except NotAuthorized:
-        return ""
-
-    return len(requests)
-
-
-def get_dcpr_requests_approved_by_nsif(request_origin):
-    """
-    this feature required by the nsif team,
-    as soon as the dcpr_request approved by
-    the nsif, it should appear in emc search
-    page.
-    """
-    # if the request awaits for csi, it already passed nsif
-    # do to authorization, i had to add a request_oring
-    # thus if it's coming from dataset it won't be checked
-    # at first stage, but when a user tries to access the
-    # request.
-    dcpr_requests_approved_by_nsif = toolkit.get_action(
-        "dcpr_request_list_awaiting_csi_moderation"
-    )({"request_origin": request_origin})
-    return dcpr_requests_approved_by_nsif
-
-
-def is_dcpr_request(package):
-    for extra in package.get("extras") or []:
-        if extra.get("key") == "origin" and extra.get("value") == "DCPR":
-            return True
-    return False
-
-
-def get_dcpr_request_action(package):
-    for extra in package.get("extras") or []:
-        if extra.get("key") == "action" and extra.get("value") == "APPROVE":
-            return "ACCEPT"
-    return "REJECT"
 
 
 def mod_scheming_flatten_subfield(subfield, data):
@@ -618,7 +462,7 @@ def get_user_name(user_id):
 
 def get_user_id(user_name: str):
     """
-    gets user id from it's name (the name is also unique)
+    gets user id from its name (the name is also unique)
     """
     user_obj = model.Session.query(model.User).filter_by(name=user_name).first()
     return user_obj.id
@@ -679,12 +523,9 @@ def get_user_dashboard_packages(user_id):
     user, we need only the datasets
     created by the user
     """
-    # q = f""" select package.*, key, value from package join package_extra on package_id=package.id where package.creator_user_id='{user_id}' """
-    # rows = model.Session.execute(q)
-    # packages = []
-    # for row in rows:
-    #     packages.append(dict(row))
-    # return packages
+    # q = f""" select package.*, key, value from package join package_extra on package_id=package.id where
+    # package.creator_user_id='{user_id}' """ rows = model.Session.execute(q) packages = [] for row in rows:
+    # packages.append(dict(row)) return packages
     query = model.Session.query(model.Package).filter(
         model.Package.creator_user_id == user_id
     )

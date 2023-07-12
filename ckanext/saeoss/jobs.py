@@ -1,4 +1,4 @@
-"""Asynchronous jobs for EMC-DCPR"""
+"""Asynchronous jobs for SAEOSS portal"""
 
 import logging
 import typing

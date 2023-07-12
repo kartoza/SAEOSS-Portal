@@ -1,0 +1,23 @@
+{% extends 'page.html' %}
+
+{% block subtitle %}Map{% endblock %}
+
+{% block scripts %}
+    <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
+    {% asset "ckanext-saeoss/web-mapping-js" %}
+{% endblock %}
+
+{% set map_config = h.get_common_map_config() %}
+{% set default_bounding_box = h.default_bounding_box() %}
+
+{% block content %}
+    <div class="web-mapping" data-module="saeossWebMapping" data-module-map-config="{{ h.dump_json(map_config) }}"
+            data-module-default-extent="{{ default_bounding_box }}">
+    <div class="map" id="map"></div>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+

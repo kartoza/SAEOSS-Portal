@@ -12,26 +12,7 @@ from ckan.lib.navl.dictization_functions import (
 from ckantoolkit import get_validator
 
 ignore_missing = get_validator("ignore_missing")
-
-from ..constants import DcprRequestModerationAction
-
 logger = logging.getLogger(__name__)
-
-
-def dcpr_moderation_choices_validator(value: str):
-    choices = [
-        DcprRequestModerationAction.APPROVE.value,
-        DcprRequestModerationAction.REJECT.value,
-        DcprRequestModerationAction.REQUEST_CLARIFICATION.value,
-    ]
-    if value not in choices:
-        raise toolkit.Invalid(toolkit._(f"Value must be one of {', '.join(choices)}"))
-    return value
-
-
-def dcpr_end_date_after_start_date_validator(key, flattened_data, errors, context):
-    """Validator that checks that start and end dates are consistent"""
-    logger.debug(f"{flattened_data=}")
 
 
 def to_date_after_from_date_validator(key, flattened_data, errors, context):

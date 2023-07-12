@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<data>
+	<productId>19418</productId>
+	<sceneId>18618</sceneId>
+	<satelliteId>CB04</satelliteId>
+	<sensorId>MUX</sensorId>
+	<recStationId>SAC</recStationId>
+	<productDate>2015-10-22 12:11:26</productDate>
+	<productLevel>LEVEL2</productLevel>
+	<pixelSpacing>20.000</pixelSpacing>
+	<productType>Standard</productType>
+	<sceneCount>1</sceneCount>
+	<sceneShift>0</sceneShift>
+	<overallQuality>9</overallQuality>
+	<satPath>93</satPath>
+	<satRow>119</satRow>
+	<satPathbias></satPathbias>
+	<satRowbias></satRowbias>
+	<scenePath>93</scenePath>
+	<sceneRow>119</sceneRow>
+	<scenePathbias></scenePathbias>
+	<sceneRowbias></sceneRowbias>
+	<direction>D</direction>
+	<sunElevation>66.008</sunElevation>
+	<sunAzimuthElevation>259.533</sunAzimuthElevation>
+	<sceneDate>2015-10-22 09:30:10.52</sceneDate>
+	<sceneTime>372591010.525076</sceneTime>
+	<instrumentMode>IMGMODE</instrumentMode>
+	<imagingStartTime>2015-10-22 09:30:01.60</imagingStartTime>
+	<imagingStopTime>2015-10-22 09:30:19.44</imagingStopTime>
+	<gain>1.590000,1.590000,1.590000,1.590000</gain>
+	<satOffNadir>0.000</satOffNadir>
+	<mirrorOffNadir>0.000</mirrorOffNadir>
+	<bands>1,2,3,4</bands>
+	<absCalibType>(gain2,Labdata,L=DN*g,W*m^(-2)*sr^(-1)*um^(-1))B1: 0.626647, B2:0.653898, B3: 0.647728, B4: 0.498509</absCalibType>
+	<mtfcProMode>None</mtfcProMode>
+	<radioMatricMethod>StatData</radioMatricMethod>
+	<addWindow>Bartlett</addWindow>
+	<correctPhase>MertZ</correctPhase>
+	<reconstructProcess>FFT</reconstructProcess>
+	<earthModel>WGS_84</earthModel>
+	<mapProjection>UTM</mapProjection>
+	<resampleTechnique>BL</resampleTechnique>
+	<productOrientation>MAP</productOrientation>
+	<ephemerisData>GPS</ephemerisData>
+	<attitudeData>AOCS</attitudeData>
+	<sceneCenterLat>-16.988857</sceneCenterLat>
+	<sceneCenterLong>13.328839</sceneCenterLong>
+	<zone>33S</zone>
+	<dataUpperLeftLat>-16.388495</dataUpperLeftLat>
+	<dataUpperLeftLong>12.887303</dataUpperLeftLong>
+	<dataUpperRightLat>-16.561332</dataUpperRightLat>
+	<dataUpperRightLong>14.009317</dataUpperRightLong>
+	<dataLowerLeftLat>-17.414332</dataLowerLeftLat>
+	<dataLowerLeftLong>12.644440</dataLowerLeftLong>
+	<dataLowerRightLat>-17.588145</dataLowerRightLat>
+	<dataLowerRightLong>13.772896</dataLowerRightLong>
+	<productUpperLeftLat>-16.386057</productUpperLeftLat>
+	<productUpperLeftLong>12.657179</productUpperLeftLong>
+	<productUpperRightLat>-16.396779</productUpperRightLat>
+	<productUpperRightLong>14.010153</productUpperRightLong>
+	<productLowerLeftLat>-17.577894</productLowerLeftLat>
+	<productLowerLeftLong>12.642331</productLowerLeftLong>
+	<productLowerRightLat>-17.589444</productLowerRightLat>
+	<productLowerRightLong>14.003874</productLowerRightLong>
+	<dataUpperLeftX>274357.877743</dataUpperLeftX>
+	<dataUpperLeftY>8186916.538386</dataUpperLeftY>
+	<dataUpperRightX>394301.811484</dataUpperRightX>
+	<dataUpperRightY>8168711.082595</dataUpperRightY>
+	<dataLowerLeftX>249765.777220</dataLowerLeftX>
+	<dataLowerLeftY>8073068.484446</dataLowerLeftY>
+	<dataLowerRightX>369789.141245</dataLowerRightX>
+	<dataLowerRightY>8054958.150329</dataLowerRightY>
+	<productUpperLeftX>249765.777220</productUpperLeftX>
+	<productUpperLeftY>8186916.538386</productUpperLeftY>
+	<productUpperRightX>394301.811484</productUpperRightX>
+	<productUpperRightY>8186916.538386</productUpperRightY>
+	<productLowerLeftX>249765.777220</productLowerLeftX>
+	<productLowerLeftY>8054958.150329</productLowerLeftY>
+	<productLowerRightX>394301.811484</productLowerRightX>
+	<productLowerRightY>8054958.150329</productLowerRightY>
+	<isSimulateData>N</isSimulateData>
+	<dataFormatDes>GEOTIFF</dataFormatDes>
+	<delStatus>0</delStatus>
+	<dataTempDir>/DPS/ProData/MUX/LEVEL2/19418/</dataTempDir>
+	<dataArchiveDir></dataArchiveDir>
+	<browseArchiveDir></browseArchiveDir>
+	<browseDirectory></browseDirectory>
+	<browseFileLocation></browseFileLocation>
+</data>
+</root>

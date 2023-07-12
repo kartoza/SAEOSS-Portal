@@ -14,6 +14,6 @@
     <li{{ self.breadcrumb_content_selected() }}>{% link_for dataset|truncate(30), named_route=pkg.type ~ '.read', id=pkg.id if is_activity_archive else pkg.name %}</li>
   {% else %}
     <li>{% link_for _(dataset_type.title()), named_route=dataset_type ~ '.search' %}</li>
-    <li class="active"><a href="">{{ _('Create Metadata Record') }}</a></li>
+    <li class="active"><a href="">{{ _('Create Metadata') }}</a></li>
   {% endif %}
 {% endblock %}

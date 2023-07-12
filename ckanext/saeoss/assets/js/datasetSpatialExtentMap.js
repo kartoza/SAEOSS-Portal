@@ -6,7 +6,7 @@
 *
 * */
 var LeafletMapFromExtentModule
-ckan.module("emcDatasetSpatialExtentMap", function(jQuery, _){
+ckan.module("saeossDatasetSpatialExtentMap", function(jQuery, _){
     return {
         options: {
             i18n: {
@@ -32,7 +32,7 @@ ckan.module("emcDatasetSpatialExtentMap", function(jQuery, _){
 
 
             // console.log(
-            //     `Hi there, I'm running inside the emcDatasetSpatialExtentMap module. ` +
+            //     `Hi there, I'm running inside the saeossDatasetSpatialExtentMap module. ` +
             //     `Oh, and my bound element is ${this.el} and the Jinja template passed me this as the default extent: ${this.options.defaultExtent}`
             // )
 
