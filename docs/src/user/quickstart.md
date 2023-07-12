@@ -1,4 +1,4 @@
-# SANBI SAWPS Quickstart
+# SAEOSS-Portal Quickstart
 
 ## Accessing the Platform
 <!-- Link to platform + landing page -->
