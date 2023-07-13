@@ -46,9 +46,10 @@ nav:
                   - Instructions: user/instructions.md
                   - User Roles: user/permissions.md
         - Admin:
-                  - Admin: admin/index.md
+                  - Opening issues: admin/opening_issues.md
+                  - Get staging version of production: admin/staging_version.md
+
         - Developer:
-                  - Developer: developer/index.md
                   - Narrative: developer/narrative.md
                   - Code Auto docs: developer/code_auto_docs.md
                   - Contribution Guidelines: developer/contribution_guidelines.md
@@ -61,7 +62,6 @@ nav:
 
 
         - DevOps:
-                  - DevOps: devops/index.md
                   - Containers Used: devops/containers_used.md
         - About:
                   - About: about/index.md
