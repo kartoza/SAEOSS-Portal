@@ -66,3 +66,7 @@ extra_javascript:
 
 plugins:
   - search
+  - mkdocstrings:
+        handlers:
+          python:
+            paths: [../ckanext]

@@ -7,7 +7,7 @@ Developer documentation will be created and generated using <a href="https://mkd
 ## Install mkdocs
 
 - Open the terminal
-- Run "pip install mkdocs"
+- Run `pip install mkdocs`
 - This should install mkdocs and all requirements
 
 ## Creating a new project
@@ -16,7 +16,7 @@ This should not be required as the mkdocs has been created already, but serves m
 a user whom are new to mkdocs.
 
 - Open the terminal
-- Run "mkdocs new ."
+- Run `mkdocs new .`
 - This will generate the documents folder with the home page index markdown file
 
 ## Updating the mkdocs.yml file
@@ -31,7 +31,7 @@ Other options, such as the themes, plugins and extensions, should require no cha
 Here is an explanation on how the **nav** should be updated:
 
 - It is important to keep to the structure of the mkdocs
-- Each section focusses on a particular aspect, for example **User** will provide information on installing
+- Each section focuses on a particular aspect, for example **User** will provide information on installing
   the plugin, a guide on how to use the plugin, etc.
 - The order in which the **nav** is structured will determine the tabs order on the site, as shown in **Figure 2**
 
@@ -53,13 +53,13 @@ Here is an explanation on how the **nav** should be updated:
 
 ## mkdocstrings
 
-This is an important aspect of documenting code. Using mkdocstrings is an easy and effective way of keeping
+This is an important aspect of documenting code. Using **mkdocstrings** is an easy and effective way of keeping
 track of classes, functions, etc. Any changes to the code will automatically update here, but the developer
 needs to make the changes in the code (comments) for this to happen.
 
 The comments for mkdocstrings is three sections:
 
-- Description: A description on what the function does. A destailed description are welcome
+- Description: A description on what the function does. A detailed description are welcome
 - Args: List of parameters for the function. Type and description should be included
 - Returns: A list of values which the function would return. Type should be included, with a description
 
@@ -98,7 +98,7 @@ This step is useful when making changes and the user wants to test and review th
 before creating a pull request.
 
 - Open the terminal
-- Run "mkdocs serve"
+- Run `mkdocs serve`
 - **Figure 4** shows an example of the result
 
 ![Documentation mkdocs serve](../img/documentation/mkdocs-serve-console.png)
@@ -137,4 +137,4 @@ Only a user with admin rights to the repository will be able to do this.
 - Select the action
 - Select **Deploy**
 - Open the Run mkdocs gh-deploy section
-- The URL should be https://kartoza.github.io/SAEOSS-Portal/
+- The URL should be [https://kartoza.github.io/SAEOSS-Portal/](https://github.com/kartoza/SAEOSS-Portal/issues/23)
