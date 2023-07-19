@@ -1,6 +1,8 @@
 # SAEOSS-Portal
 The SAEOSS Portal has been proposed as a system of software components functioning together as the national central earth observation geospatial repository, with a view to metadata and open geospatial API standards compliance as well as user impact maximization 
 
+# Documentation:
+Preliminary documentation for the SAOSS-Portal can be accessed [here](https://kartoza.github.io/SAEOSS-Portal/about/). The documentation is still a WIP and will be updated on a regular basis as the platform is being developed.
 
 # Deployment
 This project is deployed onto following environment:
