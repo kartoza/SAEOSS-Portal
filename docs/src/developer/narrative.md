@@ -1,23 +1,13 @@
-# SAEOSS-Portal
-The SAEOSS Portal has been proposed as a system of software components functioning together as the national central earth observation geospatial repository, with a view to metadata and open geospatial API standards compliance as well as user impact maximization 
+## Setting up a dev env
 
-# Documentation:
-Preliminary documentation for the SAOSS-Portal can be accessed [here](https://kartoza.github.io/SAEOSS-Portal/about/). The documentation is still a WIP and will be updated on a regular basis as the platform is being developed.
+### 👩‍💻 Getting source code
 
-# Deployment
-This project is deployed onto following environment:
+```
+git clone https://github.com/kartoza/SAEOSS-Portal.git
+```
 
-- Testing: TBD
-- Staging: TBD
-- Production: TBD
-
-# Quick Installation Guide
+### Quick Installation Guide
 This project is a [ckan](https://ckan.org/) extension, it can be installed standalone. To deploy this project we use  [docker,](http://docker.com/) so you need to have docker running on the host.
-
-Clone the source cose
-```
-git clone git@github.com:kartoza/SAEOSS-Portal.git
-```
 
 Build docker images
 
@@ -36,7 +26,7 @@ Start up and Run down the project
 After starting up, the project is available on your local host at http://localhost:5000 
 
 
-## Operations
+### Operations
 
 #### Rebuild solr index
 
@@ -154,5 +144,11 @@ create datasets (metadata records) from stac endpoint
 docker exec -ti saeoss_ckan_web_1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --max <max_number_of_records>
 ```
 
+## Architecture
+
+### High-level System Architecture
+
+### Date Model
 
 
+## Workflow

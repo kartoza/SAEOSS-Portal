@@ -1,0 +1,72 @@
+site_name: SAEOSS-Portal
+site_description: "The SAEOSS Portal has been proposed as a system of software components functioning together
+ as the national central earth observation geospatial repository, with a view to metadata and open 
+ geospatial API standards compliance as well as user impact maximization."
+site_author: "Kartoza"
+docs_dir: ./src
+site_dir: ./site
+repo_name: "SAEOSS-Portal"
+repo_url: "https://github.com/kartoza/SAEOSS-Portal"
+edit_uri: "https://github.com/kartoza/SAEOSS-Portal/blob/main/docs/"
+
+copyright: Kartoza and Contributors
+
+markdown_extensions:
+        - pymdownx.highlight:
+                  anchor_linenums: true
+        - pymdownx.inlinehilite
+        #- mdx_truly_sane_lists
+        - toc:
+                  permalink: true
+                   #slugify: !!python/name:pymdownx.slugs.slugify
+        - pymdownx.snippets:
+                  base_path: .
+        - admonition
+        - tables
+        - pymdownx.details
+        - pymdownx.caret
+        - pymdownx.keys
+        - pymdownx.mark
+        - pymdownx.tilde
+        - pymdownx.superfences:
+                  custom_fences:
+                          - name: mermaid
+                            class: mermaid
+                            format: !!python/name:pymdownx.superfences.fence_code_format
+        - pymdownx.emoji:
+                  emoji_generator: !!python/name:materialx.emoji.to_svg
+                  emoji_index: !!python/name:materialx.emoji.twemoji
+
+
+nav:
+        - Home:
+                  - Home: index.md
+                  - License: license.md
+        - User:
+                  - Quickstart: user/quickstart.md
+                  - Instructions: user/instructions.md
+                  - User Roles: user/permissions.md
+        - Admin:
+                  - Opening issues: admin/opening_issues.md
+                  - Get staging version of production: admin/staging_version.md
+
+        - Developer:
+                  - Narrative: developer/narrative.md
+                  - Code Auto docs: developer/code_auto_docs.md
+                  - Contribution Guidelines: developer/contribution_guidelines.md
+                  - How to make docs: developer/make_docs.md
+                  - Design: developer/design.md
+                  - How to run instances: developer/run_instances.md
+                  - How to test local instance: developer/test_local.md
+                  - License: license.md
+
+
+
+        - DevOps:
+                  - Containers Used: devops/containers_used.md
+        - About:
+                  - About: about/index.md
+                  - License: about/license.md
+                  - Contributors: about/contributors.md
+                  - Funders: about/funders.md
+                  - Logos: about/logos.md
