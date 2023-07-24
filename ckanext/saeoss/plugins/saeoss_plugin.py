@@ -45,7 +45,6 @@ from ..logic.auth import saeoss as saeoss_auth
 from ..model.user_extra_fields import UserExtraFields
 
 import ckanext.saeoss.plugins.utils as utils
-
 logger = logging.getLogger(__name__)
 
 
@@ -61,6 +60,9 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPluginObserver)
+
+    def group_form(self):
+        pass
 
     def before_load(self, plugin_class):
         """IPluginObserver interface requires reimplementation of this method."""
@@ -333,6 +335,18 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         return facets_dict
 
     def group_facets(
+        self, facets_dict: typing.OrderedDict, group_type: str, package_type: str
+    ) -> typing.OrderedDict:
+        """IFacets interface requires reimplementation of all facets-related methods
+
+        In this case we do not really need to override this method, but need to satisfy
+        IFacets.
+
+        """
+
+        return facets_dict
+    
+    def organization_facets(
         self, facets_dict: typing.OrderedDict, group_type: str, package_type: str
     ) -> typing.OrderedDict:
         """IFacets interface requires reimplementation of all facets-related methods
