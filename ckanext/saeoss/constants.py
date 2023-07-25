@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+"""The constants variables"""
+
 import enum
 import typing
 

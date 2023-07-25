@@ -1,4 +1,8 @@
-"""WSGI application for running the CKAN project"""
+# -*- coding: utf-8 -*-
+
+"""WSGI application for running the CKAN project
+
+"""
 
 import os
 from logging.config import fileConfig as loggingFileConfig
