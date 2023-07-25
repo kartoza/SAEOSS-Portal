@@ -3,8 +3,15 @@
 {% block subtitle %}Map{% endblock %}
 
 {% block scripts %}
+    <!-- jQuery --> 
+    <script
+  src="https://code.jquery.com/jquery-3.7.0.min.js"
+  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+  crossorigin="anonymous"></script>
     <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
     <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
+    <!-- Select2 JS --> 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     {% asset "ckanext-saeoss/web-mapping-js" %}
 {% endblock %}
 
@@ -12,10 +19,46 @@
 {% set default_bounding_box = h.default_bounding_box() %}
 
 {% block content %}
-    <div class="web-mapping" data-module="saeossWebMapping" data-module-map-config="{{ h.dump_json(map_config) }}"
-            data-module-default-extent="{{ default_bounding_box }}">
-    <div class="map" id="map"></div>
+
+
+
+<style>
+    #features {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 50%;
+        overflow: auto;
+        background: rgba(255, 255, 255, 0.8);
+    }
+</style>
+    
+    <div>
+        <div class="search">
+            <div class="form-group">
+                <label>Please select a collection to view</label>
+                <br>
+                <div id="collectionSelectionMain">
+                    <select id="collectionSelection" style="width: 100%;">
+                    </select>
+                </div>
+                <div id="loadCollection" class="load-wrapp" style="display: none;">
+                    <div class="load-3">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="web-mapping"  data-module="saeossWebMapping" data-module-map-config="{{ h.dump_json(map_config) }}"
+                data-module-default-extent="{{ default_bounding_box }}">
+            <div class="map" id="map"></div>
+            <!-- <pre id="features"></pre> -->
+        </div>
     </div>
+
 {% endblock %}
 {% block footer %}
 {% endblock %}

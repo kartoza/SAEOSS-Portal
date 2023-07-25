@@ -67,7 +67,7 @@ services:
     <<: *partial-ckan-volumes
     command: [
       "launch-ckan-cli",
-      "dalrrd-emc-dcpr",
+      "saeoss",
       "extra-commands",
       "harvesting-dispatcher",
       "--post-run-delay-seconds",
@@ -107,7 +107,7 @@ services:
     <<: *partial-ckan-volumes
     command: [
       "launch-ckan-cli",
-      "dalrrd-emc-dcpr",
+      "saeoss",
       "extra-commands",
       "refresh-pycsw-materialized-view",
       "--post-run-delay-seconds",
