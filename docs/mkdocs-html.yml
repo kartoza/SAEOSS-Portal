@@ -67,6 +67,15 @@ extra_javascript:
 plugins:
   - search
   - mkdocstrings:
-        handlers:
-          python:
-            paths: [..]
+      handlers:
+        python:
+          paths: [..]
+          import:
+            - https://docs.python.org/3/objects.inv
+            - https://mkdocstrings.github.io/autorefs/objects.inv
+          options:
+            docstring_style: sphinx
+            separate_signature: true
+            merge_init_into_class: true
+            docstring_options:
+              ignore_init_summary: true
