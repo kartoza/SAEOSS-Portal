@@ -57,10 +57,26 @@ nav:
                       - High-level System Architecture: developer/system_architecture.md
                       - Data Model: developer/data_model.md
                   - Docs:
-                        - Code Auto docs: developer/code_auto_docs.md
-                        - How to make docs:
-                                          - Adding to docs: developer/make_docs.md
-                                          - Generating PDFs and static website: developer/make_docs.md
+                      - Code Auto docs:
+                          - assets: developer/code_auto_docs.md
+                          - blueprints: developer/blueprints.md
+                          - cli: developer/cli.md
+                          - logic: developer/logic.md
+                          - migration: developer/migration.md
+                          - model: developer/model.md
+                          - plugins: developer/plugins.md
+                          - public: developer/public.md
+                          - scheming: developer/scheming.md
+                          - templates: developer/templates.md
+                          - constants: developer/constants.md
+                          - email notification: developer/email_notification.md
+                          - get releases: developer/get_releases.md
+                          - helpers: developer/helpers.md
+                          - jobs: developer/jobs.md
+                          - wsgi: developer/wsgi.md
+                      - How to make docs:
+                          - Adding to docs: developer/make_docs.md
+                          - Generating PDFs and static website: developer/make_docs.md
                   - Developer Reference Manual:
                         - mkdocs generate content: developer/contribution_guidelines.md
                         - Setting up a dev env: developer/narrative.md
@@ -69,39 +85,12 @@ nav:
                         - Project SCRUM board : developer/project_scrum_board.md
                         - How to test local instance: developer/test_local.md
                         - License: license.md
-                  - Code Auto docs:
-                      - assets: developer/code_auto_docs.md
-                      - blueprints: developer/blueprints.md
-                      - cli: developer/cli.md
-                      - logic: developer/logic.md
-                      - migration: developer/migration.md
-                      - model: developer/model.md
-                      - plugins: developer/plugins.md
-                      - public: developer/public.md
-                      - scheming: developer/scheming.md
-                      - templates: developer/templates.md
-                      - constants: developer/constants.md
-                      - email notification: developer/email_notification.md
-                      - get releases: developer/get_releases.md
-                      - helpers: developer/helpers.md
-                      - jobs: developer/jobs.md
-                      - wsgi: developer/wsgi.md
-
-                  - Contribution Guidelines: developer/contribution_guidelines.md
-                  - How to make docs: developer/make_docs.md
-                  - Design: developer/design.md
-                  - How to run instances: developer/run_instances.md
-                  - How to test local instance: developer/test_local.md
                   - License: license.md
 
                   - Design:
                         - Design Sheet: developer/design.md
                         - Wire-frame Model: developer/frame_model.md
                   - How to run instances: developer/run_instances.md
-
-
-
-
 
         - DevOps:
                   - Containers Used: devops/containers_used.md
