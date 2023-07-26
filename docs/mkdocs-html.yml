@@ -69,4 +69,4 @@ plugins:
   - mkdocstrings:
         handlers:
           python:
-            paths: [../ckanext]
+            paths: [..]

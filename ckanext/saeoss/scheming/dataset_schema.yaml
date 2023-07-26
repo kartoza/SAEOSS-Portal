@@ -21,7 +21,7 @@ dataset_fields:
   #   form_placeholder: url of the metadata record, eg. my-metadata record, this is auto-completed by default.
 
   - field_name: featured
-    label: Feature metadata record on EMC landing page?
+    label: Feature metadata record on SAEOSS landing page?
     required: false
     help_text: Should this metadata record be featured on the EMC front page?
     validators: boolean_validator

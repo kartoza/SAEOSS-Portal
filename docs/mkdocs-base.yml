@@ -52,13 +52,30 @@ nav:
 
         - Developer:
                   - Narrative: developer/narrative.md
-                  - Code Auto docs: developer/code_auto_docs.md
-                  - Contribution Guidelines: developer/contribution_guidelines.md
-                  - How to make docs: developer/make_docs.md
-                  - Design: developer/design.md
+                  - Architecture:
+                      - Framework Used: developer/framework_used.md
+                      - High-level System Architecture: developer/system_architecture.md
+                      - Data Model: developer/data_model.md
+                  - Docs:
+                        - Code Auto docs: developer/code_auto_docs.md
+                        - How to make docs:
+                                          - Adding to docs: developer/make_docs.md
+                                          - Generating PDFs and static website: developer/make_docs.md
+                  - Developer Reference Manual:
+                        - mkdocs generate content: developer/contribution_guidelines.md
+                        - Setting up a dev env: developer/narrative.md
+                        - Coding conventions : developer/coding_conventions.md
+                        - Contributor/Contribution Guidelines : developer/contribution_guidelines.md
+                        - Project SCRUM board : developer/project_scrum_board.md
+                        - How to test local instance: developer/test_local.md
+                        - License: license.md
+
+                  - Design:
+                        - Design Sheet: developer/design.md
+                        - Wire-frame Model: developer/frame_model.md
                   - How to run instances: developer/run_instances.md
-                  - How to test local instance: developer/test_local.md
-                  - License: license.md
+
+
 
 
 
