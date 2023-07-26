@@ -121,7 +121,7 @@ a {
  }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: #295237;
+  color: #405196;
   background-color: transparent;
 }
 
@@ -174,20 +174,20 @@ body {
 .btn-default:focus,
 .btn-default.focus {
   color: #fff;
-  background-color: #295237;
-  border-color: #295237;
+  background-color: #405196;
+  border-color: #405196;
 }
 .btn-default:hover {
   color: #fff;
-  background-color: #295237;
-  border-color: #295237;
+  background-color: #405196;
+  border-color: #405196;
 }
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
   color: #fff;
-  background-color: #295237;
-  border-color: #295237;
+  background-color: #405196;
+  border-color: #405196;
 }
 .btn-default:active:hover,
 .btn-default.active:hover,
@@ -199,8 +199,8 @@ body {
 .btn-default.active.focus,
 .open > .dropdown-toggle.btn-default.focus {
   color: #fff;
-  background-color: #295237;
-  border-color: #295237;
+  background-color: #405196;
+  border-color: #405196;
 }
 .btn-default.disabled:hover,
 .btn-default[disabled]:hover,
@@ -216,8 +216,8 @@ fieldset[disabled] .btn-default.focus {
 }
 .btn-default .badge {
   color: #fff;
-  background-color: #3A744E;
-  border-color: #3A744E;
+  background-color: #5E8DC0;
+  border-color: #5E8DC0;
 }
 
 
@@ -380,7 +380,7 @@ fieldset[disabled] .btn-default.focus {
 
 .dataset-action a {
   text-decoration: none;
-  color: #3A744E;
+  color: #5E8DC0;
   font-weight: 300;
 }
 
@@ -408,7 +408,7 @@ fieldset[disabled] .btn-default.focus {
 }
 
 .dataset-heading > a:hover, .dataset-heading > a:focus {
-  color: #295237;
+  color: #405196;
   background-color: transparent;
 }
 
@@ -587,6 +587,7 @@ fieldset[disabled] .btn-default.focus {
 /* Landing page */
 .btn-warning {
   background-color: #5E8DC0;
+  border-color: #5E8DC0;
 }
 
 .btn-warning:focus,
@@ -749,7 +750,7 @@ footer {
   padding: 6px 12px;
   margin-left: -1px;
   line-height: 1.42857143;
-  color: #3A744E;
+  color: #5E8DC0;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -773,8 +774,8 @@ footer {
   z-index: 3;
   color: #fff;
   cursor: default;
-  background-color: #3A744E;
-  border-color: #3A744E;
+  background-color: #5E8DC0;
+  border-color: #5E8DC0;
 }
 
 /* End Pagination */
@@ -783,7 +784,7 @@ footer {
 .js .image-upload .btn.hover {
   color: #fff;
   text-decoration: none;
-  background-color: #21412c;
+  background-color: #405196;
   background-position: 0 -15px;
   -webkit-transition: background-position 0.1s linear;
   -o-transition: background-position 0.1s linear;
@@ -1104,7 +1105,7 @@ footer {
 }
 
 .saved-search-card > p:first-of-type{
-  color:#3A744E;
+  color:#5E8DC0;
 }
 
 .metadata-record-thumbnail{

@@ -20,7 +20,6 @@ from ckan.common import c
 from ckan.lib.dictization.model_dictize import package_dictize
 from ckan.lib.dictization import table_dictize
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -43,7 +42,7 @@ def get_iso_topic_categories(*args, **kwargs) -> typing.List[typing.Dict[str, st
 
 
 def get_default_spatial_search_extent(
-    padding_degrees: typing.Optional[float] = None,
+        padding_degrees: typing.Optional[float] = None,
 ) -> typing.Dict:
     """
     Return GeoJSON polygon with bbox to use for default view of spatial search map widget.
@@ -80,7 +79,7 @@ def get_default_bounding_box() -> typing.Optional[typing.List[float]]:
 
 
 def convert_geojson_to_bbox(
-    geojson: typing.Dict,
+        geojson: typing.Dict,
 ) -> typing.Optional[typing.List[float]]:
     try:
         coords = geojson["coordinates"][0]
@@ -112,7 +111,7 @@ def helper_show_version(*args, **kwargs) -> typing.Dict:
 
 
 def user_is_org_member(
-    org_id: str, user=None, role: typing.Optional[str] = None
+        org_id: str, user=None, role: typing.Optional[str] = None
 ) -> bool:
     """Check if user has editor role in the input organization."""
     result = False
@@ -214,7 +213,7 @@ def build_pages_nav_main(*args):
         link = toolkit.h.literal('<a href="/{}/{}">{}</a>'.format(type_, name, title))
         if page["name"] == page_name:
             li = (
-                toolkit.literal('<li class="active">') + link + toolkit.literal("</li>")
+                    toolkit.literal('<li class="active">') + link + toolkit.literal("</li>")
             )
         else:
             li = toolkit.literal("<li>") + link + toolkit.literal("</li>")
@@ -360,12 +359,11 @@ def mod_scheming_flatten_subfield(subfield, data):
 
 
 def get_maintenance_custom_other_field_data(data_dict):
-    """
-    the custom field "maintenance" stores "other"
+    """The custom field "maintenance" stores **other**
     options in an __extra structure in the database,
     in package_extra table, this structure
     doesn't show up with regular ckan actions like
-    "package_show", "package_search" ..etc., we need
+    **package_show**, **package_search** ..etc., we need
     to grab it from the database, if other alternatives
     can be used (e.g. when using the pkg coming with
     /package/read.html, the whole data shows up)
@@ -384,7 +382,7 @@ def get_maintenance_custom_other_field_data(data_dict):
                 pass
 
     # if package object (i.e found with /package/read.html) is used
-    ##### keeping it for further solutions
+    # keeping it for further solutions
     # dictized_data = data_dict.as_dict()
     # custom_other_choice_select= ""
     # try:
@@ -402,8 +400,7 @@ def get_today_date() -> str:
 
 
 def get_current_release():
-    """
-    get releases to website footer,
+    """get releases to website footer,
     the release depends on the environment,
     if it's staging it uses v*.*.*-rc, rather
     if it's production v.*.*.*
@@ -424,17 +421,16 @@ def get_current_release():
 
 
 def _get_git_branch():
-    """
-    getting the current
-    branch name
+    """Getting the current branch name.
+
     """
     return "development"
 
 
 def get_saved_searches():
-    """
-    returns saved searches
-    based on a user id
+    """Returns saved searches
+
+    based on a user id.
     """
     if c.userobj is None:
         return []
@@ -453,29 +449,49 @@ def get_saved_searches():
 
 
 def get_user_name(user_id):
-    """
-    gets user name by it's id
+    """Get a user's username by its id
+
+    :param
+    user_id: User's id
+    :type
+    user_id:int
     """
     user_obj = model.Session.query(model.User).filter_by(id=user_id).first()
     return user_obj.name
 
 
 def get_user_id(user_name: str):
-    """
-    gets user id from its name (the name is also unique)
+    """Gets user id from its username (the username is also unique)
+
+    :param
+    user_name: User's username
+    :type
+    user_name:str
     """
     user_obj = model.Session.query(model.User).filter_by(name=user_name).first()
     return user_obj.id
 
 
 def get_user_name_from_url(url: str):
+    """Get user's name from url
+
+    :param
+    url: The url
+    :type
+    url:str
     """
-    get user's name from url
-    """
+
     return url.split("/user/")[1]
 
 
 def get_recent_news(number=5, exclude=None):
+    """Get the five recent news.
+
+    :param
+    number: Number of new want to get
+    :type
+    number: int
+    """
     news_list = toolkit.get_action("ckanext_pages_list")(
         None, {"order_publish_date": True, "private": False, "page_type": "news"}
     )
@@ -491,8 +507,12 @@ def get_recent_news(number=5, exclude=None):
 
 
 def get_seo_metatags(site_key):
-    """
-    get metatags value for SEO
+    """Get metatags value for SEO.
+
+    :param
+    site_key: Site's key
+    :type
+    site_key: str
     """
     data_dict = {
         "site_author": toolkit.config.get(
@@ -509,19 +529,22 @@ def get_seo_metatags(site_key):
 
 
 def get_year():
-    """
-    display current year in the
-    footer
+    """Display current year in the footer.
+
     """
     return datetime.datetime.now().year
 
 
 def get_user_dashboard_packages(user_id):
-    """
-    the current behavior displays
-    all the avialable datastes to the
+    """The current behavior displays
+    all the available datasets to the
     user, we need only the datasets
-    created by the user
+    created by the user.
+
+    :param
+    user_id: User's id
+    :type
+    user_id: int
     """
     # q = f""" select package.*, key, value from package join package_extra on package_id=package.id where
     # package.creator_user_id='{user_id}' """ rows = model.Session.execute(q) packages = [] for row in rows:

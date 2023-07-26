@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+
+"""Get project releases from Github API.
+
+"""
 import requests
 import json
 from pathlib import Path

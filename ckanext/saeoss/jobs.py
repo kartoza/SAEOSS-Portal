@@ -1,4 +1,6 @@
-"""Asynchronous jobs for SAEOSS portal"""
+# -*- coding: utf-8 -*-
+
+"""Asynchronous jobs for SAEOSS portal."""
 
 import logging
 import typing
@@ -21,6 +23,13 @@ def test_job(*args, **kwargs):
 
 
 def notify_org_admins_of_dataset_management_request(activity_id: str):
+    """Send a request of management to an organisation admin
+
+    :param
+    activity_id: The activity to request
+    :type
+    activity_id: str
+    """
     activity_obj = model.Activity.get(activity_id)
     if activity_obj is not None:
         activity_type = DatasetManagementActivityType(activity_obj.activity_type)
@@ -76,6 +85,14 @@ def notify_org_admins_of_dataset_management_request(activity_id: str):
     
 
 def _get_org_members(org_name: str) -> typing.List:
+    """Get all organisation members.
+
+    :param
+    org_name: The name the organisation
+    :type
+    org_name:str
+
+    """
     organization: typing.Dict = toolkit.get_action("organization_show")(
         context={"ignore_auth": True},
         data_dict={
