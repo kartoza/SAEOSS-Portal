@@ -104,6 +104,7 @@
             {% if not res.description and package.notes %}
               <h3>{{ _('Dataset description:') }}</h3>
               <blockquote>{{ h.markdown_extract(h.get_translated(package, 'notes')) }}</blockquote>
+              <div id="_featuresDescription" style="padding: 20px;"></div>
               <div style="height: 500px;position: relative;">
                 <div class="map" id="map" ></div>
               </div>
@@ -230,85 +231,86 @@
     <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
     <style>
       .maplibregl-popup-content{
-  width: 450px !important;
-}
+        width: 450px !important;
+      }
 
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
     <script>
-      const map = new maplibregl.Map({
-          container: 'map',
-          style: 'https://api.maptiler.com/maps/streets/style.json?key=3k2ZAx59NO9FMIGBUi8W', // stylesheet location
-          center: [23.335, -25.443], // starting position [lng, lat]
-          zoom: 4, // starting zoom
-      });
 
-      map.on('load', () => {
-        const layers = map.getStyle().layers;
-        // Find the index of the first symbol layer in the map style
-        let firstSymbolId;
-        for (let i = 0; i < layers.length; i++) {
-            if (layers[i].type === 'symbol') {
-                firstSymbolId = layers[i].id;
-                break;
-            }
-        }
-        map.addSource('spatial', {
-            'type': 'geojson',
-            'data':
-                "{{res.url }}"
-        });
-        map.addLayer(
-          {
-              'id': 'spatial_polygons',
-              'type': 'fill',
-              'source': 'spatial',
-              'layout': {},
-              'paint': {
-                'fill-color': '#088',
-                'fill-opacity': 0.8
-              }
-          }
-        );
-    });
+      fetch("{{res.url }}")
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          var thumbnail = data.assets.thumbnail.href
+          var coord = data.geometry.coordinates
+          console.log(coord)
 
-    map.on('click', 'spatial_polygons', (e) => {
-      const feature = map.queryRenderedFeatures(e.point)
-      const displayProperties = [
-          'type',
-          'properties',
-          'id',
-      ];
+          var html_str = `
+          <h4>Resource Information</h4>
+          <h6>Basic</h6>
+          <p>Type: ${data.type}</p>
+          <p>ID: ${data.id}</p>
+          <p>Collection: ${data.collection}</p>
+          <hr>
+          <h4>Properties</h4>
+          <p>Start Date: ${data.properties.start_datetime}</p>
+          <p>End Date: ${data.properties.end_datetime}</p>
+          <p>Projection: ${data.properties["proj:epsg"]}</p>
+          <hr>
+          <h4>Links</h4>
+          <h6>${data.links[0].rel}:</h6>
+          <p>Href: ${data.links[0].href}</p>
+          <p>Type: ${data.links[0].type}</p>
 
-      const displayFeatures = feature.map((feat) => {
-          const displayFeat = {};
-          displayProperties.forEach((prop) => {
-              displayFeat[prop] = feat[prop];
-          });
-          return displayFeat;
-      });
+          <h6>${data.links[1].rel}:</h6>
+          <p>Href: ${data.links[1].href}</p>
+          <p>Type: ${data.links[1].type}</p>
 
-      var display = JSON.stringify(
-          displayFeatures[0]["properties"],
-          null,
-          2
-      );
+          <h6>${data.links[2].rel}:</h6>
+          <p>Href: ${data.links[2].href}</p>
+          <p>Type: ${data.links[2].type}</p>
 
-      console.log(display[0])
+          <hr>
+          <h4>Assets</h4>
+          <p>Image Link: ${data.assets.image.href}</p>
+          <p>Image Type: ${data.assets.image.type}</p>
+          <p>Title: ${data.assets.image.title}</p>
+          <p>Description: ${data.assets.image.description}</p>
+          `
+          document.getElementById("_featuresDescription").innerHTML = html_str
 
-      new maplibregl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML(display)
-          .addTo(map);
-      });
+          var map = L.map('map').setView([-25.443, 23.335], 2);
+          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution: '© OpenStreetMap'
+          }).addTo(map);
+          var imageUrl = thumbnail;
+          var altText = '';
+          var latLngBounds = L.latLngBounds([
+            [coord[0][0][1], coord[0][0][0]],
+            [coord[0][1][1], coord[0][1][0]],
+            [coord[0][2][1], coord[0][2][0]],
+            [coord[0][3][1], coord[0][3][0]],
+          ]);
 
-      map.on('mouseenter', 'spatial_polygons', () => {
-          map.getCanvas().style.cursor = 'pointer';
-      });
+          console.log(latLngBounds)
 
-      // Change it back to a pointer when it leaves.
-      map.on('mouseleave', 'spatial_polygons', () => {
-          map.getCanvas().style.cursor = '';
-      });
+          var imageOverlay = L.imageOverlay(imageUrl, latLngBounds, {
+              opacity: 0.8,
+              interactive: false
+          }).addTo(map);
+
+          L.rectangle(latLngBounds).addTo(map);
+          map.fitBounds(latLngBounds);
+        })
+      .catch(err => console.log(err))
       
     </script>
+    
 {% endblock %}
