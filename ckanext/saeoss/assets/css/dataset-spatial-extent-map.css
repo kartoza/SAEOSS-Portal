@@ -25,3 +25,40 @@
 .mapboxgl-ctrl-top-right, .maplibregl-ctrl-top-right{
   margin-top: 80px;
 }
+
+/*layerSwitcherControl*/
+.maplibregl-ctrl-basemaps {
+  display: flex;
+  flex-direction: row;
+  pointer-events: auto;
+  bottom: 15px;
+  position: relative;
+}
+.maplibregl-ctrl-basemaps.reverse {
+  flex-direction: row-reverse;
+}
+.maplibregl-ctrl-basemaps.column {
+  flex-direction: column;
+}
+.maplibregl-ctrl-basemaps.column.reverse {
+  flex-direction: column-reverse;
+}
+.maplibregl-ctrl-basemaps .basemap {
+  width: 64px;
+  height: 64px;
+  margin: 2px;
+  border: 2px solid #ccc;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+  cursor: pointer;
+}
+.maplibregl-ctrl-basemaps .basemap.active {
+  border-color:  #2e9aff;
+  box-shadow: 2px 2px 4px #000;
+}
+.maplibregl-ctrl-basemaps.closed .basemap {
+  display: none;
+}
+.maplibregl-ctrl-basemaps.closed .basemap.active {
+  display: block;
+  border: 2px solid #ccc;
+}
