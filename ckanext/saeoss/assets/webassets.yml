@@ -32,6 +32,36 @@ web-mapping-js:
       - base/main
       - ckanext-saeoss/vendorized-leaflet-geoman-js
 
+kml-js:
+  output: ckanext-saeoss/L.KML.js
+  contents:
+    - js/L.KML.js
+  filter: rjsmin
+  extra:
+    preload:
+      - base/main
+      - ckanext-saeoss/vendorized-leaflet-geoman-js
+
+csv-js:
+  output: ckanext-saeoss/csv.js
+  contents:
+    - js/csv.js
+  filter: rjsmin
+  extra:
+    preload:
+      - base/main
+      - ckanext-saeoss/vendorized-leaflet-geoman-js
+
+resource-read-js:
+  output: ckanext-saeoss/resourceRead.js
+  contents:
+    - js/resourceRead.js
+  filter: rjsmin
+  extra:
+    preload:
+      - base/main
+      - ckanext-saeoss/vendorized-leaflet-geoman-js
+
 dataset-spatial-extent-map-css:
   output: ckanext-saeoss/%(version)s_datasetSpatialExtentMap.css
   contents:

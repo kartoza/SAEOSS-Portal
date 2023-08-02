@@ -5,7 +5,6 @@
 {% set map_config = h.get_common_map_config() %}
 {% set default_bounding_box = h.default_bounding_box() %}
 
-
 {% block head_extras -%}
   {{ super() }}
   {% set description = h.markdown_extract(h.get_translated(res, 'description'), extract_length=200) if res.description else h.markdown_extract(h.get_translated(package, 'notes'), extract_length=200) %}
@@ -104,9 +103,12 @@
             {% if not res.description and package.notes %}
               <h3>{{ _('Dataset description:') }}</h3>
               <blockquote>{{ h.markdown_extract(h.get_translated(package, 'notes')) }}</blockquote>
-              <div id="_featuresDescription" style="padding: 20px;"></div>
               <div style="height: 500px;position: relative;">
                 <div class="map" id="map" ></div>
+              </div>
+              <div style="padding: 20px;max-height: 500px;overflow-y: scroll;">
+                <div id="_featuresDescription" style="padding: 20px;"></div>
+                <table id="demoTable" class="table" ></table>
               </div>
               <p>{% trans dataset=package.title, url=h.url_for(package.type ~ '.read', id=package.id if is_activity_archive else package.name) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
@@ -129,28 +131,7 @@
            %}
         {% endblock %}
           {% block resource_view_content %}
-            <div class="resource-view">
-
-              {% set resource_preview = h.resource_preview(resource, package) %}
-              {% set views_created = res.has_views or resource_preview %}
-              {% if views_created %}
-                {% if resource_preview and not current_resource_view %}
-                  {{ h.resource_preview(resource, package) }}
-                {% else %}
-                  {% for resource_view in resource_views %}
-                    {% if resource_view == current_resource_view %}
-                      {% snippet 'package/snippets/resource_view.html',
-                         resource_view=resource_view,
-                         resource=resource,
-                         package=package
-                       %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              
-                
-              {% endif %}
-            </div>
+            
           {% endblock %}
         </div>
       {% endblock %}
@@ -227,90 +208,26 @@
   src="https://code.jquery.com/jquery-3.7.0.min.js"
   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
   crossorigin="anonymous"></script>
-    <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
-    <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
     <style>
       .maplibregl-popup-content{
         width: 450px !important;
       }
 
     </style>
+
+    <script>
+      var file = "{{res.url }}"
+    </script>
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
-    <script>
-
-      fetch("{{res.url }}")
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          var thumbnail = data.assets.thumbnail.href
-          var coord = data.geometry.coordinates
-          console.log(coord)
-
-          var html_str = `
-          <h4>Resource Information</h4>
-          <h6>Basic</h6>
-          <p>Type: ${data.type}</p>
-          <p>ID: ${data.id}</p>
-          <p>Collection: ${data.collection}</p>
-          <hr>
-          <h4>Properties</h4>
-          <p>Start Date: ${data.properties.start_datetime}</p>
-          <p>End Date: ${data.properties.end_datetime}</p>
-          <p>Projection: ${data.properties["proj:epsg"]}</p>
-          <hr>
-          <h4>Links</h4>
-          <h6>${data.links[0].rel}:</h6>
-          <p>Href: ${data.links[0].href}</p>
-          <p>Type: ${data.links[0].type}</p>
-
-          <h6>${data.links[1].rel}:</h6>
-          <p>Href: ${data.links[1].href}</p>
-          <p>Type: ${data.links[1].type}</p>
-
-          <h6>${data.links[2].rel}:</h6>
-          <p>Href: ${data.links[2].href}</p>
-          <p>Type: ${data.links[2].type}</p>
-
-          <hr>
-          <h4>Assets</h4>
-          <p>Image Link: ${data.assets.image.href}</p>
-          <p>Image Type: ${data.assets.image.type}</p>
-          <p>Title: ${data.assets.image.title}</p>
-          <p>Description: ${data.assets.image.description}</p>
-          `
-          document.getElementById("_featuresDescription").innerHTML = html_str
-
-          var map = L.map('map').setView([-25.443, 23.335], 2);
-          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19,
-              attribution: '© OpenStreetMap'
-          }).addTo(map);
-          var imageUrl = thumbnail;
-          var altText = '';
-          var latLngBounds = L.latLngBounds([
-            [coord[0][0][1], coord[0][0][0]],
-            [coord[0][1][1], coord[0][1][0]],
-            [coord[0][2][1], coord[0][2][0]],
-            [coord[0][3][1], coord[0][3][0]],
-          ]);
-
-          console.log(latLngBounds)
-
-          var imageOverlay = L.imageOverlay(imageUrl, latLngBounds, {
-              opacity: 0.8,
-              interactive: false
-          }).addTo(map);
-
-          L.rectangle(latLngBounds).addTo(map);
-          map.fitBounds(latLngBounds);
-        })
-      .catch(err => console.log(err))
-      
-    </script>
+    
+    <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
+    {% asset 'ckanext-saeoss/csv-js' %}
+    {% asset 'ckanext-saeoss/resource-read-js' %}
     
 {% endblock %}
