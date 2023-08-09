@@ -15,9 +15,14 @@ from ckan.common import _, g
 from ckan.common import c
 from flask import Blueprint
 from sqlalchemy import orm
+import yaml
+from xmltodict3 import XmlTextToDict
 
 from ckanext.harvest.utils import DATASET_TYPE_NAME as HARVEST_DATASET_TYPE_NAME
 from ckanext.harvest.harvesters.ckanharvester import CKANHarvester
+import logging
+
+from ..logic.action import ckan_custom_actions
 
 
 from .. import (
@@ -43,10 +48,13 @@ from ..logic.auth import ckan as ckan_auth
 from ..logic.auth import pages as ckanext_pages_auth
 from ..logic.auth import saeoss as saeoss_auth
 from ..model.user_extra_fields import UserExtraFields
+import ckan.logic as logic
+import json
 
 import ckanext.saeoss.plugins.utils as utils
+import ckan.lib.uploader as uploader
 logger = logging.getLogger(__name__)
-
+ValidationError = logic.ValidationError
 
 class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IActions)
@@ -54,6 +62,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IClick)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IPackageController)
+    plugins.implements(plugins.IResourceController)
     plugins.implements(plugins.IDatasetForm)
     plugins.implements(plugins.IValidators)
     plugins.implements(plugins.ITemplateHelpers)
@@ -186,8 +195,49 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     def before_index(self, pkg_dict):
         """IPackageController interface requires reimplementation of this method."""
         return pkg_dict
+    
+    def before_show(self, resource_dict):
+        u'''
+        Extensions will receive the validated data dict before the resource
+        is ready for display.
+
+        Be aware that this method is not only called for UI display, but also
+        in other methods, like when a resource is deleted, because package_show
+        is used to get access to the resources in a dataset.
+        '''
+        return resource_dict
+    
+    def before_create(self, context, resource):
+        u'''
+        Extensions will receive this before a resource is created.
+
+        :param context: The context object of the current request, this
+            includes for example access to the ``model`` and the ``user``.
+        :type context: dictionary
+        :param resource: An object representing the resource to be added
+            to the dataset (the one that is about to be created).
+        :type resource: dictionary
+        '''
+
+        logger.debug(f"resource create {resource}")
+
+    def before_update(self, mapper, connection, instance):
+        u'''
+        Receive an object instance before that instance is UPDATEed.
+        '''
+
+        logger.debug(f"resource update {instance}")
+
+    def before_delete(self, mapper, connection, instance):
+        u'''
+        Receive an object instance before that instance is PURGEd.
+        (whereas usually in ckan 'delete' means to change the state property to
+        deleted, so use before_update for that case.)
+        '''
+        pass
 
     def before_search(self, search_params: typing.Dict):
+        logging.debug(f"search params {search_params}")
         start_date = search_params.get("extras", {}).get("ext_start_reference_date")
         end_date = search_params.get("extras", {}).get("ext_end_reference_date")
         if start_date is not None or end_date is not None:
@@ -254,6 +304,8 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "user_update": ckan_actions.user_update,
             "user_create": ckan_actions.user_create,
             "user_show": ckan_actions.user_show,
+            "resource_create":ckan_custom_actions.resource_create,
+            "resource_update":ckan_custom_actions.resource_update,
         }
 
     def get_validators(self) -> typing.Dict[str, typing.Callable]:
@@ -267,6 +319,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "check_if_int": converters.check_if_int,
             "convert_select_custom_choice_to_extra": converters.convert_select_custom_choice_to_extra,
             "doi_validator": validators.doi_validator,
+            "stac_validator": validators.stac_validator,
             "metadata_default_standard_name": converters.default_metadata_standard_name,
             "metadata_default_standard_version": converters.default_metadata_standard_version,
             "lineage_source_srs_validator": validators.lineage_source_srs_validator,
@@ -346,17 +399,17 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         return facets_dict
     
-    def organization_facets(
-        self, facets_dict: typing.OrderedDict, group_type: str, package_type: str
-    ) -> typing.OrderedDict:
-        """IFacets interface requires reimplementation of all facets-related methods
+    # def organization_facets(
+    #     self, facets_dict: typing.OrderedDict, group_type: str, package_type: str
+    # ) -> typing.OrderedDict:
+    #     """IFacets interface requires reimplementation of all facets-related methods
 
-        In this case we do not really need to override this method, but need to satisfy
-        IFacets.
+    #     In this case we do not really need to override this method, but need to satisfy
+    #     IFacets.
 
-        """
+    #     """
 
-        return facets_dict
+    #     return facets_dict
 
 
 def _parse_date(raw_date: str) -> typing.Optional[str]:

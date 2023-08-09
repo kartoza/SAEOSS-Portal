@@ -10,6 +10,12 @@ from ckan.lib.navl.dictization_functions import (
 )  # note: imported for type hints only
 
 from ckantoolkit import get_validator
+import json
+import jsonschema
+from jsonschema import  validate
+import logging
+import os
+from .action import ckan_custom_actions
 
 ignore_missing = get_validator("ignore_missing")
 logger = logging.getLogger(__name__)
@@ -121,3 +127,20 @@ def doi_validator(value: str):
         )
     else:
         return value
+    
+def stac_validator(jsonData, type):
+    if type == 'collection':
+        file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/collection/collection.json"
+    if type == 'catalog':
+        file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/catalog/catalog.json"
+    if type == 'item':
+        file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/item/item.json"
+    f = open(file)
+    schema = json.load(f)
+    try:
+        validate(instance=jsonData, schema=schema)
+        return
+    except jsonschema.exceptions.ValidationError as err:
+        logging.debug(err)
+        raise ckan_custom_actions.ValidationError([f"The uploaded file does not follow STAC guidelines. Please ammend the following: \n\n{err}"],)
+    

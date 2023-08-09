@@ -10892,3 +10892,11 @@ iframe {
 .reduced-padding {
   padding: 3px 5px;
 }
+
+.optionWidth{
+  width: 250px;
+}
+
+.select2-result-label{
+  width: 250px !important;
+}
