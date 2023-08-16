@@ -82,7 +82,8 @@ nav:
                         - Setting up a dev env: developer/narrative.md
                         - Coding conventions : developer/coding_conventions.md
                         - Contributor/Contribution Guidelines : developer/contribution_guidelines.md
-                        - Project SCRUM board : developer/project_scrum_board.md
+                        - Project SCRUM board :
+                                  Project Board: developer/opening_issues.md
                         - How to test local instance: developer/test_local.md
                         - License: license.md
                   - License: license.md
