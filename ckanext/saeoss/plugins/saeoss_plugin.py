@@ -2,12 +2,14 @@ import logging
 import typing
 from collections import OrderedDict
 from functools import partial
+import uuid
 
 import ckan.plugins as plugins
 import ckan.lib.helpers as h
 import ckan.lib.search as search
 import ckan.lib.plugins as lib_plugins
 import ckan.plugins.toolkit as toolkit
+from datetime import date, datetime
 import datetime as dt
 import dateutil.parser
 from ckan import model
@@ -23,6 +25,8 @@ from ckanext.harvest.harvesters.ckanharvester import CKANHarvester
 import logging
 
 from ..logic.action import ckan_custom_actions
+
+from ..model.reporting_tool import ReportingTool
 
 
 from .. import (
@@ -113,6 +117,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         """IPackageController interface requires reimplementation of this method."""
 
         context = {}
+        logger.debug(f"after search {context}")
         facets = OrderedDict()
         default_facet_titles = {
             "groups": _("Groups"),
@@ -237,7 +242,9 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         pass
 
     def before_search(self, search_params: typing.Dict):
-        logging.debug(f"search params {search_params}")
+        logger.debug(f"debug search {search_params.get('extras', {})}" )
+        
+        
         start_date = search_params.get("extras", {}).get("ext_start_reference_date")
         end_date = search_params.get("extras", {}).get("ext_end_reference_date")
         if start_date is not None or end_date is not None:
@@ -249,6 +256,12 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             filter_query = " ".join((search_params["fq"], temporal_query))
             search_params["fq"] = filter_query
         search_params["fq"] = utils.handle_search(search_params)
+
+        reporter_search_id = uuid.uuid4()
+        user_id = c.userobj.id
+        q = f""" insert into reporting_tool values('{reporter_search_id}', '{user_id}', '{json.dumps(search_params)}', '','{datetime.now()}') """
+        result = model.Session.execute(q)
+        model.Session.commit()
         return search_params
 
     def before_view(self, pkg_dict: typing.Dict):
@@ -399,17 +412,17 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         return facets_dict
     
-    # def organization_facets(
-    #     self, facets_dict: typing.OrderedDict, group_type: str, package_type: str
-    # ) -> typing.OrderedDict:
-    #     """IFacets interface requires reimplementation of all facets-related methods
+    def organization_facets(
+        self, facets_dict: typing.OrderedDict, group_type: str, package_type: str
+    ) -> typing.OrderedDict:
+        """IFacets interface requires reimplementation of all facets-related methods
 
-    #     In this case we do not really need to override this method, but need to satisfy
-    #     IFacets.
+        In this case we do not really need to override this method, but need to satisfy
+        IFacets.
 
-    #     """
+        """
 
-    #     return facets_dict
+        return facets_dict
 
 
 def _parse_date(raw_date: str) -> typing.Optional[str]:
