@@ -34,8 +34,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     rm -rf /var/lib/apt/lists/*
 
 # download poetry
+
 RUN curl --silent --show-error --location \
     https://install.python-poetry.org > /opt/install-poetry.py
+
 
 # Create a normal non-root user so that we can use it to run
 RUN useradd --create-home appuser
@@ -57,6 +59,7 @@ ENV PATH="$PATH:/home/appuser/.local/bin" \
 # Only copy the dependencies for now and install them
 WORKDIR /home/appuser/app
 COPY --chown=appuser:appuser pyproject.toml poetry.lock ./
+RUN poetry lock --no-update
 RUN poetry install --no-root --no-dev
 
 EXPOSE 5000

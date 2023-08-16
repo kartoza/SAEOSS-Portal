@@ -399,17 +399,17 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         return facets_dict
     
-    # def organization_facets(
-    #     self, facets_dict: typing.OrderedDict, group_type: str, package_type: str
-    # ) -> typing.OrderedDict:
-    #     """IFacets interface requires reimplementation of all facets-related methods
+    def organization_facets(
+        self, facets_dict: typing.OrderedDict, group_type: str, package_type: str
+    ) -> typing.OrderedDict:
+        """IFacets interface requires reimplementation of all facets-related methods
 
-    #     In this case we do not really need to override this method, but need to satisfy
-    #     IFacets.
+        In this case we do not really need to override this method, but need to satisfy
+        IFacets.
 
-    #     """
+        """
 
-    #     return facets_dict
+        return facets_dict
 
 
 def _parse_date(raw_date: str) -> typing.Optional[str]:
