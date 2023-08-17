@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Override of CKAN actions"""
 
 import logging

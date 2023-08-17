@@ -4,8 +4,7 @@ import ckan.plugins.toolkit as tk
 
 
 def populate_dataset_name(data_dict: dict, context: dict, calls:int = 0):
-    """
-    adding uuid to the named url
+    """Adding uuid to the named url
     , the name field was a bit
     confusing to the client.
     """
@@ -32,8 +31,7 @@ def populate_dataset_name(data_dict: dict, context: dict, calls:int = 0):
 
 
 def _remove_special_characters_from_package_url(url):
-    """
-    special characters are not
+    """Special characters are not
     accepted by CKAN for dataset
     urls, replace them
     """

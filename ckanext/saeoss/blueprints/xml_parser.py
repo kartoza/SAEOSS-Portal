@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import request, Response, jsonify, Blueprint
 from ckan.plugins import toolkit
 from ckan import model
@@ -36,8 +37,7 @@ creator = ""
 
 @xml_parser_blueprint.route("/", methods=["GET", "POST"], strict_slashes=False)
 def extract_files():
-    """
-    the blueprint allows for multiple
+    """The blueprint allows for multiple
     files to be sent at once, extract
     each and call parse_xml_dataset.
     return success after all files
@@ -75,9 +75,12 @@ def extract_files():
 
 
 def check_file_fields(xml_file) -> dict:
-    """
-    performs different checks over
+    """Performs different checks over
     the xml files.
+    :param
+    xml_file: The xml filet to check.
+    :type
+    xml_file: file
 
     returns:
     -----
@@ -118,11 +121,14 @@ def check_file_fields(xml_file) -> dict:
 
 
 def file_has_xml_dataset(xml_file):
-    """
-    parses the file,
+    """Parses the file,
     checks if file has a
     dataset within it and
     returns it.
+    :param
+    xml_file: the xml file to parse
+    :type
+    xml_file: file
     """
     try:
         dom_ob = dom.parse(xml_file)
@@ -144,8 +150,7 @@ def file_has_xml_dataset(xml_file):
 
 
 def return_object_root(root):
-    """
-    transform the xml dom
+    """Transform the xml dom
     root into an object of
     tag_name:tag_value
     """
@@ -158,8 +163,7 @@ def return_object_root(root):
 
 
 def maximum_fields_check(root_ob, file_name_reference: str):
-    """
-    checking if the provided field
+    """Checking if the provided field
     is more than the maximum set
     of EMC datasets fields.
     """
@@ -176,8 +180,7 @@ def maximum_fields_check(root_ob, file_name_reference: str):
 
 
 def minimum_set_check(root_ob: dict, file_name_reference: str):
-    """
-    checking if the xml file fields
+    """Checking if the xml file fields
     has the minimum required set.
     """
     # adding field "name" later dynamically
@@ -190,12 +193,11 @@ def minimum_set_check(root_ob: dict, file_name_reference: str):
 
 
 def lowercase_dataset_values(root_ob):
-    """
-    the metadata creation with CKAN is a
+    """The metadata creation with CKAN is a
     very subtle thing, if values provided
-    with xml files are captilaized, some
+    with xml files are capitalized, some
     validation rules will fail (e.g. UCS-2 for
-    metadata characterset will fail vs ucs-2
+    metadata characteristic will fail vs ucs-2
     ) hence lower everything.
     """
 
@@ -216,9 +218,8 @@ def lowercase_dataset_values(root_ob):
 
 
 def handle_responsible_party_choices_fields(root: dict) -> dict:
-    """
-    choices fields are strict,
-    only a handlful of choices
+    """Choices fields are strict,
+    only a handful of choices
     to be returned, here were
     handling different variations
     that can be provided by the user
@@ -252,8 +253,7 @@ def handle_responsible_party_choices_fields(root: dict) -> dict:
 
 
 def handle_numeric_choices(root):
-    """
-    some choices fields have a
+    """Some choices fields have a
     number value to be submitted
     these are provided by the
     user as text, corresponding
@@ -324,8 +324,7 @@ def handle_numeric_choices(root):
 
 
 def set_language_abbreviation(root: dict) -> dict:
-    """
-    if dataset language and metadata
+    """Check if dataset language and metadata
     language provided as "english"
     not "en" it will be rejected
     """
@@ -346,8 +345,7 @@ def set_language_abbreviation(root: dict) -> dict:
 
 
 def handle_date_fields(root_ob: dict) -> dict:
-    """
-    date fields need to be
+    """Date fields need to be
     iso compliant inorder
     to create the package,
     transform date strings
@@ -364,8 +362,7 @@ def handle_date_fields(root_ob: dict) -> dict:
 
 
 def handle_date_field(date_field):
-    """
-    returns a date from iso-string
+    """Returns a date from iso-string
     YY-MM-DDTHH:MM:SS
     """
     iso_date = datetime.fromisoformat(date_field)
@@ -373,8 +370,7 @@ def handle_date_field(date_field):
 
 
 def create_ckan_dataset(root_ob):
-    """
-    create package via ckan api's
+    """Create package via ckan api's
     package_create action.
     """
     logger.debug("from xml parser blueprint", root_ob)
@@ -400,21 +396,8 @@ def create_ckan_dataset(root_ob):
     return {"state": True, "msg": f'package "{package_title}" were created'}
 
 
-# def get_creator_id(ckan_package_ob):
-#     """
-#     extract the user id from
-#     the created package object
-#     """
-#     user_id = ckan_package_ob["creator_user_id"]
-#     user_ob = model.User.get(user_id)
-#     # user_dict = model.User.get(user_id).as_dict()
-#     # user_email = user_dict.get("email")
-#     return user_ob
-
-
 def send_email_to_creator(res):
-    """
-    per issue #105 we need
+    """Per issue #105 we need
     to send emails to creator
     for mail_user function
     check https://github.com/ckan/ckan/blob/master/ckan/lib/mailer.py
@@ -447,8 +430,7 @@ def change_name_special_chars_to_underscore(title: str) -> str:
 
 
 def check_fields_mapping() -> list:
-    """
-    construct new checkers (minimum, maximum)
+    """Construct new checkers (minimum, maximum)
     with simplified names
     """
 
@@ -465,8 +447,7 @@ def check_fields_mapping() -> list:
 
 
 def map_xml_fields(root: dict) -> dict:
-    """
-    give more user friendly naming
+    """Give more user friendly naming
     for the different fields, avoid
     the look of the repeating subfields
     field_name-0-subfield_name
