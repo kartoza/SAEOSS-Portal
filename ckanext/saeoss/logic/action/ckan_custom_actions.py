@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import ckan.plugins.toolkit as toolkit
 from ckan.common import config
 import ckan.logic as logic
@@ -24,15 +25,17 @@ NotFound = logic.NotFound
 NotAuthorized = logic.NotAuthorized
 _get_or_bust = logic.get_or_bust
 
+
 class Failed(Exception):
     def __init__(self, m):
         self.message = m
+
     def __str__(self):
         return self.message
 
 
 @toolkit.chained_action
-def resource_create(original_action,context:dict, data_dict:dict) -> dict:
+def resource_create(original_action, context: dict, data_dict: dict) -> dict:
     model = context['model']
     user = context['user']
 
@@ -64,7 +67,7 @@ def resource_create(original_action,context:dict, data_dict:dict) -> dict:
 
         temp_file = upload.upload_file
         file_contents = temp_file.read()
-        
+
         if upload.mimetype == "application/json":
             json_data = json.loads(file_contents)
 
@@ -73,7 +76,7 @@ def resource_create(original_action,context:dict, data_dict:dict) -> dict:
 
         if upload.mimetype == "application/xml":
             json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
-        
+
         stac_validator(json_data, data_dict["stac_specification"])
 
     if 'mimetype' not in data_dict:
@@ -123,8 +126,9 @@ def resource_create(original_action,context:dict, data_dict:dict) -> dict:
 
     return resource
 
+
 @toolkit.chained_action
-def resource_update(original_action,context:dict, data_dict:dict):
+def resource_update(original_action, context: dict, data_dict: dict):
     '''Update a resource.
 
     To update a resource you must be authorized to update the dataset that the
@@ -149,7 +153,6 @@ def resource_update(original_action,context:dict, data_dict:dict):
     id = _get_or_bust(data_dict, "id")
 
     if data_dict["updated_text"]:
-
         first_folder = id[0:3]
         second_folder = id[3:6]
         file_name = id[6:len(id)]
@@ -179,7 +182,7 @@ def resource_update(original_action,context:dict, data_dict:dict):
 
     package_id = resource.package.id
     pkg_dict = _get_action('package_show')(dict(context, return_type='dict'),
-        {'id': package_id})
+                                           {'id': package_id})
 
     for n, p in enumerate(pkg_dict['resources']):
         if p['id'] == id:
