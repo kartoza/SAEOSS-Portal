@@ -299,13 +299,14 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "package_create": ckan_actions.package_create,
             "package_update": ckan_actions.package_update,
             "package_patch": ckan_actions.package_patch,
+            "package_show": ckan_actions.package_show,
             "saeoss_version": saeoss_actions.show_version,
             "user_patch": ckan_actions.user_patch,
             "user_update": ckan_actions.user_update,
             "user_create": ckan_actions.user_create,
             "user_show": ckan_actions.user_show,
-            "resource_create":ckan_custom_actions.resource_create,
-            "resource_update":ckan_custom_actions.resource_update,
+            "resource_create": ckan_custom_actions.resource_create,
+            "resource_update": ckan_custom_actions.resource_update,
         }
 
     def get_validators(self) -> typing.Dict[str, typing.Callable]:
@@ -399,17 +400,17 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         return facets_dict
     
-    # def organization_facets(
-    #     self, facets_dict: typing.OrderedDict, group_type: str, package_type: str
-    # ) -> typing.OrderedDict:
-    #     """IFacets interface requires reimplementation of all facets-related methods
+    def organization_facets(
+        self, facets_dict: typing.OrderedDict, group_type: str, package_type: str
+    ) -> typing.OrderedDict:
+        """IFacets interface requires reimplementation of all facets-related methods
 
-    #     In this case we do not really need to override this method, but need to satisfy
-    #     IFacets.
+        In this case we do not really need to override this method, but need to satisfy
+        IFacets.
 
-    #     """
+        """
 
-    #     return facets_dict
+        return facets_dict
 
 
 def _parse_date(raw_date: str) -> typing.Optional[str]:

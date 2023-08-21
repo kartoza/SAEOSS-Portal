@@ -1,10 +1,11 @@
 """Override of CKAN actions"""
-
+import json
 import logging
 import typing
 
 import ckan.plugins.toolkit as toolkit
 from ckan.model.domain_object import DomainObject
+from ckan.logic.action.get import package_show as _package_show
 
 from ...model.user_extra_fields import UserExtraFields
 from .dataset_versioning_control import handle_versioning
@@ -87,6 +88,16 @@ def _dictize_user_extra_fields(user_extra_fields: UserExtraFields) -> typing.Dic
 
 
 @toolkit.chained_action
+def package_show(original_action, context, data_dict):
+    """
+    Intercepts the core `package_show` action to add reference_date to package dict
+    """
+    package_dict = _package_show(context, data_dict)
+    package_dict['reference_date'] = _get_reference_date(package_dict)
+    return package_dict
+
+
+@toolkit.chained_action
 def package_create(original_action, context, data_dict):
     """
     Intercepts the core `package_create` action to check if package
@@ -160,3 +171,15 @@ def _act_depending_on_package_visibility(
         #     toolkit.get_action("follow_dataset")(context, result)
 
     return result
+
+
+def _get_reference_date(package_dict: typing.Dict):
+    if 'extras' in package_dict:
+        dataset_reference_date = [
+            extra for extra in package_dict['extras'] if extra['key'] == 'dataset_reference_date'
+        ][0]['value']
+        logging.critical(dataset_reference_date)
+        dataset_reference_date = json.loads(dataset_reference_date)[0]['reference']
+    else:
+        dataset_reference_date = package_dict['dataset_reference_date'][0]['reference']
+    return dataset_reference_date
