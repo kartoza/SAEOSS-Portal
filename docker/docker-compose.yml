@@ -49,7 +49,7 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
 
   solr:
-    build: https://github.com/kartoza/kartoza_ckan_solr.git
+    build: https://github.com/kartoza/kartoza_ckan_solr.git#main
     ports:
       - 8983:8983
     volumes:

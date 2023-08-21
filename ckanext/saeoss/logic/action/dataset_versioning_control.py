@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import string
 import random
 import re
@@ -13,12 +14,11 @@ _and_ = sqlalchemy.and_
 
 
 def handle_versioning(context, data_dict):
-    """
-    accoring to whether the dataset
+    """According to whether the dataset
     status is completed or not, the
     update action should either create
     a new version or overwrite the
-    extising dataset.
+    existing dataset.
     """
     # handling the version number
     old_dataset = toolkit.get_action("package_show")(data_dict={"id": data_dict["id"]})
@@ -57,7 +57,7 @@ def handle_versioning(context, data_dict):
 
 def numbering_version(url, context, data_dict):
     """
-    handle the numbering
+    Handle the numbering
     logic of the new
     version, incrementing
     the last one by one
@@ -119,8 +119,7 @@ def _get_previous_versions(url, context, data_dict):
 def update_dataset_title_and_url(
     new_version: str, generated_id: str, data_dict: dict
 ) -> dict:
-    """
-    set the name and the url for
+    """Set the name and the url for
     the new version.
     """
     id = data_dict.get("id")
@@ -141,8 +140,7 @@ def update_dataset_title_and_url(
 
 
 def search_and_update(title_or_url, new_version):
-    """
-    uses regex to find version (num) at the end of
+    """Uses regex to find version (num) at the end of
     string and substitute it, either in the title
     and/or url, the title
     has a dot in it's struct and
@@ -169,8 +167,7 @@ def search_and_update(title_or_url, new_version):
 
 
 def _get_package_resource(context, data_dict: dict):
-    """
-    getting the package resources
+    """Getting the package resources
     """
     model = context["model"]
     package_id = data_dict.get("pkg_name")
@@ -194,8 +191,7 @@ def _get_package_resource(context, data_dict: dict):
 
 
 def _flatten_resource_extras(resource: dict):
-    """
-    returns the fields and values
+    """Returns the fields and values
     contained in resource_extra
     """
     if resource.get("extras") is not None:

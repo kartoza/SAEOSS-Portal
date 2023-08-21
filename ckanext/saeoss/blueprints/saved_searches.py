@@ -22,8 +22,7 @@ def index():
     "/save_search", methods=["GET", "POST"], strict_slashes=False
 )
 def save_current_search():
-    """
-    save the current search query with user_id
+    """save the current search query with user_id.
     """
     query = request.json
     user_id = c.userobj.id
@@ -40,6 +39,10 @@ def _get_saved_search_title(query):
     takes the title from an input
     if the title is "" it returns
     the current date.
+    :param
+    query:Search parameters.
+    :type
+    query:str
     """
     query_str = "q=" in query
     query_input = query.split("&", 1)[0]
@@ -55,7 +58,7 @@ def _get_saved_search_title(query):
 )
 def delete_saved_search():
     """
-    deletes a saved search via it's id
+    deletes a saved search via it's id.
     """
     if request.method == "POST":
         saved_search_id = request.json["saved_search_id"]

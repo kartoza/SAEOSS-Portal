@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+"""
+A blueprint rendering new pages.
+"""
 from flask import Blueprint
 from ckan.plugins import toolkit
 import ckanext.pages.utils as utils
@@ -10,19 +14,31 @@ news_blueprint = Blueprint(
 
 @news_blueprint.route("/")
 def index():
+    """A blueprint rendering new template.
+
+    """
     list_news()
     return toolkit.render("news.html", type="news")
 
 
 def news_show(page):
+    """A blueprint rendering new show.
+
+    """
     return utils.pages_show(page, page_type="news")
 
 
 def news_edit(page=None, data=None, errors=None, error_summary=None):
+    """A blueprint rendering editing new.
+
+    """
     return news_edit_util(page, data, errors, error_summary, "news")
 
 
 def news_delete(page):
+    """A blueprint rendering deleting new.
+
+    """
     return news_delete_util(page, page_type="news")
 
 
