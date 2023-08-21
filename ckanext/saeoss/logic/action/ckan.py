@@ -5,15 +5,11 @@ import logging
 import typing
 
 import ckan.plugins.toolkit as toolkit
-from ckan.model.domain_object import DomainObject
 from ckan.logic.action.get import package_show as _package_show
+from ckan.model.domain_object import DomainObject
 
-from ...model.user_extra_fields import UserExtraFields
-from .dataset_versioning_control import handle_versioning
-from .handle_repeating_subfields import handle_repeating_subfields_naming
 from .add_named_url import populate_dataset_name
-
-import datetime
+from ...model.user_extra_fields import UserExtraFields
 
 logger = logging.getLogger(__name__)
 
@@ -175,12 +171,17 @@ def _act_depending_on_package_visibility(
 
 
 def _get_reference_date(package_dict: typing.Dict):
+    dataset_reference_date = None
     if 'extras' in package_dict:
-        dataset_reference_date = [
+        extras = [
             extra for extra in package_dict['extras'] if extra['key'] == 'dataset_reference_date'
-        ][0]['value']
-        logging.critical(dataset_reference_date)
-        dataset_reference_date = json.loads(dataset_reference_date)[0]['reference']
-    else:
-        dataset_reference_date = package_dict['dataset_reference_date'][0]['reference']
+        ]
+        if extras:
+            dataset_reference_dates = json.loads(extras[0]['value'])
+            if dataset_reference_dates:
+                dataset_reference_date = dataset_reference_dates[0]['reference']
+    elif 'dataset_reference_date' in package_dict:
+        dataset_reference_dates = package_dict['dataset_reference_date']
+        if dataset_reference_dates:
+            dataset_reference_date = dataset_reference_dates[0]['reference']
     return dataset_reference_date
