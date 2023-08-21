@@ -8,7 +8,7 @@ from ckan.tests import factories, helpers
 
 from ckan import model
 
-from ckanext.dalrrd_emc_dcpr import helpers as h
+from ckanext.saeoss import helpers as h
 
 pytestmark = pytest.mark.unit
 

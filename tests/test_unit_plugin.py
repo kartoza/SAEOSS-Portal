@@ -1,6 +1,6 @@
 import pytest
 
-from ckanext.dalrrd_emc_dcpr.plugins import emc_dcpr_plugin
+from ckanext.saeoss.plugins import saeoss_plugin
 
 pytestmark = pytest.mark.unit
 

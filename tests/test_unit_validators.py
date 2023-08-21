@@ -1,7 +1,7 @@
 import pytest
 from ckan.lib.navl.dictization_functions import missing
 
-from ckanext.dalrrd_emc_dcpr.logic import validators
+from ckanext.saeoss.logic import validators
 
 pytestmark = pytest.mark.unit
 

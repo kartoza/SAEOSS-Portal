@@ -1,6 +1,6 @@
 import pytest
 
-from ckanext.dalrrd_emc_dcpr.logic import converters
+from ckanext.saeoss.logic import converters
 
 pytestmark = pytest.mark.unit
 
