@@ -110,10 +110,10 @@ mentioned above). Run the following command:
 docker exec -ti saeoss_ckan_web_1 poetry run ckan db init
 ```
 
-Afterwards, proceed to run any migrations required by the ckanext-dlarrd-emc-dcpr extension
+Afterwards, proceed to run any migrations required by the ckanext-saeoss extension
 
 ```
-docker exec -ti saeoss_ckan_web_1 poetry run ckan db upgrade --plugin dalrrd_emc_dcpr
+docker exec -ti saeoss_ckan_web_1 poetry run ckan db upgrade --plugin saeoss
 ```
 
 Now you should be able to go to `http://localhost:5000` and see the ckan
