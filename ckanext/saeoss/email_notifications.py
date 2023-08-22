@@ -1,11 +1,13 @@
-"""Reimplementation of the core CKAN email notifications
+# -*- coding: utf-8 -*-
+
+"""Reimplementation of the core CKAN email notifications.
 
 This module reimplements the core CKAN email notifications in order to:
 
-- be able to provide more visibility onto what is going on. This includes returning the
-  number of emails being sent
+- Be able to provide more visibility onto what is going on. This includes returning the
+  number of emails being sent.
 
-- modify the default implementation in order to not require an active request
+- Modify the default implementation in order to not require an active request.
 
 """
 

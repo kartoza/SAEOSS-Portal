@@ -37,3 +37,45 @@ function removeParameter(key, url) {
     return returnURL;
 
 }
+
+function titleCase(str) {
+  return str.toLowerCase().split(' ').map(function(word) {
+    return (word.charAt(0).toUpperCase() + word.slice(1));
+  }).join(' ');
+}
+
+$(document).ready(function() {
+    let userAgent = navigator.userAgent;
+    let browserName;
+
+    if (userAgent.match(/chrome|chromium|crios/i)) {
+        browserName = "chrome";
+    } else if (userAgent.match(/firefox|fxios/i)) {
+        browserName = "firefox";
+    } else if (userAgent.match(/safari/i)) {
+        browserName = "safari";
+    } else if (userAgent.match(/opr\//i)) {
+        browserName = "opera";
+    } else if (userAgent.match(/edg/i)) {
+        browserName = "edge";
+    } else {
+        browserName = "No browser detection";
+    }
+    if (!['chrome', 'safari', 'opera', 'edge'].includes(browserName)) {
+        if (localStorage.getItem("hideBrowserCompatibilityWarning")) {
+            return
+        }
+        $('.modal-title').text(`${titleCase(browserName)} browser detected!`);
+        $('.modal-body').text(
+          'Some features might not be working properly. Please use Chrome or Safari!'
+        );
+        $('#browserAlert .close').click(() => {
+            let hideWarning = $('#hideBrowserCompatibilityWarning').is(':checked');
+            if (hideWarning) {
+                localStorage.setItem("hideBrowserCompatibilityWarning", true)
+            }
+            $('#browserAlert').hide();
+        })
+        $('#browserAlert').show();
+    }
+});

@@ -1,17 +1,15 @@
+# -*- coding: utf-8 -*-
 """Override of CKAN actions"""
-
+import json
 import logging
 import typing
 
 import ckan.plugins.toolkit as toolkit
+from ckan.logic.action.get import package_show as _package_show
 from ckan.model.domain_object import DomainObject
 
-from ...model.user_extra_fields import UserExtraFields
-from .dataset_versioning_control import handle_versioning
-from .handle_repeating_subfields import handle_repeating_subfields_naming
 from .add_named_url import populate_dataset_name
-
-import datetime
+from ...model.user_extra_fields import UserExtraFields
 
 logger = logging.getLogger(__name__)
 
@@ -84,6 +82,16 @@ def _dictize_user_extra_fields(user_extra_fields: UserExtraFields) -> typing.Dic
     del dictized_extra["id"]
     del dictized_extra["user_id"]
     return dictized_extra
+
+
+@toolkit.chained_action
+def package_show(original_action, context, data_dict):
+    """
+    Intercepts the core `package_show` action to add reference_date to package dict
+    """
+    package_dict = _package_show(context, data_dict)
+    package_dict['reference_date'] = _get_reference_date(package_dict)
+    return package_dict
 
 
 @toolkit.chained_action
@@ -160,3 +168,20 @@ def _act_depending_on_package_visibility(
         #     toolkit.get_action("follow_dataset")(context, result)
 
     return result
+
+
+def _get_reference_date(package_dict: typing.Dict):
+    dataset_reference_date = None
+    if 'extras' in package_dict:
+        extras = [
+            extra for extra in package_dict['extras'] if extra['key'] == 'dataset_reference_date'
+        ]
+        if extras:
+            dataset_reference_dates = json.loads(extras[0]['value'])
+            if dataset_reference_dates:
+                dataset_reference_date = dataset_reference_dates[0]['reference']
+    elif 'dataset_reference_date' in package_dict:
+        dataset_reference_dates = package_dict['dataset_reference_date']
+        if dataset_reference_dates:
+            dataset_reference_date = dataset_reference_dates[0]['reference']
+    return dataset_reference_date

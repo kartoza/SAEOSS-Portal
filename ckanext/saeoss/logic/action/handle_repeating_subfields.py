@@ -1,6 +1,4 @@
-from copy import deepcopy
-import re
-
+# -*- coding: utf-8 -*-
 """
 ckan scheming gives repeating subfields
 the naming of fieldname-0*-subfieldname
@@ -10,6 +8,10 @@ may affect how the field is going to be
 referenced from other services related to
 EMC, we are changing this naming here.
 """
+from copy import deepcopy
+import re
+
+
 
 # unfortunatley this doesn't get saved if you changed the naming
 # and not retrieved from the database, something related to

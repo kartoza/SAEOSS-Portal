@@ -4,7 +4,7 @@ import pytest
 
 from ckan.tests.helpers import CKANCliRunner
 
-from ckanext.dalrrd_emc_dcpr.cli import commands
+from ckanext.saeoss.cli import commands
 
 pytestmark = pytest.mark.unit
 

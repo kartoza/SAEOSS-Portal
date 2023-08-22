@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 re-implement stats blueprint as it's not working
 """
@@ -26,6 +27,8 @@ _cumulative_num_pkgs = 0
 
 @stats_blueprint.route("/")
 def index():
+    """A blueprint rendering stats template.
+    """
     largestGroups = largest_groups()
     topTags = top_tags()
     topPackagesCreators = top_package_creators()

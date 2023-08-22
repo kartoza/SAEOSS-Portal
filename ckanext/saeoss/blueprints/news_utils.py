@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+""" Utility methods for news blueprints"""
 import ckantoolkit as tk
 import ckan.lib.helpers as helpers
 import ckan.logic as logic
@@ -9,6 +11,7 @@ _ = tk._
 
 
 def list_news():
+    """Get list og new."""
     tk.c.pages_dict = tk.get_action("ckanext_pages_list")(
         context={}, data_dict={"page_type": "news"}
     )
@@ -25,6 +28,8 @@ def list_news():
 def news_edit_util(
     page=None, data=None, errors=None, error_summary=None, page_type="pages"
 ):
+    """Edit a new.
+    """
 
     page_dict = None
     if page:
@@ -82,6 +87,8 @@ def news_edit_util(
 
 
 def news_delete_util(page, page_type="pages"):
+    """Delete a new.
+    """
     if page.startswith("/"):
         page = page[1:]
     if "cancel" in tk.request.params:

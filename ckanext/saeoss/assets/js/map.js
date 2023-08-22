@@ -1,5 +1,64 @@
 "use strict";
 
+class layerSwitcherControl {
+
+  constructor(options) {
+    this._options = {...options};
+    this._container = document.createElement("div");
+    this._container.classList.add("maplibregl-ctrl");
+    this._container.classList.add("maplibregl-ctrl-basemaps");
+    this._container.classList.add("closed");
+
+    switch (this._options.expandDirection || "right") {
+      case "top":
+        this._container.classList.add("reverse");
+      case "down":
+        this._container.classList.add("column");
+        break;
+      case "left":
+        this._container.classList.add("reverse");
+      case "right":
+        this._container.classList.add("row");
+    }
+    this._container.addEventListener("mouseenter", () => {
+        this._container.classList.remove("closed");
+    });
+    this._container.addEventListener("mouseleave", () => {
+      this._container.classList.add("closed");
+    });
+  }
+
+  onAdd(map) {
+    this._map = map;
+    const basemaps = this._options.basemaps;
+    Object.keys(basemaps).forEach((layerId) => {
+      const base = basemaps[layerId];
+      const basemapContainer = document.createElement("img");
+      basemapContainer.src = base.img;
+      basemapContainer.classList.add("basemap");
+      basemapContainer.dataset.id = layerId;
+      basemapContainer.addEventListener("click", () => {
+        const activeElement = this._container.querySelector(".active");
+        activeElement.classList.remove("active");
+        basemapContainer.classList.add("active");
+        map.setStyle(base.style);
+      });
+      this._container.appendChild(basemapContainer);
+
+      console.log(this._options.initialBasemap)
+      if (this._options.initialBasemap.style === base.style) {
+          basemapContainer.classList.add("active");
+          basemapContainer.classList.remove("hidden");
+      }
+    });
+    return this._container;
+  }
+
+  onRemove(){
+    this._container.parentNode?.removeChild(this._container);
+    delete this._map;
+  }
+}
 ckan.module("saeossWebMapping", function(jQuery, _) {
     return {
         options: {
@@ -36,9 +95,22 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
             let dataFetched = "";
 
+            const baseMaps = {
+              "STREETS": {
+                  img: "https://cloud.maptiler.com/static/img/maps/streets.png",
+                  style: "https://api.maptiler.com/maps/streets/style.json?key=3k2ZAx59NO9FMIGBUi8W"
+              },
+              "HYBRID": {
+                  img: "https://cloud.maptiler.com/static/img/maps/hybrid.png",
+                  style: "https://api.maptiler.com/maps/satellite/style.json?key=3k2ZAx59NO9FMIGBUi8W"
+              }
+            }
+
+            const initialStyle = Object.values(baseMaps)[0];
+            
             const map = new maplibregl.Map({
                 container: 'map',
-                style: 'https://api.maptiler.com/maps/streets/style.json?key=3k2ZAx59NO9FMIGBUi8W', // stylesheet location
+                style: initialStyle.style, // stylesheet location
                 center: [23.335, -25.443], // starting position [lng, lat]
                 zoom: 4, // starting zoom
             });
@@ -47,6 +119,13 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             map.addControl(new maplibregl.NavigationControl(
                 {showCompass: false}
             ));
+
+            // basemap control
+            map.addControl(new layerSwitcherControl(
+                {basemaps: baseMaps, initialBasemap: initialStyle}
+            ), 'bottom-left');
+
+
 
             // disable rotation
             map.touchZoomRotate.disableRotation();
