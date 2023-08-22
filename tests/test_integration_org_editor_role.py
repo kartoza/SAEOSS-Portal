@@ -42,7 +42,7 @@ pytestmark = pytest.mark.integration
     ],
 )
 @pytest.mark.usefixtures(
-    "emc_clean_db", "with_plugins", "with_request_context", "emc_create_sasdi_themes"
+    "saeoss_clean_db", "with_plugins", "with_request_context", "emc_create_sasdi_themes"
 )
 def test_create_package(name, private, org_role):
     user = factories.User()
@@ -149,7 +149,7 @@ def test_create_package(name, private, org_role):
 #     ],
 # )
 # @pytest.mark.usefixtures(
-#     "emc_clean_db", "with_plugins", "with_request_context", "emc_create_sasdi_themes"
+#     "saeoss_clean_db", "with_plugins", "with_request_context", "emc_create_sasdi_themes"
 # )
 
 # # this needs to be modeled in a way that catpure nunique names

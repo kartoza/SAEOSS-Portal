@@ -299,13 +299,14 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "package_create": ckan_actions.package_create,
             "package_update": ckan_actions.package_update,
             "package_patch": ckan_actions.package_patch,
+            "package_show": ckan_actions.package_show,
             "saeoss_version": saeoss_actions.show_version,
             "user_patch": ckan_actions.user_patch,
             "user_update": ckan_actions.user_update,
             "user_create": ckan_actions.user_create,
             "user_show": ckan_actions.user_show,
-            "resource_create":ckan_custom_actions.resource_create,
-            "resource_update":ckan_custom_actions.resource_update,
+            "resource_create": ckan_custom_actions.resource_create,
+            "resource_update": ckan_custom_actions.resource_update,
         }
 
     def get_validators(self) -> typing.Dict[str, typing.Callable]:

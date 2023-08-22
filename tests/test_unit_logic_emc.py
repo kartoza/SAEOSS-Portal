@@ -2,13 +2,13 @@ import pkg_resources
 import pytest
 from unittest import mock
 
-from ckanext.dalrrd_emc_dcpr.logic.action import emc
+from ckanext.saeoss.logic.action import saeoss
 
 pytestmark = pytest.mark.unit
 
 
-@mock.patch("ckanext.dalrrd_emc_dcpr.logic.action.emc.os", autospec=True)
-@mock.patch("ckanext.dalrrd_emc_dcpr.logic.action.emc.pkg_resources", autospec=True)
+@mock.patch("ckanext.saeoss.logic.action.saeoss.os", autospec=True)
+@mock.patch("ckanext.saeoss.logic.action.saeoss.pkg_resources", autospec=True)
 def test_show_version(mock_pkg_resources, mock_os):
     fake_git_sha = "phony git sha"
     fake_version = "phony version"
