@@ -39,7 +39,7 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
     model = context['model']
     user = context['user']
 
-    logger.debug("package create was called ")
+    logger.debug(f"package create was called {data_dict}")
 
     package_id = _get_or_bust(data_dict, 'package_id')
     if not data_dict.get('url'):
@@ -59,24 +59,26 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
 
     upload = uploader.get_resource_uploader(data_dict)
 
-    if data_dict["resource_type"] == "stac":
-        allowed_types = ["application/json", "application/xml", "application/yaml"]
+    if data_dict["url"] == "":
 
-        if upload.mimetype not in allowed_types:
-            raise ValidationError(["Only json, yaml and xml files are allowed"])
+        if data_dict["resource_type"] == "stac":
+            allowed_types = ["application/json", "application/xml", "application/yaml"]
 
-        temp_file = upload.upload_file
-        file_contents = temp_file.read()
+            if upload.mimetype not in allowed_types:
+                raise ValidationError(["Only json, yaml and xml files are allowed"])
 
-        if upload.mimetype == "application/json":
-            json_data = json.loads(file_contents)
+            temp_file = upload.upload_file
+            file_contents = temp_file.read()
+            
+            if upload.mimetype == "application/json":
+                json_data = json.loads(file_contents)
 
-        if upload.mimetype == "application/yaml":
-            json_data = yaml.load(file_contents)
+            if upload.mimetype == "application/yaml":
+                json_data = yaml.load(file_contents)
 
         if upload.mimetype == "application/xml":
             json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
-
+        
         stac_validator(json_data, data_dict["stac_specification"])
 
     if 'mimetype' not in data_dict:
