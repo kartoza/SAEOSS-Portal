@@ -151,25 +151,29 @@ def resource_update(original_action, context: dict, data_dict: dict):
 
     '''
 
+    logger.debug("package update", data_dict)
+
     model = context['model']
     id = _get_or_bust(data_dict, "id")
 
-    if data_dict["updated_text"]:
-        first_folder = id[0:3]
-        second_folder = id[3:6]
-        file_name = id[6:len(id)]
-
-        upload = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
-
-        logger.debug(f"resource update custom {data_dict}")
-        f = open(upload, "w")
-        f.write(data_dict["updated_text"])
-        f.close()
-
-        del data_dict["updated_text"]
-
     if not data_dict.get('url'):
         data_dict['url'] = ''
+
+    if data_dict["url"] == '':
+
+        if data_dict["updated_text"]:
+            first_folder = id[0:3]
+            second_folder = id[3:6]
+            file_name = id[6:len(id)]
+
+            upload = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
+
+            logger.debug(f"resource update custom {data_dict}")
+            f = open(upload, "w")
+            f.write(data_dict["updated_text"])
+            f.close()
+
+            del data_dict["updated_text"]
 
     resource = model.Resource.get(id)
     context["resource"] = resource
