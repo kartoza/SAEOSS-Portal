@@ -1264,6 +1264,26 @@ select[id$="field-dataset_custodian"]{
   opacity: 1 !important;
 }
 
+#browserAlert {
+  background-color: #00000000;
+}
+
+#browserAlert .modal-header {
+  display: flex;
+}
+
+#browserAlert .modal-header .modal-title {
+  flex-grow: 1;
+}
+
+#browserAlert .modal-footer {
+  display: flex;
+}
+
+#browserAlert label:after {
+  content: "" !important;
+}
+
 /* Web Mapping */
 
 #map{
