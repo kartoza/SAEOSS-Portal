@@ -23,7 +23,7 @@
 
 {% block pre_primary %}
   {% block resource %}
- 
+
     <section class="module module-resource" role="complementary">
       {% block resource_inner %}
       <div class="module-content">
@@ -74,9 +74,9 @@
           </ul>
           {% endblock %}
         </div>
-        
+
         {% block resource_content %}
-        
+
           {% block package_archive_notice %}
             {% if is_activity_archive %}
               <div id="activity-archive-notice" class="alert alert-danger">
@@ -95,7 +95,7 @@
               <p class="text-muted break-word">{{ _('URL:') }} {{ res.url }}</p>
             {% endif %}
           {% endblock %}
-           
+
           <div class="prose notes" property="rdfs:label">
             {% if res.description %}
               {{ h.render_markdown(res.description) }}
@@ -115,7 +115,7 @@
               <p>{% trans dataset=package.title, url=h.url_for(package.type ~ '.read', id=package.id if is_activity_archive else package.name) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
           </div>
-          
+
         {% endblock %}
       {% if not is_activity_archive %}
       {% block data_preview %}
@@ -151,8 +151,8 @@
                   {% endif %}
                 {% endfor %}
               {% endif %}
-            
-              
+
+
             {% endif %}
           </div>
           {% endblock %}
@@ -226,7 +226,7 @@
 {% endblock %}
 
 {% block scripts %}
-    <!-- jQuery --> 
+    <!-- jQuery -->
     <script
   src="https://code.jquery.com/jquery-3.7.0.min.js"
   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
@@ -248,9 +248,9 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
-    
+
     <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
     {% asset 'ckanext-saeoss/csv-js' %}
     {% asset 'ckanext-saeoss/resource-read-js' %}
-    
+
 {% endblock %}
