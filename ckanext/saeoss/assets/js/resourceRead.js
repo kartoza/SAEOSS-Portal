@@ -14,7 +14,7 @@ if(ext_type == "json"){
     .then(response => response.json())
     .then(data => {
         
-        document.getElementById("_featuresDescription").innerHTML = '<pre>'+JSON.stringify(data, null, 2)+'</pre>';
+        // document.getElementById("_featuresDescription").innerHTML = '<pre>'+JSON.stringify(data, null, 2)+'</pre>';
 
         var container = document.getElementsByClassName('leaflet-bottom leaflet-left')[0]
         container.innerHTML = `
@@ -102,7 +102,7 @@ else if(ext_type == "kml"){
             var xmlString = serializer.serializeToString(doc[0]['childNodes'][i]);
             html_str += `<div>${xmlString}</div>`
         }
-        document.getElementById("_featuresDescription").innerHTML = html_str
+        // document.getElementById("_featuresDescription").innerHTML = html_str
     })
     .catch(err => console.log(err))
     omnivore.kml(file).addTo(map);
