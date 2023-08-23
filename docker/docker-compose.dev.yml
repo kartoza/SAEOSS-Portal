@@ -13,6 +13,7 @@ version: "3.8"
 
 # centralized definition of published ports, in order to avoid clashes
 x-ckan-web-published-port: &ckan-web-published-port 5000
+x-ckan-datapusher-published-port: &ckan-datapusher-published-port 8800
 x-pycsw-published-port: &pycsw-published-port 5001
 x-ckan-db-published-port: &ckan-db-published-port 55432
 x-ckan-test-db-published-port: &ckan-test-db-published-port 55434
@@ -42,6 +43,12 @@ x-email-environment-values: &partial-email-environment-values
 
 
 services:
+
+  ckan-datapusher:
+    <<: *partial-ckan-volumes
+    ports:
+      - target: 8800
+        published: *ckan-datapusher-published-port
 
   ckan-web:
     <<: *partial-ckan-volumes

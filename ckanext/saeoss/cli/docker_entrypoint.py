@@ -42,11 +42,16 @@ def launch_gunicorn(ckan_ini):
         ckan_config = _get_ckan_config(ckan_ini)
         debug = toolkit.asbool(ckan_config.get("debug", False))
         if debug:
+            gunicorn_params = gunicorn_params[:-2]
             gunicorn_params.extend(
                 [
                     "--workers=1",
                     "--reload",
-                    f"--log-level=debug",
+                    "--log-level=debug",
+                    "--error-logfile=/home/appuser/ckan-error.log",
+                    "--access-logfile=/home/appuser/ckan-access.log",
+                    "--access-logformat='%(h)s %(l)s %(u)s %(t)s \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%(a)s\"'",
+                    "--capture-output",
                 ]
             )
 

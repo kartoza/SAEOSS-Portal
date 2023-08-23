@@ -59,7 +59,8 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
 
     upload = uploader.get_resource_uploader(data_dict)
 
-    if data_dict["resource_type"] == "stac":
+    logging.critical(data_dict)
+    if data_dict.get("resource_type", "") == "stac":
         allowed_types = ["application/json", "application/xml", "application/yaml"]
 
         if upload.mimetype not in allowed_types:
@@ -152,7 +153,7 @@ def resource_update(original_action, context: dict, data_dict: dict):
     model = context['model']
     id = _get_or_bust(data_dict, "id")
 
-    if data_dict["updated_text"]:
+    if data_dict.get("updated_text", None):
         first_folder = id[0:3]
         second_folder = id[3:6]
         file_name = id[6:len(id)]

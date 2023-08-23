@@ -7,6 +7,9 @@ services:
   ckan-web:
     image: saeoss:${CKAN_IMAGE_TAG}
 
+  ckan-datapusher:
+    image: ckan/ckan-base-datapusher:0.0.20
+
   ckan-background-worker:
     image: saeoss:${CKAN_IMAGE_TAG}
     command: ["launch-ckan-cli", "jobs", "worker"]
