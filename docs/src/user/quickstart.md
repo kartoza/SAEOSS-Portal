@@ -15,7 +15,7 @@
     
 
 ### Logging In
-Once a user profile has been registered, user are able to login.
+Once a user profile has been registered, users are able to login.
 
 1. From the home page, select login to be directed to the login page:
 
@@ -29,11 +29,11 @@ Once a user profile has been registered, user are able to login.
 
 
 ### Dashboard
-The dashboard server as a collector of information to the user can displayes all recent activities of the user profile and that of orgenisations followed by the user.
+The dashboard server as a collector of information to the user can display all recent activities of the user profile and that of organisations followed by the user.
 
 ![Dash_board](../img/Dashboard.png)
 
-Users can navigate to the dashboard easily from anywhere by selecting their provile picture in the top right-hand corner, then select dashboard from the list. 
+Users can navigate to the dashboard easily from anywhere by selecting their profile picture in the top right-hand corner, then select dashboard from the list. 
 
 ![Profile_dropdown](../img/Profile_Dropdown.png)
 
@@ -41,10 +41,10 @@ Users can navigate to the dashboard easily from anywhere by selecting their prov
 The news feed lists all recent activities of items followed. As a new user this should display recent activity of your own profile. 
 
 ### My Metadata Records
-In this section all metadata records uploaded by the user are displayed. By defult users are not able to upload new datasets. If required the user can request permissions from the administrator to have this functonality enabled. 
+In this section all metadata records uploaded by the user are displayed. By default users are not able to upload new datasets. If required the user can request permissions from the administrator to have this functionality enabled. 
 
-### My Orgenisations
-In this section the user will see all orgenisations they form part of.
+### My Organisations
+In this section the user will see all organisations they form part of.
 
 ### My Groups
-In this section the user will be able to see any groups they form part of. 
+In this section the user will be able to see any groups they form part of.
