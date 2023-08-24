@@ -1,0 +1,42 @@
+{% extends 'page.html' %}
+
+{% block subtitle %}Map{% endblock %}
+
+{% block scripts %}
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+            crossorigin="anonymous"></script>
+    {% asset "ckanext-saeoss/validate-actions-js" %}
+{% endblock %}
+
+{% block content %}
+    
+<div class="container">
+    <h3>Validator</h3>
+    <p>Choose whether to run validation on all resources or selected resources</p>
+    <hr>
+    <form method="post" action="">
+       <div class="form-group">
+            <input type="radio" name="validation" onclick="handleChange(this)" value="validate_all" checked/>
+            <label>Run Bulk Validation on all Resources</label>
+       </div>
+       <div class="form-group">
+            <input type="radio" name="validation" onclick="handleChange(this)" value="validate_selection"/>
+            <label>Run Validation on selected Resources</label>
+        </div>
+        <div id="select_data"></div>
+       <button type="button" onclick="validate()" id="btnSubmit" class="btn btn-primary" value="bulk" >Submit</button>
+    </form>
+
+    <br>
+
+    <div id="feedback"></div>
+
+</div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+

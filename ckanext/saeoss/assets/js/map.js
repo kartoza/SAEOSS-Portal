@@ -125,8 +125,6 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 {basemaps: baseMaps, initialBasemap: initialStyle}
             ), 'bottom-left');
 
-
-
             // disable rotation
             map.touchZoomRotate.disableRotation();
 

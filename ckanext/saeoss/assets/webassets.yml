@@ -62,6 +62,16 @@ resource-read-js:
       - base/main
       - ckanext-saeoss/vendorized-leaflet-geoman-js
 
+validate-actions-js:
+  output: ckanext-saeoss/validate_actions.js
+  contents:
+    - js/validate_actions.js
+  filter: rjsmin
+  extra:
+    preload:
+      - base/main
+      - ckanext-saeoss/vendorized-leaflet-geoman-js
+
 dataset-spatial-extent-map-css:
   output: ckanext-saeoss/%(version)s_datasetSpatialExtentMap.css
   contents:
