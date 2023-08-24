@@ -48,10 +48,6 @@ def launch_gunicorn(ckan_ini):
                     "--workers=1",
                     "--reload",
                     "--log-level=debug",
-                    "--error-logfile=/home/appuser/ckan-error.log",
-                    "--access-logfile=/home/appuser/ckan-access.log",
-                    "--access-logformat='%(h)s %(l)s %(u)s %(t)s \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%(a)s\"'",
-                    "--capture-output",
                 ]
             )
 
