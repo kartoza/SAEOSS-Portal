@@ -1,5 +1,6 @@
 function handleChange(radio){
     var typeOf = radio.value
+    $('#feedback').html('')
 
     if(typeOf == 'validate_all'){
         document.getElementById("select_data").style.display = "none"
@@ -12,7 +13,6 @@ function handleChange(radio){
             success: function(resultData) { 
                 
                 const obj = JSON.parse(resultData)
-                console.log(obj[0]["package_id"])
                 var resource = `<p>Select multiple resources to validate:</p>`;
                 for (var i = 0; i < obj.length; i++){
                     resource += `

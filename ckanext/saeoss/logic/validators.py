@@ -12,7 +12,7 @@ from ckan.lib.navl.dictization_functions import (
 from ckantoolkit import get_validator
 import json
 import jsonschema
-from jsonschema import  validate
+from jsonschema import validate
 import logging
 import os
 from .action import ckan_custom_actions
@@ -144,7 +144,7 @@ def stac_validator(jsonData, type):
         logging.debug(f"validation error {err}")
         raise ckan_custom_actions.ValidationError([f"The uploaded file does not follow STAC guidelines. Please ammend the following: \n\n{err}"],)
     
-def stac_validator_admin(jsonData, type):
+def stac_validator_admin(json_data, type):
     if type == 'collection':
         file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/collection/collection.json"
     if type == 'catalog':
@@ -154,7 +154,7 @@ def stac_validator_admin(jsonData, type):
     f = open(file)
     schema = json.load(f)
     try:
-        validate(instance=jsonData, schema=schema)
+        validate(instance=json_data, schema=schema)
         return True
     except jsonschema.exceptions.ValidationError as err:
         return str(err)

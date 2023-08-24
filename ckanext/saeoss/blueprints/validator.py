@@ -3,6 +3,8 @@
 A blueprint rendering map page.
 """
 import logging
+import typing
+
 from flask import Blueprint, redirect, url_for, request
 from ckan.plugins import toolkit
 from ckan import model
@@ -59,13 +61,79 @@ def retrieve_metadata():
                     "extras": extras
                 })
 
-            data.append({
-                    "package_id": package_id, 
-                    "package_name": package_name, 
+            if resource_list:
+                data.append({
+                    "package_id": package_id,
+                    "package_name": package_name,
                     "resources": resource_list
                 })
         return json.dumps(data)
 
+
+def _validate(context: typing.Dict, result: typing.List[typing.List[typing.Any]]):
+    for x in result:
+        resource_id = x[0]
+        url = x[1]
+        package_id = x[2]
+        format = x[3]
+        url_type = x[4]
+        resource_name = x[5]
+        extras = json.loads(x[6])
+        first_folder = resource_id[0:3]
+        second_folder = resource_id[3:6]
+        file_name = resource_id[6:len(resource_id)]
+
+        query = f""" SELECT name FROM package WHERE id = '{package_id}' """
+        package_result = model.Session.execute(query)
+
+        for res in package_result:
+            package_name = res[0]
+
+        logger.debug(f'url_type: {url_type}')
+        logger.debug(f'format {format}')
+        json_data = None
+
+        if url_type == 'upload' and format in ['json', 'yaml', 'xml']:
+            file_url = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
+            file_contents = open(file_url, 'r').read()
+
+            if format.lower() == "json":
+                json_data = json.loads(file_contents)
+
+            if format.lower() == "yaml":
+                json_data = yaml.load(file_contents)
+
+            if format.lower() == "xml":
+                json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
+        elif url_type not in ['upload', 'datastore']:
+            resp = urllib.request.urlopen(url)
+            json_data = json.loads(resp.read())
+
+        if format not in ['json', 'yaml', 'xml']:
+            result = True
+        else:
+            result = stac_validator_admin(json_data, extras["stac_specification"])
+
+        if result is not True:
+            context[0]["error"].append(
+                {
+                    "resource_id": resource_id,
+                    "resource_name": resource_name,
+                    "file_url": url,
+                    "package_id": package_id,
+                    "package_name": package_name,
+                    "message": result
+                })
+        else:
+            context[0]["success"].append(
+                {
+                    "resource_id": resource_id,
+                    "resource_name": resource_name,
+                    "file_url": url,
+                    "package_id": package_id,
+                    "package_name": package_name
+                })
+    return context
 
 @validator_blueprint.route("/validate_all/", methods = ['POST', 'GET'])
 def validate_all():
@@ -75,61 +143,7 @@ def validate_all():
 
         q = f""" SELECT id, url, package_id, format, url_type, name, extras FROM resource """
         result = model.Session.execute(q)
-        for x in result:
-            id = x[0]
-            url = x[1]
-            package_id = x[2]
-            format = x[3]
-            url_type = x[4]
-            resource_name  = x[5]
-            extras = json.loads(x[6])
-            first_folder = id[0:3]
-            second_folder = id[3:6]
-            file_name = id[6:len(id)]
-
-            query = f""" SELECT name FROM package WHERE id = '{package_id}' """
-            package_result = model.Session.execute(query)
-
-            for res in package_result:
-                package_name = res[0]
-
-            if url_type == 'upload':
-                file_url = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
-                file_contents = open(file_url, 'r').read()
-
-                if format.lower() == "json":
-                    json_data = json.loads(file_contents)
-
-                if format.lower() == "yaml":
-                    json_data = yaml.load(file_contents)
-
-                if format.lower() == "xml":
-                    json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
-            else:
-                resp = urllib.request.urlopen(url)
-                json_data = json.loads(resp.read())
-    
-            result = stac_validator_admin(json_data, extras["stac_specification"])
-
-            if result is not True:
-                context[0]["error"].append(
-                    {
-                        "resource_id": id, 
-                        "resource_name": resource_name, 
-                        "file_url": url, 
-                        "package_id": package_id, 
-                        "package_name": package_name, 
-                        "message": result
-                    })
-            else:
-                context[0]["success"].append(
-                    {
-                        "resource_id": id, 
-                        "resource_name": resource_name, 
-                        "file_url": url, 
-                        "package_id": package_id, 
-                        "package_name": package_name
-                    })
+        context = _validate(context, result)
         
     return json.dumps(context)
 
@@ -145,60 +159,5 @@ def validate_selection():
 
             q = f""" SELECT id, url, package_id, format, url_type, name, extras FROM resource  WHERE id = '{_data}'"""
             result = model.Session.execute(q)
-            for x in result:
-                id = x[0]
-                url = x[1]
-                package_id = x[2]
-                format = x[3]
-                url_type = x[4]
-                resource_name  = x[5]
-                extras = json.loads(x[6])
-                first_folder = id[0:3]
-                second_folder = id[3:6]
-                file_name = id[6:len(id)]
-
-                query = f""" SELECT name FROM package WHERE id = '{package_id}' """
-                package_result = model.Session.execute(query)
-
-                for res in package_result:
-                    package_name = res[0]
-
-                if url_type == 'upload':
-                    file_url = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
-                    file_contents = open(file_url, 'r').read()
-
-                    if format.lower() == "json":
-                        json_data = json.loads(file_contents)
-
-                    if format.lower() == "yaml":
-                        json_data = yaml.load(file_contents)
-
-                    if format.lower() == "xml":
-                        json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
-                else:
-                    resp = urllib.request.urlopen(url)
-                    json_data = json.loads(resp.read())
-        
-                result = stac_validator_admin(json_data, extras["stac_specification"])
-
-                if result is not True:
-                    context[0]["error"].append(
-                        {
-                            "resource_id": id, 
-                            "resource_name": resource_name, 
-                            "file_url": url, 
-                            "package_id": package_id, 
-                            "package_name": package_name, 
-                            "message": result
-                        })
-                else:
-                    context[0]["success"].append(
-                        {
-                            "resource_id": id, 
-                            "resource_name": resource_name, 
-                            "file_url": url, 
-                            "package_id": package_id, 
-                            "package_name": package_name
-                        })
-        
+            context = _validate(context, result)
     return json.dumps(context)
