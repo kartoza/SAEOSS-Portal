@@ -38,7 +38,7 @@
   {% endif %}
   
   {% if 'edit' in action %}
-  {% if data.resource_type != 'other' %}
+  {% if data.resource_type != 'other' and data.url_type == 'upload' %}
   <label>Edit File Contents</label>
     <textarea id="showText" name="updated_text" class="form-control" style="height: 500px;">
     </textarea>
@@ -126,9 +126,7 @@
     document.getElementById("showText").innerHTML = text
   });
 
-  
-
-  {% if 'edit' in action and data.resource_type != 'other' %}
+  {% if 'edit' in action and data.resource_type != 'other' and data.url_type == 'upload' %}
   document.getElementsByClassName('image-upload')[0].style.display = "none"
   {% endif %}
 
