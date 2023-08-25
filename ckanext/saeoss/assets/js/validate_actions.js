@@ -1,104 +1,85 @@
-function handleChange(radio){
-    var typeOf = radio.value
+function toTitleCase(str) {
+  return str.toLowerCase().split(' ').map(function (word) {
+    return (word.charAt(0).toUpperCase() + word.slice(1));
+  }).join(' ');
+}
+
+$(document).ready(function () {
     $('#feedback').html('')
 
-    if(typeOf == 'validate_all'){
-        document.getElementById("select_data").style.display = "none"
-    }
-    else{
-        document.getElementById("select_data").style.display = "block"
-        $.ajax({
-            type: 'GET',
-            url: "/validator/retrieve_metadata/",
-            success: function(resultData) { 
-                
-                const obj = JSON.parse(resultData)
-                var resource = `<p>Select multiple resources to validate:</p>`;
-                for (var i = 0; i < obj.length; i++){
-                    resource += `
-                        <div id=${obj[i]["package_id"]}>
-                        <h4>Dataset: ${obj[i]["package_name"]}</h4>
-                    `
-                    for(var x = 0; x < obj[i]["resources"].length; x++){
-                        var resource_name= obj[i]["resources"][x]["resource_name"]
-                        if(resource_name == ""){
-                            resource_name = "undefined"
-                        }
-                        resource += `
-                            <input type="checkbox" name='resource_validate' class='resource_validate' value='${obj[i]["resources"][x]["resource_id"]}'/>
-                            <label>Name: ${resource_name} (url: ${obj[i]["resources"][x]["url"]})</label>
-                            <br>
-                        `
-                    }
-
-                    resource += `
-                        </div>
-                    `
-                }
-                document.getElementById("select_data").innerHTML = resource
-            },
-            error: function(resultData){
-                alert("Something went wrong!")
+    document.getElementById("select_data").style.display = "block"
+    $.ajax({
+        type: 'GET',
+        url: "/validator/retrieve_metadata/",
+        success: function(resultData) {
+            let resourceArr = JSON.parse(resultData)
+            resourceArr = resourceArr.map((resource) => {
+                resource.validity = resource.validity ? resource.validity : '';
+                return resource
+            });
+            let resource = `<p>Click on the table row to select resources</p>`;
+            let colNames = [
+                'resource_name',
+                'resource_id',
+                'url',
+                'url_type',
+                'format',
+                'package_name',
+                'validity'
+            ];
+            let columns = [];
+            if (resourceArr.length > 0) {
+                for (let i = 0; i < colNames.length; i++)
+                    columns.push({
+                        title: toTitleCase((colNames[i].split('_')).join(' ')),
+                        data: colNames[i].replace(/\./g, '\\.')
+                    });
             }
-        });
-    }
-}
+            resource += '<table id="resource-table"></table>';
+            document.getElementById("select_data").innerHTML = resource;
+            const table = new DataTable('#resource-table', {
+                data: resourceArr,
+                columns: columns,
+                rowId: 'resource_id',
+                search: {
+                    regex: true
+                }
+            });
 
-function successMessage(obj){
-    var success_msg = ``;
-    if(obj[0]["success"].length > 0){
-    
-        success = `<h4 style="color:green">The following resources have passed validation:</h4>`
-        for(var i = 0; i < obj[0]["success"].length; i++){
-            success_msg += `
-            <p>Resource id: ${obj[0]["success"][i]["resource_id"]}</p>
-            <p>Resource name: ${obj[0]["success"][i]["resource_name"]}</p>
-            <p>Resource url name: ${obj[0]["success"][i]["file_url"]}</p> 
-            <p>Dataset saved to: ${obj[0]["success"][i]["package_name"]}</p> 
-            <hr>
-            `
+            table.on('click', 'tbody tr', function (e) {
+                e.currentTarget.classList.toggle('selected');
+            });
+
+            $('#btn-validate-all').click(function () {
+                validate(table, 'validate_all')
+            });
+            $('#btn-validate-selected').click(function () {
+                validate(table, 'validate_selected')
+            });
+
+        },
+        error: function(resultData){
+            alert("Something went wrong!")
         }
-    }
-    return success_msg
-}
+    });
+})
 
-function errorMessage(obj){
-    var error_msg = ``;
-    if(obj[0]["error"].length > 0){
-        console.log(obj[0]["error"][0]["resource_name"])
-        error_msg = `<h4 style="color:red">The following resources have not passed validation:</h4>`
-        for(var i = 0; i < obj[0]["error"].length; i++){
-            error_msg += `
-            <p>Resource id: ${obj[0]["error"][i]["resource_id"]}</p>
-            <p>Resource name: ${obj[0]["error"][i]["resource_name"]}</p>
-            <p>Resource url name: ${obj[0]["error"][i]["file_url"]}</p> 
-            <p>Dataset saved to: ${obj[0]["error"][i]["package_name"]}</p> 
-            <p>Error message: ${obj[0]["error"][i]["message"]} </p>
-            <hr>
-            `
-        }
-    }
-    return error_msg
-}
-
-function validate(){
-
-    var typeOf = document.querySelector('input[name="validation"]:checked').value
-    document.getElementById("btnSubmit").innerHTML = "Submitting...";
-    document.getElementById("btnSubmit").disabled = true;
-    var _url = ""
+function validate(table, validationType){
+    const buttonId = validationType == 'validate_all' ? 'btn-validate-all': 'btn-validate-selected';
+    const buttonText = validationType == 'validate_all' ? 'Validate All': 'Validate Selected';
+    $(`#${buttonId}`)[0].innerHTML = "Submitting...";
+    $('btnSubmit').attr('disabled', true);
+    let _url = ""
     data = []
     
-    if(typeOf == "validate_all"){
+    if(validationType == "validate_all"){
         _url = "/validator/validate_all/"
     }
     else{
         _url = "/validator/validate_selection/"
-        var checkedVals = $('.resource_validate:checkbox:checked').map(function(){
-            return this.value;
-        }).get()
-
-        data = checkedVals
+        for (let i = 0; i < table.rows('.selected').data().length; i++) {
+            data.push(table.rows('.selected').data()[i].resource_id);
+        }
     }
 
     console.log(data)
@@ -110,16 +91,19 @@ function validate(){
         data: JSON.stringify({ 'value': data }),
         success: function(resultData) { 
             const obj = JSON.parse(resultData)
-            // obj = resultData
-            document.getElementById("btnSubmit").innerHTML = "Submit";
-            document.getElementById("btnSubmit").disabled = false;
-            
-            var html = `<h4>Results:</h4> ${successMessage(obj)} ${errorMessage(obj)}`;
-            document.getElementById("feedback").innerHTML = html
+            $.each(obj, function (key, validTypeObj) {
+                $.each(validTypeObj, function (idx, resourceId) {
+                    let rowData = table.row(`#${resourceId}`).data();
+                    rowData.validity = key;
+                    table.row(`#${resourceId}`).data(rowData);
+                });
+            });
+            $(`#${buttonId}`)[0].innerHTML = buttonText;
+            $('btnSubmit').attr('disabled', true);
         },
         error: function(resultData){
-            document.getElementById("btnSubmit").innerHTML = "Submit";
-            document.getElementById("btnSubmit").disabled = false;
+            $(`#${buttonId}`)[0].innerHTML = buttonText;
+            $('btnSubmit').attr('disabled', true);
             alert("Something went wrong!")
         }
     });

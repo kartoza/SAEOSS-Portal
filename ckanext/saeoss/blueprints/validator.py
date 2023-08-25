@@ -51,21 +51,16 @@ def retrieve_metadata():
                 url_type = x[4]
                 resource_name  = x[5]
                 extras = json.loads(x[6])
-                resource_list.append({
-                    "resource_id": id, 
-                    "url": url, 
-                    "package_id": package_id, 
-                    "format": format, 
-                    "url_type": url_type, 
-                    "resource_name": resource_name,
-                    "extras": extras
-                })
-
-            if resource_list:
                 data.append({
                     "package_id": package_id,
                     "package_name": package_name,
-                    "resources": resource_list
+                    "resources": resource_list,
+                    "resource_id": id,
+                    "url": url,
+                    "format": format,
+                    "url_type": url_type,
+                    "resource_name": resource_name,
+                    "extras": extras
                 })
         return json.dumps(data)
 
@@ -115,29 +110,14 @@ def _validate(context: typing.Dict, result: typing.List[typing.List[typing.Any]]
             result = stac_validator_admin(json_data, extras["stac_specification"])
 
         if result is not True:
-            context[0]["error"].append(
-                {
-                    "resource_id": resource_id,
-                    "resource_name": resource_name,
-                    "file_url": url,
-                    "package_id": package_id,
-                    "package_name": package_name,
-                    "message": result
-                })
+            context["invalid"].append(resource_id)
         else:
-            context[0]["success"].append(
-                {
-                    "resource_id": resource_id,
-                    "resource_name": resource_name,
-                    "file_url": url,
-                    "package_id": package_id,
-                    "package_name": package_name
-                })
+            context["valid"].append(resource_id)
     return context
 
 @validator_blueprint.route("/validate_all/", methods = ['POST', 'GET'])
 def validate_all():
-    context = [{"success": [], "error": []}]
+    context = {"valid": [], "invalid": []}
 
     if request.method == 'POST':
 
@@ -149,7 +129,7 @@ def validate_all():
 
 @validator_blueprint.route("/validate_selection/", methods = ['POST', 'GET'])
 def validate_selection():
-    context = [{"success": [], "error": []}]
+    context = {"valid": [], "invalid": []}
 
     if request.method == 'POST':
         data = request.get_json()
