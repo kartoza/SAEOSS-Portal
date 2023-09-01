@@ -26,10 +26,15 @@ cd SAEOSS-Portal/docker
 ./build.sh
 ```
 
-Start up and Run down the project
+Start up the project
 
 ```
 ./compose.py --compose-file docker-compose.yml --compose-file docker-compose.dev.yml up
+```
+
+Run down the project 
+
+```
 ./compose.py --compose-file docker-compose.yml --compose-file docker-compose.dev.yml down
 ```
 
