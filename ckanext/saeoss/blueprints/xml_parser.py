@@ -47,11 +47,13 @@ def extract_files():
     global creator
     creator = c.userobj
     xml_files = request.files.getlist("xml_dataset_files")
+    logger.debug(f"xml file {xml_files}")
     # loggin the request files.
     logger.debug("from xml parser blueprint, the xmlfiles object should be:", xml_files)
     err_msgs = []
     info_msgs = []
     for xml_file in xml_files:
+        
         check_result = check_file_fields(xml_file)
         if check_result is None:
             err_msgs.append(
@@ -64,13 +66,19 @@ def extract_files():
     # aggregate messages
     if len(err_msgs) > 0:
         res = {"info_msgs": info_msgs, "err_msgs": err_msgs}
-        send_email_to_creator(res)
+        try:
+            send_email_to_creator(res)
+        except:
+            pass
         return jsonify({"response": res})
 
     else:
         # only when all packages are created
         res = {"info_msgs": info_msgs, "err_msgs": err_msgs}
-        send_email_to_creator(res)
+        try:
+            send_email_to_creator(res)
+        except:
+            pass
         return jsonify({"response": "all packages were created", "status": 200})
 
 
@@ -113,6 +121,7 @@ def check_file_fields(xml_file) -> dict:
         root = handle_numeric_choices(root)
         root = set_language_abbreviation(root)
         # root = handle_date_fields(root)
+        logger.debug("create ckan dataset", root)
         return create_ckan_dataset(root)
 
         # things went ok
