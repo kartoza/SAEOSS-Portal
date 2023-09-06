@@ -12,7 +12,7 @@
 # - one for the current git branch
 # - the current git commit
 
-set -euo pipefail
+set -e
 
 #IMAGE_NAME=index.docker.io/kartoza/ckanext-dalrrd-emc-dcpr
 IMAGE_NAME=saeoss
@@ -22,11 +22,11 @@ GIT_COMMIT=$(git rev-parse --short HEAD)
 DEFAULT_BRANCH=$(basename $(git rev-parse --abbrev-ref origin/HEAD) | tr / -)
 
 # pull previous version, and use it with --cache-now, for build caching
-docker pull $IMAGE_NAME:$DEFAULT_BRANCH || true
-docker pull $IMAGE_NAME:$GIT_BRANCH || true
+sudo docker pull $IMAGE_NAME:$DEFAULT_BRANCH || true
+sudo docker pull $IMAGE_NAME:$GIT_BRANCH || true
 
 # use branch+commit for tagging
-docker image build \
+sudo docker image build \
     -t "$IMAGE_NAME:$GIT_BRANCH" \
     -t "$IMAGE_NAME:$GIT_COMMIT" \
     --label git-commit=$GIT_COMMIT \
