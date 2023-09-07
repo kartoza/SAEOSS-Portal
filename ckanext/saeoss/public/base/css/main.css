@@ -4,6 +4,9 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -10903,12 +10906,65 @@ iframe {
   background-color: white;
   margin: 10px;
   padding: 10px;
+  max-width: 22%;
+  max-height: 70%;
+  overflow-y: scroll;
+  background: none;
+  padding: 20px;
+}
+
+.search-btn{
+  position: absolute;
+  top: 8px;
+  right: 0px;
+  background: none;
+  border: none;
+}
+
+.clear-search-btn{
+  position: absolute;
+  top: 8px;
+  right: 20px;
+  background: none;
+  border: none;
+  display: none;
+}
+
+.collection-flex{
+  display: flex;
+}
+
+.img-div{
+  min-width: 150px ;
+  max-width: 150px;
+}
+
+.bottom-date{
+  position: absolute;
+  bottom: 5px;
+  font-size: 10px;
+}
+
+.label-temporal{
+  margin-top: 8px;
+}
+
+.white-block{
+  background: white;
+  border-radius: 5px;
+  margin: 5px 0px 5px 0px;
+  width: 104%;
+}
+
+.hide-search{
+  display: none;
 }
 
 .feature-info-tab{
   position: absolute;
   top: 200px;
-  height:500px;
+  right:0px;
+  height:70vh;
   width: 300px;
   z-index: 9999;
   background-color: white;
@@ -10916,6 +10972,7 @@ iframe {
   padding: 10px;
   overflow-y: scroll;
   display: none;
+  border-radius: 5px ;
 }
 
 .feature-show-tab{
@@ -10930,6 +10987,7 @@ iframe {
   padding: 10px;
   overflow-y: scroll;
   display: none;
+  cursor: grab;
 }
 
 #collectionSelection{
@@ -11277,4 +11335,114 @@ iframe {
   border-bottom: 1px solid gray;
   padding-bottom: 10px;
   margin-bottom: 5px;
+  max-width: 280px;
+  cursor: grab;
+}
+
+.selected-feature{
+  border: 2px solid green;
+}
+
+#collapse-collection{
+  z-index: 999999 !important;
+  background: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  top: 80px;
+  left: 5px;
+}
+
+#collapse-feature{
+  z-index: 999999 !important;
+  background: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  top: 219px;
+  right: 35px;
+  display: none;
+}
+
+.collection-show {
+  border-bottom: 1px solid gray;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  background: white;
+  border-radius: 5px;
+  cursor: grab;
+}
+
+.collection-search-error{
+  border-bottom: 1px solid gray;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  background: white;
+  border-radius: 5px;
+  padding: 20px;
+  width: 380px;
+}
+
+.collection-thumbnail{
+  width: 100%;
+  height: 100%;
+  padding: 0 10px 0px 0px;
+}
+
+.navbar-center{
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%);
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+}
+
+.hr-ver{
+  width: 1px;
+  height: 20px;
+  border-right: solid 1px gray;
+  margin-top: 15px;
+}
+
+.li-flex{
+  display: flex !important;
+}
+
+.navbar-default .navbar-nav > li > a {
+  font-size: 12px !important;
+}
+
+.nav > li > a {
+  padding: 10px !important;
+  margin-top: 5px;
+}
+
+.home-text{
+  max-width: 700px;
+  padding: 20px; 
+  margin: auto;
+  text-align: center;
+}
+
+.img-card{
+  width: 100%;
+}
+
+.center{
+  text-align: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .navbar-center{
+    position: relative !important;
+  }
+
+  .hr-ver{
+    display: none;
+  }
 }
