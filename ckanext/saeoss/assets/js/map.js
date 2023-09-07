@@ -81,19 +81,19 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
         initialize: function () {
 
-            console.log(
-                `Hi there, I'm running inside the saeossDatasetSpatialExtentMap module. ` +
-                `Oh, and my bound element is ${this.el} and the Jinja template passed me this as the default extent: ${this.options.defaultExtent}`
-            )
+            // console.log(
+            //     `Hi there, I'm running inside the saeossDatasetSpatialExtentMap module. ` +
+            //     `Oh, and my bound element is ${this.el} and the Jinja template passed me this as the default extent: ${this.options.defaultExtent}`
+            // )
 
             jQuery.proxyAll(this, /_on/);
             this.el.ready(this._onReady);
-
         },
 
         _onReady: function () {
 
-            let dataFetched = "";
+            let dataFetched = null;
+            let allFeatures = null;
 
             const baseMaps = {
               "STREETS": {
@@ -125,8 +125,6 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 {basemaps: baseMaps, initialBasemap: initialStyle}
             ), 'bottom-left');
 
-
-
             // disable rotation
             map.touchZoomRotate.disableRotation();
 
@@ -157,47 +155,73 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 
                 var collections = dataFetched["collections"]
                 let sourceUrl = collections[$(this).val()]["links"][0]["href"]
-
-                try {
-                    map.removeLayer("spatial_polygons")
-                    map.removeSource("spatial")
-                } catch (error) {
-                    console.log("no layer found")
-                }
-
-                map.addSource("spatial", {
-                    type: "geojson",
-                    data: sourceUrl,
-          
-                });
-  
-                map.addLayer({
-                    'id': 'spatial_polygons',
-                    'type': 'fill',
-                    'source': 'spatial',
-                    'layout': {},
-                    'paint': {
-                        'fill-color': '#088',
-                        'fill-opacity': 0.5
-                    }
-                });
-
-                map.on("sourcedata", (e) => {
-                    if(e.isSourceLoaded == true && e.source.data == sourceUrl){
-                        document.getElementById("loadCollection").style.display = "none";
-                        document.getElementById("collectionSelectionMain").style.display = "block";
-                        var bounds = collections[$(this).val()].extent.spatial.bbox
-                        console.log(bounds)
-                        map.fitBounds([
-                            [bounds[0][0],bounds[0][1]],
-                            [bounds[0][2],bounds[0][3]]
-                        ]);
-                        
-                    }
-                    
-                })
-
                 
+                
+                let fetchRes = fetch(sourceUrl);
+                fetchRes.then(res => res.json()).then(data => {
+                    document.getElementById("loadCollection").style.display = "none";
+                    document.getElementById("collectionSelectionMain").style.display = "block";
+                    console.log(data["features"])
+                    allFeatures = data["features"]
+                    var featureHtml = ""
+                    for(var i = 0; i < allFeatures.length; i++){
+                        var image_url;
+                        var isThumbnail = false;
+                        Object.keys( allFeatures[i]["assets"]).forEach(function(k){
+                            if(k == "thumbnail"){
+                                isThumbnail = true;
+                                image_url = allFeatures[i]["assets"]["thumbnail"]["href"]
+                            }
+                        })
+                        if(!isThumbnail){
+                            image_url = "/images/africa_preview.png"
+                        }
+                        featureHtml += `
+                        <div class="row feature-show" data-featurenum=${i}>
+                        <div class="col-md-2">
+                        <img width="40" src='${image_url}'/>
+                        </div>
+                        <div class="col-md-10">
+                        ${allFeatures[i]["properties"]["title"]}
+                        </div>
+                        </div>`;
+                    }
+                    document.getElementById("feature-info-tab").style.display = "block"
+                    document.getElementById("feature-inner").innerHTML = featureHtml
+                    $(".feature-show").on('click', function(event){
+                        var index = $(this).data('featurenum')
+                        console.log(allFeatures[index])
+
+                        document.getElementById("feature-show-tab").style.display = "block"
+                        document.getElementById("feature-show-inner").innerHTML = JSON.stringify(allFeatures[index],undefined,2)
+
+                        if(map.getLayer("spatial_polygons")){
+                            map.removeLayer("spatial_polygons")
+                            map.removeSource("spatial")
+                        }
+        
+                        map.addSource("spatial", {
+                            type: "geojson",
+                            data: allFeatures[index],
+                        });
+          
+                        map.addLayer({
+                            'id': 'spatial_polygons',
+                            'type': 'fill',
+                            'source': 'spatial',
+                            'layout': {},
+                            'paint': {
+                                'fill-color': '#088',
+                                'fill-opacity': 0.5
+                            }
+                        });
+
+                        var bounds = allFeatures[index]["bbox"]
+                        console.log(bounds)
+                        map.fitBounds(bounds)
+                    });
+                });
+
             })
 
             map.on('click', 'spatial_polygons', (e) => {
@@ -206,10 +230,14 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     'type',
                     'properties',
                     'id',
+                    'geometry',
+                    'links',
+                    'assets'
                 ];
 
                 const displayFeatures = feature.map((feat) => {
                     const displayFeat = {};
+                    console.log("feature", feat)
                     displayProperties.forEach((prop) => {
                         displayFeat[prop] = feat[prop];
                     });
@@ -222,7 +250,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     2
                 );
 
-                console.log(display[0])
+                console.log("displayFeatures", displayFeatures)
 
                 new maplibregl.Popup()
                     .setLngLat(e.lngLat)
@@ -238,6 +266,8 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             map.on('mouseleave', 'spatial_polygons', () => {
                 map.getCanvas().style.cursor = '';
             });
+
+            
 
         },
     }

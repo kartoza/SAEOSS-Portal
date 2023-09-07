@@ -59,8 +59,15 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
 
     upload = uploader.get_resource_uploader(data_dict)
 
-    if data_dict["url"] == "":
+    if 'mimetype' not in data_dict:
+        if hasattr(upload, 'mimetype'):
+            data_dict['mimetype'] = upload.mimetype
 
+    if 'size' not in data_dict:
+        if hasattr(upload, 'filesize'):
+            data_dict['size'] = upload.filesize
+
+    if upload:
         if data_dict["resource_type"] == "stac":
             allowed_types = ["application/json", "application/xml", "application/yaml"]
 
@@ -76,18 +83,10 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
             if upload.mimetype == "application/yaml":
                 json_data = yaml.load(file_contents)
 
-        if upload.mimetype == "application/xml":
-            json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
-        
-        stac_validator(json_data, data_dict["stac_specification"])
-
-    if 'mimetype' not in data_dict:
-        if hasattr(upload, 'mimetype'):
-            data_dict['mimetype'] = upload.mimetype
-
-    if 'size' not in data_dict:
-        if hasattr(upload, 'filesize'):
-            data_dict['size'] = upload.filesize
+            if upload.mimetype == "application/xml":
+                json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
+    
+            stac_validator(json_data, data_dict["stac_specification"])
 
     pkg_dict['resources'].append(data_dict)
 
@@ -159,7 +158,9 @@ def resource_update(original_action, context: dict, data_dict: dict):
     if not data_dict.get('url'):
         data_dict['url'] = ''
 
-    if data_dict["url"] == '':
+    logger.debug("resource update", data_dict)
+
+    if "http" not in data_dict["url"] and "https" not in data_dict["url"]:
 
         if data_dict["updated_text"]:
             first_folder = id[0:3]

@@ -74,6 +74,12 @@
                             <span class="text">{{ _('Sysadmin settings') }}</span>
                           </a>
                         </li>
+                        <li>
+                          <a href="{{ h.url_for('validator.index') }}" title="{{ _('Metadata Validator') }}">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <span class="text">{{ _('Metadata Validator') }}</span>
+                          </a>
+                        </li>
                     {% endif %}
                     {#
                     This next section has been borrowed and adapted from ckanext-pages header.html template. One

@@ -51,6 +51,16 @@
                 </div>
             </div>
         </div>
+        <div class="feature-info-tab" id="feature-info-tab">
+            <h3>Feature Collection</h3>
+            <hr>
+            <div id="feature-inner"></div>
+        </div>
+        <div class="feature-show-tab" id="feature-show-tab">
+            <h3>Feature Information</h3>
+            <hr>
+            <pre style="width: 300px;" id="feature-show-inner"></pre>
+        </div>
         <div class="web-mapping"  data-module="saeossWebMapping" data-module-map-config="{{ h.dump_json(map_config) }}"
                 data-module-default-extent="{{ default_bounding_box }}">
             <div class="map" id="map"></div>

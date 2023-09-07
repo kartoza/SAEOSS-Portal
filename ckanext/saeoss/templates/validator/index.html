@@ -1,0 +1,41 @@
+{% extends 'page.html' %}
+
+{% block subtitle %}Map{% endblock %}
+
+{% block scripts %}
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    {% asset "ckanext-saeoss/validate-actions-js" %}
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content %}
+    
+<div class="container">
+    <h3>Validator</h3>
+    <p>Choose whether to run validation on all resources or selected resources</p>
+    <hr>
+    <form method="post" action="">
+        <button type="button" id="btn-validate-selected" class="btnSubmit btn-primary">Validate Selected</button>
+        <button type="button" id="btn-validate-all" class="btnSubmit btn-primary">Validate All</button>
+        <div id="select_data"></div>
+    </form>
+
+    <br>
+
+    <div id="feedback"></div>
+
+</div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+

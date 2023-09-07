@@ -10905,6 +10905,33 @@ iframe {
   padding: 10px;
 }
 
+.feature-info-tab{
+  position: absolute;
+  top: 200px;
+  height:500px;
+  width: 300px;
+  z-index: 9999;
+  background-color: white;
+  margin: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+  display: none;
+}
+
+.feature-show-tab{
+  position: absolute;
+  top: 200px;
+  right: 0px;
+  height:500px;
+  width: 300px;
+  z-index: 9999;
+  background-color: white;
+  margin: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+  display: none;
+}
+
 #collectionSelection{
   z-index: 10000;
 }
@@ -11244,4 +11271,10 @@ iframe {
     background-color: #f5634a;
     width: 25px;
   }
+}
+
+.feature-show{
+  border-bottom: 1px solid gray;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
 }
