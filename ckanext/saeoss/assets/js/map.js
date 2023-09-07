@@ -104,17 +104,17 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     img: "https://cloud.maptiler.com/static/img/maps/hybrid.png",
                     style: "https://api.maptiler.com/maps/satellite/style.json?key=3k2ZAx59NO9FMIGBUi8W"
                 },
-                "PIONEER": {
-                    img: "https://www.thunderforest.com/images/sets/pioneer-tijuana-636.png",
-                    "type": "rastor",
-                    "tiles": "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                },
-                "NEIGHBOURHOOD": {
-                    img: "https://www.thunderforest.com/images/sets/neighbourhood-luxembourg-636.png",
-                    "type": "raster-dem",
-                    "encoding": "mapbox",
-                    "tiles": "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                }
+                // "PIONEER": {
+                //     img: "https://www.thunderforest.com/images/sets/pioneer-tijuana-636.png",
+                //     "type": "rastor",
+                //     "tiles": "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
+                // },
+                // "NEIGHBOURHOOD": {
+                //     img: "https://www.thunderforest.com/images/sets/neighbourhood-luxembourg-636.png",
+                //     "type": "raster-dem",
+                //     "encoding": "mapbox",
+                //     "tiles": "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
+                // }
                     
             }
 
@@ -552,21 +552,21 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 //     source: "pioneer"
                 // });
 
-                map.setLayoutProperty(bottomLayer.id, 'visibility', 'none');
+                // map.setLayoutProperty(bottomLayer.id, 'visibility', 'none');
                 
-                map.addSource("neighbourhood", {
-                    type: "raster",
-                    tiles: [
-                      "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                    ]
-                });
+                // map.addSource("neighbourhood", {
+                //     type: "raster",
+                //     tiles: [
+                //       "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
+                //     ]
+                // });
         
-                map.addLayer(
-                {
-                    id: "neighbourhood-raster",
-                    type: "raster",
-                    source: "neighbourhood"
-                });
+                // map.addLayer(
+                // {
+                //     id: "neighbourhood-raster",
+                //     type: "raster",
+                //     source: "neighbourhood"
+                // });
             });
         },
     }
