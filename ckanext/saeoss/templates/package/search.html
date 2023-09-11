@@ -20,7 +20,8 @@
         <br>
         <h1 class="left-align blue-text">{{ _("Metadata") }}</h1>
         <h5 class="left-align blue-text">{{ _("Total number of metadata") }} {{ ungettext('record', 'records', total) }}: {{ total }}</h5>
-        <h5 class="left-align blue-text">{{ page.item_count }} {{ _("metadata") }} {{ ungettext('record', 'records', page.item_count) }} {{ _("found") }}</h5>
+        <div style="display: flex;">
+          <h5 class="left-align blue-text">{{ page.item_count }} {{ _("metadata") }} {{ ungettext('record', 'records', page.item_count) }} {{ _("found") }}</h5>
         {% if c %}
           {% if c.userobj is not none%}
             <button class="save_search_button" title="save this search query" data-module="change_save_search_icon">
@@ -29,7 +30,7 @@
             </button>
           {% endif %}
         {% endif %}
-        
+        </div>
         {% if h.check_access('package_create') %}
         <button class="btn btn-primary pull-right" onclick="document.getElementById('upload_input').click()"
           style="margin-left: 10px;"
@@ -61,13 +62,13 @@
 {% endblock %}
 
 {% block secondary_content %}
-    <div data-module="spatial_search"></div>
+    
     <div class="secondary-inner hover-content">
       {% snippet 'snippets/search_form_main.html', form_id='dataset-search-form', type=dataset_type, query=q, sorting_selected=sort_by_selected, count=page.item_count, placeholder=_('Search ' + 'metadata record' + 's') + '..', facets=facets, show_empty=request.params, error=query_error, fields=fields %}
     </div>
     
     <div class="secondary-inner">
-      
+      <div data-module="spatial_search"></div>
       {% snippet "spatial/snippets/spatial_query.html", default_extent="{ \"type\":\"Polygon\",
     \"coordinates\": [[[16.4699, -34.8212],
     [32.8931, -34.8212],
