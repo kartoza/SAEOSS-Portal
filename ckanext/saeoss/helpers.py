@@ -289,7 +289,7 @@ def get_datasets_thumbnail(data_dict):
     """
     Generate thumbnails based on metadataset
     """
-    data_thumbnail = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fodn.opendata.sk%2Forganization&psig=AOvVaw2p1lH-2BnLKGP65Ra3FH8w&ust=1694513304585000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCNiq_I6oooEDFQAAAAAdAAAAABAE"
+    data_thumbnail = "/images/org.png"
     logger.debug(f"data dict from helper {data_dict['organization']['image_url']}")
     if data_dict.get("metadata_thumbnail"):
         data_thumbnail = data_dict.get("metadata_thumbnail")
