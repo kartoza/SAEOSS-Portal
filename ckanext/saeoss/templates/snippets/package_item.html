@@ -8,13 +8,11 @@
           {% set date_string = package['metadata_modified']|string %}
           {% set date = date_string.split('T')[0] %}
           <div class="row dataset-row">
-            <div class="col-sm-4 metadata-record-thumbnail">
-                <img src="{{ h.get_datasets_thumbnail(package) }}" alt="" title="{{ title }}">
-            </div>
+            
             <div class="col-sm-8 metadata-record-desc">
               <div class="dataset-content">
                 {% block heading %}
-                  <h2 class="dataset-heading">
+                  <h2 class="dataset-heading blue-text">
                     {% block heading_title %}
                       <div data-testid="search_item_anchor"></div>
                       {{ h.link_to(h.truncate(title, truncate_title), h.url_for('%s.read' % package.type, id=package.name)) }}
@@ -44,7 +42,7 @@
                 {% endblock %}
                 {% block notes %}
                   {% if notes %}
-                    <div class="dataset-desc">{{ notes|urlize|truncate(80,True,'...',0) }}</div>
+                    <div class="dataset-desc gray-text">{{ notes|urlize|truncate(80,True,'...',0) }}</div>
                   {% else %}
                     <p class="empty">{{ _("This metadata record has no description") }}</p>
                   {% endif %}
@@ -65,10 +63,14 @@
                       </a>
                   </div>
               </div>
+              <div class="datasets-date blue-text">
+                Metadata Record Updated {{ date }}
+              </div>
             </div>
-            <div class="datasets-date">
-              Metadata Record Updated {{ date }}
+            <div class="col-sm-4 metadata-record-thumbnail">
+              <img src="{{ h.get_datasets_thumbnail(package) }}" alt="" title="{{ title }}">
             </div>
+            
           </div>
         {% endblock %}
       </li>

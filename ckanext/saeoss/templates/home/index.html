@@ -1,6 +1,7 @@
 {% ckan_extends %}
 {% block subtitle %}{{ _("SAEOSS Portal") }}{% endblock %}
 {% block content %}
+{% include 'social/index.html' %}
 <header class="masthead" id="header">
 <div id="title-header">
     <div class="title-header-buttons center">
@@ -18,6 +19,10 @@
             <a class="btn btn-account btn-l js-scroll-trigger"
                 href="/dataset/">METADATA</a>
         {% endif %}
+
+        <div class="home-text">
+            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in risus varius, sollicitudin felis fermentum, bibendum urna. Nam mattis consectetur pharetra. Quisque pharetra magna lectus, pharetra dignissim libero posuere in.</h4>
+        </div>
 
     </div>
 </div>
@@ -45,22 +50,26 @@
 </div>
 
 <section class="sample-explore">
-<div class="container">
-    <div class="home-text">
-        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in risus varius, sollicitudin felis fermentum, bibendum urna. Nam mattis consectetur pharetra. Quisque pharetra magna lectus, pharetra dignissim libero posuere in.</h4>
-    </div>
+<div class="container extra-margin-bt">
     <div class="row gx-5 justify-content-center" data-module="check-access" data-access="{{ h.check_access('package_create') }}"
                 data-logged="{{ logged }}" style="margin-left: -15px; margin-right: -15px">
                      <!-- Explore map -->
-                    <div class="col-sm-3 publish-action">
-                        <div class="card">
+                    <div class="col-sm-4 publish-action ">
+                        <div class="card blue-shadow">
                             <div class="card-body p-5">
-                                <img class="img-card" src="/images/africa_preview.png"/>
-                                <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                <div class="img-card-main">
+                                    <img class="img-card" src="/images/explore.png"/>
+                                </div>
+                                <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit lorem eget sagittis commodo. Praesent convallis sodales tortor, in interdum felis mattis vitae. Fusce libero augue, semper dignissim dapibus sit amet, aliquam sed neque. Donec tristique venenatis ligula et pharetra. Nullam ac tortor eget sem ultricies pulvinar. In gravida eu nunc congue vehicula. Donec pellentesque lorem ac lorem dignissim luctus. Aenean convallis arcu sit amet nisl bibendum aliquam. Nam aliquam placerat luctus. Morbi convallis massa odio, nec maximus ligula aliquet ac.
+
+                                    Quisque tristique, lacus sed vehicula elementum, orci urna auctor felis, sed placerat orci elit vitae ligula. Pellentesque orci ante, consectetur at pharetra vel, efficitur laoreet erat.
                                 </span>
                                 <div class="mb-3">
-                                    <div class="fw-bold explore-menu">
-                                        <a style="color: white;" href="/map/">Explore map</a>
+                                    <div class="fw-bold card-action">
+                                        <a class="card-action-inner" href="/map/">
+                                            <span>Explore map</span>
+                                            <img class="arrow" src="/images/arrow.svg"/>
+                                        </a>
                                     </div>
                                     <br>
                                 </div>
@@ -68,14 +77,21 @@
                         </div>
                     </div>
                     <!-- Search -->
-                    <div class="col-sm-3 publish-action">
-                        <div class="card">
+                    <div class="col-sm-4 publish-action">
+                        <div class="card blue-shadow">
                             <div class="card-body p-5">
-                                <img class="img-card" src="/images/africa_preview.png"/>
-                                <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. </span>
+                                <div class="img-card-main">
+                                    <img class="img-card" src="/images/search.png"/>
+                                </div>
+                                <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit lorem eget sagittis commodo. Praesent convallis sodales tortor, in interdum felis mattis vitae. Fusce libero augue, semper dignissim dapibus sit amet, aliquam sed neque. Donec tristique venenatis ligula et pharetra. Nullam ac tortor eget sem ultricies pulvinar. In gravida eu nunc congue vehicula. Donec pellentesque lorem ac lorem dignissim luctus. Aenean convallis arcu sit amet nisl bibendum aliquam. Nam aliquam placerat luctus. Morbi convallis massa odio, nec maximus ligula aliquet ac.
+
+                                    Quisque tristique, lacus sed vehicula elementum, orci urna auctor felis, sed placerat orci elit vitae ligula. Pellentesque orci ante, consectetur at pharetra vel, efficitur laoreet erat.  </span>
                                 <div class="mb-3">
-                                    <div class="fw-bold text-muted explore-menu">
-                                        <a style="color: white;" href="/dataset">Search</a>
+                                    <div class="fw-bold text-muted card-action">
+                                        <a class="card-action-inner" href="/dataset">
+                                            <span>Search</span>
+                                            <img class="arrow" src="/images/arrow.svg"/>
+                                        </a>
                                     </div>
                                 </div>
                                 <br>
@@ -83,31 +99,22 @@
                         </div>
                     </div>
                      <!-- Metadata browser -->
-                    <div class="col-sm-3 publish-action">
-                        <div class="card">
+                    <div class="col-sm-4 publish-action">
+                        <div class="card blue-shadow">
                             <div class="card-body p-5">
-                                <img class="img-card" src="/images/africa_preview.png"/>
-                                <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                                </span>
-                                <div class="mb-3">
-                                    <div class="fw-bold text-muted explore-menu">
-                                        <a style="color: white;" href="/dataset">Metadata Browser</a>
-                                    </div>
+                                <div class="img-card-main">
+                                    <img class="img-card" src="/images/metadata.png"/>
                                 </div>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Help -->
-                     <div class="col-sm-3 publish-action">
-                        <div class="card">
-                            <div class="card-body p-5">
-                                <img class="img-card" src="/images/africa_preview.png"/>
-                                <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit lorem eget sagittis commodo. Praesent convallis sodales tortor, in interdum felis mattis vitae. Fusce libero augue, semper dignissim dapibus sit amet, aliquam sed neque. Donec tristique venenatis ligula et pharetra. Nullam ac tortor eget sem ultricies pulvinar. In gravida eu nunc congue vehicula. Donec pellentesque lorem ac lorem dignissim luctus. Aenean convallis arcu sit amet nisl bibendum aliquam. Nam aliquam placerat luctus. Morbi convallis massa odio, nec maximus ligula aliquet ac.
+
+                                    Quisque tristique, lacus sed vehicula elementum, orci urna auctor felis, sed placerat orci elit vitae ligula. Pellentesque orci ante, consectetur at pharetra vel, efficitur laoreet erat. 
                                 </span>
                                 <div class="mb-3">
-                                    <div class="fw-bold text-muted explore-menu">
-                                        <a style="color: white;" href="/dataset">Help</a>
+                                    <div class="fw-bold text-muted card-action">
+                                        <a class="card-action-inner" href="/dataset">
+                                            <span>Metadata Browser</span>
+                                            <img class="arrow" src="/images/arrow.svg"/>
+                                        </a>
                                     </div>
                                 </div>
                                 <br>

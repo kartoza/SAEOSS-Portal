@@ -69,7 +69,7 @@ body::after {
 
 .main {
   padding-top: 10px;
-  background: none;
+  background: #F4F4F4;
 }
 
 .row {
@@ -345,11 +345,16 @@ fieldset[disabled] .btn-default.focus {
 }
 
 .main .secondary {
-  padding: 0;
+  padding: 10px;
   z-index: 1;
   padding-right: 1px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  /* background-color: #fff;
+  border: 1px solid #ccc; */
+}
+
+.module-content section{
+ border: none;
+ border-radius: 5px;
 }
 
 .dataset-row{
@@ -366,7 +371,7 @@ fieldset[disabled] .btn-default.focus {
   position: absolute;
   bottom: 0px;
   top: 134px;
-  left: 171px;
+  /* left: 171px; */
 }
 
 .datasets-date-actions{
@@ -456,18 +461,18 @@ fieldset[disabled] .btn-default.focus {
 /* Filters */
 .panel {
   margin-bottom: 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  /* background-color: #fff;
+  border: 1px solid #ccc; */
   border-top: 0;
   border-bottom: 0;
   border-radius: 0;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  /* -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); */
 }
 
-.expanded{
+/* .expanded{
   border: 1px solid #5E8DC0;
-}
+} */
 
 .nav-simple > li, .nav-aside > li {
   border-bottom: 0;
@@ -669,6 +674,10 @@ header.masthead{
   text-transform: uppercase;
   font-weight: 700;
   border: 2px solid #FFFFFF;
+}
+
+.btn-account:hover {
+  background-color: white;
 }
 
 .sasdi {
@@ -1109,19 +1118,23 @@ footer {
 }
 
 .metadata-record-thumbnail{
-  width:150px;
   height: 150px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  border: solid 1px #eee;
+  
   padding: 0px;
   line-height: 150px;
+  position: relative;
 }
 
 .metadata-record-thumbnail img{
-  width: 100%;
-  vertical-align: middle;
+  width: fit-content;
+  height: 150px;
+  position: absolute;
+  border: solid 1px #eee;
+  top: 0;
+  right: 0;
 }
 
 .metadata-record-desc{
