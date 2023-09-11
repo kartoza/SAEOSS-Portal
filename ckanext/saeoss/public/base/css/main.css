@@ -11611,6 +11611,28 @@ iframe {
   scale:1.02
 }
 
+.search-form {
+  width: 100% !important;
+}
+
+.input-lg {
+  height: 34px;
+  padding: 10px 16px;
+  font-size: 12px !important;
+  line-height: 1.3333333;
+  border: none !important;
+}
+
+#dataset-search-form{
+  height: 40px !important;
+}
+
+.btn-lg, .btn-group-lg > .btn {
+  padding: 10px 16px;
+  font-size: 12px !important;
+  height: 34px !important;
+  border-radius: 6px;
+}
 
 @media only screen and (max-width: 767px) {
   .navbar-center{
