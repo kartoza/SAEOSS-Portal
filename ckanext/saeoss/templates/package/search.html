@@ -61,13 +61,13 @@
 {% endblock %}
 
 {% block secondary_content %}
-
-    <div class="secondary-inner">
+    <div data-module="spatial_search"></div>
+    <div class="secondary-inner hover-content">
       {% snippet 'snippets/search_form_main.html', form_id='dataset-search-form', type=dataset_type, query=q, sorting_selected=sort_by_selected, count=page.item_count, placeholder=_('Search ' + 'metadata record' + 's') + '..', facets=facets, show_empty=request.params, error=query_error, fields=fields %}
     </div>
     
     <div class="secondary-inner">
-      <div data-module="spatial_search"></div>
+      
       {% snippet "spatial/snippets/spatial_query.html", default_extent="{ \"type\":\"Polygon\",
     \"coordinates\": [[[16.4699, -34.8212],
     [32.8931, -34.8212],
@@ -75,19 +75,19 @@
     [16.4699, -22.1265],
     [16.4699, -34.8212]]]}"%}
     </div>
-    <div class="secondary-inner">
+    <div class="secondary-inner hover-content">
       {% snippet "snippets/temporal_query.html" %}
     </div>
     <div>
       <div>
         {% for facet in facet_titles %}
             {% if facet != 'tags' and facet!= 'groups' and facet!= 'res_format' and facet!= 'license_id' %}
-          <div class="secondary-inner blue-text"> 
+          <div class="secondary-inner hover-content blue-text"> 
             {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets) }}
           </div>
             {% endif %}
         {% endfor %}
-      <div class="secondary-inner">
+      <div class="secondary-inner hover-content">
         {{ h.snippet('snippets/facet_list.html', title=facet_titles['tags'], name='tags', search_facets=search_facets) }}
       </div>
       </div>
