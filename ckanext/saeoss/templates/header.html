@@ -33,7 +33,7 @@
                   <span class="hr-ver"></span>
                 </li>
                 <li> 
-                  <a href="#" class="image" title="Help">Help</a>
+                  <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" class="image" title="Help">Help</a>
                 </li>
             {% endblock %}
         </ul>
@@ -138,7 +138,7 @@
         {% block header_account_notlogged %}
         <li data-testid="nav_login">{% link_for _('LOG IN'), named_route='user.login' %}</li>
         {% if h.check_access('user_create') %}
-        <li>{% link_for _('SIGN UP'), named_route='user.register', class_='sub' %}</li>
+        <li style="margin-top:5px" class="blue-btn">{% link_for _('SIGN UP'), named_route='user.register', class_='sub sign-up-btn' %}</li>
         {% endif %} {% endblock %}
         {% endif %}
       </ul>
