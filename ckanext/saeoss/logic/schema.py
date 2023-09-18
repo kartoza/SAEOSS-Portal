@@ -160,7 +160,7 @@ def create_dcpr_request_dataset_schema(
         "dataset_custodian": [ignore_missing],
         "data_type": [not_empty, unicode_safe],
         "proposed_abstract": [not_empty, unicode_safe],
-        "lineage_statement": [not_empty, unicode_safe],
+        # "lineage_statement": [not_empty, unicode_safe],
         "associated_attributes": [ignore_missing, unicode_safe],
         "data_usage_restrictions": [ignore_missing, unicode_safe],
         "capture_method": [ignore_missing, unicode_safe],

@@ -15,7 +15,9 @@ version: "3.8"
 x-ckan-web-published-port: &ckan-web-published-port 5000
 x-pycsw-published-port: &pycsw-published-port 5001
 x-ckan-db-published-port: &ckan-db-published-port 55432
+x-datastore-db-published-port: &datastore-db-published-port 55433
 x-ckan-test-db-published-port: &ckan-test-db-published-port 55434
+x-datastore-test-db-published-port: &datastore-test-db-published-port 55435
 x-solr-published-port: &solr-published-port 8983
 x-csw-harvest-target-published-port: &csw-harvest-target-published-port 55436
 
@@ -125,6 +127,16 @@ services:
       - ckan-db-data:/var/lib/postgresql/data
     command: ["-clog_statement=all"]
 
+  datastore-db:
+    environment:
+      POSTGRES_USER: datastore-dev
+      POSTGRES_PASSWORD: datastore-dev
+    ports:
+      - target: 5432
+        published: *datastore-db-published-port
+    volumes:
+      - datastore-db-data:/var/lib/postgresql/data
+
   # this is used for running automated integration tests
   ckan-test-db:
     image: postgis/postgis:13-3.1
@@ -137,6 +149,23 @@ services:
         published: *ckan-test-db-published-port
     volumes:
       - ckan-test-db-data:/var/lib/postgresql/data
+
+  # this is used for running automated integration tests
+  datastore-test-db:
+    image: postgis/postgis:13-3.1
+    environment:
+      POSTGRES_USER: ckan-datastore-test
+      POSTGRES_PASSWORD: ckan-datastore-test
+      DATASTORE_READONLY_USER: datastore-test-default
+      DATASTORE_READONLY_USER_PASSWORD: datastore-test-default
+    ports:
+      - target: 5432
+        published: *datastore-test-db-published-port
+    volumes:
+      - datastore-test-db-data:/var/lib/postgresql/data
+      - type: bind
+        source: $PWD/datastore-db
+        target: /docker-entrypoint-initdb.d
 
   solr:
     ports:

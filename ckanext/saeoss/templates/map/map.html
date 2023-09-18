@@ -31,30 +31,82 @@
         overflow: auto;
         background: rgba(255, 255, 255, 0.8);
     }
+
+    .row{
+        overflow: hidden; 
+    }
+
+    [class*="col-"]{
+        margin-bottom: -99999px;
+        padding-bottom: 99999px;
+    }
 </style>
+
+{% include 'social/index.html' %}
     
     <div>
-        <div class="search">
-            <div class="form-group">
-                <label>Please select a collection to view</label>
-                <br>
-                <div id="collectionSelectionMain">
-                    <select id="collectionSelection" style="width: 100%;">
-                    </select>
+       <button id="collapse-collection">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+       </button>
+        <div class="search" id="collection-main">
+            <div id="toolbar">
+                <div style="position: relative; width: 104%;">
+                    <input id="search-collection" class="form-control" placeholder="Search..."/>
+                    <button id="search-collection-btn" class="search-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+                    </button>
+
+                    <button id="clear-search-btn" class="clear-search-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 352 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg>
+                    </button>
                 </div>
-                <div id="loadCollection" class="load-wrapp" style="display: none;">
-                    <div class="load-3">
-                      <div class="line"></div>
-                      <div class="line"></div>
-                      <div class="line"></div>
+                <div class="white-block">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="label-temporal">Start Date</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Start Date"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="white-block">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="label-temporal">End Date</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="date" class="form-control" name="end_date" id="end_date" placeholder="End Date"/>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div id="collection-view">
+            </div>
+        </div>
+        <button id="collapse-feature">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+        </button>
+        <div class="feature-info-tab" id="feature-info-tab">
+            <h3>Layers</h3>
+            <hr>
+            <div id="loadCollection" class="load-wrapp" style="display: none;">
+                <div class="load-3">
+                  <div class="line"></div>
+                  <div class="line"></div>
+                  <div class="line"></div>
+                </div>
+            </div>
+            <div id="feature-inner"></div>
+        </div>
+        <div class="feature-show-tab" id="feature-show-tab">
+            <h3>Feature Information</h3>
+            <hr>
+            <pre style="width: 300px;" id="feature-show-inner"></pre>
         </div>
         <div class="web-mapping"  data-module="saeossWebMapping" data-module-map-config="{{ h.dump_json(map_config) }}"
                 data-module-default-extent="{{ default_bounding_box }}">
             <div class="map" id="map"></div>
-            <!-- <pre id="features"></pre> -->
         </div>
     </div>
 

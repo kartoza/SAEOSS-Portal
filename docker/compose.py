@@ -2,6 +2,7 @@
 """Manage docker-compose"""
 
 import argparse
+import datetime
 import logging
 import os
 import shlex
@@ -23,6 +24,8 @@ def main():
         "--compose-file", action="append", default=["docker-compose.yml"]
     )
     subparsers = parser.add_subparsers()
+    compose_restart_parser = subparsers.add_parser("db-backup")
+    compose_restart_parser.set_defaults(func=run_db_backup)
     compose_up_parser = subparsers.add_parser("up")
     compose_up_parser.set_defaults(func=run_compose_up)
     compose_down_parser = subparsers.add_parser("down")
@@ -61,6 +64,27 @@ def run_compose_down(args):
 
 def run_compose_restart(args):
     _run_docker_compose(f"restart {' '.join(args.service)}", args.compose_file)
+
+def run_db_backup(args):
+    timestamp = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+    env = os.environ.copy()
+    command = _get_compose_command(
+        f"exec ckan-db su - postgres -c \"pg_dumpall\" | gzip -9 > ckan-{timestamp}.sql.gz",
+        args.compose_file)
+    logger.debug(
+        f"About to replace the current process with the one that results from running "
+        f"{command!r} with an environment of {env}"
+    )
+    sys.stdout.flush()
+    sys.stderr.flush()
+    os.system(
+        f"docker-compose --project-name=saeoss exec ckan-db su - postgres -c \"pg_dumpall\" | "
+        f"gzip -9 > ckan-{timestamp}.sql.gz",
+    )
+    os.system(
+        f"docker-compose --project-name=saeoss exec ckan-db su - postgres -c \"pg_dumpall\" | "
+        f"gzip -9 > datastore-{timestamp}.sql.gz",
+    )
 
 
 def _get_compose_command(fragment: str, compose_file: typing.List[str]) -> str:

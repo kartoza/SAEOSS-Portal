@@ -14,7 +14,7 @@ if(ext_type == "json"){
     .then(response => response.json())
     .then(data => {
         
-        document.getElementById("_featuresDescription").innerHTML = '<pre>'+JSON.stringify(data, null, 2)+'</pre>';
+        // document.getElementById("_featuresDescription").innerHTML = '<pre>'+JSON.stringify(data, null, 2)+'</pre>';
 
         var container = document.getElementsByClassName('leaflet-bottom leaflet-left')[0]
         container.innerHTML = `
@@ -102,26 +102,26 @@ else if(ext_type == "kml"){
             var xmlString = serializer.serializeToString(doc[0]['childNodes'][i]);
             html_str += `<div>${xmlString}</div>`
         }
-        document.getElementById("_featuresDescription").innerHTML = html_str
+        // document.getElementById("_featuresDescription").innerHTML = html_str
     })
     .catch(err => console.log(err))
     omnivore.kml(file).addTo(map);
 }
 else if(ext_type == 'csv'){
-    let table = document.getElementById("demoTable");
+    // let table = document.getElementById("demoTable");
 
-    fetch(file)
-    .then(res => res.text())
-    .then(csv => {
-    table.innerHTML = "";
-    for (let row of CSV.parse(csv)) {
-        let tr = table.insertRow();
-        for (let col of row) {
-            let td = tr.insertCell();
-            td.innerHTML = col;
-        }
-    }
-    });
+    // fetch(file)
+    // .then(res => res.text())
+    // .then(csv => {
+    // table.innerHTML = "";
+    // for (let row of CSV.parse(csv)) {
+    //     let tr = table.insertRow();
+    //     for (let col of row) {
+    //         let td = tr.insertCell();
+    //         td.innerHTML = col;
+    //     }
+    // }
+    // });
     omnivore.csv(file).addTo(map);
 }
 

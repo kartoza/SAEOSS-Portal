@@ -35,6 +35,7 @@ from .. import (
 from ..blueprints.saeoss import saeoss_blueprint
 from ..blueprints.xml_parser import xml_parser_blueprint
 from ..blueprints.map import map_blueprint
+from ..blueprints.validator import validator_blueprint
 from ..blueprints.saved_searches import saved_searches_blueprint
 from ..blueprints.news import news_blueprint
 from ..blueprints.contact import contact_blueprint
@@ -258,13 +259,12 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         search_params["fq"] = utils.handle_search(search_params)
 
         reporter_search_id = uuid.uuid4()
-        if c.userobj.id:
+        if c.userobj != None:
             user_id = c.userobj.id
-        else:
-            user_id = "guest"
-        q = f""" insert into reporting_tool values('{reporter_search_id}', '{user_id}', '{json.dumps(search_params)}', '','{datetime.now()}') """
-        result = model.Session.execute(q)
-        model.Session.commit()
+            q = f""" insert into reporting_tool values('{reporter_search_id}', '{user_id}', '{json.dumps(search_params)}', '','{datetime.now()}') """
+            result = model.Session.execute(q)
+            model.Session.commit()
+        
         return search_params
 
     def before_view(self, pkg_dict: typing.Dict):
@@ -389,6 +389,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             saeoss_blueprint,
             xml_parser_blueprint,
             map_blueprint,
+            validator_blueprint,
             saved_searches_blueprint,
             news_blueprint,
             contact_blueprint,
