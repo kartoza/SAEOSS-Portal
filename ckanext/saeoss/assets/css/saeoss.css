@@ -1311,7 +1311,7 @@ select[id$="field-dataset_custodian"]{
 
 @media screen and (max-width: 1000px) {
   .resizing {
-    font-size: 0.5rem;
+    font-size: 1rem;
   }
 }
 
