@@ -14,12 +14,27 @@
     </div>
       <div class="collapse navbar-collapse" id="main-navigation-toggle">
       {% block header_site_navigation %}
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-center">
             {% block header_site_navigation_tabs %}
-                <li> <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata') }}">{{ _('Metadata') }}</a></li>
-                <li> <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Map') }}">{{ _('Map') }}</a></li>
-                <li> <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('Organisations') }}">{{ _('Organisations') }}</a></li>
-                <li> <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('About') }}">{{ _('About') }}</a></li>
+                <li class="li-flex"> 
+                  <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata') }}">{{ _('Metadata') }}</a>
+                  <span class="hr-ver"></span>
+                </li>
+                <li class="li-flex">
+                   <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Map') }}">{{ _('Map') }}</a>
+                   <span class="hr-ver"></span>
+                  </li>
+                <li class="li-flex"> 
+                  <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('Organisations') }}">{{ _('Organisations') }}</a>
+                  <span class="hr-ver"></span>
+                </li>
+                <li class="li-flex"> 
+                  <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('About') }}">{{ _('About') }}</a>
+                  <span class="hr-ver"></span>
+                </li>
+                <li> 
+                  <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" class="image" title="Help">Help</a>
+                </li>
             {% endblock %}
         </ul>
       {% endblock %}
@@ -74,6 +89,12 @@
                             <span class="text">{{ _('Sysadmin settings') }}</span>
                           </a>
                         </li>
+                        <li>
+                          <a href="{{ h.url_for('validator.index') }}" title="{{ _('Metadata Validator') }}">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <span class="text">{{ _('Metadata Validator') }}</span>
+                          </a>
+                        </li>
                     {% endif %}
                     {#
                     This next section has been borrowed and adapted from ckanext-pages header.html template. One
@@ -117,7 +138,7 @@
         {% block header_account_notlogged %}
         <li data-testid="nav_login">{% link_for _('LOG IN'), named_route='user.login' %}</li>
         {% if h.check_access('user_create') %}
-        <li>{% link_for _('SIGN UP'), named_route='user.register', class_='sub' %}</li>
+        <li style="margin-top:5px" class="blue-btn">{% link_for _('SIGN UP'), named_route='user.register', class_='sub sign-up-btn' %}</li>
         {% endif %} {% endblock %}
         {% endif %}
       </ul>

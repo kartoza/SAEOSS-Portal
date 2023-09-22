@@ -23,7 +23,7 @@
 
 {% block pre_primary %}
   {% block resource %}
- 
+
     <section class="module module-resource" role="complementary">
       {% block resource_inner %}
       <div class="module-content">
@@ -74,9 +74,9 @@
           </ul>
           {% endblock %}
         </div>
-        
+
         {% block resource_content %}
-        
+
           {% block package_archive_notice %}
             {% if is_activity_archive %}
               <div id="activity-archive-notice" class="alert alert-danger">
@@ -95,7 +95,7 @@
               <p class="text-muted break-word">{{ _('URL:') }} {{ res.url }}</p>
             {% endif %}
           {% endblock %}
-           
+
           <div class="prose notes" property="rdfs:label">
             {% if res.description %}
               {{ h.render_markdown(res.description) }}
@@ -105,17 +105,18 @@
               <blockquote>{{ h.markdown_extract(h.get_translated(package, 'notes')) }}</blockquote>
               {% if res.resource_type != 'other' %}
               <div style="height: 500px;position: relative;">
-                <div class="map" id="map" ></div>
+                <div class="map" id="map" >
+                </div>
               </div>
-              <div style="padding: 20px;max-height: 500px;overflow-y: scroll;">
+              <!-- <div style="padding: 20px;max-height: 500px;overflow-y: scroll;">
                 <div id="_featuresDescription" style="padding: 20px;"></div>
                 <table id="demoTable" class="table" ></table>
-              </div>
+              </div> -->
               {% endif %}
               <p>{% trans dataset=package.title, url=h.url_for(package.type ~ '.read', id=package.id if is_activity_archive else package.name) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
           </div>
-          
+
         {% endblock %}
       {% if not is_activity_archive %}
       {% block data_preview %}
@@ -151,8 +152,8 @@
                   {% endif %}
                 {% endfor %}
               {% endif %}
-            
-              
+
+
             {% endif %}
           </div>
           {% endblock %}
@@ -169,7 +170,6 @@
   {% block resource_additional_information %}
     {% if res %}
       <section class="module">
-        {% block resource_additional_information_inner %}
         <div class="module-content">
           <h2>{{ _('Additional Information') }}</h2>
           <table class="table table-striped table-bordered table-condensed" data-module="table-toggle-more">
@@ -208,7 +208,6 @@
             </tbody>
           </table>
         </div>
-        {% endblock %}
       </section>
     {% endif %}
   {% endblock %}
@@ -226,7 +225,7 @@
 {% endblock %}
 
 {% block scripts %}
-    <!-- jQuery --> 
+    <!-- jQuery -->
     <script
   src="https://code.jquery.com/jquery-3.7.0.min.js"
   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
@@ -248,9 +247,12 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
-    
+
     <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
+    <script src="https://unpkg.com/georaster"></script>
+    <script src="https://unpkg.com/proj4"></script>
+    <script src="https://unpkg.com/georaster-layer-for-leaflet"></script>
     {% asset 'ckanext-saeoss/csv-js' %}
     {% asset 'ckanext-saeoss/resource-read-js' %}
-    
+
 {% endblock %}

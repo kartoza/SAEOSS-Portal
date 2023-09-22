@@ -19,3 +19,10 @@ services:
     environment:
       POSTGRES_USER: ckan-ci
       POSTGRES_PASSWORD: ckan-ci
+
+  datastore-db:
+    environment:
+      POSTGRES_USER: datastore-ci
+      POSTGRES_PASSWORD: datastore-ci
+      DATASTORE_READONLY_USER: datastore-ci-default
+      DATASTORE_READONLY_USER_PASSWORD: datastore-ci-default

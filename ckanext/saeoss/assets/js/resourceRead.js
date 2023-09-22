@@ -13,9 +13,17 @@ if(ext_type == "json"){
     fetch(file)
     .then(response => response.json())
     .then(data => {
-        console.log(data)
         
-        document.getElementById("_featuresDescription").innerHTML = '<pre>'+JSON.stringify(data, null, 2)+'</pre>';
+        // document.getElementById("_featuresDescription").innerHTML = '<pre>'+JSON.stringify(data, null, 2)+'</pre>';
+
+        var container = document.getElementsByClassName('leaflet-bottom leaflet-left')[0]
+        container.innerHTML = `
+        <div style='background:white; padding:10px; margin:5px; font-size:12px; max-width:250px'>
+            <h4>Map Viewer Logs:</h4>
+            <div id='loading_tiff'> Loading tiff Image...</div>
+            <div id='thumbnail_error' style='color:red;display:none'>Error: Could not load thumbnail image (Image url could not be found)</div>
+            <div id='tiff_error' style='color:red;display:none'>Error: Could not load tiff image (Image url could not be found)</div>
+        </div>`
 
         try{
             var altText = '';
@@ -32,18 +40,48 @@ if(ext_type == "json"){
             console.log('no latlon')
         }
 
+        var layerGroup = new L.LayerGroup()
+        var layerControl = new L.control.layers({
+            // 'Main': layerGroup,
+            }, null, { collapsed: true }).addTo(map);
+        
+        var spatialOverlay = omnivore.geojson(file)
+        layerControl.addBaseLayer(spatialOverlay, "spatial")
+        
         try{
+            //thumbnail layer
             var thumbnail = data.assets.thumbnail.href
-            var imageOverlay = L.imageOverlay(thumbnail, latLngBounds, {
+            var thumbnailOverlay = L.imageOverlay(thumbnail, latLngBounds, {
                 opacity: 0.8,
                 interactive: false
-            }).addTo(map);
-    
-            L.rectangle(latLngBounds).addTo(map);
+            });
+            layerControl.addBaseLayer(thumbnailOverlay, "thumbnail")
+            // L.rectangle(latLngBounds).addTo(map);
         }
-        catch(e){
-            omnivore.geojson(file).addTo(map);
+        catch(e){   
+            document.getElementById("thumbnail_error").style.display = "block"
         }
+        
+        //tiff layer
+        // var url_to_geotiff_file = "https://deafrica-input-datasets.s3.af-south-1.amazonaws.com/cci_landcover/2003/cci_landcover_2003_v2.0.7cds.tif";
+        var url_to_geotiff_file = data.assets.image.href;
+
+        fetch(url_to_geotiff_file)
+            .then(response => response.arrayBuffer())
+            .then(arrayBuffer => {
+            parseGeoraster(arrayBuffer).then(georaster => {
+                var tiff_layer = new GeoRasterLayer({
+                georaster,
+                opacity: 0.7,
+                resolution: 256
+                });
+                // tiff_layer.addTo(map);
+                layerControl.addBaseLayer(tiff_layer, "tiff")
+                document.getElementById("loading_tiff").innerHTML = "Tiff image has finished loading"
+            });
+        }).catch(err => {
+            document.getElementById("tiff_error").style.display = "block"
+        })
 
     })
     .catch(err => console.log(err))
@@ -64,26 +102,26 @@ else if(ext_type == "kml"){
             var xmlString = serializer.serializeToString(doc[0]['childNodes'][i]);
             html_str += `<div>${xmlString}</div>`
         }
-        document.getElementById("_featuresDescription").innerHTML = html_str
+        // document.getElementById("_featuresDescription").innerHTML = html_str
     })
     .catch(err => console.log(err))
     omnivore.kml(file).addTo(map);
 }
 else if(ext_type == 'csv'){
-    let table = document.getElementById("demoTable");
+    // let table = document.getElementById("demoTable");
 
-    fetch(file)
-    .then(res => res.text())
-    .then(csv => {
-    table.innerHTML = "";
-    for (let row of CSV.parse(csv)) {
-        let tr = table.insertRow();
-        for (let col of row) {
-            let td = tr.insertCell();
-            td.innerHTML = col;
-        }
-    }
-    });
+    // fetch(file)
+    // .then(res => res.text())
+    // .then(csv => {
+    // table.innerHTML = "";
+    // for (let row of CSV.parse(csv)) {
+    //     let tr = table.insertRow();
+    //     for (let col of row) {
+    //         let td = tr.insertCell();
+    //         td.innerHTML = col;
+    //     }
+    // }
+    // });
     omnivore.csv(file).addTo(map);
 }
 
