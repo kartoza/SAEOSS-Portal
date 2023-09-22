@@ -407,7 +407,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     $(this).addClass('selected-feature')
                     var index = $(this).data('collectionnum')
                     var collections = dataFetched["collections"]
-                    let sourceUrl = collections[index]["links"][0]["href"]
+                    let sourceUrl = collections[index]["links"].filter((link) => link['rel'] == 'items')[0]['href']
 
                     if(map.getLayer("spatial_polygons")){
                         map.removeLayer("spatial_polygons")

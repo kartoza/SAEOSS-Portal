@@ -1308,3 +1308,7 @@ select[id$="field-dataset_custodian"]{
   overflow: hidden;
   position: absolute;
 }
+
+.maplibregl-popup-content {
+  word-wrap: break-word;
+}
