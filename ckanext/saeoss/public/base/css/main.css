@@ -10981,6 +10981,10 @@ iframe {
   border-radius: 5px ;
 }
 
+.feature-info-tab::-webkit-scrollbar {
+  display: none;
+}
+
 .feature-show-tab{
   position: absolute;
   top: 200px;
@@ -11373,12 +11377,16 @@ iframe {
 }
 
 .collection-show {
-  border-bottom: 1px solid gray;
+  border: 1px solid gray;
   margin-top: 10px;
   margin-bottom: 5px;
   background: white;
   border-radius: 5px;
   cursor: grab;
+}
+
+#collection-main::-webkit-scrollbar {
+  display: none;
 }
 
 .collection-search-error{
