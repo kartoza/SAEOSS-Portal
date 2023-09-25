@@ -29,6 +29,44 @@ class layerSwitcherControl {
   }
 
   onAdd(map) {
+    const hasLayer = (_map, id) => {
+      if (!_map) {
+        return false
+      }
+      return typeof map.getLayer(id) !== 'undefined'
+    }
+
+    const removeLayer = (_map, id) => {
+      if (hasLayer(_map, id)) {
+        _map.removeLayer(id)
+      }
+    }
+
+    const hasSource = (_map, id) => {
+      return typeof map.getSource(id) !== 'undefined'
+    }
+
+    const removeSource = (_map, id) => {
+      if (hasSource(_map, id)) {
+        _map.removeSource(id);
+      }
+    }
+
+    const renderLayer = (_map, id, source, layer, before = null) => {
+      removeLayer(_map, id)
+      removeSource(_map, id)
+      _map.addSource(id, source)
+      _map.addLayer(
+        {
+          ...layer,
+          id: id,
+          source: id,
+        },
+        before
+      );
+    }
+
+
     this._map = map;
     const basemaps = this._options.basemaps;
     Object.keys(basemaps).forEach((layerId) => {
@@ -41,7 +79,23 @@ class layerSwitcherControl {
         const activeElement = this._container.querySelector(".active");
         activeElement.classList.remove("active");
         basemapContainer.classList.add("active");
-        map.setStyle(base.style);
+        if (base.style) {
+          map.setStyle(base.style);
+        } else {
+          const layers = map.getStyle().layers.filter(layer => layer.id == 'spatial_polygons')
+          renderLayer(map, 'basemap', base, { type: "raster" }, layers[0]?.id)
+          // removeLayer(map, 'basemap')
+          // removeSource(map, 'basemap')
+          // map.addSource('basemap', base);
+          // map.addLayer(
+          //   {
+          //     type: 'raster',
+          //     id: 'basemap',
+          //     source: 'basemap',
+          //   },
+          //   layers[0]?.id
+          // );
+        }
       });
       this._container.appendChild(basemapContainer);
 
@@ -104,18 +158,22 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     img: "https://cloud.maptiler.com/static/img/maps/hybrid.png",
                     style: "https://api.maptiler.com/maps/satellite/style.json?key=3k2ZAx59NO9FMIGBUi8W"
                 },
-                // "PIONEER": {
-                //     img: "https://www.thunderforest.com/images/sets/pioneer-tijuana-636.png",
-                //     "type": "rastor",
-                //     "tiles": "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                // },
-                // "NEIGHBOURHOOD": {
-                //     img: "https://www.thunderforest.com/images/sets/neighbourhood-luxembourg-636.png",
-                //     "type": "raster-dem",
-                //     "encoding": "mapbox",
-                //     "tiles": "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                // }
-                    
+                "PIONEER": {
+                  // id: "basemap",
+                  img: "https://www.thunderforest.com/images/sets/pioneer-tijuana-636.png",
+                  type: "raster",
+                  tiles: [
+                    "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
+                  ],
+                },
+                "NEIGHBOURHOOD": {
+                  // id: "basemap",
+                  img: "https://www.thunderforest.com/images/sets/neighbourhood-luxembourg-636.png",
+                  type: "raster",
+                  tiles: [
+                    "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
+                  ]
+                }
             }
 
             const initialStyle = Object.values(baseMaps)[0];
@@ -407,7 +465,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     $(this).addClass('selected-feature')
                     var index = $(this).data('collectionnum')
                     var collections = dataFetched["collections"]
-                    let sourceUrl = collections[index]["links"][0]["href"]
+                    let sourceUrl = collections[index]["links"].filter((link) => link['rel'] == 'items')[0]['href']
 
                     if(map.getLayer("spatial_polygons")){
                         map.removeLayer("spatial_polygons")
@@ -533,40 +591,6 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             // Change it back to a pointer when it leaves.
             map.on('mouseleave', 'spatial_polygons', () => {
                 map.getCanvas().style.cursor = '';
-            });
-
-            map.on('load', () => {
-                const layers = map.getStyle().layers;
-                const bottomLayer = layers.find((layer) => layer.type == "background");
-                // map.addSource("pioneer", {
-                //     type: "raster",
-                //     tiles: [
-                //       "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                //     ]
-                // });
-        
-                // map.addLayer(
-                // {
-                //     id: "pioneer-raster",
-                //     type: "raster",
-                //     source: "pioneer"
-                // });
-
-                // map.setLayoutProperty(bottomLayer.id, 'visibility', 'none');
-                
-                // map.addSource("neighbourhood", {
-                //     type: "raster",
-                //     tiles: [
-                //       "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                //     ]
-                // });
-        
-                // map.addLayer(
-                // {
-                //     id: "neighbourhood-raster",
-                //     type: "raster",
-                //     source: "neighbourhood"
-                // });
             });
         },
     }
