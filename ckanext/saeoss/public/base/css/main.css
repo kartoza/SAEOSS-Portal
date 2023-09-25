@@ -10985,6 +10985,10 @@ iframe {
   display: none;
 }
 
+.feature-info-tab {
+  scrollbar-width: none;
+}
+
 .feature-show-tab{
   position: absolute;
   top: 200px;
@@ -11383,6 +11387,10 @@ iframe {
   background: white;
   border-radius: 5px;
   cursor: grab;
+}
+
+#collection-main {
+  scrollbar-width: none;
 }
 
 #collection-main::-webkit-scrollbar {
