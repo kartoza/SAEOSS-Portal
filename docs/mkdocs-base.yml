@@ -79,12 +79,29 @@ nav:
                         - "": developer/guide/templates/bug-report-message-template.md
                         - "": developer/guide/templates/pull-request-template.md 
                         - "": developer/guide/templates/commit-message-convention.md
-                - Manual: developer/manual/index.md
-                - Documentation Writing: developer/documentation/index.md
+                - Manual:
+                  - developer/manual/index.md
+                  - assets: developer/manual/assets.md
+                  - blueprints: developer/manual/blueprints.md
+                  - cli: developer/manual/cli.md
+                  - logic: developer/manual/logic.md
+                  - migration: developer/manual/migration.md
+                  - model: developer/manual/model.md
+                  - plugins: developer/manual/plugins.md
+                  - public: developer/manual/public.md
+                  - scheming: developer/manual/scheming.md
+                  - templates: developer/manual/templates.md
+                  - constants: developer/manual/constants.md
+                  - email notification: developer/manual/email_notification.md
+                  - get releases: developer/manual/get_releases.md
+                  - helpers: developer/manual/helpers.md
+                  - jobs: developer/manual/jobs.md
+                  - wsgi: developer/manual/wsgi.md
                 - API:
-                        - developer/api/index.md
-                        - Reference: developer/api/manual/index.md
-                        - Guide: developer/api/guide/index.md
+                  - developer/api/index.md
+                  - Reference: developer/api/manual/index.md
+                  - Guide: developer/api/guide/index.md
+                - Documentation Writing: developer/documentation/index.md
                 - License: about/license.md
         - DevOps: 
                 - devops/index.md
