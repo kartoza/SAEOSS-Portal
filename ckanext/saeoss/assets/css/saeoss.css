@@ -607,9 +607,36 @@ fieldset[disabled] .btn-default.focus {
   border-color: #5E8DC0;
 }
 
-#header{
-  background-image: url("/images/header.jpg");
+:root {
+  --video-width: 100vw;
+  --video-height: 100vh;
 }
+@media (min-aspect-ratio: 16/9) {
+  :root {
+    --video-height: 60.25vw;
+  }
+}
+@media (max-aspect-ratio: 16/9) {
+  :root {
+    --video-width: 177.78vh;
+  }
+}
+
+.video-background {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+.video-background iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--video-width);
+  height: var(--video-height);
+  transform: translate(-50%, -50%);
+}
+
 
 header.masthead{
   background-position: center center;
@@ -626,6 +653,8 @@ header.masthead{
 }
 
 #title-header {
+  position: absolute;
+  top: 10%;
   display: table;
   width: 100%;
   height: 700px;
@@ -692,6 +721,8 @@ header.masthead{
 .sample-explore {
   position: relative;
   color: #484848;
+  background: white;
+  padding-top: 50px;
   margin-top: 40px;
 }
 
