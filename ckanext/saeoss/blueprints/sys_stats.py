@@ -51,7 +51,7 @@ def index():
             "packages_created": packagesCreated,
             "packages_deleted": packagesDeleted,
             "packages_per_week": weeklyPackages,
-            "submitted_dcpr_requests":allSubmittedDCPRRequests,
+            "submitted_dcpr_requests": allSubmittedDCPRRequests,
             "dcpr_requests_per_week": weeklySubmittedDCPRRequests
         },
     )
@@ -462,18 +462,19 @@ def get_submitted_dcpr_requests():
     s = (
             select(
                 # [dcpr_request]
-                [dcpr_request.c['proposed_project_name'], dcpr_request.c['owner_user'] , dcpr_request.c['status'], dcpr_request.c['submission_date']],
+                [dcpr_request.c['proposed_project_name'], dcpr_request.c['owner_user'], dcpr_request.c['status'], dcpr_request.c['submission_date']],
                 # from_obj=
                 #     #dcpr_request.join(users, dcpr_request.c["owner_user"] == users.c["id"] )
                 #     dcpr_request
                 
             )
-            #.group_by(dcpr_request.c["proposed_project_name"])
+            .group_by(dcpr_request.c['proposed_project_name'], dcpr_request.c['owner_user'], dcpr_request.c['status'], dcpr_request.c['submission_date'])
             .order_by(func.max(dcpr_request.c["submission_date"]))
         )
     
 
     res = model.Session.execute(s).fetchall()
+    logger.debug(res)
     res_pickleable: list[tuple[str,str, str, int]] = []
     for proposed_project_name, name , status, submission_date in res:
         res_pickleable.append((proposed_project_name, name , status, submission_date.toordinal()))
