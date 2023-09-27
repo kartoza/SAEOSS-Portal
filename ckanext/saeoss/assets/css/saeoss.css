@@ -607,8 +607,35 @@ fieldset[disabled] .btn-default.focus {
   border-color: #5E8DC0;
 }
 
-#header{
-  background-image: url("/images/header.jpg");
+/*@keyframes carousel-bg{*/
+/*   0%{*/
+/*     background-image: url("/images/header.jpg");*/
+/*     left: 0;*/
+/*   }*/
+/*   50%{*/
+/*     background-image: url("/images/earth.jpg");*/
+/*     left: 0;*/
+/*   }*/
+/*   100%{*/
+/*     background-image: url("/images/sea.jpg");*/
+/*     left: 0;*/
+/*   }*/
+/*}*/
+
+
+/*#header{*/
+/*  animation-name: carousel-bg;*/
+/*  animation-duration: 9s;*/
+/*  animation-iteration-count: infinite;*/
+/*}*/
+
+#home-carousel {
+  position: absolute;
+  width: 100%;
+}
+
+.carousel-inner .item img{
+  width: 100%;
 }
 
 header.masthead{
@@ -626,6 +653,7 @@ header.masthead{
 }
 
 #title-header {
+  position: absolute;
   display: table;
   width: 100%;
   height: 700px;
@@ -690,6 +718,8 @@ header.masthead{
 }
 
 .sample-explore {
+  background: white;
+  padding-top: 50px;
   position: relative;
   color: #484848;
   margin-top: 40px;
