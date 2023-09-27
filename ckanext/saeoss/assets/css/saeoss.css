@@ -607,28 +607,6 @@ fieldset[disabled] .btn-default.focus {
   border-color: #5E8DC0;
 }
 
-/*@keyframes carousel-bg{*/
-/*   0%{*/
-/*     background-image: url("/images/header.jpg");*/
-/*     left: 0;*/
-/*   }*/
-/*   50%{*/
-/*     background-image: url("/images/earth.jpg");*/
-/*     left: 0;*/
-/*   }*/
-/*   100%{*/
-/*     background-image: url("/images/sea.jpg");*/
-/*     left: 0;*/
-/*   }*/
-/*}*/
-
-
-/*#header{*/
-/*  animation-name: carousel-bg;*/
-/*  animation-duration: 9s;*/
-/*  animation-iteration-count: infinite;*/
-/*}*/
-
 #home-carousel {
   position: absolute;
   width: 100%;
