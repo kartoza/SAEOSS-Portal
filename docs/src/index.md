@@ -1,6 +1,6 @@
 # SAEOSS-Portal
 
-![SAEOSS_Logo](/docs/src/img/SANSA_Logo.png)
+![SAEOSS_Logo](img/SANSA_Logo.png)
 
 ## Overview
 The SAEOSS-Portal has been proposed as a system of software components functioning together as the national central earth observation geospatial repository, with a view to metadata and open geospatial API standards compliance as well as user impact maximisation.
@@ -61,7 +61,7 @@ Joint effort was put forth from SANSA and SEONN to colaborate on this project.
 
 |                                |                                  |
 |--------------------------------|----------------------------------|
-|![SANSA](/docs/src/img/SANSA_Logo.png)  |![SAEONN](/docs/src/img/SAEONN_Logo.png)  |
+|![SANSA](img/SANSA_Logo.png)  |![SAEONN](img/SAEONN_Logo.png)  |
 
 
 <!-- #### Releases
