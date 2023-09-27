@@ -11373,11 +11373,9 @@ iframe {
 }
 
 .collection-show {
-  border-bottom: 1px solid gray;
-  margin-top: 10px;
+  border: 1px solid #eeeded;
   margin-bottom: 5px;
   background: white;
-  border-radius: 5px;
   cursor: grab;
 }
 
@@ -11642,4 +11640,10 @@ iframe {
   .hr-ver{
     display: none;
   }
+}
+
+.map-search{
+  background-color: #FFFFFF;
+  overflow-x: hidden;
+  min-width: 25%;
 }
