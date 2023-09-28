@@ -148,6 +148,11 @@ utils-js:
     - js/utils.js
   filter: rjsmin
 
+popper-js:
+  output: ckanext-saeoss/%(version)s_popper.js
+  contents:
+    - vendor/popper/popper.min.js
+
 spatial-search-js:
   output: ckanext-saeoss/%(version)s_spatial_search.js
   contents:

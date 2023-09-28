@@ -3,27 +3,39 @@
 {% block content %}
 {% include 'social/index.html' %}
 <header class="masthead" id="header">
-<div id="title-header">
-    <div class="title-header-buttons center">
-        <div class="title-header-text ">
-            Welcome to the SAEOSS Portal
-        </div>
-        {% if not c.userobj %}
-            <a class="btn btn-account btn-l js-scroll-trigger"
-                href="/user/login">LOGIN</a>
-            <a class="btn btn-account btn-l js-scroll-trigger"
-                href="/user/register">SIGN UP</a>
-            <a class="btn btn-account btn-l js-scroll-trigger"
-                href="/dataset">METADATA</a>
-        {% else %}
-            <a class="btn btn-account btn-l js-scroll-trigger"
-                href="/dataset/">METADATA</a>
-        {% endif %}
+<div class="video-background">
+    <iframe
+            width="1813"
+            height="700"
+            src="https://www.youtube.com/embed/xuP4g7IDgDM?vq=hd720&mute=1&modestbranding=0&autoplay=1&controls=0&wmode=transparent&hd=1&rel=0&autohide=1&showinfo=0&loop=1&enablejsapi=1&widgetid=2&playlist=xuP4g7IDgDM" title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+    >
+    </iframe>
+</div>
+<div class="overlay">
+    <div id="title-header">
+        <div class="title-header-buttons center">
+            <div class="title-header-text ">
+                Welcome to the SAEOSS Portal
+            </div>
+            {% if not c.userobj %}
+                <a class="btn btn-account btn-l js-scroll-trigger"
+                    href="/user/login">LOGIN</a>
+                <a class="btn btn-account btn-l js-scroll-trigger"
+                    href="/user/register">SIGN UP</a>
+                <a class="btn btn-account btn-l js-scroll-trigger"
+                    href="/dataset">METADATA</a>
+            {% else %}
+                <a class="btn btn-account btn-l js-scroll-trigger"
+                    href="/dataset/">METADATA</a>
+            {% endif %}
 
-        <div class="home-text">
-            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in risus varius, sollicitudin felis fermentum, bibendum urna. Nam mattis consectetur pharetra. Quisque pharetra magna lectus, pharetra dignissim libero posuere in.</h4>
-        </div>
+            <div class="home-text">
+                <h4>Discover a world of data-driven possibilities at the SAEOSS-Portal, where information converges to empower data sharing and decision making.</h4>
+            </div>
 
+        </div>
     </div>
 </div>
 </header>
@@ -49,6 +61,8 @@
     </div>
 </div>
 
+<br><br><br><br>
+
 <section class="sample-explore">
 <div class="container extra-margin-bt">
     <div class="row gx-5 justify-content-center" data-module="check-access" data-access="{{ h.check_access('package_create') }}"
@@ -60,19 +74,17 @@
                                 <div class="img-card-main">
                                     <img class="img-card" src="/images/explore.png"/>
                                 </div>
-                                <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit lorem eget sagittis commodo. Praesent convallis sodales tortor, in interdum felis mattis vitae. Fusce libero augue, semper dignissim dapibus sit amet, aliquam sed neque. Donec tristique venenatis ligula et pharetra. Nullam ac tortor eget sem ultricies pulvinar. In gravida eu nunc congue vehicula. Donec pellentesque lorem ac lorem dignissim luctus. Aenean convallis arcu sit amet nisl bibendum aliquam. Nam aliquam placerat luctus. Morbi convallis massa odio, nec maximus ligula aliquet ac.
-
-                                    Quisque tristique, lacus sed vehicula elementum, orci urna auctor felis, sed placerat orci elit vitae ligula. Pellentesque orci ante, consectetur at pharetra vel, efficitur laoreet erat.
+                                <span class="text-muted">Explore our metadata through an interactive map viewer. Discover geographic data and availible metadata records displayed visually
                                 </span>
-                                <div class="mb-3">
-                                    <div class="fw-bold card-action">
-                                        <a class="card-action-inner" href="/map/">
-                                            <span>Explore map</span>
-                                            <img class="arrow" src="/images/arrow.svg"/>
-                                        </a>
-                                    </div>
-                                    <br>
+                            </div>
+                            <div class="min-mb-3">
+                                <div class="fw-bold ">
+                                    <a class="card-action-inner" href="/map/">
+                                        <span>Explore map</span>
+                                        <img class="arrow" src="/images/arrow.svg"/>
+                                    </a>
                                 </div>
+                                <br>
                             </div>
                         </div>
                     </div>
@@ -83,18 +95,17 @@
                                 <div class="img-card-main">
                                     <img class="img-card" src="/images/search.png"/>
                                 </div>
-                                <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit lorem eget sagittis commodo. Praesent convallis sodales tortor, in interdum felis mattis vitae. Fusce libero augue, semper dignissim dapibus sit amet, aliquam sed neque. Donec tristique venenatis ligula et pharetra. Nullam ac tortor eget sem ultricies pulvinar. In gravida eu nunc congue vehicula. Donec pellentesque lorem ac lorem dignissim luctus. Aenean convallis arcu sit amet nisl bibendum aliquam. Nam aliquam placerat luctus. Morbi convallis massa odio, nec maximus ligula aliquet ac.
-
-                                    Quisque tristique, lacus sed vehicula elementum, orci urna auctor felis, sed placerat orci elit vitae ligula. Pellentesque orci ante, consectetur at pharetra vel, efficitur laoreet erat.  </span>
-                                <div class="mb-3">
-                                    <div class="fw-bold text-muted card-action">
-                                        <a class="card-action-inner" href="/dataset">
-                                            <span>Search</span>
-                                            <img class="arrow" src="/images/arrow.svg"/>
-                                        </a>
-                                    </div>
-                                </div>
+                                <span class="text-muted">Search and filter through a vast library of public records using different filter types to find the exact data you need quickly and efficiently.</span>
+                                
                                 <br>
+                            </div>
+                            <div class="min-mb-3">
+                                <div class="fw-bold text-muted">
+                                    <a class="card-action-inner" href="/dataset">
+                                        <span>Search</span>
+                                        <img class="arrow" src="/images/arrow.svg"/>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -105,19 +116,18 @@
                                 <div class="img-card-main">
                                     <img class="img-card" src="/images/metadata.png"/>
                                 </div>
-                                <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit lorem eget sagittis commodo. Praesent convallis sodales tortor, in interdum felis mattis vitae. Fusce libero augue, semper dignissim dapibus sit amet, aliquam sed neque. Donec tristique venenatis ligula et pharetra. Nullam ac tortor eget sem ultricies pulvinar. In gravida eu nunc congue vehicula. Donec pellentesque lorem ac lorem dignissim luctus. Aenean convallis arcu sit amet nisl bibendum aliquam. Nam aliquam placerat luctus. Morbi convallis massa odio, nec maximus ligula aliquet ac.
-
-                                    Quisque tristique, lacus sed vehicula elementum, orci urna auctor felis, sed placerat orci elit vitae ligula. Pellentesque orci ante, consectetur at pharetra vel, efficitur laoreet erat. 
+                                <span class="text-muted">Browse through our comprehensive metadata repository. Access detailed information about our data resources, making informed decisions for your projects. Your gateway to well-organized data.
                                 </span>
-                                <div class="mb-3">
-                                    <div class="fw-bold text-muted card-action">
-                                        <a class="card-action-inner" href="/dataset">
-                                            <span>Metadata Browser</span>
-                                            <img class="arrow" src="/images/arrow.svg"/>
-                                        </a>
-                                    </div>
-                                </div>
+                                
                                 <br>
+                            </div>
+                            <div class="min-mb-3">
+                                <div class="fw-bold text-muted">
+                                    <a class="card-action-inner" href="/dataset">
+                                        <span>Metadata Browser</span>
+                                        <img class="arrow" src="/images/arrow.svg"/>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -126,6 +136,8 @@
 
 </section>
 
-<br>
+<br><br><br><br><br>
+
+
 
 {% endblock %}
