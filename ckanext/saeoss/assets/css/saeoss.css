@@ -1310,6 +1310,11 @@ select[id$="field-dataset_custodian"]{
   position: absolute;
 }
 
+
+.maplibregl-popup-content {
+  word-wrap: break-word;
+}
+
 @media screen and (max-width: 1000px) {
   .resizing {
     font-size: 1rem;
@@ -1321,3 +1326,4 @@ select[id$="field-dataset_custodian"]{
     font-size: 14px;
   }
 }
+
