@@ -37,8 +37,6 @@ def index():
     packagesCreated = get_by_week("new_packages")
     packagesDeleted = get_deleted_packages()
     weeklyPackages = get_num_packages_by_week()
-    allSubmittedDCPRRequests = get_submitted_dcpr_requests()
-    weeklySubmittedDCPRRequests = get_weekly_submitted_dcpr_requests()
 
     return toolkit.render(
         "sys_stats.html",
@@ -50,9 +48,7 @@ def index():
             "package_revisions": packageRevisions,
             "packages_created": packagesCreated,
             "packages_deleted": packagesDeleted,
-            "packages_per_week": weeklyPackages,
-            "submitted_dcpr_requests":allSubmittedDCPRRequests,
-            "dcpr_requests_per_week": weeklySubmittedDCPRRequests
+            "packages_per_week": weeklyPackages
         },
     )
 
@@ -433,59 +429,3 @@ def get_num_packages_by_week():
         return weekly_numbers
 
     return num_packages()
-
-
-def get_submitted_dcpr_requests():
-    """
-    get all submitted dcpr requests
-    """
-    # package = table("package")
-    # activity = table("activity")
-    # s = (
-    #     select(
-    #         [package.c["id"], func.min(activity.c["timestamp"])],
-    #         from_obj=[
-    #             activity.join(package, activity.c["object_id"] == package.c["id"])
-    #         ],
-    #     )
-    #     .group_by(package.c["id"])
-    #     .order_by(func.min(activity.c["timestamp"]))
-    # )
-    # res = model.Session.execute(s).fetchall()
-    # res_pickleable: list[tuple[str, int]] = []
-    # for pkg_id, created_datetime in res:
-    #     res_pickleable.append((pkg_id, created_datetime.toordinal()))
-    # return res_pickleable
-
-    dcpr_request = table("dcpr_request")
-    users = table("user")
-    s = (
-            select(
-                # [dcpr_request]
-                [dcpr_request.c['proposed_project_name'], dcpr_request.c['owner_user'] , dcpr_request.c['status'], dcpr_request.c['submission_date']],
-                # from_obj=
-                #     #dcpr_request.join(users, dcpr_request.c["owner_user"] == users.c["id"] )
-                #     dcpr_request
-                
-            )
-            #.group_by(dcpr_request.c["proposed_project_name"])
-            .order_by(func.max(dcpr_request.c["submission_date"]))
-        )
-    
-
-    res = model.Session.execute(s).fetchall()
-    res_pickleable: list[tuple[str,str, str, int]] = []
-    for proposed_project_name, name , status, submission_date in res:
-        res_pickleable.append((proposed_project_name, name , status, submission_date.toordinal()))
-    return res_pickleable
-
-
-def get_weekly_submitted_dcpr_requests():
-    """
-    according to TOR, dalrrd must from time
-    to time be able to pull statistics of
-    new metadata captured or
-    projects submitted for approval
-    """
-    pass
-

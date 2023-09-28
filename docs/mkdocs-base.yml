@@ -40,65 +40,74 @@ markdown_extensions:
 
 nav:
         - Home:
-                  - Home: index.md
-                  - License: license.md
-        - User:
-                  - Quickstart: user/quickstart.md
-                  - Instructions: user/instructions.md
-                  - User Roles: user/permissions.md
-        - Admin:
-                  - Opening issues: admin/opening_issues.md
-                  - Get staging version of production: admin/staging_version.md
-
-        - Developer:
-                  - Narrative: developer/narrative.md
-                  - Architecture:
-                      - Framework Used: developer/framework_used.md
-                      - High-level System Architecture: developer/system_architecture.md
-                      - Data Model: developer/data_model.md
-                  - Docs:
-                      - Code Auto docs:
-                          - assets: developer/code_auto_docs.md
-                          - blueprints: developer/blueprints.md
-                          - cli: developer/cli.md
-                          - logic: developer/logic.md
-                          - migration: developer/migration.md
-                          - model: developer/model.md
-                          - plugins: developer/plugins.md
-                          - public: developer/public.md
-                          - scheming: developer/scheming.md
-                          - templates: developer/templates.md
-                          - constants: developer/constants.md
-                          - email notification: developer/email_notification.md
-                          - get releases: developer/get_releases.md
-                          - helpers: developer/helpers.md
-                          - jobs: developer/jobs.md
-                          - wsgi: developer/wsgi.md
-                      - How to make docs:
-                          - Adding to docs: developer/make_docs.md
-                          - Generating PDFs and static website: developer/make_docs.md
-                  - Developer Reference Manual:
-                        - mkdocs generate content: developer/contribution_guidelines.md
-                        - Setting up a dev env: developer/narrative.md
-                        - Coding conventions : developer/coding_conventions.md
-                        - Contributor/Contribution Guidelines : developer/contribution_guidelines.md
-                        - Project SCRUM board :
-                                  Project Board: developer/project_scrum_board.md
-                                  Opening Issue: developer/opening_issues.md
-                        - How to test local instance: developer/test_local.md
-                        - License: license.md
-                  - License: license.md
-
-                  - Design:
-                        - Design Sheet: developer/design.md
-                        - Wire-frame Model: developer/frame_model.md
-                  - How to run instances: developer/run_instances.md
-
-        - DevOps:
-                  - Containers Used: devops/containers_used.md
+                - index.md
+                - Contributing: about/contributing.md
+                - Code of Conduct: about/code-of-conduct.md
+                - Running Instances: about/running-instances.md
+        - Users:
+                - user/index.md
+                - Quick Start: 
+                        - user/quickstart/index.md
+                - Guide:
+                        - user/guide/index.md
+                        - Disclaimer: about/disclaimer.md
+                        - License: about/license.md
+                - Manual: 
+                        - user/manual/index.md
+                        - Home Page: user/manual/home.md
+                        - Administrator Page: user/manual/administrator-page.md
+        - Administrators:
+                - administrator/index.md
+                - Guide:
+                        - administrator/guide/index.md
+                - Manual:
+                        - administrator/manual/index.md
+        - Developers:
+                - developer/index.md
+                - Guide:
+                        - developer/guide/index.md
+                        - Architecture: developer/guide/architecture.md
+                        - Prerequisites: developer/guide/prerequisites.md
+                        - Cloning: developer/guide/cloning.md
+                        - IDE Setup: developer/guide/ide-setup.md
+                        - Configuration: developer/guide/configuration.md
+                        - Building: developer/guide/building.md
+                        - Design: developer/guide/design.md
+                        - Road Map: developer/guide/roadmap.md
+                        - Workflows: developer/guide/workflows.md
+                        # Pages to render but exclude from navigation
+                        - "": developer/guide/templates/bug-report-message-template.md
+                        - "": developer/guide/templates/pull-request-template.md 
+                        - "": developer/guide/templates/commit-message-convention.md
+                - Manual:
+                  - developer/manual/index.md
+                  - assets: developer/manual/assets.md
+                  - blueprints: developer/manual/blueprints.md
+                  - cli: developer/manual/cli.md
+                  - logic: developer/manual/logic.md
+                  - migration: developer/manual/migration.md
+                  - model: developer/manual/model.md
+                  - plugins: developer/manual/plugins.md
+                  - public: developer/manual/public.md
+                  - scheming: developer/manual/scheming.md
+                  - templates: developer/manual/templates.md
+                  - constants: developer/manual/constants.md
+                  - email notification: developer/manual/email_notification.md
+                  - get releases: developer/manual/get_releases.md
+                  - helpers: developer/manual/helpers.md
+                  - jobs: developer/manual/jobs.md
+                  - wsgi: developer/manual/wsgi.md
+                - API:
+                  - developer/api/index.md
+                  - Reference: developer/api/manual/index.md
+                  - Guide: developer/api/guide/index.md
+                - Documentation Writing: developer/documentation/index.md
+                - License: about/license.md
+        - DevOps: 
+                - devops/index.md
+                - Guide: devops/guide/index.md
+                - Manual: devops/manual/index.md
         - About:
-                  - About: about/index.md
-                  - License: about/license.md
-                  - Contributors: about/contributors.md
-                  - Funders: about/funders.md
-                  - Logos: about/logos.md
+                - about/index.md
+                - License: about/license.md
+                - Code of Conduct: about/code-of-conduct.md
