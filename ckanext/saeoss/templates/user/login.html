@@ -7,11 +7,13 @@
 {% endblock %}
 
 {% block primary_content %}
+
   <section class="module secondary-inner">
     <div class="module-content">
       <h1 class="page-heading">{% block page_heading %}{{ _('Login') }}{% endblock %}</h1>
       {% block form %}
         {% snippet "user/snippets/login_form.html", action=g.login_handler, error_summary=error_summary %}
+
       {% endblock %}
     </div>
   </section>
@@ -44,7 +46,7 @@
       <p>{% trans %}No problem, use our password recovery form to reset it.{% endtrans %}</p>
       <p class="action">
         {% block help_forgotten_button %}
-        <a class="btn btn-default" href="{{ h.url_for('user.request_reset') }}">{{ _('Forgot your password?') }}</a>
+        <a class="btn btn-default resizing" href="{{ h.url_for('user.request_reset') }}">{{ _('Forgot your password?') }}</a>
         {% endblock %}
       </p>
     </div>

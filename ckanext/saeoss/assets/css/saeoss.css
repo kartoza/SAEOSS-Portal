@@ -1309,3 +1309,15 @@ select[id$="field-dataset_custodian"]{
   overflow: hidden;
   position: absolute;
 }
+
+@media screen and (max-width: 1000px) {
+  .resizing {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .resizing {
+    font-size: 14px;
+  }
+}
