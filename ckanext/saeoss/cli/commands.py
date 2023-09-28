@@ -1071,6 +1071,10 @@ def cbers(source_path,
     help="url of the catalogue",
 )
 @click.option(
+    "--org",
+    help="organisation to save dataset to",
+)
+@click.option(
     "--user",
     help="auhtorized user name to create the dataset",
 )
@@ -1078,7 +1082,7 @@ def cbers(source_path,
     "--max",
     help="maximum number of stac items to create datasets from",
 )
-def create_stac_dataset(user, url, max=10):
+def create_stac_dataset(user, url, org, max=10):
     """
     fetch data from a valid stac catalog
     and create datasets out of stack items
@@ -1113,6 +1117,7 @@ def create_stac_dataset(user, url, max=10):
     
     for i in range(max+1):
         item1 = next(collection_items)
+        logger.debug(f"collection_items {collection_items}")
         data_dict["id"] = catalog.id + item1.id
         data_dict["title"] = item1.id
         data_dict["name"] = item1.id
@@ -1124,7 +1129,8 @@ def create_stac_dataset(user, url, max=10):
         data_dict["dataset_reference_date-0-reference"] = "2022-1-5"
         data_dict["dataset_reference_date-0-reference_date_type"] = "001"
         data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
-        data_dict["owner_org"] = "kartoza"
+        data_dict["owner_org"] = org
+        data_dict["lineage_statement"] = "STAC Endpoint"
         data_dict["private"] = False
         data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
         data_dict["metadata_language_and_character_set-0-metadata_language"] = "en"
