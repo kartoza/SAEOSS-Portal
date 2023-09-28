@@ -611,6 +611,10 @@ fieldset[disabled] .btn-default.focus {
   background-image: url("/images/header.jpg");
 }
 
+#about-header{
+  background-image: url("/images/satelite.jpg");
+}
+
 header.masthead{
   background-position: center center;
   background-size: cover;
@@ -905,7 +909,8 @@ footer {
 }
 
 .publish-action .card{
-  min-height: 180px;
+  /* min-height: 180px; */
+  height: 100% !important;
 }
 
 /* Modal */
@@ -965,7 +970,8 @@ footer {
     min-height: auto;
   }
   .publish-action .card {
-    min-height: 100px;
+    /* min-height: 100px; */
+    height: 100% !important;
   }
 
   .flash-messages{
