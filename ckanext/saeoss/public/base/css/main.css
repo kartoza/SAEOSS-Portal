@@ -9487,6 +9487,7 @@ h4 small {
   border-radius: 5px;
   padding: 10px;
   margin-top: -5px;
+  
 }
 .module-resource{
   padding:10px;
@@ -11541,7 +11542,11 @@ iframe {
   padding: 10px;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 3px 3px 10px gray
+  box-shadow: 3px 3px 10px gray;
+}
+
+.secondary{
+  box-shadow: 3px 3px 10px gray;
 }
 
 .left-align{
@@ -11569,44 +11574,50 @@ iframe {
   color: gray;
 }
 
+.btn{
+  transition: all 1.8 ease-in-out !important;
+}
+
 .btn:hover{
-  -webkit-transition: width 1.4s ease-in-out;
-  -moz-transition: width 1.4s ease-in-out;
-  -o-transition: width 1.5s ease-in-out;
-  transition: width 1.5s ease-in-out;
+  
   scale:1.08
+}
+
+.card{
+  transition: all 1.2s
 }
 
 .card:hover{
-  -webkit-transition: width 1.4s ease-in-out;
-  -moz-transition: width 1.4s ease-in-out;
-  -o-transition: width 1.4s ease-in-out;
-  transition: width 1.4s ease-in-out;
-  scale:1.08
+  scale:1.07
+}
+
+.social-inner{
+  transition: all 1.2s;
 }
 
 .social-inner:hover{
-  -webkit-transition: width 1.4s ease-in-out;
-  -moz-transition: width 1.4s ease-in-out;
-  -o-transition: width 1.4s ease-in-out;
-  transition: width 1.4s ease-in-out;
   scale:1.08
+}
+.dataset-item{
+  transition: all 1.2s;
 }
 
 .dataset-item:hover{
-  -webkit-transition: width 1.4s ease-in-out;
-  -moz-transition: width 1.4s ease-in-out;
-  -o-transition: width 1.4s ease-in-out;
-  transition: width 1.4s ease-in-out;
   scale:1.02
 }
 
+.hover-content{
+  transition: all 1.2s;
+}
+
 .hover-content:hover{
-  -webkit-transition: width 1.4s ease-in-out;
-  -moz-transition: width 1.4s ease-in-out;
-  -o-transition: width 1.4s ease-in-out;
-  transition: width 1.4s ease-in-out;
-  scale:1.02
+  scale:1.04
+}
+
+@keyframes scale {
+  0%   {transform: scale(1);}
+  60% {transform: scale(1.08);}
+  100% {transform: scale(1);}
 }
 
 .search-form {
@@ -11630,6 +11641,32 @@ iframe {
   font-size: 12px !important;
   height: 34px !important;
   border-radius: 6px;
+}
+
+.bs3{
+  padding: 15px; 
+  margin-left: 10px;
+  background-color: white !important;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px gray;
+  width: 100%;
+  position: relative;
+  
+}
+
+.bs3 > .form-group{
+  display: inline !important;
+}
+
+.bs3 > .btn:hover{
+  scale:1 !important;
+}
+
+article{
+  padding: 20px;
+  background-color: white !important;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px gray
 }
 
 @media only screen and (max-width: 767px) {

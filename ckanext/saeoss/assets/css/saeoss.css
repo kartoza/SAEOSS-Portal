@@ -344,7 +344,7 @@ fieldset[disabled] .btn-default.focus {
   margin-right: 0;
 }
 
-.main .secondary {
+.main {
   padding: 10px;
   z-index: 1;
   padding-right: 1px;
@@ -666,7 +666,7 @@ header.masthead{
 .btn-account {
   border-radius: 2px;
   margin: 10px;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   padding: 10px 40px;
   font-size: 14px;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
@@ -677,6 +677,7 @@ header.masthead{
 }
 
 .btn-account:hover {
+  color: black !important;
   background-color: white;
 }
 
