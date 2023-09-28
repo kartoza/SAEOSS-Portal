@@ -2,7 +2,7 @@
 
 ![GitHub Logo](../img/gh316.png)
 
-When contributing to the development of the platform, it's **essential** to adhere to the correct workflow guidelines. Begin by configuring your [developer environment](../developer/narrative.md) and familiarizing yourself with the approved [coding standards](../developer/contribution_guidelines.md). Following the proper workflow guarantees high-quality development and strict adherence to endorsed code standards.
+When contributing to the development of the platform, it's **essential** to adhere to the correct workflow guidelines. Begin by configuring your [developer environment](../developer/narrative.md) and familiarizing yourself with the approved [coding standards](manual/contribution_guidelines.md). Following the proper workflow guarantees high-quality development and strict adherence to endorsed code standards.
 
 ## Creating Pull Requests
 

@@ -1,5 +1,43 @@
 "use strict";
 
+const hasLayer = (map, id) => {
+  if (!map) {
+    return false
+  }
+  return typeof map.getLayer(id) !== 'undefined'
+}
+
+const removeLayer = (map, id) => {
+  if (hasLayer(map, id)) {
+    map.removeLayer(id)
+  }
+}
+
+const hasSource = (map, id) => {
+  return typeof map.getSource(id) !== 'undefined'
+}
+
+const removeSource = (map, id) => {
+  if (hasSource(map, id)) {
+    map.removeSource(id);
+  }
+}
+
+const renderLayer = (map, id, source, layer, before = null) => {
+  removeLayer(map, id)
+  removeSource(map, id)
+  map.rerenderLayer = false;
+  map.addSource(id, source)
+  map.addLayer(
+    {
+      ...layer,
+      id: id,
+      source: id,
+    },
+    before
+  );
+}
+
 class layerSwitcherControl {
 
   constructor(options) {
@@ -41,11 +79,16 @@ class layerSwitcherControl {
         const activeElement = this._container.querySelector(".active");
         activeElement.classList.remove("active");
         basemapContainer.classList.add("active");
-        map.setStyle(base.style);
+        if (base.style) {
+          map.rerenderLayer = true
+          map.setStyle(base.style);
+        } else {
+          const layers = map.getStyle().layers.filter(layer => layer.id == 'spatial_polygons')
+          renderLayer(map, 'basemap', base, { type: "raster" }, layers[0]?.id)
+        }
       });
       this._container.appendChild(basemapContainer);
 
-      console.log(this._options.initialBasemap)
       if (this._options.initialBasemap.style === base.style) {
           basemapContainer.classList.add("active");
           basemapContainer.classList.remove("hidden");
@@ -59,6 +102,7 @@ class layerSwitcherControl {
     delete this._map;
   }
 }
+
 ckan.module("saeossWebMapping", function(jQuery, _) {
     return {
         options: {
@@ -80,12 +124,6 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
         },
 
         initialize: function () {
-
-            // console.log(
-            //     `Hi there, I'm running inside the saeossDatasetSpatialExtentMap module. ` +
-            //     `Oh, and my bound element is ${this.el} and the Jinja template passed me this as the default extent: ${this.options.defaultExtent}`
-            // )
-
             jQuery.proxyAll(this, /_on/);
             this.el.ready(this._onReady);
         },
@@ -104,18 +142,22 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     img: "https://cloud.maptiler.com/static/img/maps/hybrid.png",
                     style: "https://api.maptiler.com/maps/satellite/style.json?key=3k2ZAx59NO9FMIGBUi8W"
                 },
-                // "PIONEER": {
-                //     img: "https://www.thunderforest.com/images/sets/pioneer-tijuana-636.png",
-                //     "type": "rastor",
-                //     "tiles": "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                // },
-                // "NEIGHBOURHOOD": {
-                //     img: "https://www.thunderforest.com/images/sets/neighbourhood-luxembourg-636.png",
-                //     "type": "raster-dem",
-                //     "encoding": "mapbox",
-                //     "tiles": "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                // }
-                    
+                "PIONEER": {
+                  // id: "basemap",
+                  img: "https://www.thunderforest.com/images/sets/pioneer-tijuana-636.png",
+                  type: "raster",
+                  tiles: [
+                    "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
+                  ],
+                },
+                "NEIGHBOURHOOD": {
+                  // id: "basemap",
+                  img: "https://www.thunderforest.com/images/sets/neighbourhood-luxembourg-636.png",
+                  type: "raster",
+                  tiles: [
+                    "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
+                  ]
+                }
             }
 
             const initialStyle = Object.values(baseMaps)[0];
@@ -354,7 +396,6 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 $("#search-collection-btn").on('click', function(event){
                     document.getElementById("clear-search-btn").style.display = "block"
                     var search_string = document.getElementById("search-collection").value
-                    console.log(search_string)
                     var resultArr = []
                     for(var i = 0; i < collections.length; i++){
                         if(collections[i]["title"].includes(search_string) || collections[i]["description"].includes(search_string)){
@@ -411,7 +452,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
                     if(map.getLayer("spatial_polygons")){
                         map.removeLayer("spatial_polygons")
-                        map.removeSource("spatial")
+                        map.removeSource("spatial_polygons")
                     }
 
                     document.getElementById("loadCollection").style.display = "block"
@@ -421,7 +462,6 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     
                     let fetchRes = fetch(sourceUrl);
                     fetchRes.then(res => res.json()).then(data => {
-                        console.log(data["features"])
                         allFeatures = data["features"]
                         var featureHtml = ""
                         for(var i = 0; i < allFeatures.length; i++){
@@ -449,7 +489,6 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
                         $(".feature-show").on('click', function(event){
                             var index = $(this).data('featurenum')
-                            console.log(allFeatures[index])
 
                             $(".feature-show").each(function(){
                                 if($(this).hasClass("selected-feature")){
@@ -463,10 +502,10 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
         
                             if(map.getLayer("spatial_polygons")){
                                 map.removeLayer("spatial_polygons")
-                                map.removeSource("spatial")
+                                map.removeSource("spatial_polygons")
                             }
             
-                            map.addSource("spatial", {
+                            map.addSource("spatial_polygons", {
                                 type: "geojson",
                                 data: allFeatures[index],
                             });
@@ -474,16 +513,31 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                             map.addLayer({
                                 'id': 'spatial_polygons',
                                 'type': 'fill',
-                                'source': 'spatial',
+                                'source': 'spatial_polygons',
                                 'layout': {},
                                 'paint': {
                                     'fill-color': '#088',
                                     'fill-opacity': 0.5
                                 }
                             });
+                            map.rerenderLayer = false;
+
+                            map.source = {
+                                type: "geojson",
+                                data: allFeatures[index],
+                            }
+                            map.layer = {
+                                'id': 'spatial_polygons',
+                                'type': 'fill',
+                                'source': 'spatial_polygons',
+                                'layout': {},
+                                'paint': {
+                                    'fill-color': '#088',
+                                    'fill-opacity': 0.5
+                                }
+                            }
         
                             var bounds = allFeatures[index]["bbox"]
-                            console.log(bounds)
                             map.fitBounds(bounds)
                         });
                         
@@ -505,7 +559,6 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
                 const displayFeatures = feature.map((feat) => {
                     const displayFeat = {};
-                    console.log("feature", feat)
                     displayProperties.forEach((prop) => {
                         displayFeat[prop] = feat[prop];
                     });
@@ -517,8 +570,6 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     null,
                     2
                 );
-
-                console.log("displayFeatures", displayFeatures)
 
                 new maplibregl.Popup()
                     .setLngLat(e.lngLat)
@@ -535,39 +586,17 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 map.getCanvas().style.cursor = '';
             });
 
-            map.on('load', () => {
-                const layers = map.getStyle().layers;
-                const bottomLayer = layers.find((layer) => layer.type == "background");
-                // map.addSource("pioneer", {
-                //     type: "raster",
-                //     tiles: [
-                //       "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                //     ]
-                // });
-        
-                // map.addLayer(
-                // {
-                //     id: "pioneer-raster",
-                //     type: "raster",
-                //     source: "pioneer"
-                // });
-
-                // map.setLayoutProperty(bottomLayer.id, 'visibility', 'none');
-                
-                // map.addSource("neighbourhood", {
-                //     type: "raster",
-                //     tiles: [
-                //       "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=d83a82c1b8d64cc4af1ba7b5c0142239"
-                //     ]
-                // });
-        
-                // map.addLayer(
-                // {
-                //     id: "neighbourhood-raster",
-                //     type: "raster",
-                //     source: "neighbourhood"
-                // });
-            });
+            const rerenderLayer = () => {
+              if (map.source && map.layer && map.rerenderLayer) {
+                renderLayer(
+                  map,
+                  'spatial_polygons',
+                  map.source,
+                  map.layer
+                )
+              }
+            }
+            map.on("styledata", rerenderLayer);
         },
     }
 })
