@@ -3,54 +3,39 @@
 {% block content %}
 {% include 'social/index.html' %}
 <header class="masthead" id="header">
-<div id="home-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
-    <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-        <div class="item active">
-            <img class="d-block w-100" src="/images/header.jpg" alt="First slide">
-        </div>
-        <div class="item">
-            <img class="d-block w-100" src="/images/earth.jpg" alt="Second slide">
-        </div>
-        <div class="item">
-            <img class="d-block w-100" src="/images/sea.jpg" alt="Third slide">
-        </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+<div class="video-background">
+    <iframe
+            width="1813"
+            height="700"
+            src="https://www.youtube.com/embed/xuP4g7IDgDM?vq=hd720&mute=1&modestbranding=0&autoplay=1&controls=0&wmode=transparent&hd=1&rel=0&autohide=1&showinfo=0&loop=1&enablejsapi=1&widgetid=2&playlist=xuP4g7IDgDM" title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+    >
+    </iframe>
 </div>
+<div class="overlay">
+    <div id="title-header">
+        <div class="title-header-buttons center">
+            <div class="title-header-text ">
+                Welcome to the SAEOSS Portal
+            </div>
+            {% if not c.userobj %}
+                <a class="btn btn-account btn-l js-scroll-trigger"
+                    href="/user/login">LOGIN</a>
+                <a class="btn btn-account btn-l js-scroll-trigger"
+                    href="/user/register">SIGN UP</a>
+                <a class="btn btn-account btn-l js-scroll-trigger"
+                    href="/dataset">METADATA</a>
+            {% else %}
+                <a class="btn btn-account btn-l js-scroll-trigger"
+                    href="/dataset/">METADATA</a>
+            {% endif %}
 
-<div id="title-header">
-    <div class="title-header-buttons center">
-        <div class="title-header-text ">
-            Welcome to the SAEOSS Portal
+            <div class="home-text">
+                <h4>Discover a world of data-driven possibilities at the SAEOSS-Portal, where information converges to empower data sharing and decision making.</h4>
+            </div>
+
         </div>
-        {% if not c.userobj %}
-            <a class="btn btn-account btn-l js-scroll-trigger"
-                href="/user/login">LOGIN</a>
-            <a class="btn btn-account btn-l js-scroll-trigger"
-                href="/user/register">SIGN UP</a>
-            <a class="btn btn-account btn-l js-scroll-trigger"
-                href="/dataset">METADATA</a>
-        {% else %}
-            <a class="btn btn-account btn-l js-scroll-trigger"
-                href="/dataset/">METADATA</a>
-        {% endif %}
-
-        <div class="home-text">
-            <h4>Discover a world of data-driven possibilities at the SAEOSS-Portal, where information converges to empower data sharing and decision making.</h4>
-        </div>
-
     </div>
 </div>
 </header>
@@ -76,7 +61,7 @@
     </div>
 </div>
 
-<br><br>
+<br><br><br><br>
 
 <section class="sample-explore">
 <div class="container extra-margin-bt">
@@ -151,7 +136,7 @@
 
 </section>
 
-<br><br><br>
+<br><br><br><br><br>
 
 
 
