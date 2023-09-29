@@ -28,7 +28,7 @@ Published under AGPL-3. See the [full license](license.md) text.
 | Juanique Voogt              | [voogt](https://github.com/voogt)                    | <img src="https://github.com/voogt.png" alt= “” width="64" height="64">           |
 | Eli Volschenk               | [EliVolsch](https://github.com/EliVolsch)            | <img src="https://github.com/EliVolsch.png" alt= “” width="64" height="64">       |
 | Luna Asefaw                 | [LunaAsefaw](https://github.com/HGhere)              | <img src="https://github.com/LunaAsefaw.png" alt= “” width="64" height="64">      |
-| Mohab Kahled                | [Mohab25](https://github.com/Mohab25)                | ![Mohab25](img/mohab.png){: style=”width="64" height="64"}                       |
+| Mohab Kahled                | [Mohab25](https://github.com/Mohab25)                | <img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/about/img/mohab.png" alt= “” width="64" height="64">   |
 | Marina van der Merwe        | [MarinaKartoza](https://github.com/voogt)            | <img src="https://github.com/MarinaKartoza.png" alt= “” width="64" height="64">   |
 
 ## Project Funders/Backers
