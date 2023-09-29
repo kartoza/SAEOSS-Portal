@@ -1,5 +1,5 @@
 """CKAN CLI commands for the saeoss extension"""
-
+import datetime
 import datetime as dt
 import inspect
 import json
@@ -59,7 +59,6 @@ from ._cbers import (
 )
 
 from pystac_client import Client
-from pystac import ItemCollection
 
 
 
@@ -1098,60 +1097,65 @@ def create_stac_dataset(user, url, org, max=10):
     2. remove the filler data
     3. add proper checks for params (user, url, max)
     """
-    # following url is used for tests
-    #catalog = Client.open("https://planetarycomputer.microsoft.com/api/stac/v1")
-    # pattern = "^https:\/\/[0-9A-z.]+.[0-9A-z.]+.[a-z]+$"
     catalog = Client.open(url)
+    print(list(catalog.get_collections())[0])
     collection1 = list(catalog.get_collections())[0]
     collection_items = collection1.get_items()
     data_dict = {}
-    # if not validators.parse(url):
-    #     logger.info("url is not valid, exiting")
-    #     return
-    
+
     try:
         max = int(max)
     except:
         max = 10
         logger.info("max is not an integer, setting it to 10")
-    
+
     for i in range(max+1):
         item1 = next(collection_items)
-        logger.debug(f"collection_items {collection_items}")
-        data_dict["id"] = catalog.id + item1.id
-        data_dict["title"] = item1.id
-        data_dict["name"] = item1.id
-        # there might or might not be notes, let's take the notes of the catalog for the moment
-        data_dict["notes"] = catalog.description
-        data_dict["responsible_party-0-individual_name"] = "responsible individual name"
-        data_dict["responsible_party-0-role"] = "owner"
-        data_dict["responsible_party-0-position_name"] = "position name"
-        data_dict["dataset_reference_date-0-reference"] = "2022-1-5"
-        data_dict["dataset_reference_date-0-reference_date_type"] = "001"
-        data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
-        data_dict["owner_org"] = org
-        data_dict["lineage_statement"] = "STAC Endpoint"
-        data_dict["private"] = False
-        data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
-        data_dict["metadata_language_and_character_set-0-metadata_language"] = "en"
-        data_dict["metadata_language_and_character_set-0-dataset_character_set"] = "utf-8"
-        data_dict["metadata_language_and_character_set-0-metadata_character_set"] = "utf-8"
-        data_dict["lineage"] = "lineage statement"
-        data_dict["distribution_format-0-name"] = "distribution format"
-        data_dict["distribution_format-0-version"] = "1.0"
-        data_dict["spatial"] = item1.bbox
-        data_dict["spatial_parameters-0-equivalent_scale"] = "equivalent scale"
-        data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
-        data_dict["spatial_parameters-0-spatial_reference_system"] = "EPSG:3456"
-        data_dict["metadata_date"] = "metadata"
-        data_dict["resources"] = []
-        for link in item1.links:
-            if link.rel == "thumbnail":
-                data_dict["resources"].append({"name":link.target,"url":link.target, "format": "jpg", "format_version": "1.0"})
-
-        with futures.ThreadPoolExecutor(3) as executor:
-
-            user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
-            logger.debug('stac_item:', str(data_dict))
-            future = executor.submit(utils.create_single_dataset, user, data_dict)
-            logger.debug(future.result())
+        print(item1)
+    #     logger.debug(f"collection_items {collection_items}")
+    #     data_dict["id"] = catalog.id + item1.id
+    #     data_dict["title"] = item1.id
+    #     data_dict["name"] = item1.id
+    #     # there might or might not be notes, let's take the notes of the catalog for the moment
+    #     data_dict["notes"] = catalog.description
+    #     data_dict["responsible_party-0-individual_name"] = "responsible individual name"
+    #     data_dict["responsible_party-0-role"] = "owner"
+    #     data_dict["responsible_party-0-position_name"] = "position name"
+    #     data_dict["dataset_reference_date-0-reference"] = datetime.datetime.now().strftime("%Y-%m-%d")
+    #     data_dict["dataset_reference_date-0-reference_date_type"] = "001"
+    #     data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
+    #     data_dict["owner_org"] = org
+    #     data_dict["lineage_statement"] = "STAC Endpoint"
+    #     data_dict["private"] = False
+    #     data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
+    #     data_dict["metadata_language_and_character_set-0-metadata_language"] = "en"
+    #     data_dict["metadata_language_and_character_set-0-dataset_character_set"] = "utf-8"
+    #     data_dict["metadata_language_and_character_set-0-metadata_character_set"] = "utf-8"
+    #     data_dict["lineage"] = "lineage statement"
+    #     data_dict["distribution_format-0-name"] = "distribution format"
+    #     data_dict["distribution_format-0-version"] = "1.0"
+    #     data_dict["spatial"] = item1.bbox
+    #     data_dict["spatial_parameters-0-equivalent_scale"] = "equivalent scale"
+    #     data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
+    #     data_dict["spatial_parameters-0-spatial_reference_system"] = "EPSG:3456"
+    #     data_dict["metadata_date"] = "metadata"
+    #     data_dict["resources"] = []
+    #
+    #     # TODO dataset thumbnail, tags,
+    #     for link in item1.links:
+    #         if link.rel == "thumbnail":
+    #             data_dict["resources"].append({
+    #                 "name": link.target,
+    #                 "url": link.target,
+    #                 "format": "jpg",
+    #                 "format_version":
+    #                     "1.0"
+    #             }
+    #             )
+    #
+    #     # with futures.ThreadPoolExecutor(3) as executor:
+    #     #
+    #     #     user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
+    #     #     logger.debug('stac_item:', str(data_dict))
+    #     #     future = executor.submit(utils.create_single_dataset, user, data_dict)
+    #     #     logger.debug(future.result())
