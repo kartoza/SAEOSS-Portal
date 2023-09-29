@@ -12,6 +12,7 @@ edit_uri: "https://github.com/kartoza/SAEOSS-Portal/blob/main/docs/"
 copyright: Kartoza and Contributors
 
 markdown_extensions:
+        - attr_list
         - pymdownx.highlight:
                   anchor_linenums: true
         - pymdownx.inlinehilite
@@ -55,7 +56,15 @@ nav:
                 - Manual: 
                         - user/manual/index.md
                         - Home Page: user/manual/home.md
-                        - Administrator Page: user/manual/administrator-page.md
+                        - Dashboard Page: user/manual/dashboard.md
+                        - Profile: user/manual/profile_page.md
+                        - Profile Settings Page: user/manual/profile_settings.md
+                        - Orgenisation: users/manual/orgenisasion.md
+                        - Metadata: user/manual/metadata.md
+                        - Map: user/manual/map.md
+                        - About: user/manual/about.md
+                        - Help: user/manual/help.md
+                        - "": user/manual/opening_issues.md
         - Administrators:
                 - administrator/index.md
                 - Guide:
@@ -79,29 +88,12 @@ nav:
                         - "": developer/guide/templates/bug-report-message-template.md
                         - "": developer/guide/templates/pull-request-template.md 
                         - "": developer/guide/templates/commit-message-convention.md
-                - Manual:
-                  - developer/manual/index.md
-                  - assets: developer/manual/assets.md
-                  - blueprints: developer/manual/blueprints.md
-                  - cli: developer/manual/cli.md
-                  - logic: developer/manual/logic.md
-                  - migration: developer/manual/migration.md
-                  - model: developer/manual/model.md
-                  - plugins: developer/manual/plugins.md
-                  - public: developer/manual/public.md
-                  - scheming: developer/manual/scheming.md
-                  - templates: developer/manual/templates.md
-                  - constants: developer/manual/constants.md
-                  - email notification: developer/manual/email_notification.md
-                  - get releases: developer/manual/get_releases.md
-                  - helpers: developer/manual/helpers.md
-                  - jobs: developer/manual/jobs.md
-                  - wsgi: developer/manual/wsgi.md
-                - API:
-                  - developer/api/index.md
-                  - Reference: developer/api/manual/index.md
-                  - Guide: developer/api/guide/index.md
+                - Manual: developer/manual/index.md
                 - Documentation Writing: developer/documentation/index.md
+                - API:
+                        - developer/api/index.md
+                        - Reference: developer/api/manual/index.md
+                        - Guide: developer/api/guide/index.md
                 - License: about/license.md
         - DevOps: 
                 - devops/index.md

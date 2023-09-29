@@ -1,12 +1,12 @@
 # SAEOSS-Portal
 
-![SAEOSS_Logo](img/SANSA_Logo.png)
+![SAEOSS_Logo](./img/SANSA_Logo.png)
 
 ## Overview
 The SAEOSS-Portal has been proposed as a system of software components functioning together as the national central earth observation geospatial repository, with a view to metadata and open geospatial API standards compliance as well as user impact maximisation.
 
-## key Consepts
-Main focus of the platform (areas - admin -user and so on)
+<!-- ## key Consepts
+Main focus of the platform (areas - admin -user and so on) -->
 
 <!-- 
 A **project** (dashboard) is the most important feature of GeoSight. Projects
@@ -61,7 +61,7 @@ Joint effort was put forth from SANSA and SEONN to colaborate on this project.
 
 |                                |                                  |
 |--------------------------------|----------------------------------|
-|![SANSA](img/SANSA_Logo.png)  |![SAEONN](img/SAEONN_Logo.png)  |
+|![SANSA](./img/SANSA_Logo.png){: style="height:30px"}  |![SAEONN](./img/SAEONN_Logo.png){: style="height:30px"}  |
 
 
 <!-- #### Releases
@@ -83,3 +83,78 @@ Contributions to this project will be subject to our [Contributor License Agreem
 <!-- #### License
 This project is open source, published under the [License](about/license.md). 
 You can read our license to find out what rights this license bestows to users and contributors. -->
+
+
+-----------------------------------------------------------------------------
+template below
+-----------------------------------------------------------------------------
+
+# Template Project Title
+<!-- This is the Home Page, replace all of the titles with relevant titles -->
+
+Strapline <!-- replace with one line product description -->
+
+![main_screenshot]() <!-- change path to main screenshot, InaSAFE is a good reference -->
+
+## Introduction
+
+<!-- Insert introduction paragraphs here -->
+<!-- Can also input short video demo of project here (YouTube link, etc) -->
+<!-- Can contain Purpose/Why of project and the Scope of Project without use of sub-headings-->
+
+### Purpose
+
+### Scope of Project
+
+### Project Roadmap
+
+![Project Roadmap]()
+[Project Roadmap]()
+<!-- Either insert link to roadmap or actual roadmap (Speak to team leads) -->
+
+#### Code of Conduct
+
+<!-- Insert link to Code of Conduct -->
+[Code of Conduct]()
+
+#### Diversity Statement
+
+<!-- Insert link to Diversity Statement -->
+[Diversity Statement]()
+
+## Project Partners
+
+<!-- Insert Project Partner Logos and/or Links -->
+![Project Partner 1]()
+[Project Partner 1]()
+
+![Project Partner 2]()
+[Project Partner 2]()
+
+#### Releases
+
+<!-- Insert links to release pages -->
+[GitHub releases page]()
+[Releases page]()
+
+
+| | **Project Badges** | |
+| ----------------------- | ----------------------- | ----------------------- |
+| https://img.shields.io/github/license/{username}/{repo-name}.svg | https://img.shields.io/github/realese/{username}/{repo-name}.svg | https://img.shields.io/github/commits-since/{username}/{repo-name}/{version}.svg |
+| https://img.shields.io/github/issues/{username}/{repo-name}.svg | https://img.shields.io/github/issues-closed/{username}/{repo-name}.svg | https://img.shields.io/github/issues-pr/{username}/{repo-name}.svg |
+
+#### Project Chatroom
+
+<!-- Insert links to chatroom pages if available, otherwise remove -->
+[Chatroom]()
+
+#### Contributor License Agreement (CLA)
+<!-- Insert links to CLA -->
+[Contributor License Agreement]()
+
+#### License
+
+[License]() <!-- Link to project license in about page -->
+
+<!-- Keep the Kartoza Logo at the bottom of the page if the project allows -->
+![Kartoza Logo](img/logo.svg)
