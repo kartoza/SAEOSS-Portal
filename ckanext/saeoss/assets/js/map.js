@@ -75,6 +75,7 @@ class layerSwitcherControl {
       basemapContainer.src = base.img;
       basemapContainer.classList.add("basemap");
       basemapContainer.dataset.id = layerId;
+
       basemapContainer.addEventListener("click", () => {
         const activeElement = this._container.querySelector(".active");
         activeElement.classList.remove("active");
@@ -140,7 +141,10 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 },
                 "HYBRID": {
                     img: "https://cloud.maptiler.com/static/img/maps/hybrid.png",
-                    style: "https://api.maptiler.com/maps/satellite/style.json?key=3k2ZAx59NO9FMIGBUi8W"
+                    type:'raster',
+                    tiles: [
+                        "https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=3k2ZAx59NO9FMIGBUi8W"
+                    ]
                 },
                 "PIONEER": {
                   // id: "basemap",
