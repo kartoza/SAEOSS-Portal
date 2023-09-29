@@ -156,7 +156,7 @@ docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss ingest cbers --source-p
 create datasets (metadata records) from stac endpoint
 
 ```bash
-docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --max <max_number_of_records>
+docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --max <max_number_of_records> --org <organisation_name>
 ```
 
 

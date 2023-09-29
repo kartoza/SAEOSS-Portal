@@ -184,9 +184,11 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 var x = document.getElementById("collection-main")
                 if(x.style.display === "none"){
                     x.style.display = "block"
+                    document.getElementById("collapse-collection").style.left = "480px"
                 }
                 else{
                     x.style.display = "none"
+                    document.getElementById("collapse-collection").style.left = "0"
                 }
             })
 
