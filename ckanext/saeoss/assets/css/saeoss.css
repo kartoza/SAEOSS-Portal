@@ -653,8 +653,8 @@ header.masthead{
   height: 700px !important;
   min-height: auto !important;
   overflow: hidden;
-  /* border-bottom: 5px solid blue; */
-  box-shadow: 5px 15px 2px #1283C6;
+  border-bottom: 5px solid #1283C6;
+  /* box-shadow: 5px 15px 2px #1283C6; */
 }
 
 .title-header-buttons {
