@@ -6297,10 +6297,10 @@ button.close {
   -o-transition: 0.6s ease-in-out left;
   transition: 0.6s ease-in-out left;
 }
-.carousel-inner > .item > img,
+/* .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
   line-height: 1;
-}
+} */
 @media all and (transform-3d), (-webkit-transform-3d) {
   .carousel-inner > .item {
     -webkit-transition: -webkit-transform 0.6s ease-in-out;
@@ -6437,7 +6437,7 @@ button.close {
 }
 .carousel-indicators {
   position: absolute;
-  bottom: 10px;
+  top: 650px;
   left: 50%;
   z-index: 15;
   width: 60%;
@@ -11749,4 +11749,9 @@ article{
 
 .card-body{
   font-size: 15.8px !important;
+}
+
+.w-100{
+  width: 100% !important;
+  height: 100% !important;
 }
