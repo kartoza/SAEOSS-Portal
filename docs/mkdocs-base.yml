@@ -5,9 +5,9 @@ site_description: "The SAEOSS Portal has been proposed as a system of software c
 site_author: "Kartoza"
 docs_dir: ./src
 site_dir: ./site
-repo_name: "SAEOSS-PortalDocsFix"
-repo_url: "https://github.com/EliVolsch/SAEOSS-PortalDocsFix"
-edit_uri: "https://github.com/EliVolsch/SAEOSS-PortalDocsFix/main/docs/"
+repo_name: "SAEOSS-Portal"
+repo_url: "https://github.com/kartoza/SAEOSS-Portal"
+edit_uri: "https://github.com/kartoza/SAEOSS-Portal/blob/main/docs/"
 
 copyright: Kartoza and Contributors
 
