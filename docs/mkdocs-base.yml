@@ -51,6 +51,7 @@ nav:
                         - user/quickstart/index.md
                 - Guide:
                         - user/guide/index.md
+                        - Functionality: user/manual/functionality/index.md
                         - Disclaimer: about/disclaimer.md
                         - License: about/license.md
                 - Manual: 
@@ -65,7 +66,6 @@ nav:
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
                         - User Roles: user/manual/user_roles/index.md
-                        - Functionality: user/manual/functionality/index.md
                         - "": user/manual/opening_issues.md
         - Administrators:
                 - administrator/index.md
