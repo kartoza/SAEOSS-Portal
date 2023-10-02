@@ -59,11 +59,13 @@ nav:
                         - Dashboard Page: user/manual/dashboard.md
                         - Profile: user/manual/profile_page.md
                         - Profile Settings Page: user/manual/profile_settings.md
-                        - Organisation: users/manual/organisasion.md
+                        - Organisation: users/manual/organisation.md
                         - Metadata: user/manual/metadata.md
                         - Map: user/manual/map.md
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
+                        - User Roles: user/manual/user_roles/index.md
+                        - Functionality: user/manual/functionality/index.md
                         - "": user/manual/opening_issues.md
         - Administrators:
                 - administrator/index.md
