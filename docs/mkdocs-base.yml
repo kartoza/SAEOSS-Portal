@@ -6,8 +6,8 @@ site_author: "Kartoza"
 docs_dir: ./src
 site_dir: ./site
 repo_name: "SAEOSS-Portal"
-repo_url: "https://github.com/kartoza/SAEOSS-Portal"
-edit_uri: "https://github.com/kartoza/SAEOSS-Portal/blob/main/docs/"
+repo_url: "https://github.com/LunaAsefaw/SAEOSS-Portal"
+edit_uri: "https://github.com/LunaAsefaw/SAEOSS-Portal/blob/main/docs/"
 
 copyright: Kartoza and Contributors
 
