@@ -21,6 +21,7 @@ import alembic.util.exc
 import click
 import ckan
 import ckan.plugins as p
+from dateutil.parser import parse as datetime_parse
 from ckan.plugins import toolkit
 from ckan import model
 from ckan.lib.navl import dictization_functions
@@ -1078,10 +1079,10 @@ def cbers(source_path,
     help="auhtorized user name to create the dataset",
 )
 @click.option(
-    "--max",
+    "--max-count",
     help="maximum number of stac items to create datasets from",
 )
-def create_stac_dataset(user, url, org, max=10):
+def create_stac_dataset(user: str, url: str, org: str, max_count : int=10):
     """
     fetch data from a valid stac catalog
     and create datasets out of stack items
@@ -1092,70 +1093,98 @@ def create_stac_dataset(user, url, org, max=10):
     :param url: url of the catalogue
     :type url: str
 
+    :param org: Organization where the dataset will belong
+    :type org: str
+
+    :param max_count: Maximum number of created dataset from STAC items
+    :type max_count: int
+
     todo:
     1. enchance the resources preview
     2. remove the filler data
     3. add proper checks for params (user, url, max)
     """
     catalog = Client.open(url)
-    print(list(catalog.get_collections())[0])
-    collection1 = list(catalog.get_collections())[0]
-    collection_items = collection1.get_items()
-    data_dict = {}
+    stac_collections = list(catalog.get_collections())
 
     try:
-        max = int(max)
+        max_count = int(max_count)
     except:
-        max = 10
-        logger.info("max is not an integer, setting it to 10")
+        max_count = 10
+        logger.info("max_count is not an integer, setting it to 10")
 
-    for i in range(max+1):
-        item1 = next(collection_items)
-        print(item1)
-    #     logger.debug(f"collection_items {collection_items}")
-    #     data_dict["id"] = catalog.id + item1.id
-    #     data_dict["title"] = item1.id
-    #     data_dict["name"] = item1.id
-    #     # there might or might not be notes, let's take the notes of the catalog for the moment
-    #     data_dict["notes"] = catalog.description
-    #     data_dict["responsible_party-0-individual_name"] = "responsible individual name"
-    #     data_dict["responsible_party-0-role"] = "owner"
-    #     data_dict["responsible_party-0-position_name"] = "position name"
-    #     data_dict["dataset_reference_date-0-reference"] = datetime.datetime.now().strftime("%Y-%m-%d")
-    #     data_dict["dataset_reference_date-0-reference_date_type"] = "001"
-    #     data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
-    #     data_dict["owner_org"] = org
-    #     data_dict["lineage_statement"] = "STAC Endpoint"
-    #     data_dict["private"] = False
-    #     data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
-    #     data_dict["metadata_language_and_character_set-0-metadata_language"] = "en"
-    #     data_dict["metadata_language_and_character_set-0-dataset_character_set"] = "utf-8"
-    #     data_dict["metadata_language_and_character_set-0-metadata_character_set"] = "utf-8"
-    #     data_dict["lineage"] = "lineage statement"
-    #     data_dict["distribution_format-0-name"] = "distribution format"
-    #     data_dict["distribution_format-0-version"] = "1.0"
-    #     data_dict["spatial"] = item1.bbox
-    #     data_dict["spatial_parameters-0-equivalent_scale"] = "equivalent scale"
-    #     data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
-    #     data_dict["spatial_parameters-0-spatial_reference_system"] = "EPSG:3456"
-    #     data_dict["metadata_date"] = "metadata"
-    #     data_dict["resources"] = []
-    #
-    #     # TODO dataset thumbnail, tags,
-    #     for link in item1.links:
-    #         if link.rel == "thumbnail":
-    #             data_dict["resources"].append({
-    #                 "name": link.target,
-    #                 "url": link.target,
-    #                 "format": "jpg",
-    #                 "format_version":
-    #                     "1.0"
-    #             }
-    #             )
-    #
-    #     # with futures.ThreadPoolExecutor(3) as executor:
-    #     #
-    #     #     user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
-    #     #     logger.debug('stac_item:', str(data_dict))
-    #     #     future = executor.submit(utils.create_single_dataset, user, data_dict)
-    #     #     logger.debug(future.result())
+    created = 0
+    processed = 0
+    for collection in stac_collections:
+        collection_items = collection.get_items()
+
+        for item in collection_items:
+            if processed > max_count:
+                return
+            logger.debug(f"collection_items {collection_items}")
+            data_dict = {}
+            meta_date = item.properties.get(
+                "start_datetime",
+                item.properties.get(
+                    "datetime",
+                    datetime.datetime.now().isoformat()
+                )
+            )
+            meta_date = datetime_parse(meta_date).strftime("%Y-%m-%dT%H:%M:%S")
+
+            data_dict["id"] = catalog.id + item.id
+            data_dict["title"] = f"{catalog.title} - {collection.title} - {item.properties.get('title', item.id)}"
+            data_dict["name"] = item.id
+            # there might or might not be notes, let's take the notes of the catalog for the moment
+            data_dict["notes"] = collection.description
+            data_dict["responsible_party-0-individual_name"] = "responsible individual name"
+            data_dict["responsible_party-0-role"] = "owner"
+            data_dict["responsible_party-0-position_name"] = "position name"
+            data_dict["dataset_reference_date-0-reference"] = meta_date
+            data_dict["dataset_reference_date-0-reference_date_type"] = "1"
+            data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
+            data_dict["owner_org"] = org
+            data_dict["lineage_statement"] = "lineage statement"
+            data_dict["private"] = False
+            data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
+            data_dict["metadata_language_and_character_set-0-metadata_language"] = "en"
+            data_dict["metadata_language_and_character_set-0-dataset_character_set"] = "utf-8"
+            data_dict["metadata_language_and_character_set-0-metadata_character_set"] = "utf-8"
+            data_dict["lineage"] = "lineage statement"
+            data_dict["distribution_format-0-name"] = "distribution format"
+            data_dict["distribution_format-0-version"] = "1.0"
+            data_dict["spatial"] = json.dumps(item.geometry)
+            data_dict["spatial_parameters-0-equivalent_scale"] = "equivalent scale"
+            data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
+            data_dict["spatial_parameters-0-spatial_reference_system"] = "EPSG:3456"
+            data_dict["metadata_date"] = meta_date
+            data_dict["resources"] = []
+            if data_dict.get('dataset_reference_date', None):
+                del data_dict['dataset_reference_date']
+            logger.debug('stac_item:', str(data_dict))
+            # TODO dataset thumbnail, tags,
+            for link in item.links:
+                if link.rel == "thumbnail":
+                    data_dict["resources"].append({
+                        "name": link.target,
+                        "url": link.target,
+                        "format": "jpg",
+                        "format_version":
+                            "1.0"
+                    })
+                if link.rel == "self":
+                    data_dict["resources"].append({
+                        "name": "STAC Item",
+                        "url": link.target,
+                        "format": "JSON",
+                        "format_version":
+                            "1.0"
+                    })
+
+            with futures.ThreadPoolExecutor(3) as executor:
+                user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
+                future = executor.submit(utils.create_single_dataset, user, data_dict)
+                logger.debug(future.result())
+                if str(future.result()) != 'DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS':
+                    created += 1
+                processed += 1

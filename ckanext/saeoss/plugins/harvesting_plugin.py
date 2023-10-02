@@ -77,8 +77,7 @@ class HarvestingPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             title=package_dict.get("title"),
             notes=package_dict.get("notes"),
             iso_topic_category=iso_topic_category or "",
-            #owner_org=package_dict.get("owner_org"),
-            owner_org="kartoza",
+            owner_org=package_dict.get("owner_org", "kartoza"),
             maintainer=iso_values.get("contact"),
             maintainer_email=iso_values.get("contact-email"),
             license_id=LicenseNotSpecified.id,  # set this default and let publisher adjust
@@ -99,6 +98,7 @@ class HarvestingPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         new_data_dict["metadata_language_and_character_set-0-dataset_character_set"] = "ucs-2"
         new_data_dict["spatial_parameters-0-equivalent_scale"] = "5000"
         new_data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
+        new_data_dict["lineage_statement"] = "lineage_statement"
         del new_data_dict["extras"]
 
         new_data_dict["id"] = iso_values.get("guid")
@@ -162,6 +162,7 @@ def _get_temporal_reference_date(iso_values: typing.Dict) -> str:
                 result = fallback_reference_date
     return result
 
+
 def _get_spatial_field(package: typing.Dict):
     if package.get("extra") is not None:
         if package.get("extra").get("spatial") is not None:
@@ -171,6 +172,7 @@ def _get_spatial_field(package: typing.Dict):
             "ckan.saeoss.default_spatial_search_extent"
         )
     return spatial
+
 
 def _get_allowed_dataset_languages() -> typing.List[str]:
     dataset_schema_path = (
@@ -211,7 +213,7 @@ def _get_language_code(source_code: str) -> str:
     return result
 
 
-def _get_extras_subfields(data_dict:dict):
+def _get_extras_subfields(data_dict: dict):
     """
     fields with harvested data
     comes within an extra field
@@ -221,7 +223,7 @@ def _get_extras_subfields(data_dict:dict):
     extract these
     """
     missing_extras = []
-    extras:list = data_dict.get("extras")
+    extras: list = data_dict.get("extras")
 
     if extras is None:
         return data_dict
@@ -234,6 +236,7 @@ def _get_extras_subfields(data_dict:dict):
 
     return data_dict
 
+
 def _assign_extra_values(data_dict):
     """
     taking extra keys from
@@ -245,11 +248,11 @@ def _assign_extra_values(data_dict):
     if extras is None:
         return data_dict
     for extra in extras:
-        _key = extra.get("key").replace("-","_")
+        _key = extra.get("key").replace("-" , "_")
         _value = extra.get("value")
         if DATASET_Harvest_MINIMAL_SET_OF_FIELDS_MAPPING.get(_key):
             if "reference_date" in _key:
-                data_dict = get_dataset_reference_date(ast.literal_eval(_value),data_dict)
+                data_dict = get_dataset_reference_date(ast.literal_eval(_value), data_dict)
             elif "spatial_reference_system" in _key:
                 data_dict[DATASET_Harvest_MINIMAL_SET_OF_FIELDS_MAPPING[_key]] = _get_spatial_reference_system(_value)
             else:
@@ -259,13 +262,13 @@ def _assign_extra_values(data_dict):
     return data_dict
 
 
-def get_dataset_reference_date(harvested_reference_date:list, data_dict: typing.Dict)-> typing.Dict:
+def get_dataset_reference_date(harvested_reference_date: list, data_dict: typing.Dict) -> typing.Dict:
     """
     the referece date can be more than one with
     different types (creation, revision, publication, ..etc.)
     """
     fallback_reference_date = None
-    for idx,related_date in enumerate(harvested_reference_date):
+    for idx, related_date in enumerate(harvested_reference_date):
         if (raw_date := related_date.get("value")) is not None:
             try:
                 reference_date = dateutil.parser.parse(raw_date)
@@ -285,7 +288,8 @@ def get_dataset_reference_date(harvested_reference_date:list, data_dict: typing.
 
     return data_dict
 
-def get_reference_date_type(dateType:str)->str:
+
+def get_reference_date_type(dateType: str) ->str:
     """
     with harvesters the data type comes as
     publication, revision, creation, ...
@@ -300,7 +304,8 @@ def get_reference_date_type(dateType:str)->str:
     elif dateType=="creation":
         return "001"
 
-def _get_subfield_key(key:str, index:int):
+
+def _get_subfield_key(key: str, index: int):
     """
     handle the case where the scheming key
     is repeated subfield, i.e has -index- in it
@@ -317,7 +322,7 @@ def _get_subfield_key(key:str, index:int):
         return  re.sub(r"-\d-" , rep , _key)
 
 
-def _get_spatial_reference_system(reference_system:str)->str:
+def _get_spatial_reference_system(reference_system: str) -> str:
     """
     spatial reference system comes multiple forms as:
     EPSG:4326
@@ -327,13 +332,13 @@ def _get_spatial_reference_system(reference_system:str)->str:
     to the form EPSG:4326    
     """
     if reference_system is None:
-        return ""
+        return "EPSG:4326"
     elif "http" in reference_system:
         return "EPSG:" + reference_system.split("/")[-1]
     elif ":" in reference_system:
         return reference_system
     else:
-        try :
+        try:
             return f"EPSG:{int(reference_system)}"
         except ValueError:
             return reference_system
@@ -341,9 +346,16 @@ def _get_spatial_reference_system(reference_system:str)->str:
 
 def _get_possibly_list_item(mapping: typing.Mapping, key: str) -> typing.Optional[str]:
     value = mapping.get(key)
+    logger.debug('============')
     if isinstance(value, list):
         try:
             value = value[0]
+            if '{' in value:
+                value = value[1:]
+            if '}' in value:
+                value = value[:-1]
+            logger.debug(value)
         except IndexError:
             value = None
+
     return value

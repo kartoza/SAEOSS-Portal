@@ -30,12 +30,6 @@ ckan.module("saeossDatasetSpatialExtentMap", function(jQuery, _){
         initialize: function() {
             this.formInputElement = document.getElementById(this.options.formInputId)
 
-
-            // console.log(
-            //     `Hi there, I'm running inside the saeossDatasetSpatialExtentMap module. ` +
-            //     `Oh, and my bound element is ${this.el} and the Jinja template passed me this as the default extent: ${this.options.defaultExtent}`
-            // )
-
             jQuery.proxyAll(this, /_on/);
             this.el.ready(this._onReady);
 
@@ -43,7 +37,7 @@ ckan.module("saeossDatasetSpatialExtentMap", function(jQuery, _){
 
         _onReady: function() {
             this.map = L.map("dataset-spatial-extent-map-container", this.options.mapConfig, {
-                attributionControl: false
+                attributionControl: false,
             })
             this.map.pm.addControls({
                 position: "topleft",
@@ -71,10 +65,11 @@ ckan.module("saeossDatasetSpatialExtentMap", function(jQuery, _){
             const baseLayer = new L.TileLayer(baseLayerUrl, leafletBaseLayerOptions)
             this.map.addLayer(baseLayer)
 
+            const bbox = this.formInputElement.value.split(",").map(Number)
             this.rectangleLayer = L.rectangle(
                 [
-                    [this.options.defaultExtent[2], this.options.defaultExtent[1]],
-                    [this.options.defaultExtent[0], this.options.defaultExtent[3]],
+                    [bbox[2], bbox[1]],
+                    [bbox[0], bbox[3]],
                 ],
                 {pmIgnore: false}
             )
@@ -85,7 +80,7 @@ ckan.module("saeossDatasetSpatialExtentMap", function(jQuery, _){
             this.rectangleLayer.on("pm:dragend", this._onLayerDrag)
             this.formInputElement.addEventListener("change", this._onBoundingBoxManuallyUpdated)
 
-            //this.map.addLayer(this.rectangleLayer)
+            this.map.addLayer(this.rectangleLayer)
             this.map.fitBounds(this.rectangleLayer.getBounds())
 
             LeafletMapFromExtentModule = this.map
