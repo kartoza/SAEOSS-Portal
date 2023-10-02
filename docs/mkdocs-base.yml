@@ -6,8 +6,8 @@ site_author: "Kartoza"
 docs_dir: ./src
 site_dir: ./site
 repo_name: "SAEOSS-Portal"
-repo_url: "https://github.com/kartoza/SAEOSS-Portal"
-edit_uri: "https://github.com/kartoza/SAEOSS-Portal/blob/main/docs/"
+repo_url: "https://github.com/LunaAsefaw/SAEOSS-Portal"
+edit_uri: "https://github.com/LunaAsefaw/SAEOSS-Portal/blob/main/docs/"
 
 copyright: Kartoza and Contributors
 
@@ -51,7 +51,11 @@ nav:
                         - user/quickstart/index.md
                 - Guide:
                         - user/guide/index.md
+<<<<<<< HEAD
                         - functionality: user/guide/functionality/index.md
+=======
+                        - Functionality: user/guide/functionality/index.md
+>>>>>>> 63b21e2279cf0c774645e67e31cdea2268768756
                         - Disclaimer: about/disclaimer.md
                         - License: about/license.md
                 - Manual: 
@@ -61,11 +65,15 @@ nav:
                         - Profile: user/manual/profile_page.md
                         - Profile Settings Page: user/manual/profile_settings.md
                         - Organisation: users/manual/organisation.md
+<<<<<<< HEAD
                         - User roles: users/manual/user_roles/index.md
+=======
+>>>>>>> 63b21e2279cf0c774645e67e31cdea2268768756
                         - Metadata: user/manual/metadata.md
                         - Map: user/manual/map.md
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
+                        - User Roles: user/manual/user_roles/index.md
                         - "": user/manual/opening_issues.md
         - Administrators:
                 - administrator/index.md
