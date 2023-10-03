@@ -62,6 +62,7 @@ nav:
                         - administrator/guide/index.md
                 - Manual:
                         - administrator/manual/index.md
+                        - Harvesting Settings: administrator/manual/harvesting-settings.md
         - Developers:
                 - developer/index.md
                 - Guide:
@@ -97,6 +98,7 @@ nav:
                   - helpers: developer/manual/helpers.md
                   - jobs: developer/manual/jobs.md
                   - wsgi: developer/manual/wsgi.md
+                  - CSW: developer/manual/csw.md
                 - API:
                   - developer/api/index.md
                   - Reference: developer/api/manual/index.md
