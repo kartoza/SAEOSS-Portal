@@ -51,6 +51,7 @@ nav:
                         - user/quickstart/index.md
                 - Guide:
                         - user/guide/index.md
+                        - Functionality: user/guide/functionality/index.md
                         - Disclaimer: about/disclaimer.md
                         - License: about/license.md
                 - Manual: 
@@ -59,12 +60,14 @@ nav:
                         - Dashboard Page: user/manual/dashboard.md
                         - Profile: user/manual/profile_page.md
                         - Profile Settings Page: user/manual/profile_settings.md
-                        - Organisation: users/manual/organisasion.md
+                        - Organisation: users/manual/organisation.md
                         - Metadata: user/manual/metadata.md
                         - Map: user/manual/map.md
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
+                        - User Roles: user/manual/user_roles/index.md
                         - "": user/manual/opening_issues.md
+                        
         - Administrators:
                 - administrator/index.md
                 - Guide:
