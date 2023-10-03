@@ -209,7 +209,7 @@ def _get_language_code(source_code: str) -> str:
     return result
 
 
-def _get_extras_subfields(data_dict:dict):
+def _get_extras_subfields(data_dict: dict):
     """
     fields with harvested data
     comes within an extra field
@@ -225,7 +225,7 @@ def _get_extras_subfields(data_dict:dict):
         return data_dict
     
     for extra in extras:
-        _key = extra.get("key").replace("-", "_")
+        _key = extra.get("key").replace("-","_")
         if _key not in DATASET_Harvest_MINIMAL_SET_OF_FIELDS_MAPPING:
             missing_extras.append(_key)
     data_dict = _assign_extra_values(data_dict)
@@ -256,6 +256,7 @@ def _assign_extra_values(data_dict):
             else:
                 data_dict[DATASET_Harvest_MINIMAL_SET_OF_FIELDS_MAPPING[_key]] = _value
         _log = True
+    
     return data_dict
 
 
@@ -302,9 +303,9 @@ def get_dataset_reference_date(
             reference_date_type = get_reference_date_type(related_date.get("type"))
             reference_date_key = _get_subfield_key("dataset_reference_date", idx)
             reference_date_type_key = _get_subfield_key("dataset_reference_date_type", idx)
-            data_dict["metadata_date"] = result
             data_dict[reference_date_key] = result
             data_dict[reference_date_type_key] = reference_date_type
+
     return data_dict
 
 
@@ -324,7 +325,7 @@ def get_reference_date_type(dateType: str) -> str:
         return "001"
 
 
-def _get_subfield_key(key:str, index:int):
+def _get_subfield_key(key: str, index: int):
     """
     handle the case where the scheming key
     is repeated subfield, i.e has -index- in it

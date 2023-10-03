@@ -232,7 +232,6 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         u'''
         Receive an object instance before that instance is UPDATEed.
         '''
-
         logger.debug(f"resource update {instance}")
 
     def before_delete(self, mapper, connection, instance):
