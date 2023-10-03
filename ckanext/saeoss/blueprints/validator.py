@@ -104,20 +104,24 @@ def _validate(context: typing.Dict, result: typing.List[typing.List[typing.Any]]
             resp = urllib.request.urlopen(url)
             json_data = json.loads(resp.read())
 
-        if format not in ['json', 'yaml', 'xml']:
+        if format.lower() not in ['json', 'yaml', 'xml']:
+            result = True
+        elif "stac_specification" not in extras:
             result = True
         else:
+            logger.debug(f"extras {extras}")
             result = stac_validator_admin(json_data, extras["stac_specification"])
 
         if result is not True:
             context["invalid"].append(resource_id)
+            context["message"].append({"resource_id": resource_id, "message": result})
         else:
             context["valid"].append(resource_id)
     return context
 
 @validator_blueprint.route("/validate_all/", methods = ['POST', 'GET'])
 def validate_all():
-    context = {"valid": [], "invalid": []}
+    context = {"valid": [], "invalid": [], "message": []}
 
     if request.method == 'POST':
 
@@ -129,7 +133,7 @@ def validate_all():
 
 @validator_blueprint.route("/validate_selection/", methods = ['POST', 'GET'])
 def validate_selection():
-    context = {"valid": [], "invalid": []}
+    context = {"valid": [], "invalid": [], "message": []}
 
     if request.method == 'POST':
         data = request.get_json()
