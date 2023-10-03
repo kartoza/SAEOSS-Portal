@@ -37,17 +37,25 @@
             {% if res.url and h.is_url(res.url) %}
               <li>
                 <div class="btn-group">
-                <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
+                
                   {% if res.resource_type in ('listing', 'service') %}
+                  <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
                     <i class="fa fa-eye"></i> {{ _('View') }}
+                  </a>
                   {% elif  res.resource_type == 'api' %}
+                  <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
                     <i class="fa fa-key"></i> {{ _('API Endpoint') }}
+                  </a>
                   {% elif not res.has_views and not res.url_type == 'upload' %}
+                  <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
                     <i class="fa fa-external-link"></i> {{ _('Go to resource') }}
+                  </a>
                   {% else %}
+                  <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}" download="download.json">
                     <i class="fa fa-arrow-circle-o-down"></i> {{ _('Download') }}
+                  </a>
                   {% endif %}
-                </a>
+                
                 {% block download_resource_button %}
                   {% if res.datastore_active %}
                 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -239,6 +247,7 @@
 
     <script>
       var file = "{{res.url }}"
+      var stac_spec = "{{res.stac_specification }}"
     </script>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"

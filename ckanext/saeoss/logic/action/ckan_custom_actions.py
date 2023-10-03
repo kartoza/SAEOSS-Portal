@@ -13,6 +13,7 @@ from ..validators import stac_validator
 import json
 import yaml
 from xmltodict3 import XmlTextToDict
+from urllib.request import urlopen
 
 logger = logging.getLogger(__name__)
 # Define some shortcuts
@@ -69,23 +70,38 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
 
     if upload:
         if data_dict["resource_type"] == "stac":
-            allowed_types = ["application/json", "application/xml", "application/yaml"]
 
-            if upload.mimetype not in allowed_types:
-                raise ValidationError(["Only json, yaml and xml files are allowed"])
+            allowed_types = ["application/json", "application/xml", "application/x-yaml"]
 
-            temp_file = upload.upload_file
-            file_contents = temp_file.read()
-            
-            if upload.mimetype == "application/json":
-                json_data = json.loads(file_contents)
+            if 'https' not in data_dict['url'] or 'http' not in data_dict['url']:
 
-            if upload.mimetype == "application/yaml":
-                json_data = yaml.load(file_contents)
+                if upload.mimetype is None:
+                    if 'yaml' in data_dict['url']:
+                        upload.mimetype = 'application/x-yaml'
+                    if 'xml' in data_dict['url']:
+                        upload.mimetype = 'application/xml'
 
-            if upload.mimetype == "application/xml":
-                json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
+                if upload.mimetype not in allowed_types:
+                    raise ValidationError(["Only json, yaml and xml files are allowed"])
+
+                temp_file = upload.upload_file
+                file_contents = temp_file.read()
+                
+                if upload.mimetype == "application/json":
+                    json_data = json.loads(file_contents)
+
+                if upload.mimetype == "application/x-yaml":
+                    json_data = yaml.load(file_contents)
+
+                if upload.mimetype == "application/xml":
+                    json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
     
+            else:
+                response = urlopen(data_dict['url'])
+                json_data = json.loads(response.read())
+
+            logger.debug(f"stac_spec {data_dict['stac_specification']}")
+
             stac_validator(json_data, data_dict["stac_specification"])
 
     pkg_dict['resources'].append(data_dict)

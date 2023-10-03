@@ -82,8 +82,6 @@ function validate(table, validationType){
         }
     }
 
-    console.log(data)
-
     $.ajax({
         type: 'POST',
         url: _url,
@@ -91,13 +89,56 @@ function validate(table, validationType){
         data: JSON.stringify({ 'value': data }),
         success: function(resultData) { 
             const obj = JSON.parse(resultData)
-            $.each(obj, function (key, validTypeObj) {
-                $.each(validTypeObj, function (idx, resourceId) {
-                    let rowData = table.row(`#${resourceId}`).data();
-                    rowData.validity = key;
-                    table.row(`#${resourceId}`).data(rowData);
+            // for(var i = 0; i < obj["message"].length; i++){
+            //     obj["message"][i]["message"] = JSON.stringify(obj["message"][i]["message"])
+            // }
+            console.log(obj)
+            try {
+                $.each(obj, function (key, validTypeObj) {
+                    $.each(validTypeObj, function (idx, resourceId) {
+                        let rowData = table.row(`#${resourceId}`).data();
+                        if(key == "invalid"){
+                            var error_message = ""
+                            for(var i = 0; i < obj["message"].length; i++){
+                                console.log(obj["message"][i]["resource_id"])
+                                if(obj["message"][i]["resource_id"] == resourceId){
+                                    // error_message = JSON.stringify(obj["message"][i]["message"])
+                                    error_message = obj["message"][i]["message"]
+                                }
+                            }
+                            
+                            rowData.validity = `<button type="button" data-toggle="modal" class="btn btn-primary" data-target="#modal-${resourceId}">${key}</button>`
+                            
+                            document.getElementById("feedback").innerHTML += `<!-- Modal -->
+                            <div class="modal fade" id="modal-${resourceId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Error Message</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ${error_message}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>`;
+                        }
+                        else{
+                            rowData.validity = key;
+                        }
+                        table.row(`#${resourceId}`).data(rowData);
+                    });
                 });
-            });
+            } catch (error) {
+                console.log(error)
+            }
+
             $(`#${buttonId}`)[0].innerHTML = buttonText;
             $('btnSubmit').attr('disabled', true);
         },

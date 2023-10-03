@@ -6297,10 +6297,10 @@ button.close {
   -o-transition: 0.6s ease-in-out left;
   transition: 0.6s ease-in-out left;
 }
-.carousel-inner > .item > img,
+/* .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
   line-height: 1;
-}
+} */
 @media all and (transform-3d), (-webkit-transform-3d) {
   .carousel-inner > .item {
     -webkit-transition: -webkit-transform 0.6s ease-in-out;
@@ -6437,7 +6437,7 @@ button.close {
 }
 .carousel-indicators {
   position: absolute;
-  bottom: 10px;
+  top: 650px;
   left: 50%;
   z-index: 15;
   width: 60%;
@@ -10908,16 +10908,16 @@ iframe {
 
 .search{
   position: absolute;
-  top: 75px;
+  top: 70px;
+  left: 0;
   z-index: 9999;
   background-color: white;
-  margin: 10px;
-  padding: 10px;
+  /* margin: 10px; */
   max-width: 22%;
   max-height: 70%;
   overflow-y: scroll;
   background: none;
-  padding: 20px;
+  padding: 25px;
 }
 
 .search-btn{
@@ -10961,6 +10961,7 @@ iframe {
   border-radius: 5px;
   margin: 5px 0px 5px 0px;
   width: 104%;
+  padding: 5px;
 }
 
 .hide-search{
@@ -11360,13 +11361,18 @@ iframe {
 
 #collapse-collection{
   z-index: 999999 !important;
-  background: white;
+  background: #1282c5;
   border: none;
   border-radius: 5px;
   padding: 5px;
   position: absolute;
-  top: 80px;
-  left: 5px;
+  top: 75px;
+  left: 480px;
+  color: white !important;
+}
+
+#collapse-collection svg {
+  fill: white !important;
 }
 
 #collapse-feature{
@@ -11598,7 +11604,7 @@ iframe {
 }
 
 .btn{
-  transition: all 1.8 ease-in-out !important;
+  transition: all 0.8s ease-in-out !important;
 }
 
 .btn:hover{
@@ -11607,7 +11613,7 @@ iframe {
 }
 
 .card{
-  transition: all 1.2s
+  transition: all 0.8s
 }
 
 .card:hover{
@@ -11615,14 +11621,14 @@ iframe {
 }
 
 .social-inner{
-  transition: all 1.2s;
+  transition: all 0.7s;
 }
 
 .social-inner:hover{
   scale:1.08
 }
 .dataset-item{
-  transition: all 1.2s;
+  transition: all 0.8s;
 }
 
 .dataset-item:hover{
@@ -11630,7 +11636,7 @@ iframe {
 }
 
 .hover-content{
-  transition: all 1.2s;
+  transition: all 0.8s;
 }
 
 .hover-content:hover{
@@ -11703,9 +11709,10 @@ article{
 }
 
 .map-search{
-  background-color: #FFFFFF;
+  background-color: #fafafa;
   overflow-x: hidden;
   min-width: 25%;
+  border-radius: 5px ;
 }
 
 /* .row {
@@ -11738,4 +11745,13 @@ article{
   width: 100%;
   height: 50px;
   background-color: #1E263E;
+}
+
+.card-body{
+  font-size: 15.8px !important;
+}
+
+.w-100{
+  width: 100% !important;
+  height: 100% !important;
 }

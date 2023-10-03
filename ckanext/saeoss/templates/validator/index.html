@@ -18,19 +18,22 @@
 
 {% block content %}
     
-<div class="container">
-    <h3>Validator</h3>
-    <p>Choose whether to run validation on all resources or selected resources</p>
-    <hr>
-    <form method="post" action="">
-        <button type="button" id="btn-validate-selected" class="btnSubmit btn-primary">Validate Selected</button>
-        <button type="button" id="btn-validate-all" class="btnSubmit btn-primary">Validate All</button>
-        <div id="select_data"></div>
-    </form>
+<div class="container ">
+    <br><br>
+    <div class="secondary-inner">
+        <h3>Validator</h3>
+        <p>Choose whether to run validation on all resources or selected resources</p>
+        <hr>
+        <form method="post" action="">
+            <button type="button" id="btn-validate-selected" class="btnSubmit btn btn-primary">Validate Selected</button>
+            <button type="button" id="btn-validate-all" class="btnSubmit btn btn-primary">Validate All</button>
+            <div id="select_data"></div>
+        </form>
 
-    <br>
+        <br>
 
-    <div id="feedback"></div>
+        <div id="feedback"></div>
+    </div>
 
 </div>
 

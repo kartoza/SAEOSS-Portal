@@ -1,4 +1,3 @@
-import datetime as dt
 import logging
 import pathlib
 import typing
@@ -11,7 +10,6 @@ import ckan.plugins.toolkit as toolkit
 from ckan.model.license import LicenseNotSpecified
 from ckanext.spatial.interfaces import ISpatialHarvester
 from ..cli import _CkanSaeossDataset, _CkanResource
-from ..constants import DATASET_SUBFIELDS_MAPPING
 from ..constants import DATASET_Harvest_MINIMAL_SET_OF_FIELDS_MAPPING
 import re
 import ast
@@ -113,8 +111,6 @@ def _get_temporal_reference_date(iso_values: typing.Dict) -> str:
     from the reference system, we are splitting
     the dates
     """
-    #fallback_reference_date = dt.datetime.now(dt.timezone.utc).isoformat()
-
     fallback_reference_date = None
     if (raw_temp_extent_begin := iso_values.get("temporal-extent-begin")) is not None:
         if isinstance(raw_temp_extent_begin, list):
@@ -248,13 +244,15 @@ def _assign_extra_values(data_dict):
     if extras is None:
         return data_dict
     for extra in extras:
-        _key = extra.get("key").replace("-" , "_")
+        _key = extra.get("key").replace("-", "_")
         _value = extra.get("value")
         if DATASET_Harvest_MINIMAL_SET_OF_FIELDS_MAPPING.get(_key):
             if "reference_date" in _key:
                 data_dict = get_dataset_reference_date(ast.literal_eval(_value), data_dict)
             elif "spatial_reference_system" in _key:
                 data_dict[DATASET_Harvest_MINIMAL_SET_OF_FIELDS_MAPPING[_key]] = _get_spatial_reference_system(_value)
+            elif "metadata_date" in _key:
+                data_dict = _get_metadata_date(_value, data_dict)
             else:
                 data_dict[DATASET_Harvest_MINIMAL_SET_OF_FIELDS_MAPPING[_key]] = _value
         _log = True
@@ -262,9 +260,29 @@ def _assign_extra_values(data_dict):
     return data_dict
 
 
-def get_dataset_reference_date(harvested_reference_date: list, data_dict: typing.Dict) -> typing.Dict:
+def _get_metadata_date(
+    metadata_date: str,
+    data_dict: typing.Dict
+) -> typing.Dict:
+    try:
+        metadata_date = dateutil.parser.parse(metadata_date).strftime("%Y-%m-%dT%H:%M:%S")
+    except dateutil.parser.ParserError:
+        logger.exception(
+            msg=f"Could not parse {metadata_date!r} as a datetime"
+        )
+        metadata_date = None
+
+    data_dict["metadata_date"] = metadata_date
+    return data_dict
+
+
+
+def get_dataset_reference_date(
+    harvested_reference_date: list,
+    data_dict: typing.Dict
+) -> typing.Dict:
     """
-    the referece date can be more than one with
+    the reference date can be more than one with
     different types (creation, revision, publication, ..etc.)
     """
     fallback_reference_date = None
@@ -278,30 +296,32 @@ def get_dataset_reference_date(harvested_reference_date: list, data_dict: typing
                 )
                 result = fallback_reference_date
             else:
-                result = reference_date.isoformat()
+                result = dateutil.parser.parse(
+                    reference_date.isoformat()
+                ).strftime("%Y-%m-%dT%H:%M:%S")
             # get the type
             reference_date_type = get_reference_date_type(related_date.get("type"))
-            reference_date_key = _get_subfield_key("dataset_reference_date",idx)
-            reference_date_type_key = _get_subfield_key("dataset_reference_date_type",idx)
+            reference_date_key = _get_subfield_key("dataset_reference_date", idx)
+            reference_date_type_key = _get_subfield_key("dataset_reference_date_type", idx)
             data_dict[reference_date_key] = result
             data_dict[reference_date_type_key] = reference_date_type
 
     return data_dict
 
 
-def get_reference_date_type(dateType: str) ->str:
+def get_reference_date_type(dateType: str) -> str:
     """
     with harvesters the data type comes as
     publication, revision, creation, ...
     we converts here to 001, 002, 003, ...
     """
-    if dateType=="revision":
+    if dateType == "revision":
         return "003"
     
-    elif dateType=="publication":
+    elif dateType == "publication":
         return "002"
 
-    elif dateType=="creation":
+    elif dateType == "creation":
         return "001"
 
 
@@ -310,16 +330,16 @@ def _get_subfield_key(key: str, index: int):
     handle the case where the scheming key
     is repeated subfield, i.e has -index- in it
     """
-    if key=="dataset_reference_date":
+    if key == "dataset_reference_date":
         _key = DATASET_Harvest_MINIMAL_SET_OF_FIELDS_MAPPING.get("dataset_reference_date")
         
-    elif key=="dataset_reference_date_type":
+    elif key == "dataset_reference_date_type":
         _key = DATASET_Harvest_MINIMAL_SET_OF_FIELDS_MAPPING.get("dataset_reference_date_type")
     
     rep = f"-{index}-"
 
     if _key is not None:
-        return  re.sub(r"-\d-" , rep , _key)
+        return re.sub(r"-\d-", rep, _key)
 
 
 def _get_spatial_reference_system(reference_system: str) -> str:
@@ -331,22 +351,24 @@ def _get_spatial_reference_system(reference_system: str) -> str:
     we need to extract and normalize them
     to the form EPSG:4326    
     """
-    if reference_system is None:
-        return "EPSG:4326"
+    ref_system = reference_system
+    if reference_system is None or reference_system == "":
+        ref_system = "EPSG:4326"
     elif "http" in reference_system:
-        return "EPSG:" + reference_system.split("/")[-1]
+        ref_system = "EPSG:" + reference_system.split("/")[-1]
     elif ":" in reference_system:
-        return reference_system
+        ref_system = reference_system
     else:
         try:
-            return f"EPSG:{int(reference_system)}"
+            ref_system = f"EPSG:{int(reference_system)}"
         except ValueError:
-            return reference_system
+            ref_system = reference_system
+
+    return ref_system
 
 
 def _get_possibly_list_item(mapping: typing.Mapping, key: str) -> typing.Optional[str]:
     value = mapping.get(key)
-    logger.debug('============')
     if isinstance(value, list):
         try:
             value = value[0]
@@ -354,8 +376,6 @@ def _get_possibly_list_item(mapping: typing.Mapping, key: str) -> typing.Optiona
                 value = value[1:]
             if '}' in value:
                 value = value[:-1]
-            logger.debug(value)
         except IndexError:
             value = None
-
     return value
