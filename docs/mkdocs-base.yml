@@ -67,6 +67,7 @@ nav:
                         - Help: user/manual/help.md
                         - User Roles: user/manual/user_roles/index.md
                         - "": user/manual/opening_issues.md
+                        
         - Administrators:
                 - administrator/index.md
                 - Guide:

@@ -5,14 +5,62 @@ Access to data and functionalities on the SAEOSS-Portal platform is governed by 
 Individual permissions can be set by the administrator for user profiles to provide additional access to data or functionalities if required. This means that even though a user profile is assigned to the general user role, it can have access to functionalities or permissions typically reserved for admin users. Additional user roles can also be created, or default user role permissions can be changed by an administrator with the relevant access.
 
 
-### Five types of users
+### Six types of users
 
 ### 1. Anonymous user
-This user has search and viewing and downloading capabilities of public metadata records. This user role is not required to register, nor are they a member of any organisation.
+This user has search, viewing and downloading capabilities of public metadata records. This user role is not required to register, nor are they a member of any organisation.
+
+![anonymous user](img/anonymous_user-1.png)
 
 ### 2. Registered user
+This is a general user that has registered themselves on the system. By registering, this user has access to additional features such as the ability to save and delete searches, alter profile information, generate API key. This user is not a member of any organisation, but can access public metadata record.
 
+![registered user](img/registered_user-1.png)
 
-### Editor
+User can register by filling out this form.
+![registration](img/registration-1.png)
+
+### 3. Member
+This user role is a privileged user, who is part of a known institution or company. They must register on the SAEOSS Portal and provide additional information about their affiliation. This role is a member of an organisation that can view private metadata records that belong to the organisation they belong to.
+
+![editor](img/organisational_member-1.png)
+
+If you would like to see which organisation you are a part of, you can click on the drop-down menu located under your username and select 'Dashboard'. Then navigate to the 'My Organisation' tab.
+
+### 4. Editor
 This user role is a privileged user, who is part of a known institution or company. They must register on the SAEOSS Portal and provide additional information about their affiliation. This role is a member of an organisation that has permission to create (but not publicly publish), edit and delete metadata records on the portal in the organisations where they are a member. 
+
+![editor](img/organisational_editor-1.png)
+
+
+### 5. Publisher
+This user role is a privileged user who is part of a known institution. They have the power to publish metadata records for consumption by the public as well as to create, delete and edit metadata records that are owned by their organisation. Metadata publishers are also able to manage other users’ permissions to their metadata records. There can be multiple users with this role within an organisation.This is the highest level of access on an organisational level.
+
+![publisher](img/organisational_publisher-1.png)
+
+### 6. System Adminstrator
+A user role that possesses full access permissions, being able to configure and maintain all aspects of the SAEOSS Portal.
+
+![system adminstrator](img/system_adminstrator-1.png)
+
+
+All users have access to the following pages:
+
+1.<b> Metadata</b>: Users can search and view public metadata. They can filter by title, location, time, organisation, harvest source, features and tags. 
+
+![search](img/search-1.png)
+2.<b> Map</b>: Users can search and view different layers.
+![map](img/map-1.png)
+3.<b> Organisation</b>: Users can navigate the organisations page and view the list of organisations on tthe portal. When users click on the organisations, it navigates to the profile of the organisation, where the users can view the organisation's public metadata records, activity stream, information about the organisation under 'About' and social media links for the organisation.
+![organisation](img/organisation-1.png)
+4. <b>About</b>: Users can access everything on the About page.
+5. </b>Help: Users can access the Help page, which takes them directly to this documentation.
+
+
+
+
+
+
+
+
 
