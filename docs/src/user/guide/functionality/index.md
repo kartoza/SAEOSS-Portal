@@ -183,7 +183,7 @@ On the metadata page, select 'Add metadata record from xml file'.
 Then select the XML file on your local machine.
 
 The xml file should look something like this:
-[xml file standard](img/metadata-xml-upload-2.png)
+![xml file standard](img/metadata-xml-upload-2.png)
 
 
 #### Edit metadata record using system UI
