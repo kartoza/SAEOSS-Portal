@@ -17,6 +17,10 @@
         <ul class="nav navbar-nav navbar-center">
             {% block header_site_navigation_tabs %}
                 <li class="li-flex"> 
+                  <a href="{{ url_for('home.index') }}" class="image" title="{{ _('Home') }}">{{ _('Home') }}</a>
+                  <span class="hr-ver"></span>
+                </li>
+                <li class="li-flex"> 
                   <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata') }}">{{ _('Metadata') }}</a>
                   <span class="hr-ver"></span>
                 </li>

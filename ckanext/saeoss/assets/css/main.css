@@ -7364,7 +7364,7 @@ a.tag:hover {
 }
 .nav-item.active,
 .nav-aside li.active {
-  background-color: #f6f6f6;
+  /* background-color: #f6f6f6; */
 }
 .nav-item.active > a,
 .nav-aside li.active a {

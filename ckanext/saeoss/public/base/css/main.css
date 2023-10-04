@@ -7368,7 +7368,8 @@ a.tag:hover {
 }
 .nav-item.active,
 .nav-aside li.active {
-  background-color: #f6f6f6;
+  /* background-color: #f6f6f6; */
+  scale: 0.95;
 }
 .nav-item.active > a,
 .nav-aside li.active a {
@@ -8746,7 +8747,7 @@ td.diff_header {
 .toolbar {
   position: relative;
   margin-bottom: 10px;
-  padding: 5px 0;
+  padding: 5px 15px;
 }
 .toolbar:before,
 .toolbar:after {
@@ -10914,8 +10915,8 @@ iframe {
   background-color: white;
   /* margin: 10px; */
   max-width: 22%;
-  max-height: 70%;
-  overflow-y: scroll;
+  /* max-height: 70%; */
+  /* overflow-y: scroll; */
   background: none;
   padding: 25px;
 }
@@ -11366,9 +11367,14 @@ iframe {
   border-radius: 5px;
   padding: 5px;
   position: absolute;
-  top: 75px;
-  left: 480px;
+  top: 5px;
+  right: -18px;
   color: white !important;
+}
+
+#collection-view{
+  max-height: 50vh;
+  overflow-y: scroll;
 }
 
 #collapse-collection svg {
@@ -11556,13 +11562,15 @@ iframe {
 
 .dataset-item{
   background-color: white !important;
-  border: 1px solid white !important;
+  border: 1px solid #e0e0e0 !important;
   border-radius: 5px !important;
-  box-shadow: 5px 5px 10px gray
+  box-shadow: 5px 5px 10px #e0e0e0
 }
 
 .gray-shadow{
-  box-shadow: 5px 5px 10px gray;
+  box-shadow: 5px 5px 10px #e0e0e0;
+  border-top: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
   height: 100% !important;
 }
 
@@ -11571,11 +11579,11 @@ iframe {
   padding: 10px;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 3px 3px 10px gray;
+  box-shadow: 3px 3px 10px #e0e0e0;
 }
 
 .secondary{
-  box-shadow: 3px 3px 10px gray;
+  box-shadow: 3px 3px 10px #e0e0e0;
 }
 
 .left-align{
@@ -11695,7 +11703,7 @@ article{
   padding: 20px;
   background-color: white !important;
   border-radius: 5px;
-  box-shadow: 5px 5px 10px gray
+  /* box-shadow: 5px 5px 10px #e0e0e0 */
 }
 
 @media only screen and (max-width: 767px) {
@@ -11710,7 +11718,7 @@ article{
 
 .map-search{
   background-color: #fafafa;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   min-width: 25%;
   border-radius: 5px ;
 }
@@ -11744,7 +11752,8 @@ article{
 .blue-hr{
   width: 100%;
   height: 50px;
-  background-color: #1E263E;
+  background-color: #075192;
+  box-shadow: 5px 5px 10px #e0e0e0;
 }
 
 .card-body{
@@ -11755,3 +11764,4 @@ article{
   width: 100% !important;
   height: 100% !important;
 }
+
