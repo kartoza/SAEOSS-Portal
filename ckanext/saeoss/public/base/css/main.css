@@ -7368,7 +7368,8 @@ a.tag:hover {
 }
 .nav-item.active,
 .nav-aside li.active {
-  background-color: #f6f6f6;
+  /* background-color: #f6f6f6; */
+  scale: 0.95;
 }
 .nav-item.active > a,
 .nav-aside li.active a {
@@ -10914,8 +10915,8 @@ iframe {
   background-color: white;
   /* margin: 10px; */
   max-width: 22%;
-  max-height: 70%;
-  overflow-y: scroll;
+  /* max-height: 70%; */
+  /* overflow-y: scroll; */
   background: none;
   padding: 25px;
 }
@@ -11366,9 +11367,14 @@ iframe {
   border-radius: 5px;
   padding: 5px;
   position: absolute;
-  top: 75px;
-  left: 480px;
+  top: 5px;
+  right: -18px;
   color: white !important;
+}
+
+#collection-view{
+  max-height: 50vh;
+  overflow-y: scroll;
 }
 
 #collapse-collection svg {
@@ -11712,7 +11718,7 @@ article{
 
 .map-search{
   background-color: #fafafa;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   min-width: 25%;
   border-radius: 5px ;
 }
@@ -11758,3 +11764,4 @@ article{
   width: 100% !important;
   height: 100% !important;
 }
+
