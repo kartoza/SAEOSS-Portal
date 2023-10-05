@@ -52,7 +52,7 @@ Rather it is a blueprint of how to construct or extend an application. For furth
         show_source: true
 
 
-::: ckanext.saeoss.blueprints.xml_parser
+::: ckanext.saeoss.blueprints.file_parser
     handler: python
     options:
         docstring_style: sphinx
