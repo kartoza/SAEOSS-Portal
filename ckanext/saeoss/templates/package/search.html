@@ -3,8 +3,6 @@
   it might have to do with droping volumes
 #}
 
-
-
 {% block subtitle %}Metadata{% endblock %}
 {% set total =  h.get_all_datasets_count(g) %}
 
@@ -57,7 +55,7 @@
 
 {% block primary_content %}
   {% include 'social/index.html' %}
-  
+
   {% block package_search_results_list %}
       {{ h.snippet('snippets/package_list.html', packages=page.items) }}
   {% endblock %}

@@ -1387,3 +1387,6 @@ select[id$="field-dataset_custodian"]{
   background-image: url("/images/satelite.jpg");
 }
 
+.tooltip-inner {
+    text-align: left;
+}
