@@ -43,12 +43,11 @@ static-data | 10Gi | RWX | azurefile | Used for the static files.
  -->
 
 ## ER Diagram
-<!-- 
-The following diagram represents all of the databsse entities that are created by the Django ORM (Object Relational Mapper). Right click the image and open it in its own tab to see it at full resolution.
 
-![](img/architecture-erd.png)
- -->
+The following diagram represents all of the database entities that are created by PostgreSQL. Right click the image and open it in its own tab to see it at full resolution.
+
+![ERD](img/ERD.png)
 
 
-🪧 If you already have all of the above criteria met, you can move on to [Prerequisites](prerequisites.md) to start the process of getting your local development environment set up.
+
 
