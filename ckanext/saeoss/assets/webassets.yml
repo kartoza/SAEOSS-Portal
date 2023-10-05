@@ -126,8 +126,12 @@ tooltip-js:
 
 xml-parser-js:
   output: ckanext-saeoss/%(version)s_xmlParser.js
+
+file-parser-js:
+  output: ckanext-saeoss/%(version)s_fileParser.js
+
   contents:
-    - js/xmlParser.js
+    - js/fileParser.js
   filter: rjsmin
 
 facets-active-js:
