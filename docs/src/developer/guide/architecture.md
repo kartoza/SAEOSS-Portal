@@ -42,12 +42,12 @@ redis-data | 10Gi | RWX | azurefile | Used by redis for database backup (to make
 static-data | 10Gi | RWX | azurefile | Used for the static files.
  -->
 
-## ER Diagram
+## Data Model
 
 The following diagram represents all of the database entities that are created by PostgreSQL. Right click the image and open it in its own tab to see it at full resolution.
 
 ![ERD](img/ERD.png)
 
-
+For more details on the relationship between the entities, constraints and higher degree of analysis of the database, please click [here](https://saeoss-portal.vercel.app/)
 
 
