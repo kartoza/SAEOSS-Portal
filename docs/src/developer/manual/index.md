@@ -11,8 +11,3 @@ Below is linked refereance manuals for coding languages and frameworks used in S
 
 [Ckan API Referance](https://docs.ckan.org/en/2.10/api/index.html)
 
-## Django Reference Manual
-
-[Django Reference Manual](https://docs.djangoproject.com/en/4.2/)
-
-[Django API Referance](https://docs.djangoproject.com/en/4.2/ref/)
