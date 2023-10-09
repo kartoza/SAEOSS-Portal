@@ -11,7 +11,7 @@ from ckan import model
 from ..logic.validators import stac_validator_admin
 import json
 import yaml
-from xmltodict3 import XmlTextToDict
+import xmltodict
 import urllib
 
 logger = logging.getLogger(__name__)
@@ -99,7 +99,7 @@ def _validate(context: typing.Dict, result: typing.List[typing.List[typing.Any]]
                 json_data = yaml.load(file_contents)
 
             if format.lower() == "xml":
-                json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
+                json_data = xmltodict.parse(file_contents)
         elif url_type not in ['upload', 'datastore']:
             resp = urllib.request.urlopen(url)
             json_data = json.loads(resp.read())

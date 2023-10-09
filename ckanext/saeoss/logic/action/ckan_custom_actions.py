@@ -12,7 +12,7 @@ import ckan.plugins as plugins
 from ..validators import stac_validator
 import json
 import yaml
-from xmltodict3 import XmlTextToDict
+import xmltodict
 from urllib.request import urlopen
 
 logger = logging.getLogger(__name__)
@@ -94,7 +94,7 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
                     json_data = yaml.load(file_contents)
 
                 if upload.mimetype == "application/xml":
-                    json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
+                    json_data = xmltodict.parse(file_contents)
     
             else:
                 response = urlopen(data_dict['url'])
