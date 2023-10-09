@@ -12,6 +12,25 @@ Here you will be able to edit your contact information, affiliation, and occupat
 
 ![profile settings](img/profile-2.png)
 
+### Managing non-owned profile
+
+<b> Applicable roles</b>: System adminstrator and organisational publisher
+
+To manage profiles belong to certain organisations as a system adminstrator or an organisational publisher, you need to navigate to the organisation and click 'Manage'
+
+![manage organisation](img/manage-members-1.png)
+
+Then click on the 'Members' tab.
+
+![manage organisation](img/manage-members-2.png)
+
+You can:
+1. Add new members to the organisation.
+2. Edit the member's role.
+3. Remove the member from the organisation.
+
+![manage members](img/manage-members-3.png)
+
 
 ### Search metadata
 Users are able to search for metadata on the 'Metadata' tab. Depending on the user role, users can view public or private records. Users can search for data using different filters.
@@ -134,11 +153,39 @@ To view your saved search select 'Saved Search, which is located in the drop-dow
 To reproduce a search, click on one of your previous searches and the site will automatically redirect you to the results for that search.
 
 
+### Metadata capturing and publishing
+
+#### Create metadata record in owned organisation using System UI
+
+<b> Applicable roles</b>: Metadata editor, matadata publisher and system adminstrator
+
+Method 1:
+
+Navigate to 'Metadata' and select 'Add metadata record'.
+
+![add metadata](img/metadata-system-ui-1.png)
+
+This will take you to the form that needs to be completed in order to create metadata record.Fill in all the necessary information about the record. All fields marked with an asterisk (*) are mandatory. The information you add will become the information that is available on the site about the record you are adding.  When adding the metadata record thumbnail, make sure the image URL is a public image link and not a private one. Remember to also make sure that the image ratio is 1:1 for the best results.
+
+![add metadata](img/metadata-system-ui-2.png) 
+
+Method 2:
+Navigate to the organisation you belong to. You can do this by going to your profile and select 'Add metadata record' then fill out the form.
+
+![add metadata](img/metadata-system-ui-3.png) 
+
+#### Create metadata record in owned organisation using XML upload
+
+On the metadata page, select 'Add metadata record from xml file'.
+
+![add metadata xml](img/metadata-xml-upload-1.png)
+
+Then select the XML file on your local machine.
+
+The xml file should look something like this:
+![xml file standard](img/metadata-xml-upload-2.png)
 
 
-
-
-
-
-
+#### Edit metadata record using system UI
+Navigate to the record you want to edit and select 'manage'
         
