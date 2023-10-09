@@ -3,8 +3,6 @@
   it might have to do with droping volumes
 #}
 
-
-
 {% block subtitle %}Metadata{% endblock %}
 {% set total =  h.get_all_datasets_count(g) %}
 
@@ -32,19 +30,23 @@
         {% endif %}
         </div>
         {% if h.check_access('package_create') %}
-        <button class="btn btn-primary pull-right" onclick="document.getElementById('upload_input').click()"
-          style="margin-left: 10px;"
-          style="margin-left: 10px;"
+        <button
+            class="btn btn-primary pull-right"
+            onclick="document.getElementById('upload_input').click()"
+            style="margin-left: 10px;"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="XML, JSON, and YAML supported"
           >
-          <i class="fa fa-cloud-upload"></i>{{ _("Add metadata record from xml file") }}
+          <i class="fa fa-cloud-upload"></i>{{ _("Add metadata record from file") }}
         </button>
         <input type="file"
           id = "upload_input"
-          name = "xml_dataset_files"
+          name = "dataset_files"
           onclick=""
           style="display: none;"
           multiple
-          data-module="xml_parser"
+          data-module="file_parser"
           >
           <a class="btn btn-primary pull-right" href="{{ h.url_for('dataset.new') }}" style="color: #fff">{{ _('Add metadata record') }}</a>
         {% endif %}
@@ -53,7 +55,7 @@
 
 {% block primary_content %}
   {% include 'social/index.html' %}
-  
+
   {% block package_search_results_list %}
       {{ h.snippet('snippets/package_list.html', packages=page.items) }}
   {% endblock %}

@@ -17,23 +17,27 @@
         <ul class="nav navbar-nav navbar-center">
             {% block header_site_navigation_tabs %}
                 <li class="li-flex"> 
-                  <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata') }}">{{ _('Metadata') }}</a>
+                  <a href="{{ url_for('home.index') }}" class="image" title="{{ _('SAEOSS Homepage') }}">{{ _('Home') }}</a>
+                  <span class="hr-ver"></span>
+                </li>
+                <li class="li-flex"> 
+                  <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata/Dataset search page') }}">{{ _('Metadata') }}</a>
                   <span class="hr-ver"></span>
                 </li>
                 <li class="li-flex">
-                   <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Map') }}">{{ _('Map') }}</a>
+                   <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Metadata boundary view') }}">{{ _('Map') }}</a>
                    <span class="hr-ver"></span>
                   </li>
                 <li class="li-flex"> 
-                  <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('Organisations') }}">{{ _('Organisations') }}</a>
+                  <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('SAEOSS organization (metadata collection)') }}">{{ _('Organisations') }}</a>
                   <span class="hr-ver"></span>
                 </li>
                 <li class="li-flex"> 
-                  <a href="/about" class="image" title="{{ _('About') }}">{{ _('About') }}</a>
+                  <a href="/about" class="image" title="{{ _('About SAEOSS') }}">{{ _('About') }}</a>
                   <span class="hr-ver"></span>
                 </li>
                 <li> 
-                  <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" class="image" title="Help">Help</a>
+                  <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" title="{{ _('SAEOSS help and documentation') }}" class="image" title="Help">Help</a>
                 </li>
             {% endblock %}
         </ul>

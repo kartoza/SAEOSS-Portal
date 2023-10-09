@@ -1,9 +1,9 @@
 "use strict";
 
-ckan.module("xml_parser",function($){
+ckan.module("file_parser",function($){
     /*
 
-        handles creating datasets from xml file
+        handles creating datasets from xml/json/yaml file
         upload.
 
         this isn't completed yet, the idea is to show
@@ -31,7 +31,8 @@ ckan.module("xml_parser",function($){
             let _files = the_input.files
             let formData = new FormData();
             for(let _file of _files){
-                formData.append("xml_dataset_files",_file)
+                formData.append("" +
+                  "dataset_files",_file)
             }
 
             let flash_box = document.getElementsByClassName("flash-messages")[0]
@@ -49,7 +50,7 @@ ckan.module("xml_parser",function($){
                 flash_box.append(info_or_err)
             }
 
-            fetch('/dataset/xml_parser/',{method:"POST", body:formData}).
+            fetch('/dataset/file_parser/',{method:"POST", body:formData}).
             then(res => this._handleError(res)).
             then(res=>res.json()).then(
                 (data)=>{
@@ -59,18 +60,6 @@ ckan.module("xml_parser",function($){
                     console.log("error messages:", err_msgs)
                     if(err_msgs == undefined && info_msgs == undefined){
                         if(data.response.includes("all packages were created")){
-                            // the cause where everything went right
-                            // sessionStorage.setItem("reloading", "true");
-                            // document.location.reload();
-                            // //window.location.reload()
-                            // window.addEventListener("load", function(){
-                            //     var reloading = sessionStorage.getItem("reloading");
-                            //     if (reloading) {
-                            //         sessionStorage.removeItem("reloading");
-                            //         msg_box_creation(["alert","fade-in","alert-info"], data.response)
-                            //     }
-
-                            // })
                             msg_box_creation(["alert","fade-in","alert-info"], data.response)
                         }
                     }
@@ -84,7 +73,6 @@ ckan.module("xml_parser",function($){
                     }
 
                     flash_box.style.display = "block"
-                    // window.location.reload()
                 }
                 ).catch(err=>{
                     msg_box_creation(["warning-explanation","alert","alert-danger"], err)

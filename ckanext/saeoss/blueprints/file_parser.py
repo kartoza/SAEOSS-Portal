@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from flask import request, Response, jsonify, Blueprint
+from flask import request, jsonify, Blueprint
 from ckan.plugins import toolkit
-from ckan import model
+import xmltodict
+import yaml
+from yaml import SafeLoader
 from ckan.common import c
 from ckan.logic import ValidationError
 from ckan.lib.mailer import mail_user, MailerException
@@ -21,21 +23,21 @@ import json
 # parsing xml file to extract info
 # necessary to create a dataset,
 # calls dataset create action.
-# use it as root_url/dataset/xml_parser/
+# use it as root_url/dataset/file_parser/
 
 logger = logging.getLogger(__name__)
 
-xml_parser_blueprint = Blueprint(
-    "xml_parser",
+file_parser_blueprint = Blueprint(
+    "file_parser",
     __name__,
-    url_prefix="/dataset/xml_parser",
+    url_prefix="/dataset/file_parser",
     template_folder="templates",
 )
 
 creator = ""
 
 
-@xml_parser_blueprint.route("/", methods=["GET", "POST"], strict_slashes=False)
+@file_parser_blueprint.route("/", methods=["GET", "POST"], strict_slashes=False)
 def extract_files():
     """The blueprint allows for multiple
     files to be sent at once, extract
@@ -46,18 +48,18 @@ def extract_files():
     # files = request.files.to_dict()
     global creator
     creator = c.userobj
-    xml_files = request.files.getlist("xml_dataset_files")
-    logger.debug(f"xml file {xml_files}")
-    # loggin the request files.
-    logger.debug("from xml parser blueprint, the xmlfiles object should be:", xml_files)
+    files = request.files.getlist("dataset_files")
+    logger.debug(f"file {files}")
+    # logging the request files.
+    logger.debug("from xml parser blueprint, the files object should be:", files)
     err_msgs = []
     info_msgs = []
-    for xml_file in xml_files:
-        
-        check_result = check_file_fields(xml_file)
+    logger.debug('==============================')
+    for file in files:
+        check_result = check_file_fields(file)
         if check_result is None:
             err_msgs.append(
-                f'something went wrong during "{xml_file.filename}" dataset creation!'
+                f'something went wrong during "{file.filename}" dataset creation!'
             )
         if check_result["state"] == False:
             err_msgs.append(check_result["msg"])
@@ -82,13 +84,13 @@ def extract_files():
         return jsonify({"response": "all packages were created", "status": 200})
 
 
-def check_file_fields(xml_file) -> dict:
+def check_file_fields(file) -> dict:
     """Performs different checks over
     the xml files.
     :param
-    xml_file: The xml filet to check.
+    file: The file to check.
     :type
-    xml_file: file
+    file: file
 
     returns:
     -----
@@ -97,8 +99,8 @@ def check_file_fields(xml_file) -> dict:
     """
     root = None
     # has data check
-    dataset = file_has_xml_dataset(xml_file)
-    file_name_reference = xml_file.filename
+    dataset = file_has_dataset(file)
+    file_name_reference = file.filename
     if dataset["state"]:
         root = dataset["root"]
     else:
@@ -129,24 +131,42 @@ def check_file_fields(xml_file) -> dict:
         return {"state": False, "msg": "something went wrong during dataset creation"}
 
 
-def file_has_xml_dataset(xml_file):
+def get_xml_string(file):
+    filename = file.filename
+    extension = filename.split('.')[-1]
+    xml_string = ''
+    if extension.lower() == 'xml':
+        xml_string = file.read().decode('utf-8')
+    elif extension.lower() == 'json':
+        json_dict = json.load(file)
+        xml_string = xmltodict.unparse(json_dict)
+        logger.debug(xml_string)
+    elif extension.lower() in ['yaml', 'yml']:
+        yaml_string = file.read().decode('utf-8')
+        yaml_dict = yaml.load(yaml_string, Loader=SafeLoader)
+        xml_string = xmltodict.unparse(yaml_dict)
+    logger.debug(xml_string)
+    return xml_string
+
+def file_has_dataset(file):
     """Parses the file,
     checks if file has a
     dataset within it and
     returns it.
     :param
-    xml_file: the xml file to parse
+    file: the xml file to parse
     :type
-    xml_file: file
+    file: file
     """
     try:
-        dom_ob = dom.parse(xml_file)
+        xml_string = get_xml_string(file)
+        dom_ob = dom.parseString(xml_string)
     except ExpatError:
         """
         this happens when the file is
         completely empty without any tags
         """
-        return {"state": False, "msg": f"file {xml_file.filename} is empty!"}
+        return {"state": False, "msg": f"file {file.filename} is empty!"}
 
     root = dom_ob.firstChild
     if root.hasChildNodes():
@@ -155,7 +175,7 @@ def file_has_xml_dataset(xml_file):
         """
         return {"state": True, "root": root}
     else:
-        return {"state": False, "msg": f"file {xml_file.filename} is empty!"}
+        return {"state": False, "msg": f"file {file.filename} is empty!"}
 
 
 def return_object_root(root):

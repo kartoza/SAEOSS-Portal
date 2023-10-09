@@ -14,7 +14,6 @@
 
 set -e
 
-#IMAGE_NAME=index.docker.io/kartoza/ckanext-dalrrd-emc-dcpr
 IMAGE_NAME=saeoss
 
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD | tr / -)
