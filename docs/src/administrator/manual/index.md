@@ -39,4 +39,4 @@ We take pride and care to esure our work is facutal, accurate and informative. I
 - info@kartoza.com
 - example@sansa.cm
 - exanple@saeonn.com -->
-**Administrator:** Alternativley users can report errors to the adminitratiot who can report the error though one of the above mentioned channels if they are unable to resolve the issue. 
+**Administrator:** Alternativley users can report errors to the adminastrators who can report the error though one of the above mentioned channels if they are unable to resolve the issue. 
