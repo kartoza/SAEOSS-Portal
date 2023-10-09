@@ -47,4 +47,4 @@ By selecting the `Profile Settings` button, you can adjust your profile settings
 ![Profile_settings](./img/profile_settings_button.png)
 
 ###### Next Chapter
-In the next chapter, look at [Profile Settings](./profilesettings.md)
+In the next chapter, look at [Profile Settings](./profile_settings.md)

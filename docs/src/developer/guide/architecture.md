@@ -10,7 +10,7 @@ The following is a list, with brief descriptions, of the key components used in 
 
 | Logo | Name | Notes |
 |------------|---------|----------------|
-|![CKAN](img/ckan.png){: style="height:30px"} | [CKAN](https://ckan.org/) | CKAN is an open-source DMS (data management system) for powering data hubs and data portals. CKAN makes it easy to publish, share and use data. It powers catalog.data.gov, open.canada.ca/data, data.humdata.org among many other sites.|
+|![CKAN](img/ckan.png){: style="height:30px"} | [CKAN](https://ckan.org/) | CKAN is an open-source DMS (data management system) for powering data hubs and data portals. CKAN makes it easy to publish, share and use data.|
 |![pycsw](img/pycsw.png){: style="height:30px"} | [Pycsw](https://pycsw.org/) | pycsw allows for the publishing and discovery of geospatial metadata via numerous APIs (CSW 2/CSW 3, OpenSearch, OAI-PMH, SRU), providing a standards-based metadata and catalogue component of spatial data infrastructures.|
 | ![Docker](img/architecture-docker.svg){: style="height:30px"}  |  [Docker](https://docker.com) | Accelerate how you build, share, and run applications. Docker helps developers build, share, and run applications anywhere — without tedious environment configuration or management. |
 | ![ckanext-harvest](img/ckan.png){: style="height:30px"}  | [Ckanext-harvest](https://github.com/ckan/ckanext-harvest) | Remote harvesting extension for CKAN. |

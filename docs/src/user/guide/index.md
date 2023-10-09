@@ -12,7 +12,7 @@ Help and Contact Pages: Here we explain how to get help with the platform, eithe
 ### Error reporting:
 We take pride and care to ensure our work is factual, accurate and informative. In the highly unlikely event that an error or bug is found please report it through one of the following channels:
 
-**Github Issues:** Github is the prefered method of error reporting ensuring reported errors are addressed in the quickest turnaround time possible. [Read more...](opening_issues.md)
+**Github Issues:** Github is the prefered method of error reporting ensuring reported errors are addressed in the quickest turnaround time possible. [Read more...](../manual/opening_issues.md)
 
 **Email:** Errors can be raised via email through the following channels. However this is not a recommended wpath as it has long turn around times.
 
