@@ -1,7 +1,5 @@
 
 
->🚩 **NOTE:** *This document may contain outdated information. Please refer to the [guide](index.md).*
-
 # Project Setup
 
 ## Clone SAEOSS-Portal repository
@@ -11,58 +9,81 @@ This will clone the SAEOSS-Portal repository to your machine
 git clone https://github.com/kartoza/SAEOSS-Portal.git
 ```
 
-## Set up the project
+## Project Setup
 
-Juanique review
-<!-- This will set up the SAEOSS-Portal project on your machine
-```
-cd SAEOSS-Portal
-cd deployment
-cp docker-compose.override.template.yml docker-compose.override.yml
-cp .template.env .env
-cd ..
-make up
-```
-Wait until everything is done.
+### Docker installation
 
-After everything is done, open up a web browser and go to [http://127.0.0.1/](http://127.0.0.1/) and the dashboard will open:
-
-By Default, we can use the admin credential:
-```
-username : admin
-password : admin
-``` -->
-
-## Set up different environment
-Juanique and zakki review
-<!-- 
-To set up different environment, for example the Default credential, or the port of server, open **deployment/.env**.
-You can check the description below for each of variable.
+The project needs docker to be able to run it. To install it, please follow below instruction.
 
 ```
-COMPOSE_PROJECT_NAME=geosight
-NGINX_TAG=0.0.1  -> Change this for different nginx image
-DJANGO_TAG=0.0.1 -> Change this for different django image
-DJANGO_DEV_TAG=0.0.1 -> Change this for different django dev image
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg     
+```
 
-# Environments
-DJANGO_SETTINGS_MODULE=core.settings.prod -> Change this to use different django config file
-ADMIN_USERNAME=admin -> Default admin username 
-ADMIN_PASSWORD=admin -> Default admin password
-ADMIN_EMAIL=admin@example.com -> Default admin email
-INITIAL_FIXTURES=True
-HTTP_PORT=80 -> Change the port of nginx
+On the next prompt line:
 
-# Database Environment
-DATABASE_NAME=django -> Default database name
-DATABASE_USERNAME=docker -> Default database username
-DATABASE_PASSWORD=docker -> Default database password
-DATABASE_HOST=db -> Default database host. Change this if you use cloud database or any new docker container.
-RABBITMQ_HOST=rabbitmq
+```
+echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg]https:download.docker.com/linux/ubuntu \
+$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
 
-# Onedrive
-PUID=1000
-PGID=1000
-``` 
+Run apt update:
 
-After you change the desired variable and do `make up`. It will rerun the project with new environment.-->
+```
+sudo apt-get update
+```
+
+This will install docker
+```
+sudo apt-get install  docker-ce-cli containerd.io
+```
+
+This will check if installation of docker was successful
+```
+sudo docker version
+```
+And it should return like this
+
+```
+Client: Docker Engine - Community
+ Version:           20.10.9
+ API version:       1.41
+ Go version:        go1.16.8
+ Git commit:        c2ea9bc
+ Built:             Mon Oct  4 16:08:29 2021
+ OS/Arch:           linux/amd64
+ Context:           default
+ Experimental:      true
+
+```
+
+### Manage docker as non-root
+
+This will ensure that the docker can be executed without sudo.
+```
+sudo systemctl daemon-reload
+sudo systemctl start docker
+sudo usermod -a -G $USER
+sudo systemctl enable docker
+```
+
+Verify that you can run docker commands without sudo.
+```
+docker run hello-world
+```
+
+For more information how to install docker, please visit [Install Docker Engine](https://docs.docker.com/engine/install/)
+
+### Get the project up and running
+
+1. Navigate to docker folder `cd SAEOSS-Portal/docker`
+2. Run the script to build the docker containers `./build.sh`
+3. Start the containers `./compose.py --compose-file docker-compose.yml --compose-file docker-compose.dev.yml up`
+4. The first time you launch it you will need to set up the ckan database (since the ckan image's entrypoint explicitly does not take care of this). Run the following command: `docker exec -ti saeoss_ckan-web_1 poetry run ckan db init`
+5. Afterwards, proceed to run any migrations required by the ckanext-saeoss extension `docker exec -ti saeoss_ckan-web_1 poetry run ckan db upgrade --plugin saeoss`
+6. After having initialized the database you can now create the first CKAN sysadmin user `docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add admin`. Answer the prompts in order to provide the details for this new user. After its successful creation you can login to the CKAN site with the admin user.
+7. In order to be able to serve the system's datasets through various OGC standards, create a DB materialized view in order to integrate with pycsw: `docker exec -ti saeoss_ckan-web_1 poetry run ckan dalrrd-emc-dcpr pycsw create-materialized-view`
+8. Rebuild solr index: `docker exec -it saeoss_ckan-web_1 poetry run ckan search-index rebuild`
+9. You can access the site on your localhost by visting [http:localhost:5000](http:localhost:5000)
+
+
