@@ -52,6 +52,7 @@ nav:
                 - Guide:
                         - user/guide/index.md
                         - Functionality: user/guide/functionality/index.md
+                        - STAC AND SANS 1876: user/guide/research/index.md
                         - Disclaimer: about/disclaimer.md
                         - License: about/license.md
                 - Manual: 
