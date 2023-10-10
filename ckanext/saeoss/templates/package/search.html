@@ -32,6 +32,7 @@
         {% if h.check_access('package_create') %}
         <button
             class="btn btn-primary pull-right"
+            id="metadata-from-file-btn"
             onclick="document.getElementById('upload_input').click()"
             style="margin-left: 10px;"
             data-toggle="tooltip"
@@ -48,7 +49,7 @@
           multiple
           data-module="file_parser"
           >
-          <a class="btn btn-primary pull-right" href="{{ h.url_for('dataset.new') }}" style="color: #fff">{{ _('Add metadata record') }}</a>
+          <a class="btn btn-primary pull-right" id="metadata-form-btn" href="{{ h.url_for('dataset.new') }}" style="color: #fff">{{ _('Add metadata record') }}</a>
         {% endif %}
     </div>
 {% endblock %}

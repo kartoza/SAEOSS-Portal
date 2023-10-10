@@ -10914,7 +10914,7 @@ iframe {
   z-index: 9999;
   background-color: white;
   /* margin: 10px; */
-  max-width: 22%;
+  /* max-width: 22%; */
   /* max-height: 70%; */
   /* overflow-y: scroll; */
   background: none;
@@ -11375,6 +11375,7 @@ iframe {
 #collection-view{
   max-height: 50vh;
   overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 #collapse-collection svg {
@@ -11389,7 +11390,7 @@ iframe {
   padding: 5px;
   position: absolute;
   top: 219px;
-  right: 35px;
+  right: 15px;
   display: none;
 }
 
