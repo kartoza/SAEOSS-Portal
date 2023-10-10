@@ -11526,7 +11526,6 @@ iframe {
 }
 
 .social-main{
-  z-index: 999;
   position: fixed;
   top:40%;
   left:0
