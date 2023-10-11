@@ -106,6 +106,12 @@ ckan-base-css:
     - css/main.css
   filter: cssrewrite
 
+ckan-responsive-css:
+  output: ckanext-saeoss/%(version)s_ckan_responsive.css
+  contents:
+    - css/responsive.css
+  filter: cssrewrite
+
 saeoss-css:
   output: ckanext-saeoss/%(version)s_saeoss.css
   contents:

@@ -90,6 +90,7 @@ a {
 
 .navbar-nav {
   margin: 7.5px 0;
+  display: flex;
 }
 
 .navbar-default {
@@ -410,6 +411,7 @@ fieldset[disabled] .btn-default.focus {
   font-weight: 300;
   text-align: justify;
   margin-bottom: -8px;
+  width: 90%;
 }
 
 .dataset-heading > a:hover, .dataset-heading > a:focus {
@@ -1188,14 +1190,14 @@ footer {
 }
 
 .media-organization-item img{
-  width: 180px;
+  /* width: 180px; */
   height: 150px;
   border: solid 1px #eee;
   object-fit: cover !important;
 }
 
 .metadata-record-desc{
-  padding-left:20px;
+  padding-left:5px;
 }
 
 @media (min-width: 768px) {
@@ -1239,8 +1241,8 @@ footer {
 
 @media (max-width: 768px) {
   .metadata-record-thumbnail{
-    left: 50%;
-    margin-left: -80px;
+    /* left: 50%;
+    margin-left: -80px; */
   }
   .metadata-record-desc{
     padding-left:0px;
