@@ -36,7 +36,8 @@ static-data | 10Gi | RWX | azurefile | Used for the static files.
 
 The following diagram represents all of the database entities that are created by PostgreSQL. Right click the image and open it in its own tab to see it at full resolution.
 
-![ERD](img/ERD.png)
+[![ERD](img/ERD.png)](https://kartoza.github.io/SAEOSS-Portal/developer/guide/img/ERD.png)
+**Note:** *Click on the image to open an enlarged view*
 
 For more details on the relationship between the entities, constraints and higher degree of analysis of the database, please click [here](https://saeoss-portal.vercel.app/)
 

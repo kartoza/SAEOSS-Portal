@@ -9,6 +9,7 @@ The guide section of the documentation provides short narrative / workflow based
 Help and Contact Pages: Here we explain how to get help with the platform, either from the documentation or through contacting the SAWPS team.
 **[Functionality:](./functionality/index.md)** This section explains the various functionalities that can be performed on the site and what the required user roles are for those functionalities. This includes ,managing your profile, searching for metadata, saving searches, creating, editting and publishing metadata and managing organisational members.
 
+
 ### Error repoting:
 We take pride and care to esure our work is facutal, accurate and informative. In the highly unlikely event that and error or bug is found please report it through one of the following channels:
 
@@ -25,4 +26,5 @@ We take pride and care to esure our work is facutal, accurate and informative. I
 
 ### Contributing:
 If you would like to contribute to the documentation, please review the [contributing section](../../about/contributing.md)
+
 
