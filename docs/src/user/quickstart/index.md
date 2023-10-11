@@ -10,6 +10,22 @@ not always a necessity -->
 <!-- Easy to follow instructions for getting started using
 the product -->
 
+### Accessing the SAEOSS-portal
+1) From your browser navigate to [{TBD}](http://www..)
+2) Create a user account if you don't have one. [Register](#register)   
+3) Browse, view and download metadata. 
+
+### Register a new account
+1) From the home page, in the top right corner loacte an click on register.
+2) Complete the registration form. Make sure all required fields, marked with an `*` have been completed.
+3) Finally click on register account.
+
+### Browse, view and download metadata
+1) From the home page click on `Metadata` located in the navigation bar.
+2) Search for relevant metadata using the seach and filter fields in the left pane
+3) Click on the title of appropriate metadata result to view the metadata record
+4) 
+
 ### Releases
 
 <!-- Insert links to release pages -->
