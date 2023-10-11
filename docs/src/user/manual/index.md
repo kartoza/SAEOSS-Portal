@@ -13,7 +13,7 @@ The user manual aims to assist the user in learning the fundamentals of using th
 
 ### Index:
 - [**Home Page**](./home.md)
-  - [**Create an Account**](./home.md#signup)
+  - [**Create an Account**](../guide/registering.md)
   - [**Log-in**](./home.md#login)
 - [**Dashboard**](./dashboard.md)
 - **Profile**
