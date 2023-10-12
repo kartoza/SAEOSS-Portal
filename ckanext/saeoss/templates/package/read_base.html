@@ -19,14 +19,14 @@
     {% if user_is_editor %}
         {% if pkg.private %}
             {% link_for _('Request publication'),
-                named_route="emc.request_dataset_management",
+                named_route="saeoss.request_dataset_management",
                 dataset_id=pkg.id,
                 management_command="publication",
                 class_='btn btn-default',
                 icon='graduation-cap' %}
         {% elif not pkg.private and not h.check_access("package_update", {"id": pkg.id}) %}
             {% link_for _('Request edit'),
-                named_route="emc.request_dataset_management",
+                named_route="saeoss.request_dataset_management",
                 dataset_id=pkg.id,
                 management_command="maintenance",
                 class_='btn btn-default',
