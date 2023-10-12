@@ -18,7 +18,7 @@ The user manual aims to asist user in learning the fundamentals of using the SAE
 ### Index:
 - [**Dashboard**]()
 - [**Profile**]()
-  - [Uploading a profile picture](profile.md#uploadingaprofilepicture)
+  - [Uploading a profile picture]()
     - [this is another indent]()
       - [and another]() 
 - [**Metadata**]()
@@ -27,8 +27,8 @@ The user manual aims to asist user in learning the fundamentals of using the SAE
 - [**About**]()
 - [**Help**]()
 
-### Error repoting:
-We take pride and care to esure our work is facutal, accurate and informative. In the highly unlikely event that and error or bug is found please report it through one of the following channels:
+### Error reporting:
+We take pride and care to ensure our work is factual, accurate and informative. In the highly unlikely event that and error or bug is found please report it through one of the following channels:
 
 **Github Issues:** Github is the prefered method of error reporting ensuring reported errors are addressed in the quickest turnaround time possible. [Read more...](opening_issues.md)
 
@@ -39,4 +39,4 @@ We take pride and care to esure our work is facutal, accurate and informative. I
 - info@kartoza.com
 - example@sansa.cm
 - exanple@saeonn.com -->
-**Administrator:** Alternativley users can report errors to the adminastrators who can report the error though one of the above mentioned channels if they are unable to resolve the issue. 
+**Administrator:** Alternativley users can report errors to the administrators who can report the error though one of the above mentioned channels if they are unable to resolve the issue.

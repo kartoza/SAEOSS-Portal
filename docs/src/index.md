@@ -61,10 +61,10 @@ Through a joint effort by SANSA (south-African National Space Agency) and SAEON 
 ![Issue Tracker](https://img.shields.io/github/issues/kartoza/SAEOSS-Portal.svg)
 ![Closed Issues](https://img.shields.io/github/issues-closed/kartoza/SAEOSS-Portal.svg)
 ![Pull requests](https://img.shields.io/github/issues-pr/kartoza/SAEOSS-Portal.svg)
-<!-- ![Version](https://img.shields.io/github/realese/kartoza/SAEOSS-Portal.svg)  -->
+![Version](https://img.shields.io/github/release/kartoza/SAEOSS-Portal.svg)
 
 #### Project Chatroom
-Currently we do not have a project chat room. Rather use GitHub issue tracker instead. [GitHub Issue Tracker]([http](https://github.com/kartoza/SAEOSS-Portal/issues))
+Currently we do not have a project chat room. Rather use GitHub issue tracker instead. [GitHub Issue Tracker](https://github.com/kartoza/SAEOSS-Portal/issues)
 <!-- Insert links to chatroom pages if available, otherwise remove -->
 
 
@@ -73,13 +73,14 @@ Currently we do not have a project chat room. Rather use GitHub issue tracker in
 <!-- [Contributor License Agreement]() -->
 
 ## Disclaimer
+
 <div class="admonition warning">
 The software provided by this project is provided 'as is'. All information provided within the platform should be independently verified before using as the basis for action. The contributors and developers of this platform take no responsibility for any loss of revenue, life, physical harm or any other adverse outcome that may occur as a result of the use of this platform. 
 </div>
 
 
 #### License
-This platform was released under the {lisence-type} license. Please take a moment tor review the full extent of the [License](./docs/src/license.md). 
+This platform was released under the GNU Affero license. Please take a moment tor review the full extent of the [License](./about/license.md).
 <!-- Link to project license in about page -->
 
 <!-- Keep the Kartoza Logo at the bottom of the page if the project allows -->

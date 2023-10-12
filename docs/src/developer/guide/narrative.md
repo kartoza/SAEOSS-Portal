@@ -190,12 +190,3 @@ create datasets (metadata records) from stac endpoint
 ```bash
 docker exec -ti saeoss_ckan_web_1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --max <max_number_of_records>
 ```
-
-## Architecture
-
-### High-level System Architecture
-
-### Date Model
-
-
-## Workflow

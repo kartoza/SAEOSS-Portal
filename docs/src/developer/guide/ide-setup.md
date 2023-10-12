@@ -46,9 +46,6 @@ Now that you have your IDE set up, we can move on to [building the project](buil
 
 ## Using pycharm
 
-
-📒 ⛔️ This section needs to be reviewed and organised into our docs framework.
-
 This section is for using pycharm.
 
 Requirements:
@@ -109,11 +106,11 @@ This development mode is DEBUG mode, and also whenever we change the code, the s
 
 For more information how to set up on pycharm, please visit [Using a Docker Compose-Based Python Interpreter in PyCharm](https://kartoza.com/en/blog/using-docker-compose-based-python-interpreter-in-)
 
-
 ---------------------------------
+
 ## Quick Setup Guide
 
-⛔️📒 This content needs to be reviewed and moved to the readme.
+This project is a [ckan](https://ckan.org/) extension, it can be installed standalone. To deploy this project we use  [docker,](http://docker.com/) so you need to have docker running on the host.
 
 > **NOTE:** *Docker is needed to continue with the quick installation guide. Ensure you have docker installed on your system before continuing.*
 
@@ -126,22 +123,25 @@ This project is a [ckan](https://ckan.org/) extension, it can be installed stand
    ./build.sh
    ```
 
-* Start up the project
+- Start up the project
 
    ```bash
    ./compose.py --compose-file docker-compose.yml --compose-file docker-compose.dev.yml up
    ```
+
    After starting up, the project is available on your local host at http://localhost:5000 
-   
-* Run down the project
-   ```
+
+- Run down the project
+
+   ```bash
    ./compose.py --compose-file docker-compose.yml --compose-file docker-compose.dev.yml down
    ```
 
---------------------------------
+---------------------------------
+
 ### Production
 
-Section for juanique adn zakki to complete
+Section for juanique and zakki to complete
 <!-- 
 ```
 git clone https://github.com/kartoza/SAEOSS-Portal

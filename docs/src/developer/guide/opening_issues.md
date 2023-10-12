@@ -10,28 +10,36 @@ When contributing to the development of the platform, it's **essential** to adhe
 
 ### Pull Request Workflow:
 
-#### 1. Fork the Repository 
+#### 1. Fork the Repository
+
 Follow the instructions for setting up a proper developer environment, which includes forking the repository. 
 
 #### 2. Clone the reository
+
 Clone the forked repository to your local machine using Git. This allows you to make changes to the code.
 
 #### 3. Create a New Branch
+
 Before making any changes, create a new branch for your feature or bug fix. This keeps your changes isolated from the main branch.
 
 #### 4. Make and Commit Changes
+
  Make the necessary code changes in your local branch. Use Git to commit these changes with clear and descriptive commit messages.
 
 #### 5. Push Changes to GitHub
+
 Push your local branch with changes to your forked repository on GitHub.
 
 #### 6. Open a Pull Request
+
 Visit the original repository on GitHub, and GitHub will detect your recently pushed branch. Click on the "Compare & pull request" button.
 
 #### 7. Resolving Conflicts
+
 When conflicts are detected, GitHub will generate a message indicating that your pull request cannot be merged until all conflicts have been resolved. This message typically appears when the conflict is too intricate for GitHub's automatic conflict resolver to handle.
 
 #### 8. Submitting Your Pull Request
+
 Simply click the "Create pull request" button to submit your pull request. Your request will become visible to the repository's maintainers. It is their responsibility to review the code and merge your pull request into the main repository.
 
 **Congratulations!** You've successfully created a pull request on GitHub, contributing your changes to the open-source project. Your code is now part of the main project for others to use and build upon.
