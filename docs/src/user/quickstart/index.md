@@ -27,9 +27,10 @@ The workflows described in this section is designed to be 5 minute workflows to 
 3) Click on the title of appropriate metadata result to view the metadata record
 4) Click on `explore` to preview or download the metadata record
 
+<!-- 
+### Releases -->
 
-### Releases
-
-<!-- Insert links to release pages -->
+<!-- Insert links to release pages 
 [GitHub releases page]()
 [Releases page]()
+-->
