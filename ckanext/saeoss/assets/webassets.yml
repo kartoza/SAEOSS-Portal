@@ -72,6 +72,12 @@ validate-actions-js:
       - base/main
       - ckanext-saeoss/vendorized-leaflet-geoman-js
 
+stac-harvester-js:
+  output: ckanext-saeoss/stac_harvester.js
+  contents:
+    - js/stac_harvester.js
+  filter: rjsmin
+
 dataset-spatial-extent-map-css:
   output: ckanext-saeoss/%(version)s_datasetSpatialExtentMap.css
   contents:

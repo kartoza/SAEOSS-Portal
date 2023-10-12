@@ -59,6 +59,7 @@
                             <span class="text">{{ _('Harvesting Settings') }}</span>
                           </a>
                         </li>
+                        
                     {% endif %}
                     <li class="notifications {% if new_activities > 0 %}notifications-important{% endif %}">
                       {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)',
@@ -97,6 +98,12 @@
                           <a href="{{ h.url_for('validator.index') }}" title="{{ _('Metadata Validator') }}">
                             <i class="fa fa-check" aria-hidden="true"></i>
                             <span class="text">{{ _('Metadata Validator') }}</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{{ h.url_for('stac_harvest.view') }}" title="{{ _('STAC Harvester') }}">
+                            <i class="fa fa-cloud" aria-hidden="true"></i>
+                            <span class="text">{{ _('STAC Harvester') }}</span>
                           </a>
                         </li>
                     {% endif %}

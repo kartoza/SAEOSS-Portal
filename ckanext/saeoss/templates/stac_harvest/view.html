@@ -1,0 +1,44 @@
+{% extends 'page.html' %}
+
+{% block subtitle %}STAC{% endblock %}
+{% set organizations_available = h.organizations_available('create_dataset') %}
+{% set user_is_sysadmin = h.check_access('sysadmin') %}
+{% set show_organizations_selector = organizations_available and (user_is_sysadmin ) %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            view_stac_jobs()
+        })
+    </script>
+    {% asset "ckanext-saeoss/stac-harvester-js" %}
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content %}
+    
+<div class="container ">
+    <br><br>
+    
+    <div class="secondary-inner">
+        <a href="{{ h.url_for('stac_harvest.create_job') }}" class="btn btn-primary" style="float: right;" title="{{ _('STAC Harvester') }}">Create Job</a>
+        <h3>STAC Harvester</h3>
+        <p>View jobs created from STAC Harvester. Refresh this page to view new information</p>
+        <br><br>
+        <div id="stac_jobs"></div>
+    </div>   
+</div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+
