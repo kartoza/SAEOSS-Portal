@@ -1,4 +1,3 @@
-
 # SAEOSS-Portal
 <!-- This is the Home Page, replace all of the titles with relevant titles -->
 
@@ -14,7 +13,8 @@ The SAEOSS-Portal has been proposed as a system of software components functioni
 <!-- Can contain Purpose/Why of project and the Scope of Project without use of sub-headings-->
 
 ### Purpose
-The SEAOSS-Portal is designed to be a robust, informations sharing platform with the aim of promoting information sharing from various orgenisations related to the research conducted by the South-African National Space Agency as well as the South-African Environmental Observation Network and other supporting orgenisations. 
+
+The SAEOSS-Portal is designed to be a robust, informations sharing platform with the aim of promoting information sharing from various organisations related to the research conducted by the South-African National Space Agency as well as the South-African Environmental Observation Network and other supporting organisations.
 
 <!-- ### Project Roadmap -->
 <!-- ![Project Roadmap]() -->
@@ -22,16 +22,19 @@ The SEAOSS-Portal is designed to be a robust, informations sharing platform with
 <!-- Either insert link to roadmap or actual roadmap (Speak to team leads) -->
 
 #### Contributing
+
 We would love to collaborate with you! But first, please read our [contributor
 guidelines](about/contributing.md) which describe how to report
 issues, plan and contribute feature additions etc.
 
 #### Code of Conduct
+
 Our community in this project is aligned with our [code of
 conduct](about/code-of-conduct.md) - please be sure to read and abide by that
 document in all interactions with out community.
 
 #### Diversity Statement
+
 This project welcomes and encourages participation by everyone.
 
 No matter how you identify yourself or how others perceive you: we welcome you.
@@ -43,7 +46,8 @@ encourage contributions from those with expertise in other areas, and welcome
 them into our community.
 
 ## Project Partners
-Through a joint effort by SANSA (south-African National Space Agency) and SAEON (South-African Environmental Observation Network) the SAEOSS-Portal platform was conceptualised and developed by [Kartoza](https://www.kartoza.com/). 
+
+Through a joint effort by SANSA (south-African National Space Agency) and SAEON (South-African Environmental Observation Network) the SAEOSS-Portal platform was conceptualised and developed by [Kartoza](https://www.kartoza.com/).
 
 [<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/SANSA_Logo.png" alt= “” width="50%" height="auto">](https://www.sansa.org.za/)[<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/SAEONN_Logo.png" alt= “” width="50%" height="auto">](https://www.saeon.ac.za/)
 <!-- Insert Project Partner Logos and/or Links -->
@@ -53,9 +57,8 @@ Through a joint effort by SANSA (south-African National Space Agency) and SAEON 
 <!-- [GitHub releases page]() -->
 <!-- [Releases page]() -->
 
+### Project Badges
 
-
-#### Project Badges
 ![License](https://img.shields.io/github/license/kartoza/SAEOSS-Portal.svg)
 ![Commits](https://img.shields.io/github/commits-since/kartoza/SAEOSS-Portal/{version}.svg)
 ![Issue Tracker](https://img.shields.io/github/issues/kartoza/SAEOSS-Portal.svg)
@@ -64,9 +67,9 @@ Through a joint effort by SANSA (south-African National Space Agency) and SAEON 
 ![Version](https://img.shields.io/github/release/kartoza/SAEOSS-Portal.svg)
 
 #### Project Chatroom
+
 Currently we do not have a project chat room. Rather use GitHub issue tracker instead. [GitHub Issue Tracker](https://github.com/kartoza/SAEOSS-Portal/issues)
 <!-- Insert links to chatroom pages if available, otherwise remove -->
-
 
 <!-- #### Contributor License Agreement (CLA) -->
 <!-- Insert links to CLA -->
@@ -75,11 +78,11 @@ Currently we do not have a project chat room. Rather use GitHub issue tracker in
 ## Disclaimer
 
 <div class="admonition warning">
-The software provided by this project is provided 'as is'. All information provided within the platform should be independently verified before using as the basis for action. The contributors and developers of this platform take no responsibility for any loss of revenue, life, physical harm or any other adverse outcome that may occur as a result of the use of this platform. 
+The software provided by this project is provided 'as is'. All information provided within the platform should be independently verified before using as the basis for action. The contributors and developers of this platform take no responsibility for any loss of revenue, life, physical harm or any other adverse outcome that may occur as a result of the use of this platform.
 </div>
 
+### License
 
-#### License
 This platform was released under the GNU Affero license. Please take a moment tor review the full extent of the [License](./about/license.md).
 <!-- Link to project license in about page -->
 

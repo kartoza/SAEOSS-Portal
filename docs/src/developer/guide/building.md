@@ -1,5 +1,3 @@
-
-
 # Building the dev environment
 
 This section covers the process of building and running the application from your IDE.
@@ -56,5 +54,53 @@ http://localhost:2000
 ![image.png](img/building-5.png)
 
 The site will be rather bare bones since it will need to be configured in the admin area to set up the theme etc. -->
+
+## Setting Up a Development Environment
+
+Developers should follow the provided instructions to establish their development environment, ensuring consistency in tools and configurations across the team while fostering collaboration. This streamlined approach also boosts productivity, simplifies scalability, and bolsters security by isolating sensitive data.
+
+Below are the steps to effectively and accurately set up a productive developer environment:
+
+### 👩‍💻 Getting the Source Code
+
+To contribute to the project, you need to fork and clone the repository. This allows you to view and edit the code in your own repository, from which you can create pull requests to merge any changes.
+
+#### 1. Navigate to the GitHub Repository
+
+Go to the SAEOSS-Portal GitHub Repository: https://github.com/kartoza/SAEOSS-Portal
+
+#### 2. Fork the Repository
+
+Follow the instructions for setting up a proper developer environment, which includes forking the repository.
+
+![fork]()
+
+#### 3. Navigate to Your Forked GitHub Repository
+
+Access your forked repository, usually found in your personal repositories, at: https://github.com/{Your-Github-Handle}/SAEOSS-Portal
+> **NOTE:** *Replace {Your-Github-Handle} with your GitHub handle name to fork your repository.*
+
+#### 4. Clone the Repository
+
+Clone the forked repository to your local machine using Git. This allows you to make changes to the code.
+
+```bash
+git clone https://github.com/{Your-Github-Handle}/SAEOSS-Portal.git
+```
+
+#### 5. Create a New Branch
+
+Before making any changes, create a new branch for your feature or bug fix. This keeps your changes isolated from the main branch.
+
+```bash
+git branch {name_of_your_new_branch}
+```
+> **NOTE:** *Replace {name_of_your_new_branch} with the preferred name of your branch.*
+
+You can also clone the main repository, but this workflow is generally not recommended. We strongly advise developers to follow the aforementioned workflow.
+
+```bash
+git clone https://github.com/kartoza/SAEOSS-Portal.git
+```
 
 🪧 Now that you have the built the project, move on to the [Design](design.md) documentation.

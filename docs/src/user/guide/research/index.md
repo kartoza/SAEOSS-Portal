@@ -1,8 +1,8 @@
-## SANS 1878 research
+# SANS 1878 research
 
 > 6.1. Metadata shall be provided for geographic datasets and may, optionally, also be provided for aggregations of datasets, features and attributes of features.
 
-### Core metadata elements
+## Core metadata elements
 
 As described on _Table2 - Core metadata for geographic datasets_
 
@@ -15,7 +15,7 @@ As described on _Table2 - Core metadata for geographic datasets_
 | **Dataset language** | **Mandatory** | **No** | To be implemented |
 | **Dataset character set** | **Mandatory** | **No** | To be implemented |
 | **Dataset topic category** | **Mandatory** | **No** | To be implemented |
-| **Spatial resolution of the dataset** | **Mandatory** | **No** | (As seen on Annex D - Creating the South African community profile)<br /><br />To be implemented |
+| **Spatial resolution of the dataset** | **Mandatory** | **No** | (As seen on Annex D - Creating the South African community profile)<br /><br /administrator>To be implemented |
 | **Abstract describing the dataset** | **Mandatory** | **Yes*** | Need to make it mandatory |
 | *Distribution format** | **Mandatory** | **No** | To be implemented |
 | Additional extent information for the dataset (vertical and temporal) | Optional | No |
@@ -38,15 +38,15 @@ As found scattered throughout the SANS 1878 document
 | Name | Obligation and condition | Notes |
 | ---- | ------------------------ | ----- |
 | **hierarchyLevel** | Mandatory | Unclear whether this should be implemented or not, as there is a question mark in the standard |
-| **referenceSystemInfo** | Mandatory | 
+| **referenceSystemInfo** | Mandatory |
 | metadataMaintenance | Optional |
-| **purpose** | Mandatory | 
+| **purpose** | Mandatory |
 | acknowledgement | Optional |
 | **status** | Mandatory |
 | resourceMaintenance | Optional |
 | descriptiveKeywords | Optional |
 | resourceSpecificUsage | Optional |
-| graphicOverview | Optional | 
+| graphicOverview | Optional |
 | resourceConstraints | Optional | These are the constraints applicable to the resource. Can be defined as either LegalConstraints or SecurityConstraints, or both |
 | MetadataConstraints | Optional | These apply to the metadata. Can be defined as either LegalConstraints or SecurityConstraints, or both |
 
@@ -54,15 +54,15 @@ As found scattered throughout the SANS 1878 document
 
 *STAC is a standardized way to expose collections of spatial temporal data. If you are a provider of data about the earth needing to catalog your holdings, STAC is driving a uniform means for indexing assets.*
 
-At its core, the SpatioTemporal Asset Catalog (STAC) specification provides a common structure for describing and cataloging spatiotemporal assets.
+At its core, the SpatioTemporal Asset Catalog (STAC) specification provides a common structure for describing and cataloguing spatio-temporal assets.
 
-A spatiotemporal asset is any file that represents information about the earth captured in a certain space and time.
+A spatio-temporal asset is any file that represents information about the earth captured in a certain space and time.
 
 ### The STAC Specification
 
 The STAC Specification consists of 4 semi-independent specifications. Each can be used alone, but they work best in concert with one another.
 
-- **STAC Item** is the core atomic unit, representing a single spatiotemporal asset as a GeoJSON feature plus datetime and links.
+- **STAC Item** is the core atomic unit, representing a single spatio-temporal asset as a GeoJSON feature plus datetime and links.
 
 - **STAC Catalog** is a simple, flexible JSON file of links that provides a structure to organize and browse STAC Items. A series of best practices helps make recommendations for creating real world STAC Catalogs.
 
@@ -127,9 +127,9 @@ This particular catalog provides both the ability to browse down to child Catalo
 
 ### Add Metadata via file upload
 
-- Metadate can be added via file upload on the Metadata page (http://{sitename}/dataset/)
-  - This supports xml, json and yaml files 
-![Alt text](img/upload-btn.png)
+- Metadata can be added via file upload on the Metadata page (http://{sitename}/dataset/)
+  - This supports xml, json and yaml files
+![Upload Button]()
 
 *Please note the file needs to conform SANS 1878*
 
@@ -233,4 +233,3 @@ dataset:
   }
 }
 ```
-

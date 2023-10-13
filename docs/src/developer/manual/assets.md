@@ -4,6 +4,4 @@
 
 ## JS
 
-## webassets
-
-
+## web assets

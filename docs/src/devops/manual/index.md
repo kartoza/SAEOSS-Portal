@@ -67,13 +67,13 @@ This container runs a solr server that is needed for ckan to index data and run 
 
 *A systematic approach that generates a structure for the developer to design, create and deliver high-quality software based on customer requirements and needs. The primary goal of the SDLC process is to produce cost-efficient and high-quality products. The process comprises a detailed plan that describes how to develop, maintain, and replace the software.*
 
-1. Identify the Current Problems 
+1. Identify the Current Problems
 
 This stage of the SDLC means getting input from all stakeholders, including customers, sales people, industry experts, and programmers. Learn the strengths and weaknesses of the current system with the goal of improvement.
 
 2. Plan
 
-In this stage of the SDLC, the team determines the costs and resources required for implementing the analyzed requirements. Also detailing the risks involved and providing sub-plans to mitigate those risks.
+In this stage of the SDLC, the team determines the costs and resources required for implementing the analysed requirements. Also detailing the risks involved and providing sub-plans to mitigate those risks.
 
 The team must determine the feasibility of the project and how they can successfully implement the project with the lowest risk in mind.
 

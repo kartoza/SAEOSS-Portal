@@ -1,6 +1,7 @@
 # Functionality
 
 ### Managing your profile
+
 <b> Applicable roles</b>: All
 Users are able to update their profile details.
 
@@ -14,9 +15,9 @@ Here you will be able to edit your contact information, affiliation, and occupat
 
 ### Managing non-owned profile
 
-<b> Applicable roles</b>: System adminstrator and organisational publisher
+<b> Applicable roles</b>: System administrator and organisational publisher
 
-To manage profiles belong to certain organisations as a system adminstrator or an organisational publisher, you need to navigate to the organisation and click 'Manage'
+To manage profiles belong to certain organisations as a system administrator or an organisational publisher, you need to navigate to the organisation and click 'Manage'
 
 ![manage organisation](img/manage-members-1.png)
 
@@ -25,17 +26,19 @@ Then click on the 'Members' tab.
 ![manage organisation](img/manage-members-2.png)
 
 You can:
+
 1. Add new members to the organisation.
 2. Edit the member's role.
 3. Remove the member from the organisation.
 
 ![manage members](img/manage-members-3.png)
 
-
 ### Search metadata
+
 Users are able to search for metadata on the 'Metadata' tab. Depending on the user role, users can view public or private records. Users can search for data using different filters.
 
-1. #### Search metadata by Text
+#### 1. Search metadata by Text
+
     <b>Applicable roles</b>: All
 
     Select 'Metadata' in the navigation bar, located horizontally at the top of the screen.
@@ -45,12 +48,13 @@ Users are able to search for metadata on the 'Metadata' tab. Depending on the us
 
     <b>Expected results</b>: Searching by title, abstract, or by a unique identifier in the search bar will yield results that meet the search criteria.
 
-2. #### Search metadata by Location
+#### 2. Search metadata by Location
+
     <b>Applicable roles</b>: All
 
     You can filter the records by their spatial extent to find the records that you are looking for. You can search by location using three methods:
     1. Draw a grid: The pencil icon allows you to draw a rectangle over area of interest.
-    2. Draw a radius: The circle icon allows you to search using proximity radius over area of ineterst.
+    2. Draw a radius: The circle icon allows you to search using proximity radius over area of interest.
     3. Select spatial layer: The layers icon allows you to select based on pre-existing boundary layers available on the system.
 
     ![search-location-functions](img/search-location-filters-1.png)
@@ -87,7 +91,8 @@ Users are able to search for metadata on the 'Metadata' tab. Depending on the us
 
     ![search-location-layer-4](img/search-location-8.png) 
 
-     3. #### Search metadata by Temporal range
+#### 3. Search metadata by Temporal range
+
         <b>Applicable roles</b>: All
 
         You can filter metadata records using atemporal range. Set the temporal range by selecting a start date, end date, or both a start and end date depending on the temporal extent of the record you are searching for.
@@ -101,9 +106,8 @@ Users are able to search for metadata on the 'Metadata' tab. Depending on the us
 
         ![search-temporal-2](img/search-temporal-2.png)
 
+#### 4. Search metadata by Organisation
 
-
-    3. #### Search metadata by Organisation
         <b>Applicable roles</b>: All
 
         You can search for records by the organisations that published them. To do this, simply select the organisation or multiple organisations from whom you would like to view their records. To deselect the organisations, just click on the little 'x' that will appear next to a selected organisation.
@@ -114,7 +118,7 @@ Users are able to search for metadata on the 'Metadata' tab. Depending on the us
 
         Note: As an anonymous user or a registered user who does not belong to the specific organisation you filtered by, you cannot see records that are private. This means that the number of records available may not be the number of records that appear.
 
-    5. #### Search metadata by other filters
+#### 5. Search metadata by other filters
 
     The other filters include:
 
@@ -126,7 +130,7 @@ Users are able to search for metadata on the 'Metadata' tab. Depending on the us
 
 ### Save searches
 
-<b>Applicable roles:</b> Registered users, organisational members, editors, publishers and system adminstrators.
+<b>Applicable roles:</b> Registered users, organisational members, editors, publishers and system administrators.
 
 Registered users can save search parameters in order to be able to reproduce a search query at a future date.
 
@@ -135,7 +139,6 @@ Navigate to 'Metadata' and select the desired filters. In the image below, the u
 ![save-searches](img/save-1.png)
 
 Once you have your desired records on screen, click the 'Save' icon, which is to the right of the 'Search" icon, to save your search.
-
 
 ![save-search-icon](img/save-2.png)
 
@@ -147,17 +150,15 @@ To view your saved search select 'Saved Search, which is located in the drop-dow
 
 ![view-saved-search-1](img/save-4.png)
 
-
 ![view-saved-search-2](img/save-5.png)
 
 To reproduce a search, click on one of your previous searches and the site will automatically redirect you to the results for that search.
-
 
 ### Metadata capturing and publishing
 
 #### Create metadata record in owned organisation using System UI
 
-<b> Applicable roles</b>: Metadata editor, matadata publisher and system adminstrator
+<b> Applicable roles</b>: Metadata editor, metadata publisher and system administrator
 
 Method 1:
 
@@ -167,12 +168,12 @@ Navigate to 'Metadata' and select 'Add metadata record'.
 
 This will take you to the form that needs to be completed in order to create metadata record.Fill in all the necessary information about the record. All fields marked with an asterisk (*) are mandatory. The information you add will become the information that is available on the site about the record you are adding.  When adding the metadata record thumbnail, make sure the image URL is a public image link and not a private one. Remember to also make sure that the image ratio is 1:1 for the best results.
 
-![add metadata](img/metadata-system-ui-2.png) 
+![add metadata](img/metadata-system-ui-2.png)
 
 Method 2:
 Navigate to the organisation you belong to. You can do this by going to your profile and select 'Add metadata record' then fill out the form.
 
-![add metadata](img/metadata-system-ui-3.png) 
+![add metadata](img/metadata-system-ui-3.png)
 
 #### Create metadata record in owned organisation using XML upload
 
@@ -185,7 +186,6 @@ Then select the XML file on your local machine.
 The xml file should look something like this:
 ![xml file standard](img/metadata-xml-upload-2.png)
 
-
 #### Edit metadata record using system UI
+
 Navigate to the record you want to edit and select 'manage'
-        

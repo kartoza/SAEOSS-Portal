@@ -56,13 +56,13 @@ nav:
                         - STAC AND SANS 1876: user/guide/research/index.md
                         - Disclaimer: about/disclaimer.md
                         - License: about/license.md
-                        - "": user/guide/opening_issues.md #Should probably be visible
+                        - "": user/guide/opening-issues.md #Should probably be visible
                 - Manual: 
                         - user/manual/index.md
                         - Home Page: user/manual/home.md
                         - Dashboard Page: user/manual/dashboard.md
-                        - Profile: user/manual/profile_page.md
-                        - Profile Settings Page: user/manual/profile_settings.md
+                        - Profile: user/manual/profile-page.md
+                        - Profile Settings Page: user/manual/profile-settings.md
                         - Organisation: user/manual/organisation.md
                         - Metadata: user/manual/metadata.md
                         - Map: user/manual/map.md
@@ -92,20 +92,14 @@ nav:
                         - "": developer/guide/templates/bug-report-message-template.md
                         - "": developer/guide/templates/pull-request-template.md 
                         - "": developer/guide/templates/commit-message-convention.md
-                        # these pages need to be split into other existing docs, this is just for building
-                        - "": developer/guide/narrative.md #should be in ide-setup, cloning, and others
-                        - "": developer/guide/opening_issues.md #should be in workflows
-                        - "": developer/guide/frame_model.md #should be in architecture
-                        - "": developer/guide/framework_used.md #should be in architecture
-                        - "": developer/guide/run_instances.md #should be in building
                 - Manual: #this needs a lot of work
                         - developer/manual/index.md
+                        - Coding Conventions: developer/manual/coding-conventions.md
+                        - Project Scrum Board: developer/manual/project-scrum-board.md
                         - Assets: developer/manual/assets.md
                         - Blueprints: developer/manual/blueprints.md
                         - Command Line Interface: developer/manual/cli.md
-                        - Coding Conventions: developer/manual/coding-conventions.md
                         - Constants: developer/manual/constants.md
-                        - Contribution Guidelines: developer/manual/contribution-guidelines.md
                         - Email Notifications: developer/manual/email-notification.md
                         - Get Releases: developer/manual/get-releases.md
                         - Helpers: developer/manual/helpers.md
@@ -114,16 +108,15 @@ nav:
                         - Migration: developer/manual/migration.md
                         - Model: developer/manual/model.md
                         - Plugins: developer/manual/plugins.md
-                        - Project Scrum Board: developer/manual/project-scrum-board.md
                         - Public: developer/manual/public.md
                         - Scheming: developer/manual/scheming.md
-                        - Test Local Instance: developer/manual/test_local.md
                         - Web Server Gateway Interface: developer/manual/wsgi.md
+                        - Test Local Instance: developer/manual/test_local.md
                 - Documentation: 
                         - developer/documentation/index.md
                         - Writing: developer/documentation/writing.md
-                        - Setting up mkdocs: developer/documentation/make_docs.md
-                - API:
+                        - Setting up mkdocs: developer/documentation/make-docs.md
+                - API: # this might not be needed for this project
                         - developer/api/index.md
                         - Reference: developer/api/manual/index.md
                         - Guide: developer/api/guide/index.md

@@ -1,5 +1,3 @@
-
-
 # Project Setup
 
 ## Clone SAEOSS-Portal repository
@@ -84,6 +82,4 @@ For more information how to install docker, please visit [Install Docker Engine]
 6. After having initialized the database you can now create the first CKAN sysadmin user `docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add admin`. Answer the prompts in order to provide the details for this new user. After its successful creation you can login to the CKAN site with the admin user.
 7. In order to be able to serve the system's datasets through various OGC standards, create a DB materialized view in order to integrate with pycsw: `docker exec -ti saeoss_ckan-web_1 poetry run ckan dalrrd-emc-dcpr pycsw create-materialized-view`
 8. Rebuild solr index: `docker exec -it saeoss_ckan-web_1 poetry run ckan search-index rebuild`
-9. You can access the site on your localhost by visting [http:localhost:5000](http:localhost:5000)
-
-
+9. You can access the site on your localhost by visiting [http:localhost:5000](http:localhost:5000)
