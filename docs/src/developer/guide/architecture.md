@@ -4,16 +4,24 @@
 
 In this section, we outline the system architecture using ER Diagrams, Software Component Diagrams etc. and key libraries / frameworks used in this project.
 
-## Software Components Used
+## Frameworks Used
 
-The following is a list, with brief descriptions, of the key components used in creating this platform. Please refer to their individual documentation for in-depth technical information. ckan, postgres, docker, pycsw and harvester plugins
+The following is a list, with brief descriptions, of the key components used in creating this platform. Please refer to their individual documentation for in-depth technical information. 
 
 | Logo | Name | Notes |
 |------------|---------|----------------|
 |![CKAN](img/ckan.png){: style="height:30px"} | [CKAN](https://ckan.org/) | CKAN is an open-source DMS (data management system) for powering data hubs and data portals. CKAN makes it easy to publish, share and use data.|
+|![PostgreSQL](img/architecture-postgresql.png){: style="height:30px"} | [CKAN](https://www.postgresql.org/) | PostgreSQL is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.|
 |![pycsw](img/pycsw.png){: style="height:30px"} | [Pycsw](https://pycsw.org/) | pycsw allows for the publishing and discovery of geospatial metadata via numerous APIs (CSW 2/CSW 3, OpenSearch, OAI-PMH, SRU), providing a standards-based metadata and catalogue component of spatial data infrastructures.|
 | ![Docker](img/architecture-docker.svg){: style="height:30px"}  |  [Docker](https://docker.com) | Accelerate how you build, share, and run applications. Docker helps developers build, share, and run applications anywhere — without tedious environment configuration or management. |
+| ![Maplibre](img/maplibre-1.png){: style="height:30px"}  | [Maplibre](https://maplibre.org/) | Open-source mapping libraries for web and mobile app developers. |
 | ![ckanext-harvest](img/ckan.png){: style="height:30px"}  | [Ckanext-harvest](https://github.com/ckan/ckanext-harvest) | Remote harvesting extension for CKAN. |
+| ![Jenkins](img/architecture-jenkins-1.png){: style="height:30px"}  | [Jenkins](https://www.jenkins.io/) | It is used to continually create and test software projects, making it easier for developers and DevOps engineers to integrate changes to the project and for consumers to get a new build. |
+| ![Argo](img/architecture-argo-1.png){: style="height:30px"} | [Argo](https://www.argodevops.co.uk/) | Argo Events is an event-driven workflow automation framework and dependency manager that helps you manage Kubernetes resources, Argo Workflows, and serverless workloads on events from a variety of source. |
+# High-level architecture
+This is the high-level system architecture relating to the interaction between the applications.
+
+![High-level architecture](img/architecture-high-level-1.png)
 
 
 ## CKAN Components
