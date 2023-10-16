@@ -1,18 +1,20 @@
-![GitHub_logo](../img/GitHub_Logo.png)
+![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){: style="height:60px"}
 
 ## How to open issues on GitHub:
 
 This GitHub project repository serves as a project planning and progress tracking platform for the development teams and clients. This repository is public and for anyone to view. The repository can be accessed [here](https://github.com/kartoza/SAEOSS-Portal).
 
 ### Tickets: 
-Tickets on the [SAEOSS-Portal GitHub Project Board](https://github.com/kartoza/SAEOSS-Portal/issues) are created first as issues and converted into tickets to work on during the sprint at the SAEOSS-Portal catch-up meeting. This workflow ensures work required by the client gets done as well as allows the opportunity to clear up any doubts as to work that needs to be done. When issues are created, a clear description of what needs to happen is required as well as any accompanying screenshots or videos. If a developer has any doubt, he can simply comment on the ticket, and the creator of the ticket as well as any assigned developers will be notified via email. 
+
+Tickets on the [SAEOSS-Portal GitHub Project Board](https://github.com/kartoza/SAEOSS-Portal/issues) are created first as issues and converted into tickets to work on during the sprint at the SAEOSS-Portal catch-up meeting. This workflow ensures work required by the client gets done as well as allows the opportunity to clear up any doubts as to work that needs to be done. When issues are created, a clear description of what needs to happen is required as well as any accompanying screenshots or videos. If a developer has any doubt, he can simply comment on the ticket, and the creator of the ticket as well as any assigned developers will be notified via email.
 
 ### Creating new Github issues/tickets:
-When encountering a new issue with the platform, it is best practice to create an issue or ticket on the [SAEOSS-Portal GitHub Issues Page](https://github.com/kartoza/SAEOSS-Portal/issues). This ensures developers are made aware of the issue at hand and can work to get the problem fixed as soon as possible. 
+
+When encountering a new issue with the platform, it is best practice to create an issue or ticket on the [SAEOSS-Portal GitHub Issues Page](https://github.com/kartoza/SAEOSS-Portal/issues). This ensures developers are made aware of the issue at hand and can work to get the problem fixed as soon as possible.
 
 ### Templates:
 
-A standard workflow for creating tickets is advised to make sure enough information about the problem is related, cutting down on time developers would spend trying to understand the issue at hand. 
+A standard workflow for creating tickets is advised to make sure enough information about the problem is related, cutting down on time developers would spend trying to understand the issue at hand.
 
 To ensure this, a general approach has been created to make sure users are able to create a GitHub ticket with as much detail as possible. The following [template](../../developer/guide/templates/bug-report-message-template.md) can be copied and used to create a new ticket.
 
@@ -43,7 +45,6 @@ To report an issue, users should first access the SAEOSS-Portal [Project Page](h
 
 <!-- move below to developer or somewhere else --------------------------- -->
 
-
 <!-- 
 #### Labels
 
@@ -69,6 +70,5 @@ Each issue is sized according to its expected time to accomplish. Labels are rat
 - Size [40] - This will take a full week. 
 
 Tickets larger than SIZE 8 are usually broken down into smaller tickets/tasks to better display development progress. SIZE N/A labels are reserved for tasks which are difficult to estimate, like debugging and complex issues. 
-
 
  -->

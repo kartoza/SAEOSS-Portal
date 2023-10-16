@@ -1,5 +1,3 @@
-
-
 # Design
 <!-- 
 This section describes the visual design approach for the user interface.

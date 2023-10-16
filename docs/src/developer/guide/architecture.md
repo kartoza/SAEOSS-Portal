@@ -1,12 +1,10 @@
-
-
 # System Architecture
 
 In this section, we outline the system architecture using ER Diagrams, Software Component Diagrams etc. and key libraries / frameworks used in this project.
 
 ## Frameworks Used
 
-The following is a list, with brief descriptions, of the key components used in creating this platform. Please refer to their individual documentation for in-depth technical information. 
+The following is a list, with brief descriptions, of the key components used in creating this platform. Please refer to their individual documentation for in-depth technical information.
 
 | Logo | Name | Notes |
 |------------|---------|----------------|
@@ -19,10 +17,10 @@ The following is a list, with brief descriptions, of the key components used in 
 | ![Jenkins](img/architecture-jenkins-1.png){: style="height:30px"}  | [Jenkins](https://www.jenkins.io/) | It is used to continually create and test software projects, making it easier for developers and DevOps engineers to integrate changes to the project and for consumers to get a new build. |
 | ![Argo](img/architecture-argo-1.png){: style="height:30px"} | [Argo](https://www.argodevops.co.uk/) | Argo Events is an event-driven workflow automation framework and dependency manager that helps you manage Kubernetes resources, Argo Workflows, and serverless workloads on events from a variety of source. |
 # High-level architecture
+
 This is the high-level system architecture relating to the interaction between the applications.
 
 ![High-level architecture](img/architecture-high-level-1.png)
-
 
 ## CKAN Components
 <!-- 
@@ -48,5 +46,3 @@ The following diagram represents all of the database entities that are created b
 **Note:** *Click on the image to open an enlarged view*
 
 For more details on the relationship between the entities, constraints and higher degree of analysis of the database, please click [here](https://saeoss-portal.vercel.app/)
-
-

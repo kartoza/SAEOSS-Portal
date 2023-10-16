@@ -8,7 +8,7 @@ A standard workflow for creating tickets is advised to make sure enough informat
 
 ```
 **Title** 
-Give issue a discriptave title.
+Give issue a descriptive title.
 
 **Describe the bug**
 A clear and concise description of what the bug is.

@@ -21,7 +21,7 @@
 
 ## Common errors in containers
 
-### Datasets have dissapeared from the search page
+### Datasets have disappeared from the search page
 
 Solr index needs be rebuilt
 

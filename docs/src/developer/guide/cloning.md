@@ -1,5 +1,3 @@
-
-
 # Checking out the Code
 
 This section outlines the process of checking out the code for local development.
