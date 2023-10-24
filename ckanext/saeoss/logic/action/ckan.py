@@ -115,7 +115,6 @@ def package_update(original_action, context, data_dict):
     logger.debug(f"inside package_update action: {data_dict=}")
     data_dict['tags'] = _get_tags(data_dict)
     data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
-    logger.debug(f"last package_update action: {data_dict=}")
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 
