@@ -603,11 +603,12 @@ def _get_reference_date(package_dict: typing.Dict) -> str:
 
 
 def _get_tags(package_dict: typing.Dict) -> str:
-    iso_category = package_dict['topic_and_saeoss_themes-0-iso_topic_category']
+    iso_category = get_iso_topic_display(package_dict['topic_and_saeoss_themes-0-iso_topic_category'])
+    iso_category = iso_category.replace(', ', '-')
     # clean tag from any iso topic category
     tags = {
         tag['name'] for tag in package_dict['tags'] if
-        tag['name'] not in [cat[0] for cat in constants.ISO_TOPIC_CATEGORIES]
+        tag['name'] not in [cat[1].replace(', ', '-') for cat in constants.ISO_TOPIC_CATEGORIES]
     }
 
     # add current iso topic category to tags
