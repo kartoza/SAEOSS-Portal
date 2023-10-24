@@ -77,10 +77,6 @@ def create_stac():
             number_records = 10
             logger.info("number_records is not an integer, setting it to 10")
 
-        logger.debug(user)
-        logger.debug(url)
-        logger.debug(owner_org)
-        logger.debug(number_records)
         create_stac_dataset_func(user, url, owner_org, number_records)
                     
         return json.dumps({"message": "finished"})
