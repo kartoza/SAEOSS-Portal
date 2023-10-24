@@ -609,8 +609,6 @@ def _get_tags(package_dict: typing.Dict) -> str:
         tag['name'] for tag in package_dict['tags'] if
         tag['name'] not in [cat[0] for cat in constants.ISO_TOPIC_CATEGORIES]
     }
-    logger.debug('_get_tags')
-    logger.debug(tags)
 
     # add current iso topic category to tags
     tags.add(iso_category)
