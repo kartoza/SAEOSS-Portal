@@ -13,6 +13,8 @@ import typing
 import uuid
 from concurrent import futures
 from pathlib import Path
+import glob
+import uuid
 from xml.dom.minidom import parse
 
 # import validators
@@ -865,11 +867,16 @@ def refresh_pycsw_materialized_view(ctx, post_run_delay_seconds: int):
     "--user",
     help="user added the dataset",
 )
+@click.option(
+    "--owner-org",
+    help="organisation which the dataset belongs to",
+)
 def cbers(source_path,
           user,
-          test_only_flag=True,
+          owner_org,
+          test_only_flag=False,
           verbosity_level=2,
-          halt_on_error_flag=True,
+          halt_on_error_flag=False,
           ):
     """
         Ingest a collection of CBERS metadata folders.
@@ -926,6 +933,7 @@ def cbers(source_path,
     failed_record_count = 0
     log_message('Starting directory scan...', 2)
     list_dataset = glob.glob(os.path.join(source_path, '*.XML'))
+    log_message(f"dataset {list_dataset}")
     # workers = len(list_dataset)
     with futures.ThreadPoolExecutor(3) as executor:
         to_do = []
@@ -979,16 +987,19 @@ def cbers(source_path,
 
                 # Do the ingestion here...
 
+                dataset_name = f"sansa_{uuid.uuid4()}"
+
                 data = {
                     'title': original_product_id,
                     'owner_org': '',
+                    'lineage_statement': 'cbrs',
                     'spatial': geometry,
                     'spatial_representation_type': '007',
                     'spatial_reference_system': projection,
                     'reference': center_date_time,
                     'reference_date_type': '001',
                     'equivalent_scale': radiometric_resolution,
-                    'name': 'SANSA',
+                    'name': dataset_name,
                     'version': '1.0',
                     'radiometric_resolution': radiometric_resolution,
                     'band_count': band_count,
@@ -1004,9 +1015,9 @@ def cbers(source_path,
                     'quality': quality
                 }
                 data["id"] = data["unique_product_id"]
-                data["lineage"] = data["path"]
+                data["lineage"] = "cbrs"
                 data["notes"] = data["radiometric_resolution"]
-                data["owner_org"] = 'sample-org-1'
+                data["owner_org"] = owner_org
                 data["spatial"] = [
                 [16.4699, -34.8212],
                 [32.8931, -34.8212],
