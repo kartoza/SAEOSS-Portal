@@ -88,7 +88,7 @@ Additionally, in order for notifications to work, there is some configuration:
 This needs to be run periodically (once per hour is likely enough).
 
 ```
-docker exec -t saeoss-ckan-web-1 poetry run ckan saeoss pycsw refresh-materialized-view
+docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss pycsw refresh-materialized-view
 ```
 
 #### Create sysadmin user
