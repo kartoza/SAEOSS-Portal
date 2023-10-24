@@ -39,6 +39,14 @@ stac_harvester_table = Table(
         "number_records",
         types.UnicodeText,
     ),
+    # Column(
+    #     "processed_records",
+    #     types.Integer,
+    # ),
+    # Column(
+    #     "created_records",
+    #     types.Integer,
+    # ),
     Column(
         "status",
         types.UnicodeText,

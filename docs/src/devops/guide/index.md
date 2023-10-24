@@ -19,6 +19,16 @@
 1. Open up a terminal
 2. Run `docker restart saeoss_ckan-web_1`
 
+## Refresh pycsw materialized view
+
+*This needs to be run periodically (once per hour is likely enough).*
+
+1. Run `docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss pycsw refresh-materialized-view`
+
+## Drop pycsw materialized view
+
+1. Run `docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss pycsw drop-materialized-view`
+
 ## Common errors in containers
 
 ### Datasets have disappeared from the search page
@@ -40,13 +50,28 @@ When you encounter the following error `Can’t reconnect until invalid transact
 4. Run `docker start saeoss_ckan-web_1`
 5. Run `docker start saeoss_ckan-db_1`
 
+### Refresh mv not working
+
+Running docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss pycsw refresh-materialized-view produces error
+
+**Steps to reproduce**
+
+1. When `docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss pycsw create-materialized-view` is run and no tags are saved within a dataset, the materialized view gets created as a table instead
+2. This in turn produces sql error when trying to refresh
+
+**Solution**
+
+1. In the postgres editor run  `DROP TABLE saeoss_pycsw_view;`
+2. Add tags to datasets
+3. Run `docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss pycsw create-materialized-view`
+
 ### There is no data in pycsw
 
 1. Connect to the database hosted in container `saeoss_ckan-db_1`
-2. Check if there is a MATERIALIZED VIEW created for pycsw
-3. If there is no MATERIALIZED VIEW, run the following sql script (script location can also be found at `ckanext/saeoss/templates/pycsw/pycsw_view.sql`)
+2. RUN sql script `DROP table saeoss_pycsw_view`
+3. Run the following sql script (script location can also be found at `ckanext/saeoss/templates/pycsw/pycsw_view.sql`)
 ```
-CREATE MATERIALIZED VIEW IF NOT EXISTS pycsw_view AS
+CREATE MATERIALIZED VIEW IF NOT EXISTS saeoss_pycsw_view AS
     WITH
     cte_extras AS (
         SELECT
@@ -151,4 +176,4 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS pycsw_view AS
 WITH DATA;
 
 ``` 
-4. Run `REFRESH MATERIALIZED VIEW CONCURRENTLY pycsw_view;`
+4. Run `REFRESH MATERIALIZED VIEW CONCURRENTLY saoess_pycsw_view;`
