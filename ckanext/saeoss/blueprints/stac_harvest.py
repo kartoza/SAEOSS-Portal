@@ -101,7 +101,7 @@ def create_stac():
 
             for item in collection_items:
                 if processed > max_count:
-                    return
+                    break
                 logger.debug(f"collection_items {collection_items}")
                 data_dict = {}
                 meta_date = item.properties.get(

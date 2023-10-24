@@ -1,1 +1,2 @@
-{{ data[field.field_name]|first }}
+{% set value = h.get_iso_topic_display(data[field.field_name]) %}
+{{ value }}

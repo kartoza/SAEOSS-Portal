@@ -17,7 +17,7 @@ def package_update(next_auth, context, data_dict=None):
     or site-wide sysadmins.
 
     """
-
+    logger.debug(data_dict)
     user = context["auth_user_obj"]
     if user.sysadmin:
         final_result = next_auth(context, data_dict)
