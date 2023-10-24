@@ -1,6 +1,7 @@
 """CKAN CLI commands for the saeoss extension"""
 import datetime
 import datetime as dt
+import glob
 import inspect
 import json
 import logging
@@ -9,41 +10,31 @@ import sys
 import time
 import traceback
 import typing
+import uuid
 from concurrent import futures
 from pathlib import Path
 import glob
 import uuid
 from xml.dom.minidom import parse
-import traceback
-#import validators
+
+# import validators
 import alembic.command
 import alembic.config
 import alembic.util.exc
-import click
 import ckan
 import ckan.plugins as p
-from dateutil.parser import parse as datetime_parse
-from ckan.plugins import toolkit
+import click
 from ckan import model
 from ckan.lib.navl import dictization_functions
-from lxml import etree
-from sqlalchemy import text as sla_text
+from ckan.plugins import toolkit
 from ckanext.harvest import utils as harvest_utils
-
-from .. import provide_request_context
-
-from .. import jobs
-from ..email_notifications import get_and_send_notifications_for_all_users
+from dateutil.parser import parse as datetime_parse
+from lxml import etree
+from pystac_client import Client
+from sqlalchemy import text as sla_text
 
 from . import utils
 from ._bootstrap_data import PORTAL_PAGES, SAEOSS_ORGANIZATIONS
-from ._sample_datasets import (
-    SAMPLE_DATASET_TAG,
-    generate_sample_datasets,
-)
-from ._sample_organizations import SAMPLE_ORGANIZATIONS
-from ._sample_users import SAMPLE_USERS
-import xml.dom.minidom as dom
 from ._cbers import (
     get_geometry,
     get_radiometric_resolution,
@@ -59,10 +50,15 @@ from ._cbers import (
     get_spatial_resolution_x,
     get_spatial_resolution_y
 )
-
-from pystac_client import Client
-
-
+from ._sample_datasets import (
+    SAMPLE_DATASET_TAG,
+    generate_sample_datasets,
+)
+from ._sample_organizations import SAMPLE_ORGANIZATIONS
+from ._sample_users import SAMPLE_USERS
+from .. import jobs
+from .. import provide_request_context
+from ..email_notifications import get_and_send_notifications_for_all_users
 
 logger = logging.getLogger(__name__)
 _xml_parser = etree.XMLParser(resolve_entities=False)
@@ -1075,39 +1071,23 @@ def cbers(source_path,
     print('Products failed to import : %s ' % failed_record_count)
     print('===============================')
 
-@stac.command()
-@click.option(
-    "--url",
-    help="url of the catalogue",
-)
-@click.option(
-    "--org",
-    help="organisation to save dataset to",
-)
-@click.option(
-    "--user",
-    help="auhtorized user name to create the dataset",
-)
-@click.option(
-    "--max-count",
-    help="maximum number of stac items to create datasets from",
-)
-def create_stac_dataset(user: str, url: str, org: str, max_count : int=10):
+
+def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records: int = 10):
     """
     fetch data from a valid stac catalog
     and create datasets out of stack items
-    
+
     :param user: authorized user name to create the dataset
     :type user: str
-    
+
     :param url: url of the catalogue
     :type url: str
 
-    :param org: Organization where the dataset will belong
-    :type org: str
+    :param owner_org: Organization where the dataset will belong
+    :type owner_org: str
 
-    :param max_count: Maximum number of created dataset from STAC items
-    :type max_count: int
+    :param number_records: Maximum number of created dataset from STAC items
+    :type number_records: int
 
     todo:
     1. enchance the resources preview
@@ -1118,19 +1098,26 @@ def create_stac_dataset(user: str, url: str, org: str, max_count : int=10):
     stac_collections = list(catalog.get_collections())
 
     try:
-        max_count = int(max_count)
+        number_records = int(number_records)
     except:
-        max_count = 10
-        logger.info("max_count is not an integer, setting it to 10")
+        number_records = 10
+        logger.info("number_records is not an integer, setting it to 10")
 
     created = 0
     processed = 0
+
+    stac_harvester_id = uuid.uuid4()
+    owner_org = owner_org
+    q = f""" insert into stac_harvester values('{stac_harvester_id}', '{user}', '{owner_org}', '{url}', '{number_records}', 'running', '', '{datetime.datetime.now()}') """
+    model.Session.execute(q)
+    model.Session.commit()
+
     for collection in stac_collections:
         collection_items = collection.get_items()
 
         for item in collection_items:
-            if processed > max_count:
-                return
+            if processed > number_records:
+                break
             logger.debug(f"collection_items {collection_items}")
             data_dict = {}
             meta_date = item.properties.get(
@@ -1153,7 +1140,7 @@ def create_stac_dataset(user: str, url: str, org: str, max_count : int=10):
             data_dict["dataset_reference_date-0-reference"] = meta_date
             data_dict["dataset_reference_date-0-reference_date_type"] = "1"
             data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
-            data_dict["owner_org"] = org
+            data_dict["owner_org"] = owner_org
             data_dict["lineage_statement"] = "lineage statement"
             data_dict["private"] = False
             data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
@@ -1168,6 +1155,7 @@ def create_stac_dataset(user: str, url: str, org: str, max_count : int=10):
             data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
             data_dict["spatial_parameters-0-spatial_reference_system"] = "EPSG:3456"
             data_dict["metadata_date"] = meta_date
+            data_dict["tag_string"] = "general"
             data_dict["resources"] = []
             if data_dict.get('dataset_reference_date', None):
                 del data_dict['dataset_reference_date']
@@ -1198,3 +1186,30 @@ def create_stac_dataset(user: str, url: str, org: str, max_count : int=10):
                 if str(future.result()) != 'DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS':
                     created += 1
                 processed += 1
+
+    _q = f""" update stac_harvester set message = 'finished', status = 'finished' WHERE harvester_id = '{stac_harvester_id}' """
+    _result = model.Session.execute(_q)
+    model.Session.commit()
+    logger.debug('STAC dataset creation finished')
+    logger.debug(f'{created} records created')
+
+
+@stac.command()
+@click.option(
+    "--url",
+    help="url of the catalogue",
+)
+@click.option(
+    "--owner-org",
+    help="organisation to save dataset to",
+)
+@click.option(
+    "--user",
+    help="auhtorized user name to create the dataset",
+)
+@click.option(
+    "--number-records",
+    help="maximum number of stac items to create datasets from",
+)
+def create_stac_dataset(user: str, url: str, owner_org: str, number_records: int = 10):
+    create_stac_dataset_func(user, url, owner_org, number_records)
