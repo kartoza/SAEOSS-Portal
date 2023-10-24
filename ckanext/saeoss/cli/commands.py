@@ -1100,8 +1100,6 @@ def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records
     q = f""" insert into stac_harvester values('{stac_harvester_id}', '{user}', '{owner_org}', '{url}', '{number_records}', 'running', '', '{datetime.datetime.now()}') """
     model.Session.execute(q)
     model.Session.commit()
-    logger.debug(stac_harvester_id)
-
 
     for collection in stac_collections:
         collection_items = collection.get_items()
