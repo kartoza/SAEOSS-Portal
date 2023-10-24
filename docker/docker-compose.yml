@@ -65,7 +65,8 @@ services:
   solr:
     build: https://github.com/kartoza/kartoza_ckan_solr.git#main
     ports:
-      - 8983:8983
+      - target: 8983
+        published: 18983
     volumes:
       - type: bind
         source: $PWD/solr/schema.xml

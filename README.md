@@ -88,7 +88,7 @@ Additionally, in order for notifications to work, there is some configuration:
 This needs to be run periodically (once per hour is likely enough).
 
 ```
-docker exec -t ckan dalrrd-emc-dcpr pycsw refresh-materialized-view
+docker exec -t saeoss-ckan-web-1 poetry run ckan saeoss pycsw refresh-materialized-view
 ```
 
 #### Create sysadmin user
@@ -149,14 +149,14 @@ create datasets (metadata records) from files stored in a directory
 ```bash
 docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss ingest cbers --source-path <path> --user <username>
 ```
-
+m
 
 #### Perform STAC Fetch and create datasets from STAC endpoint  
 
 create datasets (metadata records) from stac endpoint
 
 ```bash
-docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --max <max_number_of_records> --org <organisation_name>
+docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --number-records <number_records> --owner-org <organisation_name>
 ```
 
 
