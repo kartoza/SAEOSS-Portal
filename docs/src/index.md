@@ -1,7 +1,7 @@
 # SAEOSS-Portal
 <!-- This is the Home Page, replace all of the titles with relevant titles -->
 
-The SAEOSS-Portal has been proposed as a system of software components functioning together as the national central earth observation geospatial repository, with a view to metadata and open geospatial API standards compliance as well as user impact maximisation.
+The SAEOSS-Portal has been proposed as a system of software components functioning together as the national central earth observation geospatial repository, with a view to metadata and open geospatial API standards compliance as well as user impact maximization.
 <!-- replace with one line product description -->
 
 ![main_screenshot](./img/Main_screenshot.png) <!-- change path to main screenshot, InaSAFE is a good reference -->
@@ -14,7 +14,7 @@ The SAEOSS-Portal has been proposed as a system of software components functioni
 
 ### Purpose
 
-The SAEOSS-Portal is designed to be a robust, informations sharing platform with the aim of promoting information sharing from various organisations related to the research conducted by the South-African National Space Agency as well as the South-African Environmental Observation Network and other supporting organisations.
+The SAEOSS-Portal is designed to be a robust, information sharing platform with the aim of promoting information sharing from various organizations related to the research conducted by the South-African National Space Agency as well as the South-African Environmental Observation Network and other supporting organizations.
 
 <!-- ### Project Roadmap -->
 <!-- ![Project Roadmap]() -->
@@ -47,9 +47,9 @@ them into our community.
 
 ## Project Partners
 
-Through a joint effort by SANSA (south-African National Space Agency) and SAEON (South-African Environmental Observation Network) the SAEOSS-Portal platform was conceptualised and developed by [Kartoza](https://www.kartoza.com/).
+By partnering up with SANSA (SOuth african National Space Agency), SAEON (South-African Environmental Observation Network) and The Department of Science & Innovation, joint interests sparked the conceptualization of the SAEOSS-portal platform. 
 
-[<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/SANSA_Logo.png" alt= “” width="50%" height="auto">](https://www.sansa.org.za/)[<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/SAEONN_Logo.png" alt= “” width="50%" height="auto">](https://www.saeon.ac.za/)
+[<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/SANSA_Logo.png" alt= “” width="30%" height="auto">](https://www.sansa.org.za/)[<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/SAEONN_Logo.png" alt= “” width="30%" height="auto">](https://www.saeon.ac.za/)[<img src="[./img/DSI_logo.png](https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/DSI_Logo.png)" alt= “” width="40%" height="auto">](https://www.dst.gov.za)
 <!-- Insert Project Partner Logos and/or Links -->
 
 <!-- #### Releases -->
@@ -87,4 +87,7 @@ This platform was released under the GNU Affero license. Please take a moment to
 <!-- Link to project license in about page -->
 
 <!-- Keep the Kartoza Logo at the bottom of the page if the project allows -->
+
+## Kartoza
+The SAEOSS-Portal platform has been developed by [Kartoza](https://www.kartoza.com/), leaders in GIS and Geospatial technology and innovation. 
 [![Kartoza Logo](https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/62086df2ad0009ce393ee9a616dd36afe6781b7e/docs/src/img/logo.svg)](https://kartoza.com/)
