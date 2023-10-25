@@ -1392,3 +1392,11 @@ select[id$="field-dataset_custodian"]{
 .tooltip-inner {
     text-align: left;
 }
+
+#resource-edit .display {
+  display: block;
+}
+
+#resource-edit .hidden {
+  display: none;
+}
