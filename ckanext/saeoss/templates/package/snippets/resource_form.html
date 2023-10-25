@@ -17,18 +17,32 @@
 
   <input name="id" value="{{ data.id }}" type="hidden"/>
   {% if 'edit' not in action %}
-  
+
+  <div class="form-group">
+      <label>Upload Mode</label>
+      <select class="form-control" name="upload_mode" id="upload_mode">
+          <option value="single" selected>Single</option>
+          <option value="multiple">Multiple</option>
+      </select>
+  </div>
+
   <div class="form-group">
     <label>Type of upload</label>
-    <select class="form-control" name="resource_type" id="resource_type"> 
+    <select class="form-control" name="resource_type" id="resource_type">
       <option value="stac" selected>STAC</option>
       <option value="other">Other</option>
     </select>
   </div>
 
+  <div class="form-group">
+    <label>File</label>
+    <input id="field-upload-multiple" type="file" name="upload" value="" placeholder="" class="form-control"
+           multiple="" title="Upload a file on your computer">
+  </div>
+
   <div class="form-group" id="stac_specification">
     <label>Select STAC Specification</label>
-    <select class="form-control" name="stac_specification" > 
+    <select class="form-control" name="stac_specification" >
       <option value="catalog">Catalog</option>
       <option value="collection">Collection</option>
       <option value="item" selected>Item</option>
@@ -36,7 +50,7 @@
   </div>
 
   {% endif %}
-  
+
   {% if 'edit' in action %}
   {% if data.resource_type != 'other' and data.url_type == 'upload' %}
   <label>Edit File Contents</label>
@@ -51,12 +65,13 @@
       {% set is_upload = (data.url_type == 'upload') %}
       {{ form.image_upload(data, errors, field_url='url', field_upload='upload', field_clear='clear_upload',
          is_upload_enabled=h.uploads_enabled(), is_url=data.url and not is_upload, is_upload=is_upload,
-         upload_label=_('Data'), url_label=_('URL'), placeholder=_('http://example.com/external-data.csv'), field_name='name') }}
+         upload_label=_('Data'), url_label=_('URL'), placeholder=_('http://example.com/external-data.csv'),
+         field_name='name') }}
     {% endblock %}
 
     {% block basic_fields_name %}
       {{ form.input('name', id='field-name', label=_('Name'), placeholder=_('eg. January 2011 Gold Prices'), value=data.name, error=errors.name, classes=['control-full']) }}
-      
+
     {% endblock %}
 
     {% block basic_fields_description %}
@@ -129,6 +144,30 @@
   {% if 'edit' in action and data.resource_type != 'other' and data.url_type == 'upload' %}
   document.getElementsByClassName('image-upload')[0].style.display = "none"
   {% endif %}
+
+  document.getElementById("upload_mode").onchange = function(){
+    var value = document.getElementById("upload_mode").value;
+    if(value == "single"){
+      var formGroups = document.querySelectorAll(".form-group");
+      for (var i = 0; i < formGroups.length; i++) {
+        formGroups[i].classList.add("display")
+        formGroups[i].classList.remove("hidden")
+      }
+      document.getElementById('field-upload-multiple').parentElement.classList.add("hidden")
+      document.getElementById('field-upload-multiple').parentElement.classList.remove("display")
+    } else {
+        var formGroups = document.querySelectorAll(".form-group");
+      for (var i = 0; i < formGroups.length; i++) {
+        formGroups[i].classList.add("hidden")
+        formGroups[i].classList.remove("display")
+        console.log(formGroups[i].classList)
+      }
+      document.getElementById('upload_mode').parentElement.classList.add("display")
+      document.getElementById('upload_mode').parentElement.classList.remove("hidden")
+      document.getElementById('field-upload-multiple').parentElement.classList.add("display")
+      document.getElementById('field-upload-multiple').parentElement.classList.remove("hidden")
+    }
+  };
 
   document.getElementById("resource_type").onchange = function(){
     var value = document.getElementById("resource_type").value;
