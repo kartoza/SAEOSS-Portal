@@ -1,7 +1,7 @@
 ###### Previous: [Introduction](./index.md)
 
 # Home Page
-When first accessing the SAEOSS-Portal, the home page is displayed. From the home page, users are able to [create an account](), [login](), or view metadata.
+When first accessing the SAEOSS-Portal, the home page is displayed. From the home page, users are able to [create an account](../guide/registering.md), [login](), or view metadata.
 
 Users are able to view any public metadata on the platform without the need to log in. Without an account, users are not able to be affiliated with any organization or group and will not be able to see any private data of that group or receive any notifications from the platform. 
 

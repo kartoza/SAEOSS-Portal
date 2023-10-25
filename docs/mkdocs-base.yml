@@ -54,7 +54,7 @@ nav:
                         - Registering: user/guide/registering.md
                         - Functionality: user/guide/functionality/index.md
                         - Profile settings: user/guide/profile_management.md
-                        - Organization Management: user/guide/on_owned_profile_management.md
+                        - Organization Management: user/guide/no_owned_profile_management.md
                         - Search Metadata: user/guide/search_metadata.md
                         - Upload Metadata: user/guide/create_metadata.md
                         - Edit Metadata: user/guide/edit_metadata.md
@@ -67,12 +67,12 @@ nav:
                         - Dashboard Page: user/manual/dashboard.md
                         - Profile: user/manual/profile-page.md
                         - Profile Settings Page: user/manual/profile-settings.md
-                        - Organization: user/manual/organization.md
+                        - Organisation: user/manual/organisation.md
                         - Metadata: user/manual/metadata.md
                         - Map: user/manual/map.md
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
-                        - User Roles: user/manual/user_roles/index.md
+                        - User Roles: user/manual/user-roles.md
                 - Metadata Standard: user/guide/research/index.md
         - Administrators:
                 - administrator/index.md
