@@ -34,10 +34,12 @@
     </select>
   </div>
 
-  <div class="form-group">
+  <div class="form-group hidden">
     <label>File</label>
-    <input id="field-upload-multiple" type="file" name="upload" value="" placeholder="" class="form-control"
-           multiple="" title="Upload a file on your computer">
+    <input id="field-upload-multiple" type="file" name="upload-multiple" value=""
+           placeholder="" class="form-control" multiple="" title="Upload a file on your computer"
+           disabled="true"
+    >
   </div>
 
   <div class="form-group" id="stac_specification">
@@ -145,27 +147,32 @@
   document.getElementsByClassName('image-upload')[0].style.display = "none"
   {% endif %}
 
+  const uploadMultipleEl = document.getElementById('field-upload-multiple');
+  const uploadModeEl = document.getElementById('upload_mode');
+
   document.getElementById("upload_mode").onchange = function(){
     var value = document.getElementById("upload_mode").value;
+
     if(value == "single"){
       var formGroups = document.querySelectorAll(".form-group");
       for (var i = 0; i < formGroups.length; i++) {
         formGroups[i].classList.add("display")
         formGroups[i].classList.remove("hidden")
       }
-      document.getElementById('field-upload-multiple').parentElement.classList.add("hidden")
-      document.getElementById('field-upload-multiple').parentElement.classList.remove("display")
+      uploadMultipleEl.parentElement.classList.add('hidden');
+      uploadMultipleEl.parentElement.classList.remove('display');
+      uploadMultipleEl.setAttribute('disabled', 'true');
     } else {
         var formGroups = document.querySelectorAll(".form-group");
       for (var i = 0; i < formGroups.length; i++) {
         formGroups[i].classList.add("hidden")
         formGroups[i].classList.remove("display")
-        console.log(formGroups[i].classList)
       }
-      document.getElementById('upload_mode').parentElement.classList.add("display")
-      document.getElementById('upload_mode').parentElement.classList.remove("hidden")
-      document.getElementById('field-upload-multiple').parentElement.classList.add("display")
-      document.getElementById('field-upload-multiple').parentElement.classList.remove("hidden")
+      uploadModeEl.parentElement.classList.add("display");
+      uploadModeEl.parentElement.classList.remove("hidden");
+      uploadMultipleEl.parentElement.classList.add("display");
+      uploadMultipleEl.parentElement.classList.remove("hidden");
+      uploadMultipleEl.removeAttribute('disabled');
     }
   };
 
@@ -178,4 +185,44 @@
       document.getElementById('stac_specification').style.display = "none"
     }
   };
+
+  let loginForm = document.getElementById("resource-edit");
+
+  const btnSaveList = document.querySelectorAll('button[name=save]');
+  for (var i = 0; i < btnSaveList.length; i++) {
+    btnSaveList[i].addEventListener("click", (event) => {
+      const isMultiple = document.getElementById('upload_mode').value === 'multiple';
+      event.preventDefault();
+      console.log(isMultiple)
+      if (isMultiple) {
+          event.preventDefault();
+          const saveValue = event.target.value;
+          const formData = new FormData(loginForm);
+          formData.set('save', saveValue);
+          formData.set('resource_type', 'other');
+          console.log(formData);
+
+          console.log(uploadMultipleEl.files);
+          let requestList = []
+            for (var i = 0; i < uploadMultipleEl.files.length; i++) {
+              formData.delete('upload-multiple');
+                formData.set('upload', uploadMultipleEl.files[i]);
+                requestList.push(fetch(window.location));
+            }
+        Promise.all(requestList).then(() => {
+            if (saveValue === 'again') {
+              window.location = window.location;
+            } else {
+              window.location =
+            }
+          });
+//          fetch(window.location, {
+//            method: 'POST',
+//            body: data
+//          }).then(res => console.log(res));
+          // handle submit
+      }
+    })
+  }
+
 </script>

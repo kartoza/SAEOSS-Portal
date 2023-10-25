@@ -177,9 +177,7 @@ dataset_fields:
       choices_helper: iso_topic_categories
       validators: >-
         ignore_missing
-        convert_to_tags(iso_topic_categories)
       output_validators: >-
-        convert_from_tags(iso_topic_categories)
         ignore_missing
       form_snippet: "vocab_select.html"
       display_snippet: "vocab_tag_display.html"

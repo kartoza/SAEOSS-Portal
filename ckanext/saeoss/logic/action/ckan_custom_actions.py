@@ -70,80 +70,80 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
 
     logger.debug(upload)
 
-    # if upload:
-    #     if data_dict["resource_type"] == "stac":
-    #
-    #         allowed_types = ["application/json", "application/xml", "application/x-yaml"]
-    #
-    #         if 'https' not in data_dict['url'] or 'http' not in data_dict['url']:
-    #
-    #             if upload.mimetype is None:
-    #                 if 'yaml' in data_dict['url']:
-    #                     upload.mimetype = 'application/x-yaml'
-    #                 if 'xml' in data_dict['url']:
-    #                     upload.mimetype = 'application/xml'
-    #
-    #             if upload.mimetype not in allowed_types:
-    #                 raise ValidationError(["Only json, yaml and xml files are allowed"])
-    #
-    #             temp_file = upload.upload_file
-    #             file_contents = temp_file.read()
-    #
-    #             if upload.mimetype == "application/json":
-    #                 json_data = json.loads(file_contents)
-    #
-    #             if upload.mimetype == "application/x-yaml":
-    #                 json_data = yaml.load(file_contents)
-    #
-    #             if upload.mimetype == "application/xml":
-    #                 json_data = xmltodict.parse(file_contents)
-    #
-    #         else:
-    #             response = urlopen(data_dict['url'])
-    #             json_data = json.loads(response.read())
-    #
-    #         logger.debug(f"stac_spec {data_dict['stac_specification']}")
-    #
-    #         stac_validator(json_data, data_dict["stac_specification"])
+    if upload:
+        if data_dict["resource_type"] == "stac":
 
-    # pkg_dict['resources'].append(data_dict)
-    #
-    # try:
-    #     context['defer_commit'] = True
-    #     context['use_cache'] = False
-    #     _get_action('package_update')(context, pkg_dict)
-    #     context.pop('defer_commit')
-    # except ValidationError as e:
-    #     try:
-    #         raise ValidationError(e.error_dict['resources'][-1])
-    #     except (KeyError, IndexError):
-    #         raise ValidationError(e.error_dict)
-    #
-    # # Get out resource_id resource from model as it will not appear in
-    # # package_show until after commit
-    # upload.upload(context['package'].resources[-1].id,
-    #               uploader.get_max_resource_size())
-    #
-    # model.repo.commit()
-    #
-    # #  Run package show again to get out actual last_resource
-    # updated_pkg_dict = _get_action('package_show')(context, {'id': package_id})
-    # resource = updated_pkg_dict['resources'][-1]
-    #
-    # #  Add the default views to the new resource
-    # logic.get_action('resource_create_default_resource_views')(
-    #     {'model': context['model'],
-    #      'user': context['user'],
-    #      'ignore_auth': True
-    #      },
-    #     {'resource': resource,
-    #      'package': updated_pkg_dict
-    #      })
-    #
-    # for plugin in plugins.PluginImplementations(plugins.IResourceController):
-    #     plugin.after_create(context, resource)
-    #
-    # return resource
+            allowed_types = ["application/json", "application/xml", "application/x-yaml"]
+
+            if 'https' not in data_dict['url'] or 'http' not in data_dict['url']:
+
+                if upload.mimetype is None:
+                    if 'yaml' in data_dict['url']:
+                        upload.mimetype = 'application/x-yaml'
+                    if 'xml' in data_dict['url']:
+                        upload.mimetype = 'application/xml'
+
+                if upload.mimetype not in allowed_types:
+                    raise ValidationError(["Only json, yaml and xml files are allowed"])
+
+                temp_file = upload.upload_file
+                file_contents = temp_file.read()
+
+                if upload.mimetype == "application/json":
+                    json_data = json.loads(file_contents)
+
+                if upload.mimetype == "application/x-yaml":
+                    json_data = yaml.load(file_contents)
+
+                if upload.mimetype == "application/xml":
+                    json_data = xmltodict.parse(file_contents)
+
+            else:
+                response = urlopen(data_dict['url'])
+                json_data = json.loads(response.read())
+
+            logger.debug(f"stac_spec {data_dict['stac_specification']}")
+
+            stac_validator(json_data, data_dict["stac_specification"])
+
+    pkg_dict['resources'].append(data_dict)
+
+    try:
+        context['defer_commit'] = True
+        context['use_cache'] = False
+        _get_action('package_update')(context, pkg_dict)
+        context.pop('defer_commit')
+    except ValidationError as e:
+        try:
+            raise ValidationError(e.error_dict['resources'][-1])
+        except (KeyError, IndexError):
+            raise ValidationError(e.error_dict)
+
+    # Get out resource_id resource from model as it will not appear in
+    # package_show until after commit
+    upload.upload(context['package'].resources[-1].id,
+                  uploader.get_max_resource_size())
+
+    model.repo.commit()
+
+    #  Run package show again to get out actual last_resource
+    updated_pkg_dict = _get_action('package_show')(context, {'id': package_id})
+    resource = updated_pkg_dict['resources'][-1]
+
+    #  Add the default views to the new resource
+    logic.get_action('resource_create_default_resource_views')(
+        {'model': context['model'],
+         'user': context['user'],
+         'ignore_auth': True
+         },
+        {'resource': resource,
+         'package': updated_pkg_dict
+         })
+
+    for plugin in plugins.PluginImplementations(plugins.IResourceController):
+        plugin.after_create(context, resource)
+
+    return resource
 
 
 @toolkit.chained_action
