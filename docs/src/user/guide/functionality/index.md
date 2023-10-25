@@ -1,9 +1,9 @@
+<!-- ``` 
 # Functionality
 
 ### Managing your profile
 
-<b> Applicable roles</b>: All
-Users are able to update their profile details.
+**Applicable roles:** All users are able to update their profile details.
 
 To manage your account details, log in as normal, and you will be redirected to your dashboard. On this page, you will be able to view your activity and navigate to view the metadata you have created, organisations that you follow and groups that you are a member of. On the right-hand side of this page, you will see a green button, ‘Profile Settings’. Select this button to edit your account details.
 
@@ -189,3 +189,5 @@ The xml file should look something like this:
 #### Edit metadata record using system UI
 
 Navigate to the record you want to edit and select 'manage'
+```
+-->

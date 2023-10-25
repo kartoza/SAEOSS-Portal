@@ -1,4 +1,4 @@
-# Registering
+# Create an Account
 
 In order to register on the site, navigate to 'sign up' on the top right hand corner of the page.
 

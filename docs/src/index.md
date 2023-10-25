@@ -47,7 +47,7 @@ them into our community.
 
 ## Project Partners
 
-By partnering up with SANSA (SOuth african National Space Agency), SAEON (South-African Environmental Observation Network) and The Department of Science & Innovation, joint interests sparked the conceptualization of the SAEOSS-portal platform. 
+By partnering up with SANSA (South african National Space Agency), SAEON (South-African Environmental Observation Network) and The Department of Science & Innovation, joint interests sparked the conceptualization of the SAEOSS-portal platform. 
 
 [<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/SANSA_Logo.png" alt= “” width="30%" height="auto">](https://www.sansa.org.za/)[<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/SAEONN_Logo.png" alt= “” width="30%" height="auto">](https://www.saeon.ac.za/)[<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/DSI_logo.png" alt= “” width="40%" height="auto">](https://www.dst.gov.za)
 
