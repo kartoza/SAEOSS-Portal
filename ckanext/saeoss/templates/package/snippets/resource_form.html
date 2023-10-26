@@ -157,7 +157,6 @@
   {% endif %}
 
   const uploadMultipleEl = document.getElementById('field-upload-multiple');
-  const uploadEl = document.getElementById('field-image-upload');
   const uploadModeEl = document.getElementById('upload_mode');
 
   document.getElementById("upload_mode").onchange = function () {
@@ -172,7 +171,7 @@
       uploadMultipleEl.parentElement.classList.add('hidden');
       uploadMultipleEl.parentElement.classList.remove('display');
       uploadMultipleEl.setAttribute('disabled', 'true');
-      uploadEl.removeAttribute('disabled');
+      uploadMultipleEl.value = '';
     } else {
       var formGroups = document.querySelectorAll(".form-group");
       for (var i = 0; i < formGroups.length; i++) {
@@ -184,7 +183,7 @@
       uploadMultipleEl.parentElement.classList.add("display");
       uploadMultipleEl.parentElement.classList.remove("hidden");
       uploadMultipleEl.removeAttribute('disabled');
-      uploadEl.setAttribute('disabled', 'true');
+      document.getElementById('field-image-upload').value = '';
     }
   };
 
@@ -203,43 +202,36 @@
   for (var i = 0; i < btnSaveList.length; i++) {
     btnSaveList[i].addEventListener("click", (event) => {
       const isMultiple = document.getElementById('upload_mode').value === 'multiple';
-      event.preventDefault();
       if (isMultiple) {
+        event.preventDefault();
         document.getElementById('resource_type').value = 'other'
         const saveValue = event.target.value;
         const formData = new FormData(loginForm);
         const files = uploadMultipleEl.files;
         formData.set('save', saveValue);
-        {#formData.set('resource_type', 'other');#}
-        if (files.length > 1) {
-          let requestList = []
-          for (var i = 0; i < files.length - 1; i++) {
-            formData.delete('upload-multiple');
-            formData.set('upload', files[i]);
-            formData.set('name', files[i].name);
-            requestList.push(
-              fetch(
-                window.location,
-                {
-                  method: 'POST',
-                  body: formData
-                }
-              )
-            );
-          }
-          Promise.all(requestList).then(() => {
-            uploadEl.removeAttribute('disabled');
-            uploadMultipleEl.setAttribute('disabled', 'true');
-            console.log(files)
-            {#uploadEl.value = ''#}
-            uploadEl.value = document.getElementById('field-upload-multiple').files[uploadMultipleEl.files.length - 1].name
-            uploadMultipleEl.value = ''
-            uploadModeEl.value = 'single'
-            const a = new FormData(loginForm);
-            console.log(a);
-            {#event.target.click()#}
-          });
+        formData.set('resource_type', 'other');
+        let requestList = []
+        for (var i = 0; i < files.length; i++) {
+          formData.delete('upload-multiple');
+          formData.set('upload', files[i]);
+          formData.set('name', files[i].name);
+          requestList.push(
+            fetch(
+              window.location,
+              {
+                method: 'POST',
+                body: formData
+              }
+            )
+          );
         }
+        Promise.all(requestList).then(() => {
+          if (saveValue === 'again') {
+            window.location.href = window.location
+          } else {
+            window.location.href = `${window.location.origin}/dataset/{{ pkg_name }}`
+          }
+        });
       }
     })
   }
