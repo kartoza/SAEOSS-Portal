@@ -12,6 +12,7 @@ edit_uri: "https://github.com/kartoza/SAEOSS-Portal/blob/main/docs/"
 copyright: Kartoza and Contributors
 
 markdown_extensions:
+        - attr_list
         - pymdownx.highlight:
                   anchor_linenums: true
         - pymdownx.inlinehilite
@@ -55,7 +56,15 @@ nav:
                 - Manual: 
                         - user/manual/index.md
                         - Home Page: user/manual/home.md
-                        - Administrator Page: user/manual/administrator-page.md
+                        - Dashboard Page: user/manual/dashboard.md
+                        - Profile: user/manual/profile_page.md
+                        - Profile Settings Page: user/manual/profile_settings.md
+                        - Organisation: users/manual/organisasion.md
+                        - Metadata: user/manual/metadata.md
+                        - Map: user/manual/map.md
+                        - About: user/manual/about.md
+                        - Help: user/manual/help.md
+                        - "": user/manual/opening_issues.md
         - Administrators:
                 - administrator/index.md
                 - Guide:
@@ -80,6 +89,8 @@ nav:
                         - "": developer/guide/templates/bug-report-message-template.md
                         - "": developer/guide/templates/pull-request-template.md 
                         - "": developer/guide/templates/commit-message-convention.md
+                - Manual: developer/manual/index.md
+                - Documentation Writing: developer/documentation/index.md
                 - Manual:
                   - developer/manual/index.md
                   - assets: developer/manual/assets.md

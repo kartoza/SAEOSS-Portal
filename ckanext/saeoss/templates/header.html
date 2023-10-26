@@ -138,7 +138,7 @@
         {% block header_account_notlogged %}
         <li data-testid="nav_login">{% link_for _('LOG IN'), named_route='user.login' %}</li>
         {% if h.check_access('user_create') %}
-        <li style="margin-top:5px" class="blue-btn">{% link_for _('SIGN UP'), named_route='user.register', class_='sub sign-up-btn' %}</li>
+        <li class="no-hover">{% link_for _('SIGN UP'), named_route='user.register', class_='blue-btn' %}</li>
         {% endif %} {% endblock %}
         {% endif %}
       </ul>
