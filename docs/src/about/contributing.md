@@ -1,6 +1,5 @@
-
-
 # Contributing to SAEOSS-Portal
+
 First off, thanks for taking the time to contribute! 🎉 😘 ✨
 
 The following is a set of guidelines for contributing to this project.
@@ -8,6 +7,7 @@ These are mostly guidelines, not rules. Use your best judgment, and
 feel free to propose changes to this document in a pull request.
 
 ## Reporting Bugs
+
 Bugs are tracked as GitHub issues. Search the list and try reproduce on your
 local machine with a clean profile before you create an issue. 
 When you create an issue, please provide the following information by filling
@@ -68,33 +68,38 @@ through these `document`, `good first issue` and `help wanted` issues:
 ## Pull Requests
 
 ### Development workFlow
-- Set up your development environment
-- Make change from a right branch
-- Be sure the code passes tests
-- Make a pull request
+
+* Set up your development environment
+* Make change from a right branch
+* Be sure the code passes tests
+* Make a pull request
 
 ### Development environment
 
-- Prepare your machine and it's packages installed.
-- Checkout our repository
-- Install dependencies by `pip install -r REQUIREMENTS-dev.txt`
-
+* Prepare your machine and it's packages installed.
+* Checkout our repository
+* Install dependencies by `pip install -r REQUIREMENTS-dev.txt`
 
 ### Make changes
+
 #### Checkout a branch
-- **master**: PR Base branch.
-- **production**: lastest release branch with distribution files. Never make a PR on this.
-- **gh-pages**: API docs, examples and demo
+
+* **master**: PR Base branch.
+* **production**: latest release branch with distribution files. Never make a PR on this.
+* **gh-pages**: API docs, examples and demo
 
 #### Check Code Style
+
 Run the pylance extension and make sure all the tests pass.
 
 #### Test
+
 Run `TODO` and verify all the tests pass.
 If you are adding new commands or features, they must include tests.
 If you are changing functionality, update the tests if you need to.
 
 #### Commit
+
 Follow our [commit message conventions](../developer/guide/templates/commit-message-convention.md).
 
 ### Yes! Pull request
@@ -102,12 +107,14 @@ Follow our [commit message conventions](../developer/guide/templates/commit-mess
 Make your pull request, then describe your changes.
 
 #### Title
+
 Follow other PR title format on below.
 ```
     <Type>: Short Description (fix #111)
     <Type>: Short Description (fix #123, #111, #122)
     <Type>: Short Description (ref #111)
 ```
+
 * capitalize first letter of Type
 * use present tense: 'change' not 'changed' or 'changes'
 

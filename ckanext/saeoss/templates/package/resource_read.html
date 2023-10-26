@@ -111,16 +111,11 @@
             {% if not res.description and package.notes %}
               <h3>{{ _('Dataset description:') }}</h3>
               <blockquote>{{ h.markdown_extract(h.get_translated(package, 'notes')) }}</blockquote>
-              {% if res.resource_type != 'other' %}
+              
               <div style="height: 500px;position: relative;">
                 <div class="map" id="map" >
                 </div>
               </div>
-              <!-- <div style="padding: 20px;max-height: 500px;overflow-y: scroll;">
-                <div id="_featuresDescription" style="padding: 20px;"></div>
-                <table id="demoTable" class="table" ></table>
-              </div> -->
-              {% endif %}
               <p>{% trans dataset=package.title, url=h.url_for(package.type ~ '.read', id=package.id if is_activity_archive else package.name) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
           </div>

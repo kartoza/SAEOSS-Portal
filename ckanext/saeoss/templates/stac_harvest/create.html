@@ -1,0 +1,70 @@
+{% extends 'page.html' %}
+
+{% block subtitle %}STAC{% endblock %}
+{% set organizations_available = h.organizations_available('create_dataset') %}
+{% set user_is_sysadmin = h.check_access('sysadmin') %}
+{% set show_organizations_selector = organizations_available and (user_is_sysadmin ) %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    {% asset "ckanext-saeoss/stac-harvester-js" %}
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content %}
+    
+<div class="container ">
+    <br><br>
+    <div class="secondary-inner">
+        <a href="{{ h.url_for('stac_harvest.view') }}" class="btn btn-primary" style="float: right;" title="{{ _('STAC Harvester') }}">View Jobs</a>
+        <h3>STAC Harvester</h3>
+
+        <p>Create datasets (metadata records) from a STAC endpoint</p>
+        
+        <div>
+            <div class="form-group">
+                <label>URL</label>
+                <input type="url" id="_url" name="url" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label>Number of Record</label>
+                <input type="number" id="number_records" name="number_records" class="form-control" required/>
+            </div>
+
+            {% if show_organizations_selector %}
+            <div class="control-group form-group">
+                <label for="field-organizations" class="control-label">{{ _('Organization') }}</label>
+                <div class="controls">
+                    <select id="field-organizations" name="owner_org" class="form-control" data-module="autocomplete">
+                    {% for organization in organizations_available %}
+                        {# get out first org from users list only if there is not an existing org #}
+                        {% set selected_org = (existing_org and existing_org == organization.id) or (not existing_org and organization.id == organizations_available[0].id) %}
+                        <option value="{{ organization.name }}" {% if selected_org %} selected="selected" {% endif %}>{{ organization.name }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+            {% endif %}
+
+        <button id="btn-submit" class="btn btn-primary" onclick="create_stac()">Submit</button>
+
+        <div style="display: none;" class="alert alert-success" id="submitted_msg" role="alert">
+            Submitted! Job is running in the background
+        </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+

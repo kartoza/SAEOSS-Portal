@@ -8,16 +8,17 @@ Users are able to view any public metadata on the platform without the need to l
 ![Home Page](./img/Home.png)
 
 ### Navigation
-From the home page, there are many ways to navigate to various pages on the platform. These navigational links can be summarized into the following: 
+From the home page, there are many ways to navigate to various pages on the platform. These navigational links can be summarized into the following:
 
-| Link              | Image                               | Explanation                                                                                          |
-| ----------------- | --------------------------------    | ---------------------------------------------------------------------------------------------------- |
-| Home Page         | ![Home_link](./img/Home_link.png)   | By clicking on the SANSA logo from anywhere on the platform, the home page will be displayed.          |
-| Login / Sign-Up    | ![Home_link](./img/login-signup.png)| By selecting the login / sign-up button in the top right corner, users can log in or create an account.  |
-| Social Media Links| ![Home_link](./img/social_media.png)     | Various social media pages for SANSA can be accessed through the social media links on the left. |
-| Navbar / Navlinks / Navcards | ![Home_link](./img/navpane.png)![Nav_links](./img/nav_links.png)![Nav_links](./img/nav_card.png)| The navpane allows for easy access to all main pages of the platform.                                |
+| Link | Image | Explanation |
+| -- | -- | -- |
+| Home Page | ![Home_link](./img/Home_link.png) | By clicking on the SANSA logo from anywhere on the platform, the home page will be displayed. |
+| Login / Sign-Up | ![Home_link](./img/login-signup.png) | By selecting the login / sign-up button in the top right corner, users can log in or create an account. |
+| Social Media Links | ![Home_link](./img/social_media.png) | Various social media pages for SANSA can be accessed through the social media links on the left. |
+| Navbar / Navlinks / Navcards | ![Home_link](./img/nav-pane.png) <br> ![Nav_links](./img/nav-links.png) <br> ![Nav_card](./img/nav-card.png)| The navpane allows for easy access to all main pages of the platform. |
 
 ### Crisp Interface
+
 > **Note:** *This interface sends emails to the administrator and might yield a long turnaround time.*
 
 The crisp chat interface allows you to directly contact administrators of the platform should you need assistance with a problem not listed in the documentation.
@@ -27,7 +28,9 @@ The crisp chat interface allows you to directly contact administrators of the pl
 | ![interface](./img/crisp_chat_icon.png) | ![Crisp_chat_interface](./img/crisp_chat.png) |
 
 ## Workflows
+
 ### Signup
+
 Users who wish to create a user account can do so by following these steps:
 
 1. From the home screen, select one of the signup buttons:
@@ -46,6 +49,7 @@ Users who wish to create a user account can do so by following these steps:
    > **NOTE:** *Your password should contain at least `8` characters.*
 
 ### Login
+
 Once a user account has been created, users can log in to the platform by following these steps:
 
 1. From the home screen, select one of the following login buttons:

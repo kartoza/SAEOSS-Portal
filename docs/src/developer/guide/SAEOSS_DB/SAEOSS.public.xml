@@ -1,0 +1,1548 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="SAEOSS" schema="public" type="PostgreSQL - 15.4">
+   <sequences>
+      <sequence increment="1" name="system_info_id_seq" startValue="1"/>
+   </sequences>
+   <tables>
+      <table name="activity" numRows="46" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="activity_id" foreignKey="activity_detail_activity_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="activity_detail"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="1" name="timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="object_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="revision_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="activity_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="data" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="activity_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_activity_object_id" unique="false">
+            <column ascending="true" name="object_id"/>
+            <column ascending="true" name="timestamp"/>
+         </index>
+         <index name="idx_activity_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+            <column ascending="true" name="timestamp"/>
+         </index>
+      </table>
+      <table name="activity_detail" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="activity_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="activity_detail_activity_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="activity"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="object_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="object_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="activity_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="data" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="activity_detail_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_activity_detail_activity_id" unique="false">
+            <column ascending="true" name="activity_id"/>
+         </index>
+      </table>
+      <table name="alembic_dalrrd_emc_dcpr_version" numRows="1" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="version_num" nullable="false" remarks="" size="32" type="varchar" typeCode="12"/>
+         <primaryKey column="version_num" sequenceNumberInPK="1"/>
+         <index name="alembic_dalrrd_emc_dcpr_version_pkc" unique="true">
+            <column ascending="true" name="version_num"/>
+         </index>
+      </table>
+      <table name="alembic_version" numRows="1" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="version_num" nullable="false" remarks="" size="32" type="varchar" typeCode="12"/>
+         <primaryKey column="version_num" sequenceNumberInPK="1"/>
+         <index name="alembic_version_pkc" unique="true">
+            <column ascending="true" name="version_num"/>
+         </index>
+      </table>
+      <table name="api_token" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="api_token_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="6" id="3" name="created_at" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="last_access" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="plugin_extras" nullable="true" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="api_token_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="ckanext_pages" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="title" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="content" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="lang" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="order" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="private" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="group_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="9" name="publish_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="page_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="11" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="12" name="modified" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="extras" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="ckanext_pages_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="dashboard" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="user_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dashboard_user_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="1" name="activity_stream_last_viewed" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="LOCALTIMESTAMP" digits="6" id="2" name="email_last_sent" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="user_id" sequenceNumberInPK="1"/>
+         <index name="dashboard_pkey" unique="true">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="dcpr_error_report" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="csi_reference_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="dcpr_error_report_id" foreignKey="dcpr_error_report_notification_dcpr_error_report_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_error_report_notification"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_user" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_error_report_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="csi_reviewer" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_error_report_csi_reviewer_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="metadata_record" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_error_report_metadata_record_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="status" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="error_application" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="error_description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="solution_description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="request_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="csi_moderation_notes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="csi_review_additional_documents" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="11" name="csi_moderation_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="csi_reference_id" sequenceNumberInPK="1"/>
+         <index name="dcpr_error_report_pkey" unique="true">
+            <column ascending="true" name="csi_reference_id"/>
+         </index>
+      </table>
+      <table name="dcpr_error_report_notification" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="target_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="dcpr_error_report_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="csi_reference_id" foreignKey="dcpr_error_report_notification_dcpr_error_report_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_error_report"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_error_report_notification_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="group_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_error_report_notification_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group"/>
+         </column>
+         <primaryKey column="target_id" sequenceNumberInPK="1"/>
+         <index name="dcpr_error_report_notification_pkey" unique="true">
+            <column ascending="true" name="target_id"/>
+         </index>
+      </table>
+      <table name="dcpr_geospatial_request" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="csi_reference_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="dcpr_geospatial_request_id" foreignKey="dcpr_geospatial_request_notific_dcpr_geospatial_request_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_geospatial_request_notification"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_user" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_geospatial_request_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="csi_reviewer" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_geospatial_request_csi_reviewer_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="nsif_reviewer" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_geospatial_request_nsif_reviewer_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="status" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="organization_name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="dataset_purpose" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="interest_region" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="resolution_scale" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="additional_information" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="10" name="request_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="11" name="submission_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="12" name="nsif_review_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="nsif_review_notes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="nsif_review_additional_documents" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="csi_moderation_notes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="16" name="csi_review_additional_documents" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="17" name="csi_moderation_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="18" name="dataset_sasdi_category" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="19" name="custodian_organization" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="20" name="data_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="csi_reference_id" sequenceNumberInPK="1"/>
+         <index name="dcpr_geospatial_request_pkey" unique="true">
+            <column ascending="true" name="csi_reference_id"/>
+         </index>
+      </table>
+      <table name="dcpr_geospatial_request_notification" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="target_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="dcpr_geospatial_request_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="csi_reference_id" foreignKey="dcpr_geospatial_request_notific_dcpr_geospatial_request_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_geospatial_request"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_geospatial_request_notification_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="group_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_geospatial_request_notification_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group"/>
+         </column>
+         <primaryKey column="target_id" sequenceNumberInPK="1"/>
+         <index name="dcpr_geospatial_request_notification_pkey" unique="true">
+            <column ascending="true" name="target_id"/>
+         </index>
+      </table>
+      <table name="dcpr_request" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="csi_reference_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="dcpr_request_id" foreignKey="dcpr_request_dataset_dcpr_request_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_request_dataset"/>
+            <child column="dcpr_request_id" foreignKey="dcpr_request_notification_dcpr_request_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_request_notification"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_user" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_request_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="csi_moderator" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_request_csi_moderator_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="nsif_reviewer" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_request_nsif_reviewer_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="status" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="proposed_project_name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="additional_project_context" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="7" name="capture_start_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="capture_end_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="cost" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="spatial_extent" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="spatial_resolution" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="data_capture_urgency" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="additional_information" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="additional_documents" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="15" name="request_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="16" name="submission_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="17" name="nsif_review_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="18" name="nsif_recommendation" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="19" name="nsif_review_notes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="20" name="nsif_review_additional_documents" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="21" name="csi_moderation_notes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="22" name="csi_moderation_additional_documents" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="23" name="csi_moderation_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="24" name="organization_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_request_organization_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="25" name="organisation_level" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="26" name="organisation_address" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="27" name="contact_person_name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="28" name="contact_person_designation" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="29" name="contact_person_email_address" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="30" name="dcpr_contact_person_phone" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="31" name="dcpr_contact_person_fax_number" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="csi_reference_id" sequenceNumberInPK="1"/>
+         <index name="dcpr_request_pkey" unique="true">
+            <column ascending="true" name="csi_reference_id"/>
+         </index>
+      </table>
+      <table name="dcpr_request_dataset" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="dcpr_request_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="csi_reference_id" foreignKey="dcpr_request_dataset_dcpr_request_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_request"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="dataset_custodian" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="data_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="proposed_dataset_title" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="proposed_abstract" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="dataset_purpose" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="lineage_statement" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="associated_attributes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="feature_description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="data_usage_restrictions" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="capture_method" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="capture_method_detail" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="dataset_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="topic_category" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="dataset_characterset" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="metadata_characterset" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="dataset_id" sequenceNumberInPK="1"/>
+         <index name="pk_dcpr_request_dataset" unique="true">
+            <column ascending="true" name="dataset_id"/>
+         </index>
+      </table>
+      <table name="dcpr_request_notification" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="target_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="dcpr_request_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="csi_reference_id" foreignKey="dcpr_request_notification_dcpr_request_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_request"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_request_notification_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="group_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="dcpr_request_notification_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group"/>
+         </column>
+         <primaryKey column="target_id" sequenceNumberInPK="1"/>
+         <index name="dcpr_request_notification_pkey" unique="true">
+            <column ascending="true" name="target_id"/>
+         </index>
+      </table>
+      <table name="error_report" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="csi_reference_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="error_report_id" foreignKey="error_report_notification_error_report_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="error_report_notification"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_user" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="error_report_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="nsif_reviewer" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="error_report_nsif_reviewer_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="metadata_record" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="error_report_metadata_record_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="status" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="error_application" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="error_description" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="solution_description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="request_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="nsif_moderation_notes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="nsif_review_additional_documents" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="11" name="nsif_moderation_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="csi_reference_id" sequenceNumberInPK="1"/>
+         <index name="error_report_pkey" unique="true">
+            <column ascending="true" name="csi_reference_id"/>
+         </index>
+      </table>
+      <table name="error_report_notification" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="target_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="error_report_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="csi_reference_id" foreignKey="error_report_notification_error_report_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="error_report"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="error_report_notification_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="group_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="error_report_notification_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group"/>
+         </column>
+         <primaryKey column="target_id" sequenceNumberInPK="1"/>
+         <index name="error_report_notification_pkey" unique="true">
+            <column ascending="true" name="target_id"/>
+         </index>
+      </table>
+      <table name="geography_columns" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT current_database() AS f_table_catalog,&#10;    n.nspname AS f_table_schema,&#10;    c.relname AS f_table_name,&#10;    a.attname AS f_geography_column,&#10;    postgis_typmod_dims(a.atttypmod) AS coord_dimension,&#10;    postgis_typmod_srid(a.atttypmod) AS srid,&#10;    postgis_typmod_type(a.atttypmod) AS type&#10;   FROM pg_class c,&#10;    pg_attribute a,&#10;    pg_type t,&#10;    pg_namespace n&#10;  WHERE ((t.typname = 'geography'::name) AND (a.attisdropped = false) AND (a.atttypid = t.oid) AND (a.attrelid = c.oid) AND (c.relnamespace = n.oid) AND (c.relkind = ANY (ARRAY['r'::&quot;char&quot;, 'v'::&quot;char&quot;, 'm'::&quot;char&quot;, 'f'::&quot;char&quot;, 'p'::&quot;char&quot;])) AND (NOT pg_is_other_temp_schema(c.relnamespace)) AND has_table_privilege(c.oid, 'SELECT'::text));">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="f_table_catalog" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="f_table_schema" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="f_table_name" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="f_geography_column" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="coord_dimension" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="srid" nullable="true" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="srid" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="spatial_ref_sys"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+      </table>
+      <table name="geometry_columns" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT (current_database())::character varying(256) AS f_table_catalog,&#10;    n.nspname AS f_table_schema,&#10;    c.relname AS f_table_name,&#10;    a.attname AS f_geometry_column,&#10;    COALESCE(postgis_typmod_dims(a.atttypmod), sn.ndims, 2) AS coord_dimension,&#10;    COALESCE(NULLIF(postgis_typmod_srid(a.atttypmod), 0), sr.srid, 0) AS srid,&#10;    (replace(replace(COALESCE(NULLIF(upper(postgis_typmod_type(a.atttypmod)), 'GEOMETRY'::text), st.type, 'GEOMETRY'::text), 'ZM'::text, ''::text), 'Z'::text, ''::text))::character varying(30) AS type&#10;   FROM ((((((pg_class c&#10;     JOIN pg_attribute a ON (((a.attrelid = c.oid) AND (NOT a.attisdropped))))&#10;     JOIN pg_namespace n ON ((c.relnamespace = n.oid)))&#10;     JOIN pg_type t ON ((a.atttypid = t.oid)))&#10;     LEFT JOIN ( SELECT s.connamespace,&#10;            s.conrelid,&#10;            s.conkey,&#10;            replace(split_part(s.consrc, ''''::text, 2), ')'::text, ''::text) AS type&#10;           FROM ( SELECT pg_constraint.connamespace,&#10;                    pg_constraint.conrelid,&#10;                    pg_constraint.conkey,&#10;                    pg_get_constraintdef(pg_constraint.oid) AS consrc&#10;                   FROM pg_constraint) s&#10;          WHERE (s.consrc ~~* '%geometrytype(% = %'::text)) st ON (((st.connamespace = n.oid) AND (st.conrelid = c.oid) AND (a.attnum = ANY (st.conkey)))))&#10;     LEFT JOIN ( SELECT s.connamespace,&#10;            s.conrelid,&#10;            s.conkey,&#10;            (replace(split_part(s.consrc, ' = '::text, 2), ')'::text, ''::text))::integer AS ndims&#10;           FROM ( SELECT pg_constraint.connamespace,&#10;                    pg_constraint.conrelid,&#10;                    pg_constraint.conkey,&#10;                    pg_get_constraintdef(pg_constraint.oid) AS consrc&#10;                   FROM pg_constraint) s&#10;          WHERE (s.consrc ~~* '%ndims(% = %'::text)) sn ON (((sn.connamespace = n.oid) AND (sn.conrelid = c.oid) AND (a.attnum = ANY (sn.conkey)))))&#10;     LEFT JOIN ( SELECT s.connamespace,&#10;            s.conrelid,&#10;            s.conkey,&#10;            (replace(replace(split_part(s.consrc, ' = '::text, 2), ')'::text, ''::text), '('::text, ''::text))::integer AS srid&#10;           FROM ( SELECT pg_constraint.connamespace,&#10;                    pg_constraint.conrelid,&#10;                    pg_constraint.conkey,&#10;                    pg_get_constraintdef(pg_constraint.oid) AS consrc&#10;                   FROM pg_constraint) s&#10;          WHERE (s.consrc ~~* '%srid(% = %'::text)) sr ON (((sr.connamespace = n.oid) AND (sr.conrelid = c.oid) AND (a.attnum = ANY (sr.conkey)))))&#10;  WHERE ((c.relkind = ANY (ARRAY['r'::&quot;char&quot;, 'v'::&quot;char&quot;, 'm'::&quot;char&quot;, 'f'::&quot;char&quot;, 'p'::&quot;char&quot;])) AND (NOT (c.relname = 'raster_columns'::name)) AND (t.typname = 'geometry'::name) AND (NOT pg_is_other_temp_schema(c.relnamespace)) AND has_table_privilege(c.oid, 'SELECT'::text));">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="f_table_catalog" nullable="true" remarks="" size="256" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="f_table_schema" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="f_table_name" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="f_geometry_column" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="coord_dimension" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="srid" nullable="true" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="srid" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="spatial_ref_sys"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="type" nullable="true" remarks="" size="30" type="varchar" typeCode="12"/>
+      </table>
+      <table name="group" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="group_id" foreignKey="dcpr_error_report_notification_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_error_report_notification"/>
+            <child column="group_id" foreignKey="dcpr_geospatial_request_notification_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_geospatial_request_notification"/>
+            <child column="organization_id" foreignKey="dcpr_request_organization_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_request"/>
+            <child column="group_id" foreignKey="dcpr_request_notification_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_request_notification"/>
+            <child column="group_id" foreignKey="error_report_notification_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="error_report_notification"/>
+            <child column="group_id" foreignKey="group_extra_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group_extra"/>
+            <child column="group_id" foreignKey="group_extra_revision_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group_extra_revision"/>
+            <child column="group_id" foreignKey="member_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="member"/>
+            <child column="object_id" foreignKey="user_following_group_group_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user_following_group"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="title" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="type" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="approval_status" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="image_url" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="9" name="is_organization" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="group_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="group_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+         <index name="idx_group_id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_group_name" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="group_extra" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="group_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="group_extra_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="key" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="value" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="group_extra_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_group_extra_group_id" unique="false">
+            <column ascending="true" name="group_id"/>
+         </index>
+      </table>
+      <table name="group_extra_revision" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="group_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="group_extra_revision_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="key" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="value" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="revision_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="group_extra_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="continuity_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="expired_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="revision_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="9" name="expired_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="current" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <primaryKey column="revision_id" sequenceNumberInPK="2"/>
+         <index name="group_extra_revision_pkey" unique="true">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="revision_id"/>
+         </index>
+         <index name="idx_group_extra_current" unique="false">
+            <column ascending="true" name="current"/>
+         </index>
+         <index name="idx_group_extra_period" unique="false">
+            <column ascending="true" name="revision_timestamp"/>
+            <column ascending="true" name="expired_timestamp"/>
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_group_extra_period_group" unique="false">
+            <column ascending="true" name="revision_timestamp"/>
+            <column ascending="true" name="expired_timestamp"/>
+            <column ascending="true" name="group_id"/>
+         </index>
+      </table>
+      <table name="group_revision" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="title" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="6" id="4" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="revision_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="group_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="continuity_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="expired_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="9" name="revision_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="10" name="expired_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="current" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="type" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="approval_status" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="image_url" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="15" name="is_organization" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <primaryKey column="revision_id" sequenceNumberInPK="2"/>
+         <index name="group_revision_pkey" unique="true">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="revision_id"/>
+         </index>
+         <index name="idx_group_current" unique="false">
+            <column ascending="true" name="current"/>
+         </index>
+         <index name="idx_group_period" unique="false">
+            <column ascending="true" name="revision_timestamp"/>
+            <column ascending="true" name="expired_timestamp"/>
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="harvest_gather_error" numRows="3" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="harvest_job_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="harvest_gather_error_harvest_job_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_job"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="message" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="harvest_gather_error_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="harvest_job" numRows="7" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="harvest_job_id" foreignKey="harvest_gather_error_harvest_job_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_gather_error"/>
+            <child column="harvest_job_id" foreignKey="harvest_object_harvest_job_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_object"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="1" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="2" name="gather_started" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="gather_finished" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="finished" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="source_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="harvest_job_source_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_source"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="status" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="harvest_job_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="harvest_log" numRows="131504" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="content" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="level" nullable="true" remarks="" size="2147483647" type="log_level" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="harvest_log_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="harvest_object" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="harvest_object_id" foreignKey="harvest_object_error_harvest_object_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_object_error"/>
+            <child column="harvest_object_id" foreignKey="harvest_object_extra_harvest_object_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_object_extra"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="guid" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="current" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="gathered" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="fetch_started" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="content" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="6" name="fetch_finished" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="7" name="import_started" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="import_finished" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="10" name="metadata_modified_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="retry_times" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="harvest_job_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="harvest_object_harvest_job_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_job"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="harvest_source_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="harvest_object_harvest_source_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_source"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="harvest_object_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="report_status" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="harvest_object_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="guid_idx" unique="false">
+            <column ascending="true" name="guid"/>
+         </index>
+         <index name="harvest_job_id_idx" unique="false">
+            <column ascending="true" name="harvest_job_id"/>
+         </index>
+         <index name="harvest_source_id_idx" unique="false">
+            <column ascending="true" name="harvest_source_id"/>
+         </index>
+         <index name="package_id_idx" unique="false">
+            <column ascending="true" name="package_id"/>
+         </index>
+      </table>
+      <table name="harvest_object_error" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="harvest_object_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="harvest_object_error_harvest_object_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_object"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="message" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="stage" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="line" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="5" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="harvest_object_error_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="harvest_object_extra" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="harvest_object_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="harvest_object_extra_harvest_object_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_object"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="key" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="value" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="harvest_object_extra_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="harvest_object_id_idx" unique="false">
+            <column ascending="true" name="harvest_object_id"/>
+         </index>
+      </table>
+      <table name="harvest_source" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="source_id" foreignKey="harvest_job_source_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_job"/>
+            <child column="harvest_source_id" foreignKey="harvest_object_harvest_source_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_object"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="title" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="config" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="5" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="type" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="active" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="publisher_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="frequency" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="11" name="next_run" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="harvest_source_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="member" numRows="10" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="group_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="member_group_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="table_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="table_name" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="capacity" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="member_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_extra_grp_id_pkg_id" unique="false">
+            <column ascending="true" name="group_id"/>
+            <column ascending="true" name="table_id"/>
+         </index>
+         <index name="idx_group_pkg_id" unique="false">
+            <column ascending="true" name="table_id"/>
+         </index>
+         <index name="idx_package_group_group_id" unique="false">
+            <column ascending="true" name="group_id"/>
+         </index>
+         <index name="idx_package_group_id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_package_group_pkg_id" unique="false">
+            <column ascending="true" name="table_id"/>
+         </index>
+         <index name="idx_package_group_pkg_id_group_id" unique="false">
+            <column ascending="true" name="group_id"/>
+            <column ascending="true" name="table_id"/>
+         </index>
+      </table>
+      <table name="member_revision" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="table_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="group_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="revision_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="member_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="continuity_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="expired_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="7" name="revision_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="expired_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="current" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="table_name" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="capacity" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <primaryKey column="revision_id" sequenceNumberInPK="2"/>
+         <index name="member_revision_pkey" unique="true">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="revision_id"/>
+         </index>
+         <index name="idx_member_continuity_id" unique="false">
+            <column ascending="true" name="continuity_id"/>
+         </index>
+         <index name="idx_package_group_current" unique="false">
+            <column ascending="true" name="current"/>
+         </index>
+         <index name="idx_package_group_period_package_group" unique="false">
+            <column ascending="true" name="revision_timestamp"/>
+            <column ascending="true" name="expired_timestamp"/>
+            <column ascending="true" name="table_id"/>
+            <column ascending="true" name="group_id"/>
+         </index>
+      </table>
+      <table name="package" numRows="3" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="metadata_record" foreignKey="dcpr_error_report_metadata_record_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_error_report"/>
+            <child column="metadata_record" foreignKey="error_report_metadata_record_fkey" implied="false" onDeleteCascade="false" schema="public" table="error_report"/>
+            <child column="package_id" foreignKey="harvest_object_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="harvest_object"/>
+            <child column="package_id" foreignKey="package_extra_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_extra"/>
+            <child column="package_id" foreignKey="package_member_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_member"/>
+            <child column="object_package_id" foreignKey="package_relationship_object_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_relationship"/>
+            <child column="subject_package_id" foreignKey="package_relationship_subject_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_relationship"/>
+            <child column="object_package_id" foreignKey="package_relationship_revision_object_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_relationship_revision"/>
+            <child column="subject_package_id" foreignKey="package_relationship_revision_subject_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_relationship_revision"/>
+            <child column="package_id" foreignKey="package_tag_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_tag"/>
+            <child column="package_id" foreignKey="rating_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="rating"/>
+            <child column="object_id" foreignKey="user_following_dataset_object_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user_following_dataset"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="title" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="version" nullable="true" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="url" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="notes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="author" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="author_email" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="maintainer" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="maintainer_email" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="license_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="owner_org" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="14" name="private" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="15" name="metadata_modified" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="16" name="creator_user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="17" name="metadata_created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="package_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_package_creator_user_id" unique="false">
+            <column ascending="true" name="creator_user_id"/>
+         </index>
+         <index name="idx_pkg_id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_pkg_lname" unique="false"/>
+         <index name="idx_pkg_name" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+         <index name="idx_pkg_sid" unique="false">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="state"/>
+         </index>
+         <index name="idx_pkg_slname" unique="false">
+            <column ascending="true" name="state"/>
+         </index>
+         <index name="idx_pkg_sname" unique="false">
+            <column ascending="true" name="name"/>
+            <column ascending="true" name="state"/>
+         </index>
+         <index name="idx_pkg_stitle" unique="false">
+            <column ascending="true" name="title"/>
+            <column ascending="true" name="state"/>
+         </index>
+         <index name="idx_pkg_suname" unique="false">
+            <column ascending="true" name="state"/>
+         </index>
+         <index name="idx_pkg_title" unique="false">
+            <column ascending="true" name="title"/>
+         </index>
+         <index name="idx_pkg_uname" unique="false"/>
+         <index name="package_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="package_extent" numRows="6" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="package_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry" typeCode="1111"/>
+         <primaryKey column="package_id" sequenceNumberInPK="1"/>
+         <index name="package_extent_pkey" unique="true">
+            <column ascending="true" name="package_id"/>
+         </index>
+         <index name="idx_package_extent_the_geom" unique="false">
+            <column ascending="true" name="the_geom"/>
+         </index>
+      </table>
+      <table name="package_extra" numRows="35" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="key" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="value" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_extra_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="package_extra_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_extra_id_pkg_id" unique="false">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="package_id"/>
+         </index>
+         <index name="idx_extra_pkg_id" unique="false">
+            <column ascending="true" name="package_id"/>
+         </index>
+      </table>
+      <table name="package_extra_revision" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="key" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="value" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="revision_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_extra_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="continuity_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="expired_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="revision_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="9" name="expired_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="current" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <primaryKey column="revision_id" sequenceNumberInPK="2"/>
+         <index name="package_extra_revision_pkey" unique="true">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="revision_id"/>
+         </index>
+         <index name="idx_package_extra_continuity_id" unique="false">
+            <column ascending="true" name="continuity_id"/>
+         </index>
+         <index name="idx_package_extra_current" unique="false">
+            <column ascending="true" name="current"/>
+         </index>
+         <index name="idx_package_extra_package_id" unique="false">
+            <column ascending="true" name="package_id"/>
+            <column ascending="true" name="current"/>
+         </index>
+         <index name="idx_package_extra_period" unique="false">
+            <column ascending="true" name="revision_timestamp"/>
+            <column ascending="true" name="expired_timestamp"/>
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_package_extra_period_package" unique="false">
+            <column ascending="true" name="revision_timestamp"/>
+            <column ascending="true" name="expired_timestamp"/>
+            <column ascending="true" name="package_id"/>
+         </index>
+         <index name="idx_package_extra_rev_id" unique="false">
+            <column ascending="true" name="revision_id"/>
+         </index>
+      </table>
+      <table name="package_member" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="package_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_member_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="user_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_member_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="capacity" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="modified" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="package_id" sequenceNumberInPK="1"/>
+         <primaryKey column="user_id" sequenceNumberInPK="2"/>
+         <index name="package_member_pkey" unique="true">
+            <column ascending="true" name="package_id"/>
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="package_relationship" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="continuity_id" foreignKey="package_relationship_revision_continuity_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_relationship_revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="subject_package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_relationship_subject_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="object_package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_relationship_object_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="comment" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="package_relationship_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="package_relationship_revision" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="subject_package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_relationship_revision_subject_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="object_package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_relationship_revision_object_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="comment" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="revision_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_relationship_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="continuity_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_relationship_revision_continuity_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_relationship"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="expired_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="9" name="revision_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="10" name="expired_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="current" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <primaryKey column="revision_id" sequenceNumberInPK="2"/>
+         <index name="package_relationship_revision_pkey" unique="true">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="revision_id"/>
+         </index>
+         <index name="idx_package_relationship_current" unique="false">
+            <column ascending="true" name="current"/>
+         </index>
+         <index name="idx_period_package_relationship" unique="false">
+            <column ascending="true" name="revision_timestamp"/>
+            <column ascending="true" name="expired_timestamp"/>
+            <column ascending="true" name="object_package_id"/>
+            <column ascending="true" name="subject_package_id"/>
+         </index>
+      </table>
+      <table name="package_revision" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="title" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="version" nullable="true" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="url" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="notes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="author" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="author_email" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="maintainer" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="maintainer_email" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="revision_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="continuity_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="license_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="expired_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="15" name="revision_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="16" name="expired_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="17" name="current" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="18" name="type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="19" name="owner_org" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="20" name="private" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="21" name="metadata_modified" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="22" name="creator_user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="23" name="metadata_created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <primaryKey column="revision_id" sequenceNumberInPK="2"/>
+         <index name="package_revision_pkey" unique="true">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="revision_id"/>
+         </index>
+         <index name="idx_package_continuity_id" unique="false">
+            <column ascending="true" name="continuity_id"/>
+         </index>
+         <index name="idx_package_current" unique="false">
+            <column ascending="true" name="current"/>
+         </index>
+         <index name="idx_package_period" unique="false">
+            <column ascending="true" name="revision_timestamp"/>
+            <column ascending="true" name="expired_timestamp"/>
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_pkg_revision_id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_pkg_revision_name" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+         <index name="idx_pkg_revision_rev_id" unique="false">
+            <column ascending="true" name="revision_id"/>
+         </index>
+      </table>
+      <table name="package_tag" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_tag_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="tag_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_tag_tag_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="tag"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="package_tag_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_package_tag_id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_package_tag_pkg_id" unique="false">
+            <column ascending="true" name="package_id"/>
+         </index>
+         <index name="idx_package_tag_pkg_id_tag_id" unique="false">
+            <column ascending="true" name="tag_id"/>
+            <column ascending="true" name="package_id"/>
+         </index>
+         <index name="idx_package_tag_tag_id" unique="false">
+            <column ascending="true" name="tag_id"/>
+         </index>
+      </table>
+      <table name="package_tag_revision" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="revision_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_tag_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="tag_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="package_tag_revision_tag_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="tag"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="continuity_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="expired_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="7" name="revision_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="expired_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="current" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <primaryKey column="revision_id" sequenceNumberInPK="2"/>
+         <index name="package_tag_revision_pkey" unique="true">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="revision_id"/>
+         </index>
+         <index name="idx_package_tag_continuity_id" unique="false">
+            <column ascending="true" name="continuity_id"/>
+         </index>
+         <index name="idx_package_tag_current" unique="false">
+            <column ascending="true" name="current"/>
+         </index>
+         <index name="idx_package_tag_revision_id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_package_tag_revision_pkg_id" unique="false">
+            <column ascending="true" name="package_id"/>
+         </index>
+         <index name="idx_package_tag_revision_pkg_id_tag_id" unique="false">
+            <column ascending="true" name="tag_id"/>
+            <column ascending="true" name="package_id"/>
+         </index>
+         <index name="idx_package_tag_revision_rev_id" unique="false">
+            <column ascending="true" name="revision_id"/>
+         </index>
+         <index name="idx_package_tag_revision_tag_id" unique="false">
+            <column ascending="true" name="tag_id"/>
+         </index>
+         <index name="idx_period_package_tag" unique="false">
+            <column ascending="true" name="revision_timestamp"/>
+            <column ascending="true" name="expired_timestamp"/>
+            <column ascending="true" name="package_id"/>
+            <column ascending="true" name="tag_id"/>
+         </index>
+      </table>
+      <table name="rating" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="user_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="rating_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="user_ip_address" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="17" id="3" name="rating" nullable="true" remarks="" size="17" type="float8" typeCode="8"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="rating_package_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="rating_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_rating_id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_rating_package_id" unique="false">
+            <column ascending="true" name="package_id"/>
+         </index>
+         <index name="idx_rating_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="reporting_tool" numRows="1388" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="reporting_tool_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_user" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="reporting_tool_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="search_query" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="search_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="search_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="reporting_tool_id" sequenceNumberInPK="1"/>
+         <index name="reporting_tool_pkey" unique="true">
+            <column ascending="true" name="reporting_tool_id"/>
+         </index>
+      </table>
+      <table name="resource" numRows="7" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="resource_id" foreignKey="resource_view_resource_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="resource_view"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="format" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="position" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="hash" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="extras" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="resource_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="mimetype" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="mimetype_inner" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="size" nullable="true" remarks="" size="19" type="int8" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="13" name="last_modified" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="cache_url" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="15" name="cache_last_updated" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="16" name="webstore_url" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="17" name="webstore_last_updated" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="18" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="19" name="url_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="''::text" digits="0" id="20" name="package_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="21" name="metadata_modified" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="resource_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_package_resource_id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_package_resource_package_id" unique="false">
+            <column ascending="true" name="package_id"/>
+         </index>
+         <index name="idx_package_resource_url" unique="false">
+            <column ascending="true" name="url"/>
+         </index>
+      </table>
+      <table name="resource_revision" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="format" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="position" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="revision_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="resource_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="hash" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="continuity_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="extras" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="expired_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="11" name="revision_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="12" name="expired_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="current" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="resource_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="16" name="mimetype" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="17" name="mimetype_inner" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="18" name="size" nullable="true" remarks="" size="19" type="int8" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="19" name="last_modified" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="20" name="cache_url" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="21" name="cache_last_updated" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="22" name="webstore_url" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="23" name="webstore_last_updated" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="24" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="25" name="url_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="''::text" digits="0" id="26" name="package_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <primaryKey column="revision_id" sequenceNumberInPK="2"/>
+         <index name="resource_revision_pkey" unique="true">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="revision_id"/>
+         </index>
+         <index name="idx_package_resource_rev_id" unique="false">
+            <column ascending="true" name="revision_id"/>
+         </index>
+         <index name="idx_resource_continuity_id" unique="false">
+            <column ascending="true" name="continuity_id"/>
+         </index>
+         <index name="idx_resource_current" unique="false">
+            <column ascending="true" name="current"/>
+         </index>
+         <index name="idx_resource_period" unique="false">
+            <column ascending="true" name="revision_timestamp"/>
+            <column ascending="true" name="expired_timestamp"/>
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="resource_view" numRows="7" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="resource_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="resource_view_resource_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="resource"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="title" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="view_type" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="order" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="config" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="resource_view_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="revision" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="revision_id" foreignKey="group_extra_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group_extra_revision"/>
+            <child column="revision_id" foreignKey="group_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="group_revision"/>
+            <child column="revision_id" foreignKey="member_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="member_revision"/>
+            <child column="revision_id" foreignKey="package_extra_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_extra_revision"/>
+            <child column="revision_id" foreignKey="package_relationship_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_relationship_revision"/>
+            <child column="revision_id" foreignKey="package_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_revision"/>
+            <child column="revision_id" foreignKey="package_tag_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_tag_revision"/>
+            <child column="revision_id" foreignKey="resource_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="resource_revision"/>
+            <child column="revision_id" foreignKey="system_info_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="system_info_revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="1" name="timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="author" nullable="true" remarks="" size="200" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="message" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="5" name="approved_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="revision_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_rev_state" unique="false">
+            <column ascending="true" name="state"/>
+         </index>
+         <index name="idx_revision_author" unique="false">
+            <column ascending="true" name="author"/>
+         </index>
+      </table>
+      <table name="saeoss_pycsw_view" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" WITH cte_extras AS (&#10;         SELECT p.id,&#10;            p.title,&#10;            p.name,&#10;            p.metadata_created,&#10;            p.metadata_modified,&#10;            p.notes,&#10;            p.author,&#10;            p.maintainer,&#10;            g.title AS org_name,&#10;            json_object_agg(pe.key, pe.value) AS extras,&#10;            array_agg(DISTINCT t.name) AS tags,&#10;            ( SELECT (json_build_object('title', res.name, 'description', res.description, 'type', res.format, 'href', res.url))::text AS json_build_object) AS links&#10;           FROM (((((package p&#10;             JOIN package_extra pe ON ((p.id = pe.package_id)))&#10;             JOIN &quot;group&quot; g ON ((p.owner_org = g.id)))&#10;             JOIN package_tag pt ON ((p.id = pt.package_id)))&#10;             JOIN tag t ON ((pt.tag_id = t.id)))&#10;             JOIN resource res ON ((p.id = res.package_id)))&#10;          WHERE (p.state = 'active'::text)&#10;          GROUP BY p.id, g.title, res.id&#10;        )&#10; SELECT c.id AS identifier,&#10;    c.name AS dataset_name,&#10;    'csw:Record'::text AS typename,&#10;    'http://www.isotc211.org/2005/gmd'::text AS schema,&#10;    'local'::text AS mdsource,&#10;    c.metadata_created AS insert_date,&#10;    NULL::text AS xml,&#10;    NULL::text AS metadata,&#10;    NULL::text AS metadata_type,&#10;    concat_ws(' '::text, c.name, c.notes) AS anytext,&#10;    'english'::text AS language,&#10;    c.title,&#10;    c.notes AS abstract,&#10;    concat_ws(', '::text, VARIADIC c.tags) AS keywords,&#10;    NULL::text AS keywordstype,&#10;    NULL::text AS format,&#10;    NULL::text AS source,&#10;    NULL::text AS version,&#10;    c.metadata_modified AS date_modified,&#10;    'http://purl.org/dc/dcmitype/Dataset'::text AS type,&#10;    st_astext(st_geomfromgeojson((c.extras -&gt;&gt; 'spatial'::text))) AS wkt_geometry,&#10;    (st_geomfromgeojson((c.extras -&gt;&gt; 'spatial'::text)))::geometry(Polygon,4326) AS wkb_geometry,&#10;    c.name AS title_alternate,&#10;    (c.extras -&gt;&gt; 'doi'::text) AS doi,&#10;    NULL::text AS date_revision,&#10;    c.metadata_created AS date_creation,&#10;    NULL::text AS date_publication,&#10;    c.org_name AS organisation,&#10;    NULL::text AS securityconstraints,&#10;    NULL::text AS parentidentifier,&#10;    (((((c.extras -&gt;&gt; 'topic_and_saeoss_themes'::text))::json -&gt;&gt; 0))::json -&gt; 'iso_topic_category'::text) AS topiccategory,&#10;    (c.extras -&gt;&gt; 'dataset_language'::text) AS resourcelanguage,&#10;    NULL::text AS geodescode,&#10;    NULL::text AS denominator,&#10;    NULL::text AS distancevalue,&#10;    NULL::text AS distanceuom,&#10;    (((((c.extras -&gt;&gt; 'metadata_reference_date_and_stamp'::text))::json -&gt;&gt; 0))::json -&gt; 'reference'::text) AS date,&#10;    (((((c.extras -&gt;&gt; 'metadata_reference_date_and_stamp'::text))::json -&gt;&gt; 0))::json -&gt; 'reference'::text) AS time_begin,&#10;    (((((c.extras -&gt;&gt; 'metadata_reference_date_and_stamp'::text))::json -&gt;&gt; 0))::json -&gt; 'reference'::text) AS time_end,&#10;    (((((c.extras -&gt;&gt; 'metadata_reference_date_and_stamp'::text))::json -&gt;&gt; 0))::json -&gt; 'reference_date_type'::text) AS reference_date_type,&#10;    NULL::text AS servicetype,&#10;    NULL::text AS servicetypeversion,&#10;    NULL::text AS operation,&#10;    NULL::text AS couplingtype,&#10;    NULL::text AS operateson,&#10;    NULL::text AS operatesonidentifier,&#10;    NULL::text AS operatesonname,&#10;    NULL::text AS degree,&#10;    NULL::text AS accessconstraints,&#10;    NULL::text AS otherconstraints,&#10;    NULL::text AS classification,&#10;    NULL::text AS conditionapplyingtoaccessanduse,&#10;    NULL::text AS edition,&#10;    (c.extras -&gt;&gt; 'lineage'::text) AS lineage_statement,&#10;    (c.extras -&gt;&gt; 'lineage'::text) AS dataset_lineage,&#10;    NULL::text AS responsiblepartyrole,&#10;    NULL::text AS specificationtitle,&#10;    NULL::text AS specificationdate,&#10;    NULL::text AS specificationdatetype,&#10;    c.author AS creator,&#10;    c.maintainer AS publisher,&#10;    NULL::text AS contributor,&#10;    NULL::text AS relation,&#10;    NULL::text AS platform,&#10;    NULL::text AS instrument,&#10;    NULL::text AS sensortype,&#10;    NULL::text AS cloudcover,&#10;    NULL::text AS bands,&#10;    NULL::text AS links,&#10;    ((c.extras -&gt;&gt; 'spatial'::text))::json AS bounding_geojson,&#10;    (((((c.extras -&gt;&gt; 'spatial_parameters'::text))::json -&gt;&gt; 0))::json -&gt; 'spatial_reference_system'::text) AS crs,&#10;    (((((c.extras -&gt;&gt; 'spatial_parameters'::text))::json -&gt;&gt; 0))::json -&gt; 'equivalent_scale'::text) AS equivalent_scale&#10;   FROM cte_extras c;">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="identifier" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="dataset_name" nullable="true" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="typename" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="schema" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="mdsource" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="5" name="insert_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="xml" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="metadata" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="metadata_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="anytext" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="language" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="title" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="abstract" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="keywords" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="keywordstype" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="format" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="16" name="source" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="17" name="version" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="18" name="date_modified" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="19" name="type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="20" name="wkt_geometry" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="21" name="wkb_geometry" nullable="true" remarks="" size="2147483647" type="geometry" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="22" name="title_alternate" nullable="true" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="23" name="doi" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="24" name="date_revision" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="25" name="date_creation" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="26" name="date_publication" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="27" name="organisation" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="28" name="securityconstraints" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="29" name="parentidentifier" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="30" name="topiccategory" nullable="true" remarks="" size="2147483647" type="json" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="31" name="resourcelanguage" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="32" name="geodescode" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="33" name="denominator" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="34" name="distancevalue" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="35" name="distanceuom" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="36" name="date" nullable="true" remarks="" size="2147483647" type="json" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="37" name="time_begin" nullable="true" remarks="" size="2147483647" type="json" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="38" name="time_end" nullable="true" remarks="" size="2147483647" type="json" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="39" name="reference_date_type" nullable="true" remarks="" size="2147483647" type="json" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="40" name="servicetype" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="41" name="servicetypeversion" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="42" name="operation" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="43" name="couplingtype" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="44" name="operateson" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="45" name="operatesonidentifier" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="46" name="operatesonname" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="47" name="degree" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="48" name="accessconstraints" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="49" name="otherconstraints" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="50" name="classification" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="51" name="conditionapplyingtoaccessanduse" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="52" name="edition" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="53" name="lineage_statement" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="54" name="dataset_lineage" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="55" name="responsiblepartyrole" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="56" name="specificationtitle" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="57" name="specificationdate" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="58" name="specificationdatetype" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="59" name="creator" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="60" name="publisher" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="61" name="contributor" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="62" name="relation" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="63" name="platform" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="64" name="instrument" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="65" name="sensortype" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="66" name="cloudcover" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="67" name="bands" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="68" name="links" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="69" name="bounding_geojson" nullable="true" remarks="" size="2147483647" type="json" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="70" name="crs" nullable="true" remarks="" size="2147483647" type="json" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="71" name="equivalent_scale" nullable="true" remarks="" size="2147483647" type="json" typeCode="1111"/>
+      </table>
+      <table name="saved_searches" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="saved_search_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_user" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="saved_searches_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="search_query" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="saved_search_title" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="saved_search_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="saved_search_id" sequenceNumberInPK="1"/>
+         <index name="saved_searches_pkey" unique="true">
+            <column ascending="true" name="saved_search_id"/>
+         </index>
+      </table>
+      <table name="spatial_ref_sys" numRows="8500" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="srid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+            <child column="srid" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="geography_columns"/>
+            <child column="srid" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="geometry_columns"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="auth_name" nullable="true" remarks="" size="256" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="auth_srid" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="srtext" nullable="true" remarks="" size="2048" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="proj4text" nullable="true" remarks="" size="2048" type="varchar" typeCode="12"/>
+         <primaryKey column="srid" sequenceNumberInPK="1"/>
+         <index name="spatial_ref_sys_pkey" unique="true">
+            <column ascending="true" name="srid"/>
+         </index>
+         <checkConstraint constraint="(((srid &gt; 0) AND (srid &lt;= 998999)))" name="spatial_ref_sys_srid_check"/>
+      </table>
+      <table name="system_info" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('system_info_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="continuity_id" foreignKey="system_info_revision_continuity_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="system_info_revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="key" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="value" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="'active'::text" digits="0" id="3" name="state" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="system_info_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="system_info_key_key" unique="true">
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table name="system_info_revision" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="key" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="value" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="revision_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="system_info_revision_revision_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="continuity_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="id" foreignKey="system_info_revision_continuity_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="system_info"/>
+         </column>
+         <column autoUpdated="false" defaultValue="'active'::text" digits="0" id="5" name="state" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="expired_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="7" name="revision_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="expired_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="current" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <primaryKey column="revision_id" sequenceNumberInPK="2"/>
+         <index name="system_info_revision_pkey" unique="true">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="revision_id"/>
+         </index>
+      </table>
+      <table name="tag" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="tag_id" foreignKey="package_tag_tag_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_tag"/>
+            <child column="tag_id" foreignKey="package_tag_revision_tag_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_tag_revision"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="vocabulary_id" nullable="true" remarks="" size="100" type="varchar" typeCode="12">
+            <parent column="id" foreignKey="tag_vocabulary_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="vocabulary"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="tag_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_tag_id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_tag_name" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+         <index name="tag_name_vocabulary_id_key" unique="true">
+            <column ascending="true" name="name"/>
+            <column ascending="true" name="vocabulary_id"/>
+         </index>
+      </table>
+      <table name="task_status" numRows="1" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="entity_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="entity_type" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="task_type" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="key" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="value" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="state" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="error" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="last_updated" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="task_status_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="task_status_entity_id_task_type_key_key" unique="true">
+            <column ascending="true" name="entity_id"/>
+            <column ascending="true" name="task_type"/>
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table name="term_translation" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="term" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="term_translation" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="lang_code" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <index name="term" unique="false">
+            <column ascending="true" name="term"/>
+         </index>
+         <index name="term_lang" unique="false">
+            <column ascending="true" name="term"/>
+            <column ascending="true" name="lang_code"/>
+         </index>
+      </table>
+      <table name="tracking_raw" numRows="1997" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="user_key" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="tracking_type" nullable="false" remarks="" size="10" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="6" id="3" name="access_timestamp" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <index name="tracking_raw_access_timestamp" unique="false">
+            <column ascending="true" name="access_timestamp"/>
+         </index>
+         <index name="tracking_raw_url" unique="false">
+            <column ascending="true" name="url"/>
+         </index>
+         <index name="tracking_raw_user_key" unique="false">
+            <column ascending="true" name="user_key"/>
+         </index>
+      </table>
+      <table name="tracking_summary" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="package_id" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="tracking_type" nullable="false" remarks="" size="10" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="count" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="running_total" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="recent_views" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="tracking_date" nullable="true" remarks="" size="13" type="date" typeCode="91"/>
+         <index name="tracking_summary_date" unique="false">
+            <column ascending="true" name="tracking_date"/>
+         </index>
+         <index name="tracking_summary_package_id" unique="false">
+            <column ascending="true" name="package_id"/>
+         </index>
+         <index name="tracking_summary_url" unique="false">
+            <column ascending="true" name="url"/>
+         </index>
+      </table>
+      <table name="user" numRows="6" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="user_id" foreignKey="api_token_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="api_token"/>
+            <child column="user_id" foreignKey="dashboard_user_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="dashboard"/>
+            <child column="csi_reviewer" foreignKey="dcpr_error_report_csi_reviewer_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_error_report"/>
+            <child column="owner_user" foreignKey="dcpr_error_report_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_error_report"/>
+            <child column="user_id" foreignKey="dcpr_error_report_notification_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_error_report_notification"/>
+            <child column="csi_reviewer" foreignKey="dcpr_geospatial_request_csi_reviewer_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_geospatial_request"/>
+            <child column="nsif_reviewer" foreignKey="dcpr_geospatial_request_nsif_reviewer_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_geospatial_request"/>
+            <child column="owner_user" foreignKey="dcpr_geospatial_request_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_geospatial_request"/>
+            <child column="user_id" foreignKey="dcpr_geospatial_request_notification_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_geospatial_request_notification"/>
+            <child column="csi_moderator" foreignKey="dcpr_request_csi_moderator_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_request"/>
+            <child column="nsif_reviewer" foreignKey="dcpr_request_nsif_reviewer_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_request"/>
+            <child column="owner_user" foreignKey="dcpr_request_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_request"/>
+            <child column="user_id" foreignKey="dcpr_request_notification_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="dcpr_request_notification"/>
+            <child column="nsif_reviewer" foreignKey="error_report_nsif_reviewer_fkey" implied="false" onDeleteCascade="false" schema="public" table="error_report"/>
+            <child column="owner_user" foreignKey="error_report_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="error_report"/>
+            <child column="user_id" foreignKey="error_report_notification_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="error_report_notification"/>
+            <child column="user_id" foreignKey="package_member_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="package_member"/>
+            <child column="user_id" foreignKey="rating_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="rating"/>
+            <child column="owner_user" foreignKey="reporting_tool_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="reporting_tool"/>
+            <child column="owner_user" foreignKey="saved_searches_owner_user_fkey" implied="false" onDeleteCascade="false" schema="public" table="saved_searches"/>
+            <child column="user_id" foreignKey="user_extra_fields_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="user_extra_fields"/>
+            <child column="follower_id" foreignKey="user_following_dataset_follower_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user_following_dataset"/>
+            <child column="follower_id" foreignKey="user_following_group_user_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user_following_group"/>
+            <child column="follower_id" foreignKey="user_following_user_follower_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user_following_user"/>
+            <child column="object_id" foreignKey="user_following_user_object_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user_following_user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="apikey" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="about" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="password" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="fullname" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="email" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="reset_key" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="9" name="sysadmin" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="10" name="activity_streams_email_notifications" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="'active'::text" digits="0" id="11" name="state" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="plugin_extras" nullable="true" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="image_url" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="user_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_user_id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_user_name" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+         <index name="idx_user_name_index" unique="false"/>
+         <index name="user_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="user_extra_fields" numRows="3" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="user_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="user_extra_fields_user_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="affiliation" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="professional_occupation" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="user_extra_fields_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="user_following_dataset" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="follower_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="user_following_dataset_follower_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="object_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="user_following_dataset_object_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="package"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="2" name="datetime" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="follower_id" sequenceNumberInPK="1"/>
+         <primaryKey column="object_id" sequenceNumberInPK="2"/>
+         <index name="user_following_dataset_pkey" unique="true">
+            <column ascending="true" name="follower_id"/>
+            <column ascending="true" name="object_id"/>
+         </index>
+      </table>
+      <table name="user_following_group" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="follower_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="user_following_group_user_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="object_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="user_following_group_group_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="group"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="2" name="datetime" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="follower_id" sequenceNumberInPK="1"/>
+         <primaryKey column="object_id" sequenceNumberInPK="2"/>
+         <index name="user_following_group_pkey" unique="true">
+            <column ascending="true" name="follower_id"/>
+            <column ascending="true" name="object_id"/>
+         </index>
+      </table>
+      <table name="user_following_user" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="follower_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="user_following_user_follower_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="object_id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="id" foreignKey="user_following_user_object_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="2" name="datetime" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="follower_id" sequenceNumberInPK="1"/>
+         <primaryKey column="object_id" sequenceNumberInPK="2"/>
+         <index name="user_following_user_pkey" unique="true">
+            <column ascending="true" name="follower_id"/>
+            <column ascending="true" name="object_id"/>
+         </index>
+      </table>
+      <table name="vocabulary" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="vocabulary_id" foreignKey="tag_vocabulary_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="tag"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="vocabulary_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="vocabulary_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+   </tables>
+</database>

@@ -90,6 +90,7 @@ a {
 
 .navbar-nav {
   margin: 7.5px 0;
+  display: flex;
 }
 
 .navbar-default {
@@ -329,8 +330,8 @@ fieldset[disabled] .btn-default.focus {
 
 .dataset-item:last-of-type {
   border-bottom:  1px solid #ccc;
-  margin-bottom: 0;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
+  /* padding-bottom: 20px; */
 }
 
 .wrapper {
@@ -410,6 +411,7 @@ fieldset[disabled] .btn-default.focus {
   font-weight: 300;
   text-align: justify;
   margin-bottom: -8px;
+  width: 90%;
 }
 
 .dataset-heading > a:hover, .dataset-heading > a:focus {
@@ -1058,6 +1060,11 @@ footer {
   margin: 0 15px 15px 15px;
   background-color: white;
   border-radius: 3px;
+  min-height: 310px;
+}
+
+.list-unstyled li{
+  padding: 10px !important;
 }
 
 .media-organization-item img{
@@ -1173,16 +1180,24 @@ footer {
 }
 
 .metadata-record-thumbnail img{
-  width: fit-content;
+  width: 180px;
   height: 150px;
   position: absolute;
   border: solid 1px #eee;
   top: 0;
   right: 0;
+  object-fit: cover !important;
+}
+
+.media-organization-item img{
+  /* width: 180px; */
+  height: 150px;
+  border: solid 1px #eee;
+  object-fit: cover !important;
 }
 
 .metadata-record-desc{
-  padding-left:20px;
+  padding-left:5px;
 }
 
 @media (min-width: 768px) {
@@ -1226,8 +1241,8 @@ footer {
 
 @media (max-width: 768px) {
   .metadata-record-thumbnail{
-    left: 50%;
-    margin-left: -80px;
+    /* left: 50%;
+    margin-left: -80px; */
   }
   .metadata-record-desc{
     padding-left:0px;
@@ -1374,3 +1389,6 @@ select[id$="field-dataset_custodian"]{
   background-image: url("/images/satelite.jpg");
 }
 
+.tooltip-inner {
+    text-align: left;
+}

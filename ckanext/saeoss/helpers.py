@@ -83,6 +83,13 @@ def get_default_bounding_box() -> typing.Optional[typing.List[float]]:
 def convert_geojson_to_bbox(
         geojson: typing.Dict,
 ) -> typing.Optional[typing.List[float]]:
+    if isinstance(geojson, str):
+        try:
+            geojson = json.loads(geojson)
+        except json.decoder.JSONDecodeError:
+            # bbox is already BBOX format
+            # 5.0, 5.0, -1.7763568394002505e-15, 10.000000000000002
+            return geojson.split(', ')
     try:
         coords = geojson["coordinates"][0]
     except TypeError:

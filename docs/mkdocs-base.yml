@@ -51,27 +51,35 @@ nav:
                         - user/quickstart/index.md
                 - Guide:
                         - user/guide/index.md
+                        - Registering: user/guide/registering.md
+                        - Functionality: user/guide/functionality/index.md
+                        - Profile settings: user/guide/profile_management.md
+                        - Organization Management: user/guide/on_owned_profile_management.md
+                        - Search Metadata: user/guide/search_metadata.md
+                        - Upload Metadata: user/guide/create_metadata.md
+                        - Edit Metadata: user/guide/edit_metadata.md
                         - Disclaimer: about/disclaimer.md
                         - License: about/license.md
+                        - Report Issues: user/guide/opening-issues.md #Linked in a document
                 - Manual: 
                         - user/manual/index.md
                         - Home Page: user/manual/home.md
                         - Dashboard Page: user/manual/dashboard.md
-                        - Profile: user/manual/profile_page.md
-                        - Profile Settings Page: user/manual/profile_settings.md
-                        - Organisation: users/manual/organisasion.md
+                        - Profile: user/manual/profile-page.md
+                        - Profile Settings Page: user/manual/profile-settings.md
+                        - Organization: user/manual/organization.md
                         - Metadata: user/manual/metadata.md
                         - Map: user/manual/map.md
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
-                        - "": user/manual/opening_issues.md
+                        - User Roles: user/manual/user_roles/index.md
+                - Metadata Standard: user/guide/research/index.md
         - Administrators:
                 - administrator/index.md
                 - Guide:
                         - administrator/guide/index.md
                 - Manual:
                         - administrator/manual/index.md
-                        - Harvesting Settings: administrator/manual/harvesting-settings.md
         - Developers:
                 - developer/index.md
                 - Guide:
@@ -89,32 +97,34 @@ nav:
                         - "": developer/guide/templates/bug-report-message-template.md
                         - "": developer/guide/templates/pull-request-template.md 
                         - "": developer/guide/templates/commit-message-convention.md
-                - Manual: developer/manual/index.md
-                - Documentation Writing: developer/documentation/index.md
-                - Manual:
-                  - developer/manual/index.md
-                  - assets: developer/manual/assets.md
-                  - blueprints: developer/manual/blueprints.md
-                  - cli: developer/manual/cli.md
-                  - logic: developer/manual/logic.md
-                  - migration: developer/manual/migration.md
-                  - model: developer/manual/model.md
-                  - plugins: developer/manual/plugins.md
-                  - public: developer/manual/public.md
-                  - scheming: developer/manual/scheming.md
-                  - templates: developer/manual/templates.md
-                  - constants: developer/manual/constants.md
-                  - email notification: developer/manual/email_notification.md
-                  - get releases: developer/manual/get_releases.md
-                  - helpers: developer/manual/helpers.md
-                  - jobs: developer/manual/jobs.md
-                  - wsgi: developer/manual/wsgi.md
-                  - CSW: developer/manual/csw.md
-                - API:
-                  - developer/api/index.md
-                  - Reference: developer/api/manual/index.md
-                  - Guide: developer/api/guide/index.md
-                - Documentation Writing: developer/documentation/index.md
+                - Manual: #this needs a lot of work
+                        - developer/manual/index.md
+                        - Coding Conventions: developer/manual/coding-conventions.md
+                        - Project Scrum Board: developer/manual/project-scrum-board.md
+                        - Assets: developer/manual/assets.md
+                        - Blueprints: developer/manual/blueprints.md
+                        - Command Line Interface: developer/manual/cli.md
+                        - Constants: developer/manual/constants.md
+                        - Email Notifications: developer/manual/email-notification.md
+                        - Get Releases: developer/manual/get-releases.md
+                        - Helpers: developer/manual/helpers.md
+                        - Jobs: developer/manual/jobs.md
+                        - Logic: developer/manual/logic.md
+                        - Migration: developer/manual/migration.md
+                        - Model: developer/manual/model.md
+                        - Plugins: developer/manual/plugins.md
+                        - Public: developer/manual/public.md
+                        - Scheming: developer/manual/scheming.md
+                        - Web Server Gateway Interface: developer/manual/wsgi.md
+                        - Test Local Instance: developer/manual/test_local.md
+                - Documentation: 
+                        - developer/documentation/index.md
+                        - Writing: developer/documentation/writing.md
+                        - Setting up mkdocs: developer/documentation/make-docs.md
+                - API: # this might not be needed for this project
+                        - developer/api/index.md
+                        - Reference: developer/api/manual/index.md
+                        - Guide: developer/api/guide/index.md
                 - License: about/license.md
         - DevOps: 
                 - devops/index.md

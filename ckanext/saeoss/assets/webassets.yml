@@ -72,6 +72,12 @@ validate-actions-js:
       - base/main
       - ckanext-saeoss/vendorized-leaflet-geoman-js
 
+stac-harvester-js:
+  output: ckanext-saeoss/stac_harvester.js
+  contents:
+    - js/stac_harvester.js
+  filter: rjsmin
+
 dataset-spatial-extent-map-css:
   output: ckanext-saeoss/%(version)s_datasetSpatialExtentMap.css
   contents:
@@ -106,6 +112,12 @@ ckan-base-css:
     - css/main.css
   filter: cssrewrite
 
+ckan-responsive-css:
+  output: ckanext-saeoss/%(version)s_ckan_responsive.css
+  contents:
+    - css/responsive.css
+  filter: cssrewrite
+
 saeoss-css:
   output: ckanext-saeoss/%(version)s_saeoss.css
   contents:
@@ -118,10 +130,20 @@ temporal-query-js:
     - js/temporalQuery.js
   filter: rjsmin
 
+tooltip-js:
+  output: ckanext-saeoss/%(version)s_tooltip.js
+  contents:
+    - js/tooltip.js
+  filter: rjsmin
+
 xml-parser-js:
   output: ckanext-saeoss/%(version)s_xmlParser.js
+
+file-parser-js:
+  output: ckanext-saeoss/%(version)s_fileParser.js
+
   contents:
-    - js/xmlParser.js
+    - js/fileParser.js
   filter: rjsmin
 
 facets-active-js:

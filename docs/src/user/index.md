@@ -9,13 +9,12 @@ The user content is divided into three sections:
 * The [user guide](guide/index.md), which describes common workflows in a tutorial format.
 * The [user manual](manual/index.md), which describes each page of the user interface and what the various options on that page do.
 
-
 <!-- Luna create these .md files and add the links here -->
-Aditional roles:
+Additional roles:
 
 Publisher
 Editor
 Member/Viewer
 
-<!-- Manual: briefly exlain role is it purpose -->
-<!-- guide: workflows for thers roles (step by step)-->
+<!-- Manual: briefly explain role is it purpose -->
+<!-- guide: workflows for other roles (step by step)-->

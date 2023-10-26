@@ -1,5 +1,3 @@
-
-
 # Pull Request Template
 <!-- To Be Populated -->
 ```
@@ -11,7 +9,7 @@ Fixes # (issue)
 
 **Screenshots/Media**
 
-Include any screenshots or media related to bug fixto display working functionality
+Include any screenshots or media related to bug fix to display working functionality
 
 #### Type of change
 
@@ -39,7 +37,7 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my code
-- [ ] I have commented my code following the docsting standard
+- [ ] I have commented my code following the docstring standard
 - [ ] I have made corresponding changes to the documentation, or created documentation for this
 - [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works

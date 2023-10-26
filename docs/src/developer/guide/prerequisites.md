@@ -1,5 +1,3 @@
-
-
 # Prerequisites
 
 In this section we cover any tools that need to be on your system so that you can have a local development environment.
@@ -30,7 +28,6 @@ If using VSCode (our recommended IDE), you need the the VSCode [Dev Containers](
 ![image.png](img/ide-dev-containers-2.png){:height 312, :width 689}  
 
 You will also need Gnu ['make'](https://www.gnu.org/software/make/) installed.
-
 
 If you already have all of the above criteria met, you can move on to [Cloning](cloning.md) to check out the code, otherwise, read on for more detailed notes on setting up your system.
 

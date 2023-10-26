@@ -18,7 +18,6 @@ from ckan.common import c
 from flask import Blueprint
 from sqlalchemy import orm
 import yaml
-from xmltodict3 import XmlTextToDict
 
 from ckanext.harvest.utils import DATASET_TYPE_NAME as HARVEST_DATASET_TYPE_NAME
 from ckanext.harvest.harvesters.ckanharvester import CKANHarvester
@@ -33,8 +32,9 @@ from .. import (
     helpers,
 )
 from ..blueprints.saeoss import saeoss_blueprint
-from ..blueprints.xml_parser import xml_parser_blueprint
+from ..blueprints.file_parser import file_parser_blueprint
 from ..blueprints.map import map_blueprint
+from ..blueprints.stac_harvest import stac_blueprint
 from ..blueprints.about import about_blueprint
 from ..blueprints.validator import validator_blueprint
 from ..blueprints.saved_searches import saved_searches_blueprint
@@ -232,7 +232,6 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         u'''
         Receive an object instance before that instance is UPDATEed.
         '''
-
         logger.debug(f"resource update {instance}")
 
     def before_delete(self, mapper, connection, instance):
@@ -388,8 +387,9 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     def get_blueprint(self) -> typing.List[Blueprint]:
         return [
             saeoss_blueprint,
-            xml_parser_blueprint,
+            file_parser_blueprint,
             map_blueprint,
+            stac_blueprint,
             about_blueprint,
             validator_blueprint,
             saved_searches_blueprint,
