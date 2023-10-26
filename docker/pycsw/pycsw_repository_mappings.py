@@ -79,6 +79,7 @@ MD_CORE_MODEL = {
         "pycsw:ConditionApplyingToAccessAndUse": "conditionapplyingtoaccessanduse",
         "pycsw:Lineage": "dataset_lineage",  # this is not used as a value, but required by pycsw
         "pycsw:OrganizationName": "organisation",
+        "pycsw:Assets": "assets",
         # "pycsw:LineageStatement": "lineage_statement",
         # "pycsw:ContactIndividualName": "contact_individual_name",
         # "pycsw:ContactPositionName": "contact_position_name",
