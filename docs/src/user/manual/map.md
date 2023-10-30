@@ -1,3 +1,4 @@
+###### Previous Page: [Metadata](./metadata.md)
 # Map
 
 This interface displays footprints of datasets in polygon format by displaying the boundary that is covered by the respective metadata record.
@@ -11,3 +12,5 @@ These are some of the components found on the map tab:
 3. Zoom functionality: This allows users to zoom in and out on the map.
 4. Basemap options: This allows users to choose a specific basemap.
 ![Map](img/map-2.png)
+
+###### Next Page: [About](./about.md)

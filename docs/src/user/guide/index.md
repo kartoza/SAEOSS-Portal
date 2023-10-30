@@ -8,7 +8,6 @@ The guide section of the documentation provides short narrative / workflow based
 **[Registering:](./registering.md)**  This page will show you how to register on the platform.
 Help and Contact Pages: Here we explain how to get help with the platform, either from the documentation or through contacting the SAWPS team.
 
-**[Functionality:](./functionality/index.md)** This section explains the various functionalities that can be performed on the site and what the required user roles are for those functionalities. This includes ,managing your profile, searching for metadata, saving searches, creating, editing and publishing metadata and managing organisational members.
 
 ## Error reporting
 

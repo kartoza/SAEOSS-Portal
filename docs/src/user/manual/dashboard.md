@@ -55,4 +55,4 @@ By selecting the `Profile Settings` button, you can adjust your profile settings
 
 ###### Next Chapter
 
-In the next chapter, look at [Profile Settings](./profile-settings.md)
+In the next chapter, look at [Profile Page](./profile-page.md)

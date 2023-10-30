@@ -58,3 +58,7 @@ All users have access to the following pages:
 ![organisation](img/organisation-1.png)
 4. <b>About</b>: Users can access everything on the About page.
 5. </b>Help: Users can access the Help page, which takes them directly to this documentation.
+
+
+
+###### Next Page: [User Guide](../guide/index.md)

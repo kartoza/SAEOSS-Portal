@@ -1,3 +1,4 @@
+###### Previous Page: [Organisation](./organisation.md)
 # Metadata capturing and publishing
 
 #### Create metadata record in owned organisation using System UI
@@ -33,3 +34,5 @@ The xml file should look something like this:
 #### Edit metadata record using system UI
 
 Navigate to the record you want to edit and select 'manage' and make the changes as required then click on 'Update' at the bottom of the page.
+
+###### Next Page: [Map](./map.md)
