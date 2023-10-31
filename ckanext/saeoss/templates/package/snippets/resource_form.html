@@ -203,7 +203,9 @@
     btnSaveList[i].addEventListener("click", (event) => {
       const isMultiple = document.getElementById('upload_mode').value === 'multiple';
       if (isMultiple) {
+        
         event.preventDefault();
+        window.onbeforeunload = null;
         document.getElementById('resource_type').value = 'other'
         const saveValue = event.target.value;
         const formData = new FormData(loginForm);
@@ -229,7 +231,8 @@
           if (saveValue === 'again') {
             window.location.href = window.location
           } else {
-            window.location.href = `${window.location.origin}/dataset/{{ pkg_name }}`
+            $(window).off('beforeunload');
+            window.location.replace(`${window.location.origin}/dataset/{{ pkg_name }}`)
           }
         });
       }
