@@ -42,6 +42,11 @@ def get_iso_topic_categories(*args, **kwargs) -> typing.List[typing.Dict[str, st
         {"value": cat[0], "label": cat[1]} for cat in constants.ISO_TOPIC_CATEGORIES
     ]
 
+def get_iso_topic_display(value) -> str:
+    filtered_value = list(filter(lambda a: a[0] == value, constants.ISO_TOPIC_CATEGORIES))
+    if filtered_value:
+        return filtered_value[0][1]
+    return ''
 
 def get_default_spatial_search_extent(
         padding_degrees: typing.Optional[float] = None,
@@ -83,6 +88,7 @@ def get_default_bounding_box() -> typing.Optional[typing.List[float]]:
 def convert_geojson_to_bbox(
         geojson: typing.Dict,
 ) -> typing.Optional[typing.List[float]]:
+    logger.error(geojson)
     if isinstance(geojson, str):
         try:
             geojson = json.loads(geojson)
@@ -577,3 +583,38 @@ def get_user_dashboard_packages(user_id):
         for package in query.all()
     ]
     return packages
+
+
+def _get_reference_date(package_dict: typing.Dict) -> str:
+    dataset_reference_date = None
+    if 'extras' in package_dict:
+        extras = [
+            extra for extra in package_dict['extras'] if extra['key'] == 'dataset_reference_date'
+        ]
+        if extras:
+            dataset_reference_dates = json.loads(extras[0]['value'])
+            if dataset_reference_dates:
+                dataset_reference_date = dataset_reference_dates[0]['reference']
+    elif 'dataset_reference_date' in package_dict:
+        dataset_reference_dates = package_dict['dataset_reference_date']
+        if dataset_reference_dates:
+            dataset_reference_date = dataset_reference_dates[0]['reference']
+    return dataset_reference_date
+
+
+def _get_tags(package_dict: typing.Dict) -> str:
+    try:
+        iso_category = get_iso_topic_display(package_dict['topic_and_saeoss_themes-0-iso_topic_category'])
+    except KeyError:
+        iso_category = get_iso_topic_display(package_dict['topic_and_saeoss_themes'][0]['iso_topic_category'])
+    iso_category = iso_category.replace(', ', '-')
+    # clean tag from any iso topic category
+    tags = {
+        tag['name'] for tag in package_dict['tags'] if
+        tag['name'] not in [cat[1].replace(', ', '-') for cat in constants.ISO_TOPIC_CATEGORIES]
+    }
+
+    if iso_category:
+        # add current iso topic category to tags
+        tags.add(iso_category)
+    return [{'name': tag, 'state': 'active'} for tag in tags]

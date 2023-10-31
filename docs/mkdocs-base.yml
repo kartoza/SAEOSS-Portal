@@ -53,10 +53,14 @@ nav:
                         - user/guide/index.md
                         - Registering: user/guide/registering.md
                         - Functionality: user/guide/functionality/index.md
-                        - STAC AND SANS 1876: user/guide/research/index.md
+                        - Profile settings: user/guide/profile_management.md
+                        - Organization Management: user/guide/no_owned_profile_management.md
+                        - Search Metadata: user/guide/search_metadata.md
+                        - Upload Metadata: user/guide/create_metadata.md
+                        - Edit Metadata: user/guide/edit_metadata.md
                         - Disclaimer: about/disclaimer.md
                         - License: about/license.md
-                        - "": user/guide/opening-issues.md #Should probably be visible
+                        - Report Issues: user/guide/opening-issues.md #Linked in a document
                 - Manual: 
                         - user/manual/index.md
                         - Home Page: user/manual/home.md
@@ -68,7 +72,8 @@ nav:
                         - Map: user/manual/map.md
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
-                        - User Roles: user/manual/user_roles/index.md
+                        - User Roles: user/manual/user-roles.md
+                - Metadata Standard: user/guide/research/index.md
         - Administrators:
                 - administrator/index.md
                 - Guide:

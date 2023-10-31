@@ -1,4 +1,4 @@
-###### Previous Page: [Dashboard](./dashboard.md)
+###### Previous Page: [Profile Page](./profile-page.md)
 
 # Profile Settings
 
@@ -31,4 +31,4 @@ The profile settings page consists of three main sections, each consisting of ke
 
 - **Generate API Key:** Redirects to the profile API tokens page. To learn more about API tokens, follow this link. [Read more](./profile-page.md#api-tokens)
 
-###### Next Page [Profile Page](./profile-page.md)
+###### Next Page [Organisations](./organisation.md)
