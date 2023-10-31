@@ -40,7 +40,7 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
     model = context['model']
     user = context['user']
 
-    logger.debug(f"package create was called {data_dict}")
+    logger.debug(f"resource_create was called {data_dict}")
 
     package_id = _get_or_bust(data_dict, 'package_id')
     if not data_dict.get('url'):
@@ -68,6 +68,8 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
         if hasattr(upload, 'filesize'):
             data_dict['size'] = upload.filesize
 
+    logger.debug(upload)
+
     if upload:
         if data_dict["resource_type"] == "stac":
 
@@ -86,7 +88,7 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
 
                 temp_file = upload.upload_file
                 file_contents = temp_file.read()
-                
+
                 if upload.mimetype == "application/json":
                     json_data = json.loads(file_contents)
 
@@ -95,7 +97,7 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
 
                 if upload.mimetype == "application/xml":
                     json_data = xmltodict.parse(file_contents)
-    
+
             else:
                 response = urlopen(data_dict['url'])
                 json_data = json.loads(response.read())
@@ -176,21 +178,21 @@ def resource_update(original_action, context: dict, data_dict: dict):
 
     logger.debug("resource update", data_dict)
 
-    if "http" not in data_dict["url"] and "https" not in data_dict["url"]:
-
-        if data_dict["updated_text"]:
-            first_folder = id[0:3]
-            second_folder = id[3:6]
-            file_name = id[6:len(id)]
-
-            upload = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
-
-            logger.debug(f"resource update custom {data_dict}")
-            f = open(upload, "w")
-            f.write(data_dict["updated_text"])
-            f.close()
-
-            del data_dict["updated_text"]
+    # if "http" not in data_dict["url"] and "https" not in data_dict["url"]:
+    #
+    #     if data_dict["updated_text"]:
+    #         first_folder = id[0:3]
+    #         second_folder = id[3:6]
+    #         file_name = id[6:len(id)]
+    #
+    #         upload = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
+    #
+    #         logger.debug(f"resource update custom {data_dict}")
+    #         f = open(upload, "w")
+    #         f.write(data_dict["updated_text"])
+    #         f.close()
+    #
+    #         del data_dict["updated_text"]
 
     resource = model.Resource.get(id)
     context["resource"] = resource
