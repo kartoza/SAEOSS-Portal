@@ -143,7 +143,8 @@ def stac_validator(jsonData, type):
     except jsonschema.exceptions.ValidationError as err:
         logging.debug(f"validation error {err}")
         raise ckan_custom_actions.ValidationError([f"The uploaded file does not follow STAC guidelines. Please ammend the following: \n\n{err}"],)
-    
+
+
 def stac_validator_admin(json_data, type):
     if type == 'collection':
         file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/collection/collection.json"

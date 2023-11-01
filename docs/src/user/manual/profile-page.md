@@ -1,4 +1,4 @@
-###### Previous Page: [Profile Settings](./profile-settings.md)
+###### Previous Page: [Dashboard](dashboard.md)
 
 # Profile Page
 
@@ -38,4 +38,4 @@ This is where user can create an API token, which can later be used to upload da
 
 ![api](img/api_token.png)
 
-###### Next Page: [page Page]()
+###### Next Page: [Profile Settings](profile-settings.md)

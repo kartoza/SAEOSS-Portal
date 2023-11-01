@@ -1,4 +1,4 @@
-###### Previous Page: [Name]()
+###### Previous Page:  [About](./about.md)
 
 # Help Page
 
@@ -14,4 +14,4 @@ In all cases, your support and contributions are not only welcome but greatly ap
 
 If you have made it thus far into the documentation, you may want to review the [user guide](../guide/index.md), which provides workflow-based tutorials in the same page-by-page manner.
 
-###### Next Page: [User Guide](../guide/index.md)
+###### Next Page: [User Roles](user-roles.md)

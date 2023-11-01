@@ -10,6 +10,7 @@ from ckan.model.domain_object import DomainObject
 
 from .add_named_url import populate_dataset_name
 from ...model.user_extra_fields import UserExtraFields
+from ckanext.saeoss.helpers import _get_reference_date, _get_tags
 
 logger = logging.getLogger(__name__)
 
@@ -112,6 +113,8 @@ def package_update(original_action, context, data_dict):
     Intercepts the core `package_update` action to check if package is being published.
     """
     logger.debug(f"inside package_update action: {data_dict=}")
+    data_dict['tags'] = _get_tags(data_dict)
+    data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 
@@ -168,20 +171,3 @@ def _act_depending_on_package_visibility(
         #     toolkit.get_action("follow_dataset")(context, result)
 
     return result
-
-
-def _get_reference_date(package_dict: typing.Dict):
-    dataset_reference_date = None
-    if 'extras' in package_dict:
-        extras = [
-            extra for extra in package_dict['extras'] if extra['key'] == 'dataset_reference_date'
-        ]
-        if extras:
-            dataset_reference_dates = json.loads(extras[0]['value'])
-            if dataset_reference_dates:
-                dataset_reference_date = dataset_reference_dates[0]['reference']
-    elif 'dataset_reference_date' in package_dict:
-        dataset_reference_dates = package_dict['dataset_reference_date']
-        if dataset_reference_dates:
-            dataset_reference_date = dataset_reference_dates[0]['reference']
-    return dataset_reference_date
