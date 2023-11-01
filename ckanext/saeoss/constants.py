@@ -5,6 +5,10 @@
 import enum
 import typing
 
+SAEOSS_THEMES_VOCABULARY_NAME: typing.Final[str] = "saeoss_themes"
+
+ISO_TOPIC_CATEGOY_VOCABULARY_NAME: typing.Final[str] = "iso_topic_categories"
+
 ISO_TOPIC_CATEGORIES: typing.Final[typing.List[typing.Tuple[str, str]]] = [
     ("farming", "Farming"),
     ("biota", "Biota"),

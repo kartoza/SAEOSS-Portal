@@ -46,10 +46,10 @@ def saeoss_clean_db():
 
 
 @pytest.fixture
-def emc_create_sasdi_themes(request):
+def saeoss_create_themes(request):
     ckan_ini = request.config.getoption("--ckan-ini")
     subprocess.run(
         shlex.split(
-            f"poetry run ckan --config {ckan_ini} dalrrd-emc-dcpr bootstrap create-iso-topic-categories"
+            f"poetry run ckan --config {ckan_ini} saeoss bootstrap create-iso-topic-categories"
         )
     )

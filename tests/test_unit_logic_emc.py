@@ -16,6 +16,6 @@ def test_show_version(mock_pkg_resources, mock_os):
     mock_pkg_resources_working_set = mock.MagicMock(pkg_resources.WorkingSet)
     mock_pkg_resources_working_set.version = fake_version
     mock_pkg_resources.require.return_value = [mock_pkg_resources_working_set]
-    result = emc.show_version()
+    result = saeoss.show_version()
     assert result["git_sha"] == fake_git_sha
     assert result["version"] == fake_version

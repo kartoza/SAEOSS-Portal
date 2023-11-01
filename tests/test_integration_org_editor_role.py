@@ -42,7 +42,7 @@ pytestmark = pytest.mark.integration
     ],
 )
 @pytest.mark.usefixtures(
-    "saeoss_clean_db", "with_plugins", "with_request_context", "emc_create_sasdi_themes"
+    "saeoss_clean_db", "with_plugins", "with_request_context", "saeoss_create_themes"
 )
 def test_create_package(name, private, org_role):
     user = factories.User()

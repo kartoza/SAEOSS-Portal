@@ -159,5 +159,5 @@ create datasets (metadata records) from stac endpoint
 docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --number-records <number_records> --owner-org <organisation_name>
 ```
 
-
-
+# Testing
+You can setup and run local test by following [this manual](https://kartoza.github.io/SAEOSS-Portal/developer/manual/test_local/).
