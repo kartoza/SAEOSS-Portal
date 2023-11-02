@@ -42,6 +42,7 @@ from ..blueprints.saved_searches import saved_searches_blueprint
 from ..blueprints.news import news_blueprint
 from ..blueprints.contact import contact_blueprint
 from ..blueprints.sys_stats import stats_blueprint
+from ..blueprints.reset_password import reset_blueprint
 from ..cli import commands
 from ..logic.action import ckan as ckan_actions
 from ..logic.action import saeoss as saeoss_actions
@@ -399,6 +400,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             news_blueprint,
             contact_blueprint,
             stats_blueprint,
+            reset_blueprint
         ]
 
     def dataset_facets(
