@@ -117,6 +117,7 @@ nav:
                         - Scheming: developer/manual/scheming.md
                         - Web Server Gateway Interface: developer/manual/wsgi.md
                         - Test Local Instance: developer/manual/test_local.md
+                        - CSW: developer/manual/csw.md
                 - Documentation: 
                         - developer/documentation/index.md
                         - Writing: developer/documentation/writing.md

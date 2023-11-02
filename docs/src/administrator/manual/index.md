@@ -11,6 +11,7 @@ The administrator manual aims to assist user in learning the fundamentals of usi
 ## Index:
 
 - [**Dashboard**]()
+- [**Harvesting Settings**]()
 - [**Profile**]()
 - [**Metadata**]()
 - [**Map**]()
