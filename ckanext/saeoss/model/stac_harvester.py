@@ -1,6 +1,9 @@
-# define a table and a class to hold saved searches
-# the class has a get method that returns a list of dcpr requets
-# therree is also a mapper to map relationships
+# -*- coding: utf-8 -*-
+
+"""Define a table and a class to hold stac harvester
+the class has a get method that returns a list of stac harvester
+there is also a mapper to map relationships.
+"""
 
 
 import datetime
@@ -9,7 +12,7 @@ from logging import getLogger
 
 log = getLogger(__name__)
 
-from sqlalchemy import orm, types, Column, Table, ForeignKey
+from sqlalchemy import orm, types, Column, Table
 
 from ckan import model
 
@@ -60,6 +63,9 @@ stac_harvester_table = Table(
 
 
 class StacHarvester(model.core.StatefulObjectMixin, model.domain_object.DomainObject):
+    """StacHarvester model.
+
+    """
     def __init__(self, **kw):
         super(StacHarvester, self).__init__(**kw)
         self.owner_id = kw.get("user")

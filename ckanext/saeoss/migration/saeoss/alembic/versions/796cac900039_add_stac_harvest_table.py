@@ -19,6 +19,7 @@ depends_on = None
 
 
 def upgrade():
+    """Create table function."""
     op.create_table(
         "stac_harvester",
         model.meta.metadata,
@@ -59,4 +60,5 @@ def upgrade():
 
 
 def downgrade():
+    """To delete table function."""
     op.drop_table("stac_harvester")
