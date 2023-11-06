@@ -212,26 +212,30 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             // disable rotation
             map.touchZoomRotate.disableRotation();
 
-            let fetchRes = fetch("https://explorer.digitalearth.africa/stac/collections");
+            let fetchRes = fetch("/stac/datasetcollection");
             
             fetchRes.then(res => res.json()).then(_data => {
 
                 dataFetched = _data;
-                
-                var collections = _data["collections"]
-                var image_url = "/images/africa_preview.png";
+                var collections = _data["features"]
                 var collectionHtml = `
                 <div style="display:none" class="row collection-search-error" id="collection-search-error"></div>`;
                 for(var i = 0; i < collections.length; i++){
+                    var image_url
+                    if(collections[i]["assets"]["thumbnail"]["href"] != ""){
+                        image_url = collections[i]["assets"]["thumbnail"]["href"]
+                    }
+                    else{
+                        image_url = "/images/africa_preview.png"
+                    }
                     collectionHtml += `
                         <div class="row collection-show collection-flex" data-collectionnum=${i}>
                         <div class="img-div" style='height:100% !important'>
                         <img class='collection-thumbnail' src='${image_url}'/>
                         </div>
                         <div style="position:relative;width:100%">
-                        <h4>${collections[i]["title"]}</h4>
-                        <!--<p>${collections[i]["description"]}</p>-->
-                        <p class="bottom-date">${collections[i]["extent"]["temporal"]["interval"][0][0]} - ${collections[i]["extent"]["temporal"]["interval"][0][1]}</p>
+                        <h4>${collections[i]["id"]}</h4>
+                        <p class="bottom-date">${collections[i]["properties"]["datetime"]}</p>
                         </div>
                         </div>`;
                 }
@@ -245,7 +249,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     if($(this).val() != "" && $("#end_date").val() == ""){
                         var resultArr = []
                         for(var i = 0; i < collections.length; i++){
-                            var temporal_start = new Date(collections[i]["extent"]["temporal"]["interval"][0][0])
+                            var temporal_start = new Date(collections[i]["properties"]["datetime"])
                             if(temporal_start >= start_date){
                                 resultArr.push(i)
                             }
@@ -326,7 +330,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                    if($(this).val() != "" && $("#start_date").val() == ""){
                         var resultArr = []
                         for(var i = 0; i < collections.length; i++){
-                            var temporal_end = new Date(collections[i]["extent"]["temporal"]["interval"][0][1])
+                            var temporal_end = new Date(collections[i]["properties"]["datetime"])
                             if(temporal_end <= end_date){
                                 resultArr.push(i)
                             }
@@ -406,7 +410,14 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     var search_string = document.getElementById("search-collection").value
                     var resultArr = []
                     for(var i = 0; i < collections.length; i++){
-                        if(collections[i]["title"].includes(search_string) || collections[i]["description"].includes(search_string)){
+
+                        if(collections[i]["properties"]["name"].includes(search_string)){
+                            resultArr.push(i)
+                        }
+                        if(collections[i]["properties"]["description"].includes(search_string) ){
+                            resultArr.push(i)
+                        }
+                        if(collections[i]["properties"]["keywords"].includes(search_string)){
                             resultArr.push(i)
                         }
                     }
@@ -448,98 +459,32 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 })
 
                 $(".collection-show").on('click', function(event){
-                    $(".collection-show").each(function(){
-                        if($(this).hasClass("selected-feature")){
-                            $(this).removeClass("selected-feature")
-                        }
-                    })
-                    $(this).addClass('selected-feature')
                     var index = $(this).data('collectionnum')
-                    var collections = dataFetched["collections"]
-                    let sourceUrl = collections[index]["links"].filter((link) => link['rel'] == 'items')[0]['href']
-
+        
                     if(map.getLayer("spatial_polygons")){
                         map.removeLayer("spatial_polygons")
                         map.removeSource("spatial_polygons")
                     }
-
-                    document.getElementById("loadCollection").style.display = "block"
-                    document.getElementById("feature-info-tab").style.display = "block"
-                    document.getElementById("feature-inner").innerHTML = ""
-                    document.getElementById("collapse-feature").style.display = "block"
-                    
-                    let fetchRes = fetch(sourceUrl);
-                    fetchRes.then(res => res.json()).then(data => {
-                        allFeatures = data["features"]
-                        var featureHtml = ""
-                        for(var i = 0; i < allFeatures.length; i++){
-                            var image_url;
-                            var isThumbnail = false;
-                            Object.keys( allFeatures[i]["assets"]).forEach(function(k){
-                                if(k == "thumbnail"){
-                                    isThumbnail = true;
-                                    image_url = allFeatures[i]["assets"]["thumbnail"]["href"]
-                                }
-                            })
-                            if(!isThumbnail){
-                                image_url = "/images/africa_preview.png"
-                            }
-                            featureHtml += `
-                            <div class="feature-show" >
-                            <div>
-                            <input class="feature-show-radio" name="feature-selected" data-featurenum=${i} type='radio' /> ${allFeatures[i]["properties"]["title"]}
-                            </div>
-                            </div>`;
-                        }
-                        
-                        document.getElementById("loadCollection").style.display = "none"
-                        document.getElementById("feature-inner").innerHTML = featureHtml
-
-                        $(".feature-show-radio").on('click', function(event){
-                            var index = $(this).data('featurenum')
-        
-                            if(map.getLayer("spatial_polygons")){
-                                map.removeLayer("spatial_polygons")
-                                map.removeSource("spatial_polygons")
-                            }
-            
-                            map.addSource("spatial_polygons", {
-                                type: "geojson",
-                                data: allFeatures[index],
-                            });
-              
-                            map.addLayer({
-                                'id': 'spatial_polygons',
-                                'type': 'fill',
-                                'source': 'spatial_polygons',
-                                'layout': {},
-                                'paint': {
-                                    'fill-color': '#088',
-                                    'fill-opacity': 0.5
-                                }
-                            });
-                            map.rerenderLayer = false;
-
-                            map.source = {
-                                type: "geojson",
-                                data: allFeatures[index],
-                            }
-                            map.layer = {
-                                'id': 'spatial_polygons',
-                                'type': 'fill',
-                                'source': 'spatial_polygons',
-                                'layout': {},
-                                'paint': {
-                                    'fill-color': '#088',
-                                    'fill-opacity': 0.5
-                                }
-                            }
-        
-                            var bounds = allFeatures[index]["bbox"]
-                            map.fitBounds(bounds)
-                        });
-                        
+    
+                    map.addSource("spatial_polygons", {
+                        type: "geojson",
+                        data: collections[index],
                     });
+        
+                    map.addLayer({
+                        'id': 'spatial_polygons',
+                        'type': 'fill',
+                        'source': 'spatial_polygons',
+                        'layout': {},
+                        'paint': {
+                            'fill-color': '#088',
+                            'fill-opacity': 0.5
+                        }
+                    });
+                    map.rerenderLayer = false;
+
+                    var bounds = collections[index]["bbox"]
+                    map.fitBounds(bounds)
                 })
                 
             });
