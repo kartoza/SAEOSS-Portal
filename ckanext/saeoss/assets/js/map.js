@@ -460,6 +460,12 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
                 $(".collection-show").on('click', function(event){
                     var index = $(this).data('collectionnum')
+
+                    try {
+                        $('.maplibregl-popup').remove();
+                    } catch (error) {
+                        
+                    }
         
                     if(map.getLayer("spatial_polygons")){
                         map.removeLayer("spatial_polygons")
