@@ -11417,8 +11417,9 @@ iframe {
 }
 
 .collection-thumbnail{
-  width: 100%;
-  height: 100%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover !important;
   padding: 0 10px 0px 0px;
 }
 
