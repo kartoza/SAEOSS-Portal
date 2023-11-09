@@ -325,9 +325,9 @@ def datasetcollection():
     for package in package_list:
         package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package})
         logger.debug(f"package {package_dict}")
-        if package_dict['spatial']:
+        try:
             package_spatial = json.loads(package_dict['spatial'])
-        else:
+        except KeyError:
             package_spatial = {"type": "Polygon", "coordinates": [[[16.4699, -34.8212], [32.8931, -34.8212], [32.8931, -22.1265], [16.4699, -22.1265], [16.4699, -34.8212]]]}
         logger.debug(f"spatial", package_spatial)
         package_name = package_dict["name"]
