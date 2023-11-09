@@ -1,0 +1,50 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Logged Out') }}{% endblock %}
+
+
+{% block primary_content %}
+
+  <section class="module secondary-inner">
+    <div class="module-content">
+        <h1 class="page-heading">{% block page_heading %}{{ _('Logged Out') }}{% endblock %}</h1>
+        <p>{% trans %}You are now logged out.{% endtrans %}</p>
+        <a class="btn btn-default" href="/">{{ _('Back to the home page') }}</a>
+
+    </div>
+  </section>
+{% endblock %}
+
+{% block secondary_content %}
+  {% block help_register %}
+  <section class="module module-narrow module-shallow">
+    {% block help_register_inner %}
+      <h2 class="module-heading">{{ _('Metadata Browser') }}</h2>
+      <div class="module-content">
+        <p>{% trans %}Browse through our comprehensive metadata repository{% endtrans %}</p>
+        <p class="action">
+        {% block help_register_button %}
+          <a class="btn btn-default" href="/dataset/">{{ _('Metadata') }}</a>
+        {% endblock %}
+        </p>
+      </div>
+    {% endblock %}
+  </section>
+  {% endblock %}
+
+  {% block help_forgotten %}
+  <section class="module module-narrow module-shallow">
+    {% block help_forgotten_inner %}
+    <h2 class="module-heading">{{ _('Explore Map') }}</h2>
+    <div class="module-content">
+      <p>{% trans %}Explore our metadata through an interactive map viewer.{% endtrans %}</p>
+      <p class="action">
+        {% block help_forgotten_button %}
+        <a class="btn btn-default resizing" href="/map/">{{ _('Map') }}</a>
+        {% endblock %}
+      </p>
+    </div>
+    {% endblock %}
+  </section>
+  {% endblock %}
+{% endblock %}

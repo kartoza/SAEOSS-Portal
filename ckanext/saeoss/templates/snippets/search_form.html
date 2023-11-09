@@ -4,3 +4,10 @@
 
 {% block search_title %}
 {% endblock %}
+{% block search_input_button %}
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit" value="search" aria-label="{{_('Submit')}}">
+          <i class="fa fa-search" style="font-size: medium"></i>
+        </button>
+      </span>
+{% endblock %}
