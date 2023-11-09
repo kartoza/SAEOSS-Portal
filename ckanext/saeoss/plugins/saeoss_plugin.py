@@ -360,6 +360,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "extent_to_bbox": helpers.convert_string_extent_to_bbox,
             # "saeoss_themes": helpers.get_saeoss_themes,
             "iso_topic_categories": helpers.get_iso_topic_categories,
+            "get_iso_topic_display": helpers.get_iso_topic_display,
             "saeoss_show_version": helpers.helper_show_version,
             "user_is_org_member": helpers.user_is_org_member,
             "org_member_list": helpers.org_member_list,
