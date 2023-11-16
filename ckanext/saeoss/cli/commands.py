@@ -59,6 +59,10 @@ from ._sample_users import SAMPLE_USERS
 from .. import jobs
 from .. import provide_request_context
 from ..email_notifications import get_and_send_notifications_for_all_users
+from ..constants import (
+    ISO_TOPIC_CATEGOY_VOCABULARY_NAME,
+    ISO_TOPIC_CATEGORIES
+)
 
 logger = logging.getLogger(__name__)
 _xml_parser = etree.XMLParser(resolve_entities=False)
@@ -1213,3 +1217,56 @@ def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records
 )
 def create_stac_dataset(user: str, url: str, owner_org: str, number_records: int = 10):
     create_stac_dataset_func(user, url, owner_org, number_records)
+
+
+@bootstrap.command()
+def create_iso_topic_categories():
+    """Create ISO Topic Categories.
+
+    This command adds a CKAN vocabulary for the ISO Topic Categories and creates each
+    topic category as a CKAN tag.
+
+    This command can safely be called multiple times - it will only ever create the
+    vocabulary and themes once.
+
+    """
+
+    logger.info(
+        f"Creating ISO Topic Categories CKAN tag vocabulary and adding "
+        f"the relevant categories..."
+    )
+
+    user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {})
+    context = {"user": user["name"]}
+    vocab_list = toolkit.get_action("vocabulary_list")(context)
+    for voc in vocab_list:
+        if voc["name"] == ISO_TOPIC_CATEGOY_VOCABULARY_NAME:
+            vocabulary = voc
+            logger.info(
+                f"Vocabulary {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r} already exists, "
+                f"skipping creation..."
+            )
+            break
+    else:
+        logger.info(f"Creating vocabulary {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r}...")
+        vocabulary = toolkit.get_action("vocabulary_create")(
+            context, {"name": ISO_TOPIC_CATEGOY_VOCABULARY_NAME}
+        )
+
+    for theme_name, _ in ISO_TOPIC_CATEGORIES:
+        if theme_name != "":
+            already_exists = theme_name in [tag["name"] for tag in vocabulary["tags"]]
+            if not already_exists:
+                logger.info(
+                    f"Adding tag {theme_name!r} to "
+                    f"vocabulary {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r}..."
+                )
+                toolkit.get_action("tag_create")(
+                    context, {"name": theme_name, "vocabulary_id": vocabulary["id"]}
+                )
+            else:
+                logger.info(
+                    f"Tag {theme_name!r} is already part of the "
+                    f"{ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r} vocabulary, skipping..."
+                )
+    logger.info("Done!")
