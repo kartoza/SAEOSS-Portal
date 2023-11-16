@@ -1,6 +1,9 @@
-# define a table and a class to hold saved searches
-# the class has a get method that returns a list of dcpr requets
-# therree is also a mapper to map relationships
+# -*- coding: utf-8 -*-
+
+"""Define a table and a class to hold saved searches
+the class has a get method that returns a list of saved search
+there is also a mapper to map relationships
+"""
 
 
 import datetime
@@ -42,6 +45,9 @@ saved_searches_table = Table(
 
 
 class SavedSearches(model.core.StatefulObjectMixin, model.domain_object.DomainObject):
+    """SavedSearches model.
+
+    """
     def __init__(self, **kw):
         super(SavedSearches, self).__init__(**kw)
         self.owner_id = kw.get("owner_user")
