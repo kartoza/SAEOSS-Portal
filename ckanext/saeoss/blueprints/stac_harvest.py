@@ -14,10 +14,10 @@ from ckanext.saeoss.cli.commands import create_stac_dataset_func
 
 logger = logging.getLogger(__name__)
 
-
 stac_blueprint = Blueprint(
     "stac_harvest", __name__, template_folder="templates", url_prefix="/stac_harvest"
 )
+
 
 def columns_to_dict(self):
     dict_ = {}
@@ -25,14 +25,16 @@ def columns_to_dict(self):
         dict_[key] = getattr(self, key)
     return dict_
 
-@stac_blueprint.route("/create_job", methods = ['POST', 'GET'])
+
+@stac_blueprint.route("/create_job", methods=['POST', 'GET'])
 def create_job():
     """A blueprint rendering stac harvest template.
 
     """
     return toolkit.render("stac_harvest/create.html")
 
-@stac_blueprint.route("/", methods = ['POST', 'GET'])
+
+@stac_blueprint.route("/", methods=['POST', 'GET'])
 def view():
     """A blueprint rendering stac harvest template.
 
@@ -42,7 +44,8 @@ def view():
 
     return toolkit.render("stac_harvest/view.html")
 
-@stac_blueprint.route("/view_jobs/", methods = ['POST', 'GET'])
+
+@stac_blueprint.route("/view_jobs/", methods=['POST', 'GET'])
 def view_jobs():
     """A blueprint rendering stac harvest template.
 
@@ -61,7 +64,8 @@ def view_jobs():
 
     return json.dumps(context, sort_keys=True, default=str)
 
-@stac_blueprint.route("/create/", methods = ['POST', 'GET'])
+
+@stac_blueprint.route("/create/", methods=['POST', 'GET'])
 def create_stac():
     if request.method == 'POST':
         user = c.userobj.id
@@ -78,7 +82,7 @@ def create_stac():
             logger.info("number_records is not an integer, setting it to 10")
 
         create_stac_dataset_func(user, url, owner_org, number_records)
-                    
+
         return json.dumps({"message": "finished"})
-    
+
     return json.dumps({"message": "empty request"})

@@ -113,7 +113,10 @@ def package_update(original_action, context, data_dict):
     Intercepts the core `package_update` action to check if package is being published.
     """
     logger.debug(f"inside package_update action: {data_dict=}")
-    data_dict['tags'] = _get_tags(data_dict)
+    try:
+        data_dict['tags'] = _get_tags(data_dict)
+    except KeyError:
+        data_dict['tags'] = []
     data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
