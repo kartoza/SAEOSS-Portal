@@ -109,10 +109,10 @@ DATASET_FULL_SET_OF_FIELDS = [
     "lineage_statement",
     "distribution_format-0-name",
     "distribution_format-0-version",
-    "online_resource-0-name",
-    "online_resource-0-linkeage",
-    "online_resource-0-description",
+    "online_resource-0-linkage",
     "online_resource-0-application_profile",
+    "online_resource-0-description",
+    "online_resource-0-name",
     "spatial",
     "spatial_parameters-0-equivalent_scale",
     "spatial_parameters-0-spatial_representation_type",
@@ -218,6 +218,10 @@ XML_SANS_DATASET_NAMING_MAPPING = {
     "ContactAddressPostalCode": "contact_address-0-postal_code",
     "ContactInformationVoice": "contact_information-0-voice",
     "ContactInformationFacsimile": "contact_information-0-facsimile",
+    "OnlineResourceLinkage": "online_resource-0-linkage",
+    "OnlineApplicationProfile": "online_resource-0-application_profile",
+    "OnlineResourceDescription": "online_resource-0-description",
+    "OnlineResourceName": "online_resource-0-name"
 }
 
 # this is necessary to ensure consistancy with saeon extra names
