@@ -244,9 +244,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         pass
 
     def before_search(self, search_params: typing.Dict):
-        logger.debug(f"debug search {search_params.get('extras', {})}" )
-        
-        
+
         start_date = search_params.get("extras", {}).get("ext_start_reference_date")
         end_date = search_params.get("extras", {}).get("ext_end_reference_date")
         if start_date is not None or end_date is not None:
@@ -260,9 +258,9 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         search_params["fq"] = utils.handle_search(search_params)
 
         reporter_search_id = uuid.uuid4()
-        if c.userobj != None:
+        if c.userobj:
             user_id = c.userobj.id
-            q = f""" insert into reporting_tool values('{reporter_search_id}', '{user_id}', '{json.dumps(search_params)}', '','{datetime.now()}') """
+            q = f""" insert into reporting_tool values('{reporter_search_id}', '{json.dumps(search_params)}', '','{datetime.now()}') """
             result = model.Session.execute(q)
             model.Session.commit()
         
