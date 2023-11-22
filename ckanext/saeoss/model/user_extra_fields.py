@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-z
 """
 Additional fields for the user model for storing affiliation details.
 """
