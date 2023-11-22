@@ -13,7 +13,7 @@ from datetime import datetime
 from ..constants import (
     DATASET_MINIMAL_SET_OF_FIELDS as xml_minimum_set,
     DATASET_FULL_SET_OF_FIELDS as xml_full_set,
-    XML_DATASET_NAMING_MAPPING as DATASET_NAMING_MAPPING,
+    XML_SANS_DATASET_NAMING_MAPPING as DATASET_NAMING_MAPPING,
 )
 from xml.parsers.expat import ExpatError
 import json
