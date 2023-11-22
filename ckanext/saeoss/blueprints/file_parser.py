@@ -134,9 +134,11 @@ def check_file_fields(file) -> dict:
 def get_xml_string(file):
     filename = file.filename
     extension = filename.split('.')[-1]
+    logger.debug(f"extension name {extension}")
     xml_string = ''
     if extension.lower() == 'xml':
         xml_string = file.read().decode('utf-8')
+        logger.debug(f"xml_string readddd {xml_string}")
     elif extension.lower() == 'json':
         json_dict = json.load(file)
         xml_string = xmltodict.unparse(json_dict)
@@ -161,11 +163,13 @@ def file_has_dataset(file):
     try:
         xml_string = get_xml_string(file)
         dom_ob = dom.parseString(xml_string)
+        logger.debug(f"inside try catch {xml_string}")
     except ExpatError:
         """
         this happens when the file is
         completely empty without any tags
         """
+        logger.debug(f"inside try catch {get_xml_string(file)}")
         return {"state": False, "msg": f"file {file.filename} is empty!"}
 
     root = dom_ob.firstChild
