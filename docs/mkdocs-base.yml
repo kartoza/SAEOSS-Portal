@@ -52,7 +52,6 @@ nav:
                 - Guide:
                         - user/guide/index.md
                         - Registering: user/guide/registering.md
-                        - Functionality: user/guide/functionality/index.md
                         - Profile settings: user/guide/profile_management.md
                         - Organization Management: user/guide/no_owned_profile_management.md
                         - Search Metadata: user/guide/search_metadata.md
@@ -80,6 +79,7 @@ nav:
                         - administrator/guide/index.md
                 - Manual:
                         - administrator/manual/index.md
+                        - administrator/manual/harvesting-settings.md
         - Developers:
                 - developer/index.md
                 - Guide:
@@ -110,7 +110,6 @@ nav:
                         - Helpers: developer/manual/helpers.md
                         - Jobs: developer/manual/jobs.md
                         - Logic: developer/manual/logic.md
-                        - Migration: developer/manual/migration.md
                         - Model: developer/manual/model.md
                         - Plugins: developer/manual/plugins.md
                         - Public: developer/manual/public.md
