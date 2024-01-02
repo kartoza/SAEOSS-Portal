@@ -9,7 +9,7 @@ from ckan.lib.helpers import flash_notice, redirect_to, full_current_url
 from ckan.common import c
 import logging
 import ckan.plugins as plugins
-from ..validators import stac_validator
+from ..validators import _stac_validator
 import json
 import yaml
 import xmltodict
@@ -63,6 +63,23 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
     if 'mimetype' not in data_dict:
         if hasattr(upload, 'mimetype'):
             data_dict['mimetype'] = upload.mimetype
+    
+    mimeNotAllowed = [
+                    "text/html", 
+                    "application/java", 
+                    "application/java-byte-code", 
+                    "application/x-javascript", 
+                    "application/javascript", 
+                    "application/ecmascript", 
+                    "text/javascript", 
+                    "text/ecmascript",
+                    "application/octet-stream",
+                    "text/x-server-parsed-html",
+                    "text/x-server-parsed-html"
+                ]
+
+    if upload.mimetype in mimeNotAllowed:
+        raise ValidationError([f"Mimetype {upload.mimetype} is not allowed!"])
 
     if 'size' not in data_dict:
         if hasattr(upload, 'filesize'):
@@ -73,38 +90,9 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
     if upload:
         if data_dict["resource_type"] == "stac":
 
-            allowed_types = ["application/json", "application/xml", "application/x-yaml"]
-
-            if 'https' not in data_dict['url'] or 'http' not in data_dict['url']:
-
-                if upload.mimetype is None:
-                    if 'yaml' in data_dict['url']:
-                        upload.mimetype = 'application/x-yaml'
-                    if 'xml' in data_dict['url']:
-                        upload.mimetype = 'application/xml'
-
-                if upload.mimetype not in allowed_types:
-                    raise ValidationError(["Only json, yaml and xml files are allowed"])
-
-                temp_file = upload.upload_file
-                file_contents = temp_file.read()
-
-                if upload.mimetype == "application/json":
-                    json_data = json.loads(file_contents)
-
-                if upload.mimetype == "application/x-yaml":
-                    json_data = yaml.load(file_contents)
-
-                if upload.mimetype == "application/xml":
-                    json_data = xmltodict.parse(file_contents)
-
-            else:
-                response = urlopen(data_dict['url'])
-                json_data = json.loads(response.read())
-
-            logger.debug(f"stac_spec {data_dict['stac_specification']}")
-
-            stac_validator(json_data, data_dict["stac_specification"])
+            if 'https' in data_dict['url'] or 'http' in data_dict['url']:
+                _stac_validator(data_dict['url'])
+                
 
     pkg_dict['resources'].append(data_dict)
 

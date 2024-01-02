@@ -16,6 +16,7 @@ from jsonschema import validate
 import logging
 import os
 from .action import ckan_custom_actions
+from stac_validator import stac_validator
 
 ignore_missing = get_validator("ignore_missing")
 logger = logging.getLogger(__name__)
@@ -128,35 +129,32 @@ def doi_validator(value: str):
     else:
         return value
     
-def stac_validator(jsonData, type):
-    if type == 'collection':
-        file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/collection/collection.json"
-    if type == 'catalog':
-        file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/catalog/catalog.json"
-    if type == 'item':
-        file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/item/item.json"
-    f = open(file)
-    schema = json.load(f)
-    try:
-        validate(instance=jsonData, schema=schema)
-        return
-    except jsonschema.exceptions.ValidationError as err:
-        logging.debug(f"validation error {err}")
-        raise ckan_custom_actions.ValidationError([f"The uploaded file does not follow STAC guidelines. Please ammend the following: \n\n{err}"],)
-
-
-def stac_validator_admin(json_data, type):
-    if type == 'collection':
-        file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/collection/collection.json"
-    if type == 'catalog':
-        file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/catalog/catalog.json"
-    if type == 'item':
-        file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/item/item.json"
-    f = open(file)
-    schema = json.load(f)
-    try:
-        validate(instance=json_data, schema=schema)
+def _stac_validator(jsonData):
+    # if type == 'collection':
+    #     file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/collection/collection.json"
+    # if type == 'catalog':
+    #     file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/catalog/catalog.json"
+    # if type == 'item':
+    #     file = os.path.abspath(os.path.dirname(__file__)) + "/stac_validators/item/item.json"
+    # f = open(file)
+    # schema = json.load(f)
+    # try:
+    #     validate(instance=jsonData, schema=schema)
+    #     return
+    # except jsonschema.exceptions.ValidationError as err:
+    #     logging.debug(f"validation error {err}")
+    #     raise ckan_custom_actions.ValidationError([f"The uploaded file does not follow STAC guidelines. Please ammend the following: \n\n{err}"],)
+    stac = stac_validator.StacValidate(jsonData)
+    stac.run()
+    if stac.message[0]['valid_stac'] == True:
         return True
-    except jsonschema.exceptions.ValidationError as err:
-        return str(err)
+    else:
+        # return dict(stac.message[0])
+        raise ckan_custom_actions.ValidationError([f"The uploaded file does not follow STAC guidelines. Please ammend the following: \n\n{stac.message[0]}"],)
+
+
+def stac_validator_admin(json_data):
+    stac = stac_validator.StacValidate(json_data)
+    stac.run()
+    return dict(stac.message[0])
     
