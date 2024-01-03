@@ -1,13 +1,14 @@
 ###### Previous Page: [Organisation](./organisation.md)
+
 # Metadata capturing and publishing
 
-#### Create metadata record in owned organisation using System UI
+## Create metadata record in owned organisation using System UI
 
-<b> Applicable roles</b>: Metadata editor, metadata publisher and system administrator
+**Applicable roles**: Metadata editor, metadata publisher and system administrator
 
-Method 1:
+### Method 1
 
-Navigate to 'Metadata' and select 'Add metadata record'.
+Navigate to `Metadata` and select `Add metadata record`.
 
 ![add metadata](img/metadata-system-ui-1.png)
 
@@ -15,7 +16,8 @@ This will take you to the form that needs to be completed in order to create met
 
 ![add metadata](img/metadata-system-ui-2.png)
 
-Method 2:
+### Method 2
+
 Navigate to the organisation you belong to. You can do this by going to your profile and select 'Add metadata record' then fill out the form.
 
 ![add metadata](img/metadata-system-ui-3.png)

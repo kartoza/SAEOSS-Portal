@@ -16,7 +16,7 @@ On the profile settings page, all user profile-related settings can be managed. 
 
    ![ProfileSettingsPage](./img/Profile_settings_main.png)
 
-### Key Elements
+## Key Elements
 
 The profile settings page consists of three main sections, each consisting of key elements:
 

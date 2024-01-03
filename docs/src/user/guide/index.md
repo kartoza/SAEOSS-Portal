@@ -1,17 +1,21 @@
 # Guide
 <!-- List all of the Functionalities in BRIEF detail here. This serves as a reference guide where the user manual goes into GREAT detail -->
 
-The guide section of the documentation provides short narrative / workflow based tutorials on the functionalities of the SAEOSS-Portal platform. The guide in intended to function as a collection of workflow based tutorials a user can follow to obtain the necessary knowledge to perform mandated tasks. If you prefer a more detailed description, you may prefer to work through our [User Manual](../manual/index.md)
+The guide section of the documentation provides short narrative/workflow based tutorials on the functionalities of the SAEOSS-Portal platform. The guide in intended to function as a collection of workflow based tutorials a user can follow to obtain the necessary knowledge to perform mandated tasks. If you prefer a more detailed description, you may prefer to work through our [User Manual](../manual/index.md)
 
 ## Index
 
-**[Registering:](./registering.md)**  This page will show you how to register on the platform.
-Help and Contact Pages: Here we explain how to get help with the platform, either from the documentation or through contacting the SAWPS team.
-
+* **[Registering:](./registering.md)** This page will show you how to register on the platform.
+* **[Logging In:](./logging-in.md)**
+* **[Profile Settings:](./profile-management.md)**
+* **[Organisation Management:](./organisation-management.md)**
+* **[Search Metadata:](./search-metadata.md)**
+* **[Upload Metadata:](./create-metadata.md)**
+* **[Edit Metadata:](./edit-metadata.md)**
 
 ## Error reporting
 
-We take pride and care to ensure our work is factual, accurate and informative. In the highly unlikely event that and error or bug is found please report it through one of the following channels:
+We take pride and care to ensure our work is factual, accurate and informative. In the highly unlikely event that an error or bug is found please report it through one of the following channels:
 
 **Github Issues:** Github is the preferred method of error reporting ensuring reported errors are addressed in the quickest turnaround time possible. [Read more...](opening-issues.md)
 
@@ -21,7 +25,8 @@ We take pride and care to ensure our work is factual, accurate and informative. 
 
 - info@kartoza.com
 - example@sansa.cm
-- exanple@saeonn.com -->
+- example@saeonn.com -->
+
 **Administrator:** Errors can be raised with your administrator if affiliated with an organisation. Administrators can escalate the the error to developers if required.
 
 ## Contributing

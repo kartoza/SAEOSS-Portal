@@ -8,7 +8,7 @@ you may prefer to work through our [Administrator guide](../guide/index.md).
 
 The administrator manual aims to assist user in learning the fundamentals of using the SAEOSS-portal platform. The goal of the documentation is to clear up any doubts or concerns related to workflows and will feature a page by page layout, making it easy for users to follow along.
 
-## Index:
+## Index
 
 - [**Dashboard**]()
 - [**Harvesting Settings**]()
@@ -32,4 +32,5 @@ We take pride and care to ensure our work is factual, accurate and informative. 
 - info@kartoza.com
 - example@sansa.cm
 - exanple@saeonn.com -->
+
 **Administrator:** Alternatively users can report errors to the administrators who can report the error though one of the above mentioned channels if they are unable to resolve the issue.

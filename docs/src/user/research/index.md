@@ -17,7 +17,7 @@ As described on _Table2 - Core metadata for geographic datasets_
 | **Dataset topic category** | **Mandatory** | **No** | To be implemented |
 | **Spatial resolution of the dataset** | **Mandatory** | **No** | (As seen on Annex D - Creating the South African community profile)<br /><br /administrator>To be implemented |
 | **Abstract describing the dataset** | **Mandatory** | **Yes*** | Need to make it mandatory |
-| *Distribution format** | **Mandatory** | **No** | To be implemented |
+| **Distribution format** | **Mandatory** | **No** | To be implemented |
 | Additional extent information for the dataset (vertical and temporal) | Optional | No |
 | **Spatial representation type** | **Mandatory** | **No** | (As seen on Annex D - Creating the South African community profile)<br /<br />To be implemented |
 | **Reference system** | **Mandatory** | **No** | (As seen on Annex D - Creating the South African community profile)<br /><br />To be implemented |
@@ -131,10 +131,11 @@ This particular catalog provides both the ability to browse down to child Catalo
   - This supports xml, json and yaml files
 ![Upload Button]()
 
-*Please note the file needs to conform SANS 1878*
+> *Please note the file needs to conform SANS 1878*
 
 **Below is an example of mandatory fields in xml format**
-```
+
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>``
 <dataset>
         <title>test 2</title>
@@ -168,7 +169,7 @@ This particular catalog provides both the ability to browse down to child Catalo
 
 **Below is an example of mandatory fields in yaml format**
 
-```
+```yml
 ---
 dataset:
   title: test-from-xml
@@ -201,7 +202,7 @@ dataset:
 
 **Below is an example of mandatory fields in json format**
 
-```
+```json
 {
   "dataset": {
     "title": "test-from-xml",

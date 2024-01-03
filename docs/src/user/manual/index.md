@@ -7,13 +7,20 @@ what the various components of that page do. The manual is intended to function
 as a reference for the application. For narrative/workflow-based tutorials,
 you may prefer to work through our [user guide](../guide/index.md).
 
-1. [Home Page](home.md): This is the 'landing page' that you arrive on when you open the site.
+* **[Home Page:](./home.md)** This is the 'landing page' that you arrive on when you open the site.
+* **[Dashboard:](./dashboard.md)**
+* **[Profile:](./profile-page.md)**
+* **[Profile Settings:](./profile-settings.md)**
+* **[Organisation:]()**
+* **[Metadata:]()**
+* **[Map:]()**
+* **[About:]()**
+* **[Help:]()**
+* **[User Roles:]()**
 
 The user manual aims to assist the user in learning the fundamentals of using the SAEOSS-portal platform. The goal of the documentation is to clear up any doubts or concerns related to workflows and will feature a page-by-page layout, making it easy for users to follow along.
 
-
-
-### Error Reporting
+## Error Reporting
 
 We take pride and care to ensure our work is factual, accurate, and informative. In the highly unlikely event that an error or bug is found, please report it through one of the following channels:
 
@@ -26,6 +33,7 @@ We take pride and care to ensure our work is factual, accurate, and informative.
 - info@kartoza.com
 - example@sansa.com
 - example@saeonn.com -->
+
 **Administrator:** Errors can be raised with your administrator if affiliated with an organization. Administrators can escalate the error to developers if required.
 
 **Crisp Interface:** You can report errors directly through the Crisp interface. [Read More](./home.md#crisp-interface)

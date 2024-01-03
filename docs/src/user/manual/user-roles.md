@@ -19,6 +19,7 @@ This is a general user that has registered themselves on the system. By register
 ![registered user](img/registered_user-1.png)
 
 User can register by filling out this form.
+
 ![registration](img/registration-1.png)
 
 ### 3. Member
@@ -27,7 +28,7 @@ This user role is a privileged user, who is part of a known institution or compa
 
 ![editor](img/organisational_member-1.png)
 
-If you would like to see which organisation you are a part of, you can click on the drop-down menu located under your username and select 'Dashboard'. Then navigate to the 'My Organisation' tab.
+If you would like to see which organisation you are a part of, you can click on the drop-down menu located under your username and select `Dashboard`. Then navigate to the `My Organisation` tab.
 
 ### 4. Editor
 
@@ -49,16 +50,13 @@ A user role that possesses full access permissions, being able to configure and 
 
 All users have access to the following pages:
 
-1.<b> Metadata</b>: Users can search and view public metadata. They can filter by title, location, time, organisation, harvest source, features and tags.
-
-![search](img/search-1.png)
-2.<b> Map</b>: Users can search and view different layers.
-![map](img/map-1.png)
-3.<b> Organisation</b>: Users can navigate the organisations page and view the list of organisations on the portal. When users click on the organisations, it navigates to the profile of the organisation, where the users can view the organisation's public metadata records, activity stream, information about the organisation under 'About' and social media links for the organisation.
-![organisation](img/organisation-1.png)
-4. <b>About</b>: Users can access everything on the About page.
-5. </b>Help: Users can access the Help page, which takes them directly to this documentation.
-
-
+1. **Metadata**: Users can search and view public metadata. They can filter by title, location, time, organisation, harvest source, features and tags.
+    ![search](img/search-1.png)
+2. **Map**: Users can search and view different layers.
+    ![map](img/map-1.png)
+3. **Organisation**: Users can navigate the organisations page and view the list of organisations on the portal. When users click on the organisations, it navigates to the profile of the organisation, where the users can view the organisation's public metadata records, activity stream, information about the organisation under 'About' and social media links for the organisation.
+    ![organisation](img/organisation-1.png)
+4. **About**: Users can access everything on the About page.
+5. **Help**: Users can access the Help page, which takes them directly to this documentation.
 
 ###### Next Page: [User Guide](../guide/index.md)
