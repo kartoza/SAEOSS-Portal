@@ -12,7 +12,8 @@ edit_uri: "https://github.com/kartoza/SAEOSS-Portal/blob/main/docs/"
 copyright: Kartoza and Contributors
 
 markdown_extensions:
-        - attr_list
+        - attr_list # lets us resize images see https://github.com/mkdocs/mkdocs/issues/1678#issuecomment-455500757
+        - sane_lists # lets us resize images see https://github.com/mkdocs/mkdocs/issues/1678#issuecomment-455500757
         - pymdownx.highlight:
                   anchor_linenums: true
         - pymdownx.inlinehilite
@@ -43,7 +44,6 @@ nav:
         - Home:
                 - index.md
                 - Contributing: about/contributing.md
-                - Code of Conduct: about/code-of-conduct.md
                 - Running Instances: about/running-instances.md
         - Users:
                 - user/index.md

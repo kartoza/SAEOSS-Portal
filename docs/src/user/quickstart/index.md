@@ -1,5 +1,4 @@
 # Quickstart
-<!-- Replace all of the titles with relevant titles -->
 
 ## Getting Started
 <!-- Easy to follow instructions for getting started using
@@ -10,7 +9,7 @@ The workflows described in this section is designed to be 5 minute workflows to 
 
 1. From your browser navigate to [{TBD}](http://www..)
 2. If you don't have one, [register](#register-a-new-account) and create a user account.
-3. Browse for, view and download metadata.
+3. Browse, view and download metadata.
 
 ### Register a new account
 
