@@ -1,4 +1,4 @@
-# SCRUM Board
+# Test Locally
 
 Testing uses some additional configuration:
 
