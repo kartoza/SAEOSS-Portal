@@ -1,5 +1,3 @@
-###### Previous Page: [Profile Page](./profile-page.md)
-
 # Profile Settings
 
 On the profile settings page, all user profile-related settings can be managed. This page can be accessed by clicking on the `Profile Settings` button on the dashboard page or from anywhere on the platform by following the steps below:
@@ -30,5 +28,3 @@ The profile settings page consists of three main sections, each consisting of ke
   ![change_pass](./img/profile_settings_changePassword.png)
 
 - **Generate API Key:** Redirects to the profile API tokens page. To learn more about API tokens, follow this link. [Read more](./profile-page.md#api-tokens)
-
-###### Next Page [Organisations](./organisation.md)

@@ -1,5 +1,3 @@
-###### Previous Page: [Dashboard](dashboard.md)
-
 # Profile Page
 
 The profile page provides a preview of what your profile will look like when viewed by other users on the platform. Additionally, it's also a collector for information regarding your profile.
@@ -37,5 +35,3 @@ This is where you see the latest activities on your account. This includes accou
 This is where user can create an API token, which can later be used to upload data.
 
 ![api](img/api_token.png)
-
-###### Next Page: [Profile Settings](profile-settings.md)

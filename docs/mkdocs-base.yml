@@ -59,8 +59,6 @@ nav:
                         - Upload Metadata: user/guide/create-metadata.md
                         - Edit Metadata: user/guide/edit-metadata.md
                         - Report Issues: user/guide/opening-issues.md #Linked in a document
-                        - Disclaimer: about/disclaimer.md
-                        - License: about/license.md
                 - Manual: 
                         - user/manual/index.md
                         - Home Page: user/manual/home.md
@@ -136,3 +134,4 @@ nav:
                 - about/index.md
                 - License: about/license.md
                 - Code of Conduct: about/code-of-conduct.md
+                - Disclaimer: about/disclaimer.md

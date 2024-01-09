@@ -7,7 +7,7 @@ what the various components of that page do. The manual is intended to function
 as a reference for the application. For narrative/workflow-based tutorials,
 you may prefer to work through our [user guide](../guide/index.md).
 
-* **[Home Page:](./home.md)** This is the 'landing page' that you arrive on when you open the site.
+* **[Home Page:](./home.md)** This is the `landing page` that you arrive on when you open the site.
 * **[Dashboard:](./dashboard.md)**
 * **[Profile:](./profile-page.md)**
 * **[Profile Settings:](./profile-settings.md)**
@@ -37,5 +37,3 @@ We take pride and care to ensure our work is factual, accurate, and informative.
 **Administrator:** Errors can be raised with your administrator if affiliated with an organization. Administrators can escalate the error to developers if required.
 
 **Crisp Interface:** You can report errors directly through the Crisp interface. [Read More](./home.md#crisp-interface)
-
-###### Next: [Home Screen](./home.md)

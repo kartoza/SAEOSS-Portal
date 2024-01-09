@@ -1,6 +1,6 @@
 # GitHub Issues/Tickets
 
-![GitHub Logo](../img/GitHub-Mark.png)
+![GitHub Logo](../img/GitHub-Mark.png){: style="height:150px"}
 
 This GitHub project repository serves as a project planning and progress tracking platform for the development teams and clients. This repository is public and for anyone to view. The repository can be accessed [here](https://github.com/kartoza/SAEOSS-Portal).
 
