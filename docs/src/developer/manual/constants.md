@@ -1,3 +1,5 @@
+# Constants
+
 ::: ckanext.saeoss.constants
     handler: python
     options:

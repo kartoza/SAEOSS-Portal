@@ -1,3 +1,4 @@
+# Email notification
 
 ::: ckanext.saeoss.email_notifications
     handler: python

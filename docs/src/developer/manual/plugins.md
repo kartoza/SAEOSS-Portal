@@ -1,3 +1,4 @@
+# Plugin
 
 ::: ckanext.saeoss.plugins.harvesting_plugin
     handler: python
