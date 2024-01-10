@@ -1,15 +1,17 @@
 # Create an Account
 
-In order to register on the site, navigate to `SIGN UP` on the top right hand corner of the page.
+In order to register on the site, click on the `SIGN UP` button on the top right hand corner of the page.
 
 ![register](img/registration-1.png)
 
-Then fill in the form below.
+Then fill in the registration form (example below).
 
 ![register](img/registration-2.png)
 
 > Please note that your **username needs to be lowercase** and you are required to have a **password with a minimum of 8 characters**.
 
-Once you have successfully registered, you can request to be a part of an organisation using the CRISP help-desk.
+Once you have successfully registered, you can request to be added to an organisation using the CRISP help-desk.
 
-![chat-box](img/chatbox-1.png)
+![CRISP 1](img/crisp-1.png)
+
+![CRISP 2](img/crisp-2.png)

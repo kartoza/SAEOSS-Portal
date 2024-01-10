@@ -120,11 +120,7 @@ nav:
                 - Documentation: 
                         - developer/documentation/index.md
                         - Setting up mkdocs: developer/documentation/make-docs.md
-                        - Writing: developer/documentation/writing.md
-                - API: # this might not be needed for this project
-                        - developer/api/index.md
-                        - Reference: developer/api/manual/index.md
-                        - Guide: developer/api/guide/index.md
+                        - Writing Documentation: developer/documentation/writing.md
                 - License: about/license.md
         - DevOps: 
                 - devops/index.md
