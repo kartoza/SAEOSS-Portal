@@ -1,5 +1,3 @@
-
-
 # Administrators Documentation
 <!-- To Be Populated -->
 

@@ -1,3 +1,5 @@
+# CLI
+
 ::: ckanext.saeoss.cli._bootstrap_data
     handler: python
     options:
