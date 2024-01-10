@@ -1,4 +1,6 @@
-# Action
+# Logic
+
+## Action
 
 ::: ckanext.saeoss.logic.action.add_named_url
     handler: python
@@ -40,7 +42,7 @@
         show_source: true
 
 
-# Auth
+## Auth
 
 ::: ckanext.saeoss.logic.auth.ckan
     handler: python
@@ -66,10 +68,10 @@
         show_source: true
 
 
-# STAC Validators
+## STAC Validators
 
 
-# Converters
+## Converters
 
 ::: ckanext.saeoss.logic.converters
     handler: python
@@ -79,7 +81,7 @@
         show_source: true
 
 
-# Schema
+## Schema
 
 ::: ckanext.saeoss.logic.schema
     handler: python
@@ -90,7 +92,7 @@
 
 
 
-# Validators
+## Validators
 
 ::: ckanext.saeoss.logic.validators
     handler: python
