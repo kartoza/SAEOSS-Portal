@@ -1,5 +1,3 @@
-###### Previous Page:  [About](./about.md)
-
 # Help Page
 
 The help page is the documentation site. Here you can find out all there is to know and how things work on the SAEOSS-Platform. The documentation is quite informative and includes documentation for all workflows on the platform, however, if you find it lacking, please consider contributing to it or creating a GitHub issue so we may improve it.
@@ -14,4 +12,3 @@ In all cases, your support and contributions are not only welcome but greatly ap
 
 If you have made it thus far into the documentation, you may want to review the [user guide](../guide/index.md), which provides workflow-based tutorials in the same page-by-page manner.
 
-###### Next Page: [User Roles](user-roles.md)

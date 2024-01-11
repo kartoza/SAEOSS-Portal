@@ -1,5 +1,3 @@
-###### Previous Page: [Profile Settings](./profile-settings.md)
-
 # Organisation
 
 Users can view all the organisations on this tab. If you have administrative rights for certain organisations, you are able to manage your organisation from here. Additionally, if you have administrative rights on the site, this is where you can add an organisations.
@@ -56,5 +54,3 @@ You can then change the member's user role. Please note that you cannot change y
 You can remove members from your organisation by clicking on the icon shown below next to the member's name:
 
 ![removing-members](img/managing-organisation-9.png)
-
-###### Next Page: [Metadata](./metadata.md)

@@ -40,10 +40,10 @@ src
 │   ├── guide
 │   └── manual
 └── user
-│   ├── api
     ├── guide
     ├── manual
-    └── quickstart
+    ├── quickstart
+    └── research
 ```
 
 ## File naming conventions
@@ -105,20 +105,20 @@ On the next screen, 1️⃣ give your pull request a meaningful title, 2️⃣ g
 Once your pull request is opened you need to wait for it to be merged before you can open a new one.
 
 ## Creating new files
-<!-- 
+
 ### Page metadata
+
 Whenever you create a new file, you should add the standard header to the top of the file:
 
 ```
 ---
-title: GeoRepo-OS Documentation 
-summary: GeoRepo is a UNICEF's geospatial web-based data storage and administrative boundary harmonization platform.
+title: SAEOSS Portal Documentation 
+summary: The SAEOSS-Portal is a system of software components functioning together as the National Central Earth Observation Geospatial Repository.
     - Tim Sutton
-    - Dimas Tri Ciputra
-    - Danang Tri Massandy
-date: 2023-08-03
-copyright: Copyright 2023, Unicef
-contact: georepo-no-reply@unicef.org
+    - Juanique Voogt
+date: 2024-01-10
+copyright: Copyright 2024, SANSA
+contact: 
 license: This program is free software; you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 #context_id: 1234
 ---
@@ -126,22 +126,19 @@ license: This program is free software; you can redistribute it and/or modify it
 
 The summary can be updated to include your name for documents you contribute to.
 
-The context_id is used to create a unique permalink to this document, and is optional. See further down in this document for more details. -->
+The context_id is used to create a unique permalink to this document, and is optional. See further down in this document for more details.
 
 ### Navigation
 
 All pages need to be added to the 'Nav' section of the `mkdocs-base.yml` file. This will ensure that it is available in the menus and that mkdocs renders without errors. For example, if you wish to add a new page to the User Guide area, in Nav you would add a line like this:
 
-
 `- "Navigating the map": users/guide/map-navigation.md`
 
-Sometimes you may not wish to have the new page displayed in the menu system (this can be useful when, for example, it is accessed via a link in another page. In these cases, leave the menu entry part blank e.g.
+Sometimes you may not wish to have the new page displayed in the menu system (this can be useful when, for example, it is accessed via a link in another page). In these cases, leave the menu entry part blank e.g.
 
 `- "": users/guide/map-navigation.md`
 
-
 Mkdocs will still generate the page but it will not be added to the menu.
-
 
 ## Technical notes
 
@@ -156,8 +153,8 @@ If you want to work with the documentation locally (i.e. directly on your PC), y
 4. Create the virtual env in the docs folder (`python -m venv env`)
 5. Activate the venv (`source env/bin/activate`)
 5. Install the python modules listed in docs/requirements.txt (`pip install -r requirements.txt`)
-6. If you are on Linux or macOS, open the docs directory in a shell and run ``build-docs-html.sh``
-7. In the docs directory, run ``mkdocs serve``
+6. If you are on Linux or macOS, open the docs directory in a shell and run `build-docs-html.sh`
+7. In the docs directory, run `mkdocs serve`
 8. Open your web browser at https://localhost:8000 to view the rendered docs.
 
 Note that ``mkdocs serve`` will dynamically re-render the docs any time you make a change. The process above is illustrated in the diagram below:
@@ -183,7 +180,6 @@ Every page should have a help link on it that leads to the appropriate manual pa
 4. In your django view, set up your help button to point to the site url and your context id. e.g. ``https://siteurl/V4cVEFd2TmwYJVb5HvWRwa``
 
 Whenever the user visits the page using the UUID URL, they will be redirected to the correct page e.g. ``https://siteurl/login/``. This system protects us from file renaming and reorganising on the site, and ensures that the help link will always remain valid.
-
 
 ### Generating PDFS
 

@@ -4,7 +4,7 @@
 
 ## Core metadata elements
 
-As described on _Table2 - Core metadata for geographic datasets_
+As described in _Table 2 - Core metadata for geographic datasets_
 
 | Element | Obligation and Condition | Exists in stock CKAN | Notes |
 | ------- | ------------------------ | -------------------- | ----- |

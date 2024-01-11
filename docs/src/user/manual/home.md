@@ -1,5 +1,3 @@
-###### Previous: [Introduction](./index.md)
-
 # Home Page
 
 When first accessing the SAEOSS-Portal, the home page is displayed. From the home page, users are able to [create an account](../guide/registering.md), [login](../guide/logging-in.md), or view metadata.
@@ -69,5 +67,3 @@ Once a user account has been created, users can log in to the platform by follow
 3. When the dashboard is displayed, you have successfully logged in.
 
    ![Dashboard](./img/Dashboard.png)
-
-###### Next: [Dashboard](./dashboard.md)

@@ -1,5 +1,3 @@
-###### The previous chapter to this is the [Home Page](./home.md)
-
 # Dashboard Page
 
 Once a user has logged in, the dashboard page will be displayed. This is a central notification hub for communications from the SAEOSS-Portal platform.
@@ -52,7 +50,3 @@ The news feed provides an overview of all recent activities of groups, organizat
 By selecting the `Profile Settings` button, you can adjust your profile settings like your username, bio, password, change profile picture, and generate API Keys. This page is explained in detail here: [Profile Settings](./profile-settings.md)
 
 ![Profile_settings](./img/profile_settings_button.png)
-
-###### Next Chapter
-
-In the next chapter, look at [Profile Page](./profile-page.md)
