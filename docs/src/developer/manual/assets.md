@@ -1,6 +1,6 @@
 # Assets
 
-Assets are `.css` and `.js` files that may be included in an html page. Assets are included in the page by using the 
+Assets refer to static files such as `css` and `js` that may be included in an html page. Assets are included in the page by using the 
 `{% asset %}` tag. CKAN then uses Webassets to serve these assets.
 
 ## css
