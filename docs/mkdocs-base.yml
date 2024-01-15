@@ -110,6 +110,7 @@ nav:
                         - Helpers: developer/manual/helpers.md
                         - Jobs: developer/manual/jobs.md
                         - Logic: developer/manual/logic.md
+                        - Migration: developer/manual/migration.md
                         - Model: developer/manual/model.md
                         - Plugins: developer/manual/plugins.md
                         - Public: developer/manual/public.md
