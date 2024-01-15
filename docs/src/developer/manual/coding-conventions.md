@@ -250,7 +250,7 @@ class MyObject(object):
 
 Note the following in the above examples:
 
-* The first line of a docstring should be a precis of the class/method/function
+* The first line of a docstring should be a precise description of the class/method/function
   expressed in less than 80 chars, terminated with a full stop and exclude
   redundant phrases such as 'Class to do x' or 'This method does...'.
 * There should be an empty line following the first docstring line.
