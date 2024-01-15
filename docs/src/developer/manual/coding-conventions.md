@@ -275,7 +275,7 @@ Note the following in the above examples:
 Please also see the **api documentation how-to** section for more
 information on how to document your code properly.
 
-# Annotating API changes and additions
+## Annotating API changes and additions
 
 Whenever you add or change a module, class, function or method, you should
 annotate it accordingly. The method for doing this is described on the
