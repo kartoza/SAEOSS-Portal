@@ -59,7 +59,7 @@ The following pylint check has been removed from Jenkins due to a bug in astroid
 It is of course possible to run all pylint checks on any part of the code
   if desired: E.g pylint safe/storage/raster.py
 
-# Naming conventions
+## Naming conventions
 
 Variable names should as far as possible follow python naming conventions (see
 **Qt Notes** below for exceptions to this rule).
