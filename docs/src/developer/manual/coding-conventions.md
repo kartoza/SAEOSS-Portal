@@ -112,7 +112,7 @@ This is a summary of the naming conventions you should use:
 * **variable naming**: Concise, unabbreviated, lower case, underscore separated
   e.g. ``population_count``.
 
-# Code formatting
+## Code formatting
 
 The guidelines above still leave substantial room for your own approach to
 code style so the following provide some more explicit guidelines.
