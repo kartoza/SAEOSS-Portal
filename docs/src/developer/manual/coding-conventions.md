@@ -150,7 +150,7 @@ in your code as you manage line breaks as you run up to the 80 column limit. By
 always pulling code left as much as possible, we reduce the amount of line
 continuation management we have to do.
 
-# Ordering of imports
+## Ordering of imports
 
 When importing please adhere to the following rules:
 
