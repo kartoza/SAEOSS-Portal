@@ -517,7 +517,7 @@ underscore names. For this reason we adopt the following strategy:
 * https://github.com/AIFDR/inasafe/graphs
 
 
-# Working with GIT
+## Working with GIT
 
 * Additions to the develop branch should be made via the GitHub **pull request** mechanism
 * Pull requests should preferably be **squashed** into a single commit before applying (see http://eli.thegreenplace.net/2014/02/19/squashing-github-pull-requests-into-a-single-commit)
