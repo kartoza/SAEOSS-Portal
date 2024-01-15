@@ -326,7 +326,7 @@ Changing an existing method API:
 ```
 
 
-# Strings and internationalisation
+## Strings and internationalisation
 
 * Simple strings in source code should be quoted with `'`
 * Favour interpolation over concatenation. For example this is **bad**:
