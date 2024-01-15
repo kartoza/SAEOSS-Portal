@@ -523,7 +523,7 @@ underscore names. For this reason we adopt the following strategy:
 * Pull requests should preferably be **squashed** into a single commit before applying (see http://eli.thegreenplace.net/2014/02/19/squashing-github-pull-requests-into-a-single-commit)
 * Commits and pull requests should reference the issue number they close or contribute to
 
-# Landscape
+## Landscape
 ```python
 # coding=utf-8-
 
