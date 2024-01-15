@@ -59,7 +59,7 @@ The following pylint check has been removed from Jenkins due to a bug in astroid
 It is of course possible to run all pylint checks on any part of the code
   if desired: E.g pylint safe/storage/raster.py
 
-# Naming conventions
+## Naming conventions
 
 Variable names should as far as possible follow python naming conventions (see
 **Qt Notes** below for exceptions to this rule).
@@ -112,7 +112,7 @@ This is a summary of the naming conventions you should use:
 * **variable naming**: Concise, unabbreviated, lower case, underscore separated
   e.g. ``population_count``.
 
-# Code formatting
+## Code formatting
 
 The guidelines above still leave substantial room for your own approach to
 code style so the following provide some more explicit guidelines.
@@ -150,7 +150,7 @@ in your code as you manage line breaks as you run up to the 80 column limit. By
 always pulling code left as much as possible, we reduce the amount of line
 continuation management we have to do.
 
-# Ordering of imports
+## Ordering of imports
 
 When importing please adhere to the following rules:
 
@@ -180,8 +180,7 @@ Imports should be made in the following order:
 * third party imports (e.g. ``from PyQt4 import QtGui``)
 * application imports (e.g. ``from foo import bar``)
 
-Doc strings and comments
-------------------------
+## Doc strings and comments
 
 All code should be self documenting. Please take special note and follow
 these PEP guidelines and sphinx documents:
@@ -272,61 +271,10 @@ Note the following in the above examples:
 * If a function or method returns a tuple it should be be documented as
   ``:rtype: (<type>, <type>, ..)`` e.g. ``:rtype: (int, int)``.
 
-Please also see the **api documentation how-to** section for more
-information on how to document your code properly.
-
-# Annotating API changes and additions
-
-Whenever you add or change a module, class, function or method, you should
-annotate it accordingly. The method for doing this is described on the
-`Sphinx paragraph markup page <http://sphinx-doc.org/markup/para.html>`_. Here
-are a couple of examples:
-
-Adding a new module:
-
-```python
-    """Impact function utilities.
-
-    .. versionadded:: 2.1
-    ""'
-```
-
-Adding a new method to a class:
-
-```
-    """Computes the number of affected people.
-
-    .. versionadded:: 2.1
-    """
-```
-
-Changing an existing method API:
-
-```
-    def show_static_message(self, message, foo):
-    """Send a static message to the message viewer.
-
-    .. versionchanged:: 2.1
-        Added foo parameter.
-
-    Static messages cause any previous content in the MessageViewer to be
-    replaced with new content.
-
-    :param message: An instance of our rich message class.
-    :type message: Message
-
-    :param foo: Some new parameter.
-    :type foo: str
-
-    """
-    dispatcher.send(
-        signal=STATIC_MESSAGE_SIGNAL,
-        sender=self,
-        message=message)
-```
+  
 
 
-# Strings and internationalisation
+## Strings and internationalisation
 
 * Simple strings in source code should be quoted with `'`
 * Favour interpolation over concatenation. For example this is **bad**:
@@ -370,7 +318,7 @@ And this is **good**:
 * If you use a literal string or expression in more than one place, refactor
   it into a function or variable.
 
-# Standard headers
+## Standard headers
 
 Each source file should include a standard header containing copyright,
 authorship and version metadata as shown in the exampled below.
@@ -400,130 +348,8 @@ __revision__ = '$Format:%H$'
 is replaced with the SHA1 for the file when the release packages are made.
 
 
-# Qt Guidelines
 
-Compile UI files at run time. There is no need to precompile UI files using
-pyuic4. Rather you can dynamically compile them using this technique (see
-[technical docs here](http://pyqt.sourceforge.net/Docs/PyQt4/designer.html#the-uic-module):
-
-```python
-    import os
-    from PyQt4 import QtGui, uic
-
-    BASE_CLASS = uic.loadUiType(os.path.join(
-        os.path.dirname(__file__), 'foo_dialog_base.ui'))[0]
-
-
-    class FooDialog(QtGui.QDialog, BASE_CLASS):
-        
-"""Dialog for defining the plugin properties.
-
-        """
-        def __init__(self, parent=None):
-            """Constructor."""
-            super(FooDialog, self).__init__(parent)
-            # Set up the user interface from Designer.
-            self.setupUi(self)
-```
-
-Don't use old style signal/slot connectors:
-
-```python
-    QtCore.QObject.connect(
-        self.help_button, QtCore.SIGNAL('clicked()'), self.show_help)
-```
-
-Use new style connectors::
-
-```
-    self.help_button.clicked.connect(self.show_help)
-```
-
-Use multi-inheritance for designer based classes so that we can use autoconnect
-slots.:
-
-```python
-    class FooDialog(QtGui.QDialog, Ui_FooBase):
-        """Dialog to prompt for widget names."""
-
-        def __init__(self, parent=None):
-            """Constructor for the dialog.
-
-            This dialog will allow the user to select foo names from  a list.
-
-            :param parent: Optional widget to use as parent
-            :type parent: QWidget
-            """
-            QtGui.QDialog.__init__(self, parent)
-            # Set up the user interface from Designer.
-            self.setupUi(self)
-            # ... further implementation here ...
-```
-
-Then we can do this to listen for a click on button bar:
-
-```python
-    def on_bar_clicked(self):
-        """Auto slot to listen for button click."""
-        pass
-```
-
-The callback above is called when the button is clicked simply by virtue of the
-fact that it uses the naming convention ``on_<object>_clicked``.
-
-Note that in some cases you need to explicitly specify which signature is being
-listened for by using the pyqtSignature decorator:
-
-```
-    @pyqtSignature('int')
-    def on_polygon_layers_combo_currentIndexChanged(self, theIndex=None):
-        """Automatic slot executed when the layer is changed to update fields.
-
-        :param theIndex: Passed by the signal that triggers this slot.
-        :type theIndex: int
-        """
-        layerId = self.polygon_layers_combo.itemData(
-            theIndex, QtCore.Qt.UserRole)
-        return layer_id
-```
-
-Failure to do this may result in the slot being called multiple times per event
-which is usually undesirable.
-
-Also in some cases using the Qt API will lead you into conflict with our PEP8
-naming conventions for methods and variables. This is unavoidable but should
-be used only in these specific instances e.g.:
-
-```python
-    def on_foo_indexChanged():
-        pass
-```
-
-Qt's naming convention causes a bit of a clash when using with 'normal' python
-underscore names. For this reason we adopt the following strategy:
-
-* in designer use underscore based naming for objects
-* in your concrete implementations you should be able to then use mostly
-  underscore separated names except in cases where using autoconnect slots.
-* in designer you should call the form a name ending in Base e.g.
-  ``FooDialogBase``. By convention the concrete implementation is called the
-  same sans the Base suffix e.g. ``FooDialog``.
-
-
-# Code statistics
-
-* https://www.ohloh.net/p/inasafe/analyses/latest
-* https://github.com/AIFDR/inasafe/network
-* https://github.com/AIFDR/inasafe/graphs
-
-
-# Working with GIT
-
-* Additions to the develop branch should be made via the GitHub **pull request** mechanism
-* Pull requests should preferably be **squashed** into a single commit before applying (see http://eli.thegreenplace.net/2014/02/19/squashing-github-pull-requests-into-a-single-commit)
-* Commits and pull requests should reference the issue number they close or contribute to
-
-# Landscape
+## Landscape
 ```python
 # coding=utf-8-
 
