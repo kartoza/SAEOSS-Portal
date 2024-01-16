@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-The workflows described in this section is designed to be 5 minute workflows to get users started with using the platform. For more detailed workflows please review the [user guide](../guide/index.md) section or the [user manual](../manual/index.md) section which describes the platform in page-by-page detail.
+The workflows described in this section is designed to be 5 minute workflows to get users started with using the platform.  Please look at the [user guide](../guide/index.md) for more detailed workflows or look at the [user manual](../manual/index.md) section which describes the platform in page-by-page detail.
 
 ### Accessing the SAEOSS-portal
 

@@ -2,7 +2,7 @@
 
 **Applicable roles:** All registered users.
 
-To log in to the site, click on the `LOG IN` button.
+To log in to the site, click on the `LOG IN` button in the top-right corner of the site.
 
 ![Login 1](./img/login-1.png)
 
