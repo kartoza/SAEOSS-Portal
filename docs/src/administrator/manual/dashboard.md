@@ -6,7 +6,7 @@ Welcome to the Administrator Dashboard – the centralised hub for overseeing an
 
 1. **Dashboard** Upon selecting the `Dashboard` option, the administrator is ushered into a world of organised efficiency, where every click brings the administrator closer to the pulse of the system. Here, the administrator will find a carefully curated set of options designed to streamline the management tasks seamlessly.
 
-    **NEWS FEED**
+    **News Feed**
 
     ![dashboard news feed](./img/dashboard-1.png)
 
@@ -49,7 +49,7 @@ Welcome to the Administrator Dashboard – the centralised hub for overseeing an
 
     3. **Clickable Name of Metadata:** The names of the metadata records are clickable links. By clicking on a metadata name, the administrators can access a dedicated view providing detailed information about that particular metadata record. This includes information such as associated datasets, creation date, and any additional metadata attributes.
 
-    **My Organisaton**
+    **My Organisation**
 
     Welcome to the `My Organisations` tab, the centralised control center for managing and overseeing the various organisations within the system. This user-friendly interface provide the tools to efficiently add, explore, and view details about different organisations.
 
@@ -61,7 +61,7 @@ Welcome to the Administrator Dashboard – the centralised hub for overseeing an
 
     3. **Clickable Organization Cards:** The organisation cards are clickable. By clicking on a specific organisation card, administrator open a dedicated view that provides detailed information about that particular organisation. This includes associated user groups, metadata, and any additional organisational details.
 
-    **Mu Groups**
+    **My Groups**
     
     ![my groups](./img/dashboard-10.png)
 
