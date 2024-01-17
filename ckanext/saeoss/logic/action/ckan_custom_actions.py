@@ -68,7 +68,10 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
         if hasattr(upload, 'filesize'):
             data_dict['size'] = upload.filesize
 
-    logger.debug(upload)
+    logger.debug(f"mimetype {upload.mimetype}")
+
+    if upload.mimetype == None:
+        raise ValidationError(["Please upload a file or link to an online resource"])
 
     if upload:
         if data_dict["resource_type"] == "stac":
