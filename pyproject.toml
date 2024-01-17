@@ -99,7 +99,7 @@ OWSLib = "0.18.0"
 pyparsing = "^2.1.10"
 pyproj = "3.2.1"
 Shapely = "^1.2.13"
-
+stac-validator = "3.3.2"
 
 ckanext-spatial = {git = "https://github.com/ckan/ckanext-spatial", rev = "f00ad5b"}
 
