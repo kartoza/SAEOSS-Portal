@@ -1,7 +1,5 @@
 # User Manual
 
-<!-- This is a manual for the user to be able to get a great understanding of what the platform does and how it works. Go into GREAT detail here. Guide entries should link to this -->
-
 This section of the documentation describes every page in the application and
 what the various components of that page do. The manual is intended to function
 as a reference for the application. For narrative/workflow-based tutorials,

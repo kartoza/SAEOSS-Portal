@@ -79,7 +79,8 @@ nav:
                         - administrator/guide/index.md
                 - Manual:
                         - administrator/manual/index.md
-                        - administrator/manual/harvesting-settings.md
+                        - Dashboard: administrator/manual/dashboard.md
+                        - Harvest Settings: administrator/manual/harvesting-settings.md
         - Developers:
                 - developer/index.md
                 - Guide:

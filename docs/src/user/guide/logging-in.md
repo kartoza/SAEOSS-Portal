@@ -10,6 +10,6 @@ On the Login Page, enter your username and password in the relevant fields. Then
 
 ![Login 2](./img/login-2.png)
 
-After that you will be redirected to your news feed.
+After that you will be redirected to your news feed on your dashboard.
 
 ![Login 3](./img/login-3.png)

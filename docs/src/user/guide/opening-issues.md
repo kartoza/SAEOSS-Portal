@@ -6,7 +6,7 @@ This GitHub project repository serves as a project planning and progress trackin
 
 ## Tickets
 
-Tickets on the [SAEOSS-Portal GitHub Project Board](https://github.com/kartoza/SAEOSS-Portal/issues) are created first as issues and converted into tickets to work on during the sprint at the SAEOSS-Portal catch-up meeting. This workflow ensures work required by the client gets done as well as allows the opportunity to clear up any doubts as to work that needs to be done. When issues are created, a clear description of what needs to happen is required as well as any accompanying screenshots or videos. If a developer has any doubt, they can simply comment on the ticket, and the creator of the ticket as well as any assigned developers will be notified via email.
+Tickets on the [SAEOSS-Portal GitHub Project Board](https://github.com/kartoza/SAEOSS-Portal/issues) are created first as issues and converted into tickets to work on during the sprint at the SAEOSS-Portal catch-up meeting. This workflow ensures work required by the client gets done as well as allows the opportunity to clear up any doubts regarding work that needs to be done. When issues are created, a clear description of what needs to happen is required as well as any accompanying screenshots or videos. If a developer has any doubt, they can simply comment on the ticket, and the creator of the ticket, as well as any assigned developers, will be notified via email.
 
 ## Creating new Github issues/tickets
 
@@ -24,12 +24,13 @@ To ensure this, a general approach has been created to make sure users are able 
 
 ### Workflow for creating GitHub issues
 
-To report an issue, users should first access the SAEOSS-Portal [Project Page](https://github.com/kartoza/SAEOSS-Portal). Ensure you are logged in, as users who do not have a GitHub account will not be able to create new issues. If you do not have a GitHub account you can create a [free account](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home)
+To report an issue, users should first access the SAEOSS-Portal [Project Page](https://github.com/kartoza/SAEOSS-Portal). Ensure you are logged in to GitHub, as users who do not have a GitHub account will not be able to create new issues. If you do not have a GitHub account you can create a [free account](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home).
 
 ![ProjectBoard](../img/Gh_project.png)
 
-1. From the navigation pane select Issues to display all the current GitHub issue tickets. Make sure to study the issues page to determine if the issue has been reported by another user before creating a new issue.
+1. From the navigation pane select `Issues` to display all the current GitHub issue tickets.
     ![Nav](../img/Gh_issue.png)
+    Make sure to study the issues page to determine if the issue has been reported by another user before creating a new issue.
     ![Nav](../img/Gh_issues.png)
 
 2. If the issue has not been reported, select the create new button.
