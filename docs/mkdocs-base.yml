@@ -65,9 +65,9 @@ nav:
                         - Dashboard: user/manual/dashboard.md
                         - Profile: user/manual/profile-page.md
                         - Profile Settings: user/manual/profile-settings.md
-                        - Organisation: user/manual/organisation.md
                         - Metadata: user/manual/metadata.md
                         - Map: user/manual/map.md
+                        - Organisations: user/manual/organisation.md
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
                         - User Roles: user/manual/user-roles.md

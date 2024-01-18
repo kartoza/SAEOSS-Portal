@@ -1,56 +1,45 @@
-# Organisation
+# Organisations
 
-Users can view all the organisations on this tab. If you have administrative rights for certain organisations, you are able to manage your organisation from here. Additionally, if you have administrative rights on the site, this is where you can add an organisations.
+Users can view all the organisations on the platform on this page. Users with administrative rights for certain organisations are able to manage the organisation from this page. Additionally, if system administrators can add an organisations on this page.
 
-## Managing the organisation
+![Organisations 1](./img/organisations-1.png)
 
-Click on 'Organisation' to navigate to this tab and select the organisation you have administrative rights over:
+## Organisation Home Page
 
-![managing-organisation](img/managing-organisation-1.png)
+Users can view an organisation's home page by clicking on an organisation on the `Organisations` page.
 
-Select `Manage`.
+![Organisation Home Page 1](./img/organisation-home-page-1.png)
 
-![manage](img/managing-organisation-2.png)
+They will then be redirected to the organisation's home page. There are four main elements on an organisation's home page that all users can see:
 
-You are able to:
+1. **[The Overview](#overview)**
+2. **[Metadata Records](#metadata-records)**
+3. **[Activity Stream](#activity-stream)**
+4. **[About](#about)**
 
-1. Edit information about the organisation.
-2. View/edit metadata records belonging to the organisation.
-3. Edit/add organisation members.
+Only the System Administrator and the Organisation's Publishers can see:
 
-![managing-organisation](img/managing-organisation-3.png)
+5. **[Manage Button](#manage-button)**
 
-### Adding members to the organisation
+![Organisation Home Page 2](./img/organisation-home-page-2.png)
 
-To add a member:
+### Overview
 
-1. Select `Members`
-2. Select `Add Member`
+The overview contains information regarding the organisation. This includes the organisation's profile picture, the organisation's name, a description of the organisation, the number of followers, the number of records, and the `Follow` button. The `Organisations` and `Tags` subsections, can be populated with reference links to keywords and organisations to filter the organisation's metadata records.
 
-![adding-members](img/managing-organisation-4.png)
+![Organisation Overview 1](./img/organisation-overview-1.png)
 
-This will take you to the page below, where you are required to either add member by username (if they are already registered on the site) or to add user by email.
+1. **Profile Picture:** This is an image (usually a logo) that is visually associated with the organisation.
+2. **Organisation Name:** This is the name of the organisation.
+3. **Description:** This is a short descriptor regarding the organisation (if provided).
+4. **Number of Followers:** This is the number of users who follow the organisation.
+5. **Number of Records:** This is the number of public records the organisation owns.
+6. **`Follow` button:** This button allows users to follow the organisation and in turn receive notifications on their respective dashboards when there is activity from the organisation.
 
-![adding-members](img/managing-organisation-5.png)
+### Metadata Records
 
-Then you are required to define the user role of the user. More information regarding the different user roles can be found [here](user-roles.md)
+### Activity Stream
 
-![adding-members](img/managing-organisation-6.png)
+### About
 
-Finally, click on `Add member`.
-
-### Editing organisational member user roles
-
-If the member's user role needs to be updated, user can click on the icon shown below next to the member that requires editing.
-
-![editing-members](img/managing-organisation-7.png)
-
-You can then change the member's user role. Please note that you cannot change your own user role.
-
-![editing-members](img/managing-organisation-8.png)
-
-### Removing members from the organisation
-
-You can remove members from your organisation by clicking on the icon shown below next to the member's name:
-
-![removing-members](img/managing-organisation-9.png)
+### Manage Button
