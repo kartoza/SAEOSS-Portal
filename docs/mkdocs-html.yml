@@ -2,7 +2,7 @@
 # Configuration
 theme:
   name: material
-  logo: img/Logo.jpg
+  logo: img/SANSA_Logo.png
   language: en
   direction: ltr
   include_search_page: false
