@@ -14,5 +14,5 @@ pytestmark = pytest.mark.unit
     ],
 )
 def test_parse_date(raw_date, expected):
-    result = emc_dcpr_plugin._parse_date(raw_date)
+    result = saeoss_plugin._parse_date(raw_date)
     assert result == expected

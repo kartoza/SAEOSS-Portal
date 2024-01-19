@@ -1,27 +1,69 @@
-# The Home Page
+# Home Page
 
-![Home Page](/docs/replacemelogo.png)
+When first accessing the SAEOSS-Portal, the home page is displayed. From the home page, users are able to [create an account](../guide/registering.md), [login](../guide/logging-in.md), or view metadata.
 
-The home page is your first destination when opening GeoSight. It contains a banner and a list of projects to which you have access. The project home page is organised into these areas:
+Users are able to view any public metadata on the platform without the need to log in. Without an account, users are not able to be affiliated with any organization or group and will not be able to see any private data of that group or receive any notifications from the platform.
 
-## The Project Gallery 
+![Home Page](./img/Home.png)
 
-A project is a collection of indicators, context layers, widgets and filters. These components allow you to understand the operational conditions for a given areas. The projects you have access to may vary depending on whether you are logged in (see 3 below) or not.
+## Navigation
 
-## Projects
+From the home page, there are many ways to navigate to various pages on the platform. These navigational links can be summarized into the following:
 
-Each project is displayed in the gallery with:
+| Link | Image | Explanation |
+| -- | -- | -- |
+| Home Page | ![Home_link](./img/Home_link.png) | By clicking on the SANSA logo from anywhere on the platform, the home page will be displayed. |
+| Login / Sign-Up | ![Home_link](./img/login-signup.png) | By selecting the login / sign-up button in the top right corner, users can log in or create an account. |
+| Social Media Links | ![Home_link](./img/social_media.png) | Various social media pages for SANSA can be accessed through the social media links on the left. |
+| Navbar / Navlinks / Navcards | ![Home_link](./img/nav-pane.png) <br> ![Nav_links](./img/nav-links.png) <br> ![Nav_card](./img/nav-card.png)| The navpane allows for easy access to all main pages of the platform. |
 
-* a thumbnail representing the theme of the project
-* a title for the project
-* a short description of the project
+## Crisp Interface
 
-If the description overflows the space provided, you can scroll vertically inside the project block to see the additional details. 
+> **Note:** *This interface sends emails to the administrator and might yield a long turnaround time.*
 
-## Log In
+The crisp chat interface allows you to directly contact administrators of the platform should you need assistance with a problem not listed in the documentation.
 
-If you have an account on the platform, you can click the log in link to enter your account credentials.
+|   |   |
+ --- | --- |
+| ![interface](./img/crisp_chat_icon.png) | ![Crisp_chat_interface](./img/crisp_chat.png) |
 
-## Home Link
+## Workflows <!-- Workflows belong in the guide not the manual? -->
 
-Wherever you are on the site, clicking this link will return you to this home page.
+### Sign Up
+
+Users who wish to create a user account can do so by following these steps:
+
+1. From the home screen, select one of the sign up buttons:
+
+   ![Sign up](./img/login-signup.png)
+
+   or
+
+   ![sign up button](./img/sign_button.png)
+
+2. Complete the signup form with all the relevant details.
+   > **NOTE:** *Fields marked with an `*` are mandatory fields and cannot be left blank.*
+
+   ![Sign up form](./img/register_form.png)
+
+   > **NOTE:** *Your password should contain at least `8` characters.*
+
+### Login
+
+Once a user account has been created, users can log in to the platform by following these steps:
+
+1. From the home screen, select one of the following login buttons:
+
+    ![Login](./img/login-signup.png)
+
+    or
+
+    ![login_button](./img/login_button.png)
+
+2. Complete the login form and click on login.
+
+   ![login_form](./img/login_form.png)
+
+3. When the dashboard is displayed, you have successfully logged in.
+
+   ![Dashboard](./img/Dashboard.png)

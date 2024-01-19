@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SAEOSS Database</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+        <!-- Bootstrap 3.3.5 -->
+        <link rel="stylesheet" href="bower/admin-lte/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="bower/ionicons/css/ionicons.min.css">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="bower/datatables.net-bs/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" href="bower/datatables.net-buttons-bs/css/buttons.bootstrap.min.css">
+        <!-- Code Mirror -->
+        <link rel="stylesheet" href="bower/codemirror/codemirror.css">
+        <!-- Fonts -->
+        <link href='fonts/indieflower/indie-flower.css' rel='stylesheet' type='text/css'>
+        <link href='fonts/source-sans-pro/source-sans-pro.css' rel='stylesheet' type='text/css'>
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="bower/admin-lte/dist/css/AdminLTE.min.css">
+        <!-- Salvattore -->
+        <link rel="stylesheet" href="bower/salvattore/salvattore.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+           folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="bower/admin-lte/dist/css/skins/_all-skins.min.css">
+        <!-- SchemaSpy -->
+        <link rel="stylesheet" href="schemaSpy.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="bower/html5shiv/html5shiv.min.js"></script>
+        <script src="bower/respond/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+    <body class="hold-transition skin-blue layout-top-nav">
+        <div class="wrapper">
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a href="index.html" class="navbar-brand"><b>SAEOSS</b> Database</a>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a href="index.html">Tables <span class="sr-only">(current)</span></a></li>
+                                <li><a href="columns.html" title="All of the columns in the schema">Columns</a></li>
+                                <li><a href="constraints.html" title="Useful for diagnosing error messages that just give constraint name or number">Constraints</a></li>
+                                <li><a href="relationships.html" title="Diagram of table relationships">Relationships</a></li>
+                                <li><a href="orphans.html" title="View of tables with neither parents nor children">Orphan&nbsp;Tables</a></li>
+                                <li><a href="anomalies.html" title="Things that might not be quite right">Anomalies</a></li>
+                                <li><a href="routines.html" title="Procedures and functions">Routines</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                        <!-- Navbar Right Menu -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+            </header>
+            <!-- Main content -->
+            <!-- Full Width Column -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>All Relationships</h1>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <i class="fa fa-code-fork"></i>
+                            <h3 class="box-title">Diagrams</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="nav-tabs-custom">
+                                <!-- Tabs within a box -->
+                                <h5>By default only columns that are primary keys, foreign keys or indexes are shown.</h5>
+                                <ul class="nav nav-tabs pull-left ui-sortable-handle">
+                                    <li class="active"><a href="#compactDegreeImg-chart" data-toggle="tab" aria-expanded="true">Compact</a></li>
+                                    <li class=""><a href="#largeDegreeImg-chart" data-toggle="tab" aria-expanded="true">Large</a></li>
+                                    <li class=""><a href="#compactimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">Compact Implied</a></li>
+                                    <li class=""><a href="#largeimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">Large Implied</a></li>
+                                </ul>
+                                <div class="tab-content no-padding">
+                                    <div class="chart tab-pane active" id="compactDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="compactRelationshipsDiagram" name="compactRelationshipsDiagram">
+<area shape="rect" id="node1" href="tables/harvest_source.html" target="_top" title="harvest_source" alt="" coords="5,656,209,773">
+<area shape="rect" id="node2" href="tables/user_following_group.html" target="_top" title="user_following_group" alt="" coords="683,4029,939,4176">
+<area shape="rect" id="node30" href="tables/group.html" target="_top" title="group" alt="" coords="334,4565,509,4712">
+<area shape="rect" id="node40" href="tables/user.html" target="_top" title="user" alt="" coords="253,3141,589,3288">
+<area shape="rect" id="node3" href="tables/user_following_dataset.html" target="_top" title="user_following_dataset" alt="" coords="677,1460,944,1607">
+<area shape="rect" id="node6" href="tables/package.html" target="_top" title="package" alt="" coords="319,1229,523,1464">
+<area shape="rect" id="node4" href="tables/api_token.html" target="_top" title="api_token" alt="" coords="730,2784,891,2931">
+<area shape="rect" id="node5" href="tables/group_revision.html" target="_top" title="group_revision" alt="" coords="708,6595,913,6829">
+<area shape="rect" id="node21" href="tables/revision.html" target="_top" title="revision" alt="" coords="313,5721,530,5897">
+<area shape="rect" id="node7" href="tables/dcpr_error_report.html" target="_top" title="dcpr_error_report" alt="" coords="653,1817,968,2023">
+<area shape="rect" id="node8" href="tables/user_following_user.html" target="_top" title="user_following_user" alt="" coords="689,2948,932,3095">
+<area shape="rect" id="node9" href="tables/harvest_job.html" target="_top" title="harvest_job" alt="" coords="333,579,509,725">
+<area shape="rect" id="node10" href="tables/dcpr_geospatial_request.html" target="_top" title="dcpr_geospatial_request" alt="" coords="649,3771,972,3976">
+<area shape="rect" id="node11" href="tables/package_relationship.html" target="_top" title="package_relationship" alt="" coords="684,1103,937,1279">
+<area shape="rect" id="node12" href="tables/saved_searches.html" target="_top" title="saved_searches" alt="" coords="707,3112,915,3259">
+<area shape="rect" id="node13" href="tables/system_info.html" target="_top" title="system_info" alt="" coords="332,6905,511,7052">
+<area shape="rect" id="node14" href="tables/resource_revision.html" target="_top" title="resource_revision" alt="" coords="694,5352,927,5616">
+<area shape="rect" id="node15" href="tables/rating.html" target="_top" title="rating" alt="" coords="722,1624,899,1800">
+<area shape="rect" id="node16" href="tables/package_tag_revision.html" target="_top" title="package_tag_revision" alt="" coords="683,4229,938,4552">
+<area shape="rect" id="node49" href="tables/tag.html" target="_top" title="tag" alt="" coords="342,3811,501,3963">
+<area shape="rect" id="node17" href="tables/harvest_object.html" target="_top" title="harvest_object" alt="" coords="687,615,934,849">
+<area shape="rect" id="node18" href="tables/system_info_revision.html" target="_top" title="system_info_revision" alt="" coords="686,6847,935,7023">
+<area shape="rect" id="node19" href="tables/package_relationship_revision.html" target="_top" title="package_relationship_revision" alt="" coords="1059,949,1383,1272">
+<area shape="rect" id="node20" href="tables/error_report_notification.html" target="_top" title="error_report_notification" alt="" coords="1080,3244,1361,3425">
+<area shape="rect" id="node35" href="tables/error_report.html" target="_top" title="error_report" alt="" coords="649,2040,972,2245">
+<area shape="rect" id="node22" href="tables/harvest_gather_error.html" target="_top" title="harvest_gather_error" alt="" coords="685,451,937,597">
+<area shape="rect" id="node23" href="tables/member_revision.html" target="_top" title="member_revision" alt="" coords="700,5633,921,5956">
+<area shape="rect" id="node24" href="tables/package_extra.html" target="_top" title="package_extra" alt="" coords="711,939,910,1085">
+<area shape="rect" id="node25" href="tables/harvest_object_extra.html" target="_top" title="harvest_object_extra" alt="" coords="1097,504,1345,651">
+<area shape="rect" id="node26" href="tables/group_extra.html" target="_top" title="group_extra" alt="" coords="721,4835,901,4981">
+<area shape="rect" id="node27" href="tables/package_extra_revision.html" target="_top" title="package_extra_revision" alt="" coords="676,5973,945,6267">
+<area shape="rect" id="node28" href="tables/group_extra_revision.html" target="_top" title="group_extra_revision" alt="" coords="685,5035,937,5299">
+<area shape="rect" id="node29" href="tables/member.html" target="_top" title="member" alt="" coords="735,4641,886,4817">
+<area shape="rect" id="node31" href="tables/resource_view.html" target="_top" title="resource_view" alt="" coords="1122,228,1319,375">
+<area shape="rect" id="node36" href="tables/resource.html" target="_top" title="resource" alt="" coords="694,257,927,433">
+<area shape="rect" id="node32" href="tables/activity_detail.html" target="_top" title="activity_detail" alt="" coords="1125,5,1317,152">
+<area shape="rect" id="node50" href="tables/activity.html" target="_top" title="activity" alt="" coords="737,35,885,240">
+<area shape="rect" id="node33" href="tables/dashboard.html" target="_top" title="dashboard" alt="" coords="677,3348,945,3465">
+<area shape="rect" id="node34" href="tables/package_revision.html" target="_top" title="package_revision" alt="" coords="701,6284,921,6577">
+<area shape="rect" id="node37" href="tables/dcpr_request_notification.html" target="_top" title="dcpr_request_notification" alt="" coords="1077,3641,1364,3823">
+<area shape="rect" id="node38" href="tables/dcpr_request.html" target="_top" title="dcpr_request" alt="" coords="633,3483,988,3717">
+<area shape="rect" id="node39" href="tables/user_extra_fields.html" target="_top" title="user_extra_fields" alt="" coords="689,2263,932,2409">
+<area shape="rect" id="node41" href="tables/dcpr_geospatial_request_notification.html" target="_top" title="dcpr_geospatial_request_notification" alt="" coords="1032,3895,1409,4076">
+<area shape="rect" id="node42" href="tables/harvest_object_error.html" target="_top" title="harvest_object_error" alt="" coords="1097,668,1345,815">
+<area shape="rect" id="node43" href="tables/dcpr_request_dataset.html" target="_top" title="dcpr_request_dataset" alt="" coords="1093,3477,1349,3624">
+<area shape="rect" id="node44" href="tables/dcpr_error_report_notification.html" target="_top" title="dcpr_error_report_notification" alt="" coords="1058,3045,1383,3227">
+<area shape="rect" id="node45" href="tables/package_tag.html" target="_top" title="package_tag" alt="" coords="719,2427,903,2603">
+<area shape="rect" id="node46" href="tables/vocabulary.html" target="_top" title="vocabulary" alt="" coords="22,3869,193,3992">
+<area shape="rect" id="node47" href="tables/package_member.html" target="_top" title="package_member" alt="" coords="698,1296,923,1443">
+<area shape="rect" id="node48" href="tables/reporting_tool.html" target="_top" title="reporting_tool" alt="" coords="711,2620,910,2767">
+</map>
+                                        <a name='diagram'><img id="compactDegreeImg" src="diagrams/summary/relationships.real.compact.png" usemap="#compactRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="largeDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="largeRelationshipsDiagram" name="largeRelationshipsDiagram">
+<area shape="rect" id="node1" href="tables/harvest_source.html" target="_top" title="harvest_source" alt="" coords="5,1579,209,1995">
+<area shape="rect" id="node2" href="tables/user_following_group.html" target="_top" title="user_following_group" alt="" coords="683,7157,939,7309">
+<area shape="rect" id="node30" href="tables/group.html" target="_top" title="group" alt="" coords="334,7428,509,7785">
+<area shape="rect" id="node40" href="tables/user.html" target="_top" title="user" alt="" coords="253,4928,589,5403">
+<area shape="rect" id="node3" href="tables/user_following_dataset.html" target="_top" title="user_following_dataset" alt="" coords="677,2811,944,2963">
+<area shape="rect" id="node6" href="tables/package.html" target="_top" title="package" alt="" coords="319,2329,523,2921">
+<area shape="rect" id="node4" href="tables/api_token.html" target="_top" title="api_token" alt="" coords="730,4641,891,4881">
+<area shape="rect" id="node5" href="tables/group_revision.html" target="_top" title="group_revision" alt="" coords="708,9556,913,10089">
+<area shape="rect" id="node21" href="tables/revision.html" target="_top" title="revision" alt="" coords="313,9732,530,9972">
+<area shape="rect" id="node7" href="tables/dcpr_error_report.html" target="_top" title="dcpr_error_report" alt="" coords="653,2980,968,3396">
+<area shape="rect" id="node8" href="tables/user_following_user.html" target="_top" title="user_following_user" alt="" coords="689,4899,932,5051">
+<area shape="rect" id="node9" href="tables/harvest_job.html" target="_top" title="harvest_job" alt="" coords="333,1381,509,1651">
+<area shape="rect" id="node10" href="tables/dcpr_geospatial_request.html" target="_top" title="dcpr_geospatial_request" alt="" coords="649,6424,972,7104">
+<area shape="rect" id="node11" href="tables/package_relationship.html" target="_top" title="package_relationship" alt="" coords="684,2097,937,2337">
+<area shape="rect" id="node12" href="tables/saved_searches.html" target="_top" title="saved_searches" alt="" coords="707,5140,915,5351">
+<area shape="rect" id="node13" href="tables/system_info.html" target="_top" title="system_info" alt="" coords="332,11935,511,12116">
+<area shape="rect" id="node14" href="tables/resource_revision.html" target="_top" title="resource_revision" alt="" coords="694,10107,927,10963">
+<area shape="rect" id="node15" href="tables/rating.html" target="_top" title="rating" alt="" coords="722,2355,899,2595">
+<area shape="rect" id="node16" href="tables/package_tag_revision.html" target="_top" title="package_tag_revision" alt="" coords="683,7627,938,7984">
+<area shape="rect" id="node49" href="tables/tag.html" target="_top" title="tag" alt="" coords="342,6339,501,6491">
+<area shape="rect" id="node17" href="tables/harvest_object.html" target="_top" title="harvest_object" alt="" coords="687,1247,934,1780">
+<area shape="rect" id="node18" href="tables/system_info_revision.html" target="_top" title="system_info_revision" alt="" coords="686,11817,935,12175">
+<area shape="rect" id="node19" href="tables/package_relationship_revision.html" target="_top" title="package_relationship_revision" alt="" coords="1059,1828,1383,2244">
+<area shape="rect" id="node20" href="tables/error_report_notification.html" target="_top" title="error_report_notification" alt="" coords="1080,5087,1361,5268">
+<area shape="rect" id="node35" href="tables/error_report.html" target="_top" title="error_report" alt="" coords="649,3413,972,3829">
+<area shape="rect" id="node22" href="tables/harvest_gather_error.html" target="_top" title="harvest_gather_error" alt="" coords="685,1048,937,1229">
+<area shape="rect" id="node23" href="tables/member_revision.html" target="_top" title="member_revision" alt="" coords="700,10980,921,11396">
+<area shape="rect" id="node24" href="tables/package_extra.html" target="_top" title="package_extra" alt="" coords="711,1869,910,2080">
+<area shape="rect" id="node25" href="tables/harvest_object_extra.html" target="_top" title="harvest_object_extra" alt="" coords="1097,1119,1345,1300">
+<area shape="rect" id="node26" href="tables/group_extra.html" target="_top" title="group_extra" alt="" coords="721,7399,901,7609">
+<area shape="rect" id="node27" href="tables/package_extra_revision.html" target="_top" title="package_extra_revision" alt="" coords="676,11413,945,11800">
+<area shape="rect" id="node28" href="tables/group_extra_revision.html" target="_top" title="group_extra_revision" alt="" coords="685,8331,937,8717">
+<area shape="rect" id="node29" href="tables/member.html" target="_top" title="member" alt="" coords="735,8001,886,8241">
+<area shape="rect" id="node31" href="tables/resource_view.html" target="_top" title="resource_view" alt="" coords="1122,292,1319,561">
+<area shape="rect" id="node36" href="tables/resource.html" target="_top" title="resource" alt="" coords="694,321,927,1031">
+<area shape="rect" id="node32" href="tables/activity_detail.html" target="_top" title="activity_detail" alt="" coords="1125,5,1317,245">
+<area shape="rect" id="node50" href="tables/activity.html" target="_top" title="activity" alt="" coords="737,35,885,304">
+<area shape="rect" id="node33" href="tables/dashboard.html" target="_top" title="dashboard" alt="" coords="677,3847,945,3999">
+<area shape="rect" id="node34" href="tables/package_revision.html" target="_top" title="package_revision" alt="" coords="701,8771,921,9539">
+<area shape="rect" id="node37" href="tables/dcpr_request_notification.html" target="_top" title="dcpr_request_notification" alt="" coords="1077,6289,1364,6471">
+<area shape="rect" id="node38" href="tables/dcpr_request.html" target="_top" title="dcpr_request" alt="" coords="633,5368,988,6371">
+<area shape="rect" id="node39" href="tables/user_extra_fields.html" target="_top" title="user_extra_fields" alt="" coords="689,4215,932,4396">
+<area shape="rect" id="node41" href="tables/dcpr_geospatial_request_notification.html" target="_top" title="dcpr_geospatial_request_notification" alt="" coords="1032,7023,1409,7204">
+<area shape="rect" id="node42" href="tables/harvest_object_error.html" target="_top" title="harvest_object_error" alt="" coords="1097,1317,1345,1557">
+<area shape="rect" id="node43" href="tables/dcpr_request_dataset.html" target="_top" title="dcpr_request_dataset" alt="" coords="1093,5368,1349,5901">
+<area shape="rect" id="node44" href="tables/dcpr_error_report_notification.html" target="_top" title="dcpr_error_report_notification" alt="" coords="1058,4888,1383,5069">
+<area shape="rect" id="node45" href="tables/package_tag.html" target="_top" title="package_tag" alt="" coords="719,4016,903,4197">
+<area shape="rect" id="node46" href="tables/vocabulary.html" target="_top" title="vocabulary" alt="" coords="22,6397,193,6520">
+<area shape="rect" id="node47" href="tables/package_member.html" target="_top" title="package_member" alt="" coords="698,2612,923,2793">
+<area shape="rect" id="node48" href="tables/reporting_tool.html" target="_top" title="reporting_tool" alt="" coords="711,4413,910,4624">
+</map>
+                                        <a name='diagram'><img id="largeDegreeImg" src="diagrams/summary/relationships.real.large.png" usemap="#largeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="compactimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="compactImpliedRelationshipsDiagram" name="compactImpliedRelationshipsDiagram">
+<area shape="rect" id="node1" href="tables/harvest_source.html" target="_top" title="harvest_source" alt="" coords="5,791,209,908">
+<area shape="rect" id="node2" href="tables/user_following_group.html" target="_top" title="user_following_group" alt="" coords="683,4164,939,4311">
+<area shape="rect" id="node31" href="tables/group.html" target="_top" title="group" alt="" coords="334,4700,509,4847">
+<area shape="rect" id="node41" href="tables/user.html" target="_top" title="user" alt="" coords="253,3276,589,3423">
+<area shape="rect" id="node3" href="tables/user_following_dataset.html" target="_top" title="user_following_dataset" alt="" coords="677,1595,944,1741">
+<area shape="rect" id="node6" href="tables/package.html" target="_top" title="package" alt="" coords="319,1364,523,1599">
+<area shape="rect" id="node4" href="tables/api_token.html" target="_top" title="api_token" alt="" coords="730,2919,891,3065">
+<area shape="rect" id="node5" href="tables/group_revision.html" target="_top" title="group_revision" alt="" coords="708,6729,913,6964">
+<area shape="rect" id="node21" href="tables/revision.html" target="_top" title="revision" alt="" coords="313,5856,530,6032">
+<area shape="rect" id="node7" href="tables/dcpr_error_report.html" target="_top" title="dcpr_error_report" alt="" coords="653,1952,968,2157">
+<area shape="rect" id="node8" href="tables/user_following_user.html" target="_top" title="user_following_user" alt="" coords="689,3083,932,3229">
+<area shape="rect" id="node9" href="tables/harvest_job.html" target="_top" title="harvest_job" alt="" coords="333,713,509,860">
+<area shape="rect" id="node10" href="tables/dcpr_geospatial_request.html" target="_top" title="dcpr_geospatial_request" alt="" coords="649,3905,972,4111">
+<area shape="rect" id="node11" href="tables/package_relationship.html" target="_top" title="package_relationship" alt="" coords="684,1237,937,1413">
+<area shape="rect" id="node12" href="tables/saved_searches.html" target="_top" title="saved_searches" alt="" coords="707,3247,915,3393">
+<area shape="rect" id="node13" href="tables/system_info.html" target="_top" title="system_info" alt="" coords="332,7040,511,7187">
+<area shape="rect" id="node14" href="tables/resource_revision.html" target="_top" title="resource_revision" alt="" coords="694,5487,927,5751">
+<area shape="rect" id="node15" href="tables/rating.html" target="_top" title="rating" alt="" coords="722,1759,899,1935">
+<area shape="rect" id="node16" href="tables/package_tag_revision.html" target="_top" title="package_tag_revision" alt="" coords="683,4364,938,4687">
+<area shape="rect" id="node50" href="tables/tag.html" target="_top" title="tag" alt="" coords="342,3945,501,4097">
+<area shape="rect" id="node17" href="tables/harvest_object.html" target="_top" title="harvest_object" alt="" coords="687,749,934,984">
+<area shape="rect" id="node18" href="tables/system_info_revision.html" target="_top" title="system_info_revision" alt="" coords="686,6981,935,7157">
+<area shape="rect" id="node19" href="tables/package_relationship_revision.html" target="_top" title="package_relationship_revision" alt="" coords="1059,1084,1383,1407">
+<area shape="rect" id="node20" href="tables/error_report_notification.html" target="_top" title="error_report_notification" alt="" coords="1080,3379,1361,3560">
+<area shape="rect" id="node36" href="tables/error_report.html" target="_top" title="error_report" alt="" coords="649,2175,972,2380">
+<area shape="rect" id="node22" href="tables/harvest_gather_error.html" target="_top" title="harvest_gather_error" alt="" coords="685,585,937,732">
+<area shape="rect" id="node23" href="tables/spatial_ref_sys.html" target="_top" title="spatial_ref_sys" alt="" coords="711,451,910,568">
+<area shape="rect" id="node24" href="tables/member_revision.html" target="_top" title="member_revision" alt="" coords="700,5768,921,6091">
+<area shape="rect" id="node25" href="tables/package_extra.html" target="_top" title="package_extra" alt="" coords="711,1073,910,1220">
+<area shape="rect" id="node26" href="tables/harvest_object_extra.html" target="_top" title="harvest_object_extra" alt="" coords="1097,696,1345,843">
+<area shape="rect" id="node27" href="tables/group_extra.html" target="_top" title="group_extra" alt="" coords="721,4969,901,5116">
+<area shape="rect" id="node28" href="tables/package_extra_revision.html" target="_top" title="package_extra_revision" alt="" coords="676,6108,945,6401">
+<area shape="rect" id="node29" href="tables/group_extra_revision.html" target="_top" title="group_extra_revision" alt="" coords="685,5169,937,5433">
+<area shape="rect" id="node30" href="tables/member.html" target="_top" title="member" alt="" coords="735,4776,886,4952">
+<area shape="rect" id="node32" href="tables/resource_view.html" target="_top" title="resource_view" alt="" coords="1122,228,1319,375">
+<area shape="rect" id="node37" href="tables/resource.html" target="_top" title="resource" alt="" coords="694,257,927,433">
+<area shape="rect" id="node33" href="tables/activity_detail.html" target="_top" title="activity_detail" alt="" coords="1125,5,1317,152">
+<area shape="rect" id="node51" href="tables/activity.html" target="_top" title="activity" alt="" coords="737,35,885,240">
+<area shape="rect" id="node34" href="tables/dashboard.html" target="_top" title="dashboard" alt="" coords="677,3483,945,3600">
+<area shape="rect" id="node35" href="tables/package_revision.html" target="_top" title="package_revision" alt="" coords="701,6419,921,6712">
+<area shape="rect" id="node38" href="tables/dcpr_request_notification.html" target="_top" title="dcpr_request_notification" alt="" coords="1077,3776,1364,3957">
+<area shape="rect" id="node39" href="tables/dcpr_request.html" target="_top" title="dcpr_request" alt="" coords="633,3617,988,3852">
+<area shape="rect" id="node40" href="tables/user_extra_fields.html" target="_top" title="user_extra_fields" alt="" coords="689,2397,932,2544">
+<area shape="rect" id="node42" href="tables/dcpr_geospatial_request_notification.html" target="_top" title="dcpr_geospatial_request_notification" alt="" coords="1032,4029,1409,4211">
+<area shape="rect" id="node43" href="tables/harvest_object_error.html" target="_top" title="harvest_object_error" alt="" coords="1097,860,1345,1007">
+<area shape="rect" id="node44" href="tables/dcpr_request_dataset.html" target="_top" title="dcpr_request_dataset" alt="" coords="1093,3612,1349,3759">
+<area shape="rect" id="node45" href="tables/dcpr_error_report_notification.html" target="_top" title="dcpr_error_report_notification" alt="" coords="1058,3180,1383,3361">
+<area shape="rect" id="node46" href="tables/package_tag.html" target="_top" title="package_tag" alt="" coords="719,2561,903,2737">
+<area shape="rect" id="node47" href="tables/vocabulary.html" target="_top" title="vocabulary" alt="" coords="22,4004,193,4127">
+<area shape="rect" id="node48" href="tables/package_member.html" target="_top" title="package_member" alt="" coords="698,1431,923,1577">
+<area shape="rect" id="node49" href="tables/reporting_tool.html" target="_top" title="reporting_tool" alt="" coords="711,2755,910,2901">
+<area shape="rect" id="node52" href="tables/geography_columns.html" target="_top" title="geography_columns" alt="" coords="1099,421,1342,515">
+<area shape="rect" id="node53" href="tables/geometry_columns.html" target="_top" title="geometry_columns" alt="" coords="1104,532,1337,625">
+</map>
+                                        <a name='diagram'><img id="compactimpliedDegreeImg" src="diagrams/summary/relationships.implied.compact.png" usemap="#compactImpliedRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="largeimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="largeImpliedRelationshipsDiagram" name="largeImpliedRelationshipsDiagram">
+<area shape="rect" id="node1" href="tables/harvest_source.html" target="_top" title="harvest_source" alt="" coords="5,1807,209,2223">
+<area shape="rect" id="node2" href="tables/user_following_group.html" target="_top" title="user_following_group" alt="" coords="683,7385,939,7537">
+<area shape="rect" id="node31" href="tables/group.html" target="_top" title="group" alt="" coords="334,7656,509,8013">
+<area shape="rect" id="node41" href="tables/user.html" target="_top" title="user" alt="" coords="253,5156,589,5631">
+<area shape="rect" id="node3" href="tables/user_following_dataset.html" target="_top" title="user_following_dataset" alt="" coords="677,3039,944,3191">
+<area shape="rect" id="node6" href="tables/package.html" target="_top" title="package" alt="" coords="319,2557,523,3149">
+<area shape="rect" id="node4" href="tables/api_token.html" target="_top" title="api_token" alt="" coords="730,4869,891,5109">
+<area shape="rect" id="node5" href="tables/group_revision.html" target="_top" title="group_revision" alt="" coords="708,9784,913,10317">
+<area shape="rect" id="node21" href="tables/revision.html" target="_top" title="revision" alt="" coords="313,9960,530,10200">
+<area shape="rect" id="node7" href="tables/dcpr_error_report.html" target="_top" title="dcpr_error_report" alt="" coords="653,3208,968,3624">
+<area shape="rect" id="node8" href="tables/user_following_user.html" target="_top" title="user_following_user" alt="" coords="689,5127,932,5279">
+<area shape="rect" id="node9" href="tables/harvest_job.html" target="_top" title="harvest_job" alt="" coords="333,1609,509,1879">
+<area shape="rect" id="node10" href="tables/dcpr_geospatial_request.html" target="_top" title="dcpr_geospatial_request" alt="" coords="649,6652,972,7332">
+<area shape="rect" id="node11" href="tables/package_relationship.html" target="_top" title="package_relationship" alt="" coords="684,2325,937,2565">
+<area shape="rect" id="node12" href="tables/saved_searches.html" target="_top" title="saved_searches" alt="" coords="707,5368,915,5579">
+<area shape="rect" id="node13" href="tables/system_info.html" target="_top" title="system_info" alt="" coords="332,12163,511,12344">
+<area shape="rect" id="node14" href="tables/resource_revision.html" target="_top" title="resource_revision" alt="" coords="694,10335,927,11191">
+<area shape="rect" id="node15" href="tables/rating.html" target="_top" title="rating" alt="" coords="722,2583,899,2823">
+<area shape="rect" id="node16" href="tables/package_tag_revision.html" target="_top" title="package_tag_revision" alt="" coords="683,7855,938,8212">
+<area shape="rect" id="node50" href="tables/tag.html" target="_top" title="tag" alt="" coords="342,6567,501,6719">
+<area shape="rect" id="node17" href="tables/harvest_object.html" target="_top" title="harvest_object" alt="" coords="687,1475,934,2008">
+<area shape="rect" id="node18" href="tables/system_info_revision.html" target="_top" title="system_info_revision" alt="" coords="686,12045,935,12403">
+<area shape="rect" id="node19" href="tables/package_relationship_revision.html" target="_top" title="package_relationship_revision" alt="" coords="1059,2056,1383,2472">
+<area shape="rect" id="node20" href="tables/error_report_notification.html" target="_top" title="error_report_notification" alt="" coords="1080,5315,1361,5496">
+<area shape="rect" id="node36" href="tables/error_report.html" target="_top" title="error_report" alt="" coords="649,3641,972,4057">
+<area shape="rect" id="node22" href="tables/harvest_gather_error.html" target="_top" title="harvest_gather_error" alt="" coords="685,1276,937,1457">
+<area shape="rect" id="node23" href="tables/spatial_ref_sys.html" target="_top" title="spatial_ref_sys" alt="" coords="711,1048,910,1259">
+<area shape="rect" id="node24" href="tables/member_revision.html" target="_top" title="member_revision" alt="" coords="700,11208,921,11624">
+<area shape="rect" id="node25" href="tables/package_extra.html" target="_top" title="package_extra" alt="" coords="711,2097,910,2308">
+<area shape="rect" id="node26" href="tables/harvest_object_extra.html" target="_top" title="harvest_object_extra" alt="" coords="1097,1436,1345,1617">
+<area shape="rect" id="node27" href="tables/group_extra.html" target="_top" title="group_extra" alt="" coords="721,7627,901,7837">
+<area shape="rect" id="node28" href="tables/package_extra_revision.html" target="_top" title="package_extra_revision" alt="" coords="676,11641,945,12028">
+<area shape="rect" id="node29" href="tables/group_extra_revision.html" target="_top" title="group_extra_revision" alt="" coords="685,8559,937,8945">
+<area shape="rect" id="node30" href="tables/member.html" target="_top" title="member" alt="" coords="735,8229,886,8469">
+<area shape="rect" id="node32" href="tables/resource_view.html" target="_top" title="resource_view" alt="" coords="1122,292,1319,561">
+<area shape="rect" id="node37" href="tables/resource.html" target="_top" title="resource" alt="" coords="694,321,927,1031">
+<area shape="rect" id="node33" href="tables/activity_detail.html" target="_top" title="activity_detail" alt="" coords="1125,5,1317,245">
+<area shape="rect" id="node51" href="tables/activity.html" target="_top" title="activity" alt="" coords="737,35,885,304">
+<area shape="rect" id="node34" href="tables/dashboard.html" target="_top" title="dashboard" alt="" coords="677,4075,945,4227">
+<area shape="rect" id="node35" href="tables/package_revision.html" target="_top" title="package_revision" alt="" coords="701,8999,921,9767">
+<area shape="rect" id="node38" href="tables/dcpr_request_notification.html" target="_top" title="dcpr_request_notification" alt="" coords="1077,6517,1364,6699">
+<area shape="rect" id="node39" href="tables/dcpr_request.html" target="_top" title="dcpr_request" alt="" coords="633,5596,988,6599">
+<area shape="rect" id="node40" href="tables/user_extra_fields.html" target="_top" title="user_extra_fields" alt="" coords="689,4443,932,4624">
+<area shape="rect" id="node42" href="tables/dcpr_geospatial_request_notification.html" target="_top" title="dcpr_geospatial_request_notification" alt="" coords="1032,7251,1409,7432">
+<area shape="rect" id="node43" href="tables/harvest_object_error.html" target="_top" title="harvest_object_error" alt="" coords="1097,1635,1345,1875">
+<area shape="rect" id="node44" href="tables/dcpr_request_dataset.html" target="_top" title="dcpr_request_dataset" alt="" coords="1093,5596,1349,6129">
+<area shape="rect" id="node45" href="tables/dcpr_error_report_notification.html" target="_top" title="dcpr_error_report_notification" alt="" coords="1058,5116,1383,5297">
+<area shape="rect" id="node46" href="tables/package_tag.html" target="_top" title="package_tag" alt="" coords="719,4244,903,4425">
+<area shape="rect" id="node47" href="tables/vocabulary.html" target="_top" title="vocabulary" alt="" coords="22,6625,193,6748">
+<area shape="rect" id="node48" href="tables/package_member.html" target="_top" title="package_member" alt="" coords="698,2840,923,3021">
+<area shape="rect" id="node49" href="tables/reporting_tool.html" target="_top" title="reporting_tool" alt="" coords="711,4641,910,4852">
+<area shape="rect" id="node52" href="tables/geography_columns.html" target="_top" title="geography_columns" alt="" coords="1099,771,1342,1016">
+<area shape="rect" id="node53" href="tables/geometry_columns.html" target="_top" title="geometry_columns" alt="" coords="1104,1033,1337,1279">
+</map>
+                                        <a name='diagram'><img id="largeimpliedDegreeImg" src="diagrams/summary/relationships.implied.large.png" usemap="#largeImpliedRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div>
+                </section>
+            </div>
+            <!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <div>
+                    <div class="pull-right hidden-xs">
+                        <a href="https://github.com/schemaspy/schemaspy" title="GitHub for SchemaSpy"><i class="fa fa-github-square fa-2x"></i></a>
+                        <a href="http://stackoverflow.com/questions/tagged/schemaspy" title="StackOverflow for SchemaSpy"><i class="fa fa-stack-overflow fa-2x"></i></a>
+                    </div>
+                    <strong>Generated by <a href="http://schemaspy.org/" class="logo-text"><i class="fa fa-database"></i> SchemaSpy 6.1.1-SNAPSHOT</a></strong>
+                </div>
+                <!-- /.container -->
+            </footer>
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- jQuery 2.2.3 -->
+        <script src="bower/admin-lte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="bower/admin-lte/plugins/jQueryUI/jquery-ui.min.js"></script>
+        <!-- Bootstrap 3.3.5 -->
+        <script src="bower/admin-lte/bootstrap/js/bootstrap.min.js"></script>
+        <!-- DataTables -->
+        <script src="bower/datatables.net/jquery.dataTables.min.js"></script>
+        <script src="bower/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+        <script src="bower/datatables.net-buttons/dataTables.buttons.min.js"></script>
+        <script src="bower/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.html5.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.print.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.colVis.min.js"></script>
+        <!-- SheetJS -->
+        <script src="bower/js-xlsx/xlsx.full.min.js"></script>
+        <!-- pdfmake -->
+        <script src="bower/pdfmake/pdfmake.min.js"></script>
+        <script src="bower/pdfmake/vfs_fonts.js"></script>
+        <!-- SlimScroll -->
+        <script src="bower/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="bower/admin-lte/plugins/fastclick/fastclick.js"></script>
+        <!-- Salvattore -->
+        <script src="bower/salvattore/salvattore.min.js"></script>
+        <!-- AnchorJS -->
+        <script src="bower/anchor-js/anchor.min.js"></script>
+        <!-- CodeMirror -->
+        <script src="bower/codemirror/codemirror.js"></script>
+        <script src="bower/codemirror/sql.js"></script>
+        <!-- AdminLTE App -->
+        <script src="bower/admin-lte/dist/js/app.min.js"></script>
+        <script src="relationships.js"></script>
+        <script src="schemaSpy.js"></script>
+    </body>
+</html>

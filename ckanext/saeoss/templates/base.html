@@ -11,13 +11,14 @@
 {% block styles %}
 {#    {{ super() }}#}
     {% asset 'ckanext-saeoss/ckan-base-css' %}
+    {% asset 'ckanext-saeoss/ckan-responsive-css' %}
     {% asset 'ckanext-saeoss/saeoss-css' %}
     {% asset 'ckanext-saeoss/dataset-spatial-extent-map-css' %}
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
-    {% asset 'ckanext-saeoss/xml-parser-js' %}
+    {% asset 'ckanext-saeoss/file-parser-js' %}
     {% asset 'ckanext-saeoss/custom-select-js' %}
     {% asset 'ckanext-saeoss/spatial-search-js' %}
     {% asset 'ckanext-saeoss/change-dataset-word-js' %}
@@ -27,9 +28,5 @@
     {# {% asset "ckanext-saeoss/plotter-js" %} #}
     {% asset "ckanext-saeoss/popper-js" %}
     {% asset "ckanext-saeoss/utils-js" %}
-
-
-
-
-
+    {% asset "ckanext-saeoss/tooltip-js" %}
 {% endblock %}

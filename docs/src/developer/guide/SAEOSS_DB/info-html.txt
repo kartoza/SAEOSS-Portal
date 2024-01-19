@@ -1,0 +1,5 @@
+date=2023-10-05 11:00:11+0200
+os=Linux 6.1.51
+schemaspy-version=6.1.1-SNAPSHOT
+schemaspy-build=6.1.1-SNAPSHOT.41 2023-09-03 16:48:44
+renderer=Graphviz dot 1.0 

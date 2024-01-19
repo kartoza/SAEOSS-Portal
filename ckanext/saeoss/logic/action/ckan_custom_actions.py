@@ -9,10 +9,11 @@ from ckan.lib.helpers import flash_notice, redirect_to, full_current_url
 from ckan.common import c
 import logging
 import ckan.plugins as plugins
-from ..validators import stac_validator
+from ..validators import _stac_validator
 import json
 import yaml
-from xmltodict3 import XmlTextToDict
+import xmltodict
+from urllib.request import urlopen
 
 logger = logging.getLogger(__name__)
 # Define some shortcuts
@@ -39,7 +40,7 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
     model = context['model']
     user = context['user']
 
-    logger.debug(f"package create was called {data_dict}")
+    logger.debug(f"resource_create was called {data_dict}")
 
     package_id = _get_or_bust(data_dict, 'package_id')
     if not data_dict.get('url'):
@@ -62,31 +63,39 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
     if 'mimetype' not in data_dict:
         if hasattr(upload, 'mimetype'):
             data_dict['mimetype'] = upload.mimetype
+    
+    mimeNotAllowed = [
+                    "text/html", 
+                    "application/java", 
+                    "application/java-byte-code", 
+                    "application/x-javascript", 
+                    "application/javascript", 
+                    "application/ecmascript", 
+                    "text/javascript", 
+                    "text/ecmascript",
+                    "application/octet-stream",
+                    "text/x-server-parsed-html",
+                    "text/x-server-parsed-html"
+                ]
+
+    if upload.mimetype in mimeNotAllowed:
+        raise ValidationError([f"Mimetype {upload.mimetype} is not allowed!"])
 
     if 'size' not in data_dict:
         if hasattr(upload, 'filesize'):
             data_dict['size'] = upload.filesize
 
+    logger.debug(f"mimetype {upload.mimetype}")
+
+    if upload.mimetype == None:
+        raise ValidationError(["Please upload a file or link to an online resource"])
+
     if upload:
         if data_dict["resource_type"] == "stac":
-            allowed_types = ["application/json", "application/xml", "application/yaml"]
 
-            if upload.mimetype not in allowed_types:
-                raise ValidationError(["Only json, yaml and xml files are allowed"])
-
-            temp_file = upload.upload_file
-            file_contents = temp_file.read()
-            
-            if upload.mimetype == "application/json":
-                json_data = json.loads(file_contents)
-
-            if upload.mimetype == "application/yaml":
-                json_data = yaml.load(file_contents)
-
-            if upload.mimetype == "application/xml":
-                json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
-    
-            stac_validator(json_data, data_dict["stac_specification"])
+            if 'https' in data_dict['url'] or 'http' in data_dict['url']:
+                _stac_validator(data_dict['url'])
+                
 
     pkg_dict['resources'].append(data_dict)
 
@@ -160,21 +169,21 @@ def resource_update(original_action, context: dict, data_dict: dict):
 
     logger.debug("resource update", data_dict)
 
-    if "http" not in data_dict["url"] and "https" not in data_dict["url"]:
-
-        if data_dict["updated_text"]:
-            first_folder = id[0:3]
-            second_folder = id[3:6]
-            file_name = id[6:len(id)]
-
-            upload = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
-
-            logger.debug(f"resource update custom {data_dict}")
-            f = open(upload, "w")
-            f.write(data_dict["updated_text"])
-            f.close()
-
-            del data_dict["updated_text"]
+    # if "http" not in data_dict["url"] and "https" not in data_dict["url"]:
+    #
+    #     if data_dict["updated_text"]:
+    #         first_folder = id[0:3]
+    #         second_folder = id[3:6]
+    #         file_name = id[6:len(id)]
+    #
+    #         upload = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
+    #
+    #         logger.debug(f"resource update custom {data_dict}")
+    #         f = open(upload, "w")
+    #         f.write(data_dict["updated_text"])
+    #         f.close()
+    #
+    #         del data_dict["updated_text"]
 
     resource = model.Resource.get(id)
     context["resource"] = resource

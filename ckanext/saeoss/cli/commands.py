@@ -1,6 +1,7 @@
 """CKAN CLI commands for the saeoss extension"""
-
+import datetime
 import datetime as dt
+import glob
 import inspect
 import json
 import logging
@@ -9,39 +10,31 @@ import sys
 import time
 import traceback
 import typing
+import uuid
 from concurrent import futures
 from pathlib import Path
 import glob
+import uuid
 from xml.dom.minidom import parse
-import traceback
-#import validators
+
+# import validators
 import alembic.command
 import alembic.config
 import alembic.util.exc
-import click
 import ckan
 import ckan.plugins as p
-from ckan.plugins import toolkit
+import click
 from ckan import model
 from ckan.lib.navl import dictization_functions
-from lxml import etree
-from sqlalchemy import text as sla_text
+from ckan.plugins import toolkit
 from ckanext.harvest import utils as harvest_utils
-
-from .. import provide_request_context
-
-from .. import jobs
-from ..email_notifications import get_and_send_notifications_for_all_users
+from dateutil.parser import parse as datetime_parse
+from lxml import etree
+from pystac_client import Client
+from sqlalchemy import text as sla_text
 
 from . import utils
 from ._bootstrap_data import PORTAL_PAGES, SAEOSS_ORGANIZATIONS
-from ._sample_datasets import (
-    SAMPLE_DATASET_TAG,
-    generate_sample_datasets,
-)
-from ._sample_organizations import SAMPLE_ORGANIZATIONS
-from ._sample_users import SAMPLE_USERS
-import xml.dom.minidom as dom
 from ._cbers import (
     get_geometry,
     get_radiometric_resolution,
@@ -57,11 +50,19 @@ from ._cbers import (
     get_spatial_resolution_x,
     get_spatial_resolution_y
 )
-
-from pystac_client import Client
-from pystac import ItemCollection
-
-
+from ._sample_datasets import (
+    SAMPLE_DATASET_TAG,
+    generate_sample_datasets,
+)
+from ._sample_organizations import SAMPLE_ORGANIZATIONS
+from ._sample_users import SAMPLE_USERS
+from .. import jobs
+from .. import provide_request_context
+from ..email_notifications import get_and_send_notifications_for_all_users
+from ..constants import (
+    ISO_TOPIC_CATEGOY_VOCABULARY_NAME,
+    ISO_TOPIC_CATEGORIES
+)
 
 logger = logging.getLogger(__name__)
 _xml_parser = etree.XMLParser(resolve_entities=False)
@@ -870,11 +871,16 @@ def refresh_pycsw_materialized_view(ctx, post_run_delay_seconds: int):
     "--user",
     help="user added the dataset",
 )
+@click.option(
+    "--owner-org",
+    help="organisation which the dataset belongs to",
+)
 def cbers(source_path,
           user,
-          test_only_flag=True,
+          owner_org,
+          test_only_flag=False,
           verbosity_level=2,
-          halt_on_error_flag=True,
+          halt_on_error_flag=False,
           ):
     """
         Ingest a collection of CBERS metadata folders.
@@ -931,6 +937,7 @@ def cbers(source_path,
     failed_record_count = 0
     log_message('Starting directory scan...', 2)
     list_dataset = glob.glob(os.path.join(source_path, '*.XML'))
+    log_message(f"dataset {list_dataset}")
     # workers = len(list_dataset)
     with futures.ThreadPoolExecutor(3) as executor:
         to_do = []
@@ -984,16 +991,19 @@ def cbers(source_path,
 
                 # Do the ingestion here...
 
+                dataset_name = f"sansa_{uuid.uuid4()}"
+
                 data = {
                     'title': original_product_id,
                     'owner_org': '',
+                    'lineage_statement': 'cbrs',
                     'spatial': geometry,
                     'spatial_representation_type': '007',
                     'spatial_reference_system': projection,
                     'reference': center_date_time,
                     'reference_date_type': '001',
                     'equivalent_scale': radiometric_resolution,
-                    'name': 'SANSA',
+                    'name': dataset_name,
                     'version': '1.0',
                     'radiometric_resolution': radiometric_resolution,
                     'band_count': band_count,
@@ -1009,9 +1019,9 @@ def cbers(source_path,
                     'quality': quality
                 }
                 data["id"] = data["unique_product_id"]
-                data["lineage"] = data["path"]
+                data["lineage"] = "cbrs"
                 data["notes"] = data["radiometric_resolution"]
-                data["owner_org"] = 'sample-org-1'
+                data["owner_org"] = owner_org
                 data["spatial"] = [
                 [16.4699, -34.8212],
                 [32.8931, -34.8212],
@@ -1065,13 +1075,136 @@ def cbers(source_path,
     print('Products failed to import : %s ' % failed_record_count)
     print('===============================')
 
+
+def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records: int = 10):
+    """
+    fetch data from a valid stac catalog
+    and create datasets out of stack items
+
+    :param user: authorized user name to create the dataset
+    :type user: str
+
+    :param url: url of the catalogue
+    :type url: str
+
+    :param owner_org: Organization where the dataset will belong
+    :type owner_org: str
+
+    :param number_records: Maximum number of created dataset from STAC items
+    :type number_records: int
+
+    todo:
+    1. enchance the resources preview
+    2. remove the filler data
+    3. add proper checks for params (user, url, max)
+    """
+    catalog = Client.open(url)
+    stac_collections = list(catalog.get_collections())
+
+    try:
+        number_records = int(number_records)
+    except:
+        number_records = 10
+        logger.info("number_records is not an integer, setting it to 10")
+
+    created = 0
+    processed = 0
+
+    stac_harvester_id = uuid.uuid4()
+    owner_org = owner_org
+    q = f""" insert into stac_harvester values('{stac_harvester_id}', '{user}', '{owner_org}', '{url}', '{number_records}', 'running', '', '{datetime.datetime.now()}') """
+    model.Session.execute(q)
+    model.Session.commit()
+
+    for collection in stac_collections:
+        collection_items = collection.get_items()
+
+        for item in collection_items:
+            if processed > number_records:
+                break
+            logger.debug(f"collection_items {collection_items}")
+            data_dict = {}
+            meta_date = item.properties.get(
+                "start_datetime",
+                item.properties.get(
+                    "datetime",
+                    datetime.datetime.now().isoformat()
+                )
+            )
+            meta_date = datetime_parse(meta_date).strftime("%Y-%m-%dT%H:%M:%S")
+
+            data_dict["id"] = catalog.id + item.id
+            data_dict["title"] = f"{catalog.title} - {collection.title} - {item.properties.get('title', item.id)}"
+            data_dict["name"] = item.id
+            # there might or might not be notes, let's take the notes of the catalog for the moment
+            data_dict["notes"] = collection.description
+            data_dict["responsible_party-0-individual_name"] = "responsible individual name"
+            data_dict["responsible_party-0-role"] = "owner"
+            data_dict["responsible_party-0-position_name"] = "position name"
+            data_dict["dataset_reference_date-0-reference"] = meta_date
+            data_dict["dataset_reference_date-0-reference_date_type"] = "1"
+            data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
+            data_dict["owner_org"] = owner_org
+            data_dict["lineage_statement"] = "lineage statement"
+            data_dict["private"] = False
+            data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
+            data_dict["metadata_language_and_character_set-0-metadata_language"] = "en"
+            data_dict["metadata_language_and_character_set-0-dataset_character_set"] = "utf-8"
+            data_dict["metadata_language_and_character_set-0-metadata_character_set"] = "utf-8"
+            data_dict["lineage"] = "lineage statement"
+            data_dict["distribution_format-0-name"] = "distribution format"
+            data_dict["distribution_format-0-version"] = "1.0"
+            data_dict["spatial"] = json.dumps(item.geometry)
+            data_dict["spatial_parameters-0-equivalent_scale"] = "equivalent scale"
+            data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
+            data_dict["spatial_parameters-0-spatial_reference_system"] = "EPSG:3456"
+            data_dict["metadata_date"] = meta_date
+            data_dict["tag_string"] = "general"
+            data_dict["resources"] = []
+            if data_dict.get('dataset_reference_date', None):
+                del data_dict['dataset_reference_date']
+            logger.debug('stac_item:', str(data_dict))
+            # TODO dataset thumbnail, tags,
+            for link in item.links:
+                if link.rel == "thumbnail":
+                    data_dict["resources"].append({
+                        "name": link.target,
+                        "url": link.target,
+                        "format": "jpg",
+                        "format_version":
+                            "1.0"
+                    })
+                if link.rel == "self":
+                    data_dict["resources"].append({
+                        "name": "STAC Item",
+                        "url": link.target,
+                        "format": "JSON",
+                        "format_version":
+                            "1.0"
+                    })
+
+            with futures.ThreadPoolExecutor(3) as executor:
+                user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
+                future = executor.submit(utils.create_single_dataset, user, data_dict)
+                logger.debug(future.result())
+                if str(future.result()) != 'DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS':
+                    created += 1
+                processed += 1
+
+    _q = f""" update stac_harvester set message = 'finished', status = 'finished' WHERE harvester_id = '{stac_harvester_id}' """
+    _result = model.Session.execute(_q)
+    model.Session.commit()
+    logger.debug('STAC dataset creation finished')
+    logger.debug(f'{created} records created')
+
+
 @stac.command()
 @click.option(
     "--url",
     help="url of the catalogue",
 )
 @click.option(
-    "--org",
+    "--owner-org",
     help="organisation to save dataset to",
 )
 @click.option(
@@ -1079,79 +1212,61 @@ def cbers(source_path,
     help="auhtorized user name to create the dataset",
 )
 @click.option(
-    "--max",
+    "--number-records",
     help="maximum number of stac items to create datasets from",
 )
-def create_stac_dataset(user, url, org, max=10):
+def create_stac_dataset(user: str, url: str, owner_org: str, number_records: int = 10):
+    create_stac_dataset_func(user, url, owner_org, number_records)
+
+
+@bootstrap.command()
+def create_iso_topic_categories():
+    """Create ISO Topic Categories.
+
+    This command adds a CKAN vocabulary for the ISO Topic Categories and creates each
+    topic category as a CKAN tag.
+
+    This command can safely be called multiple times - it will only ever create the
+    vocabulary and themes once.
+
     """
-    fetch data from a valid stac catalog
-    and create datasets out of stack items
-    
-    :param user: authorized user name to create the dataset
-    :type user: str
-    
-    :param url: url of the catalogue
-    :type url: str
 
-    todo:
-    1. enchance the resources preview
-    2. remove the filler data
-    3. add proper checks for params (user, url, max)
-    """
-    # following url is used for tests
-    #catalog = Client.open("https://planetarycomputer.microsoft.com/api/stac/v1")
-    # pattern = "^https:\/\/[0-9A-z.]+.[0-9A-z.]+.[a-z]+$"
-    catalog = Client.open(url)
-    collection1 = list(catalog.get_collections())[0]
-    collection_items = collection1.get_items()
-    data_dict = {}
-    # if not validators.parse(url):
-    #     logger.info("url is not valid, exiting")
-    #     return
-    
-    try:
-        max = int(max)
-    except:
-        max = 10
-        logger.info("max is not an integer, setting it to 10")
-    
-    for i in range(max+1):
-        item1 = next(collection_items)
-        logger.debug(f"collection_items {collection_items}")
-        data_dict["id"] = catalog.id + item1.id
-        data_dict["title"] = item1.id
-        data_dict["name"] = item1.id
-        # there might or might not be notes, let's take the notes of the catalog for the moment
-        data_dict["notes"] = catalog.description
-        data_dict["responsible_party-0-individual_name"] = "responsible individual name"
-        data_dict["responsible_party-0-role"] = "owner"
-        data_dict["responsible_party-0-position_name"] = "position name"
-        data_dict["dataset_reference_date-0-reference"] = "2022-1-5"
-        data_dict["dataset_reference_date-0-reference_date_type"] = "001"
-        data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
-        data_dict["owner_org"] = org
-        data_dict["lineage_statement"] = "STAC Endpoint"
-        data_dict["private"] = False
-        data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
-        data_dict["metadata_language_and_character_set-0-metadata_language"] = "en"
-        data_dict["metadata_language_and_character_set-0-dataset_character_set"] = "utf-8"
-        data_dict["metadata_language_and_character_set-0-metadata_character_set"] = "utf-8"
-        data_dict["lineage"] = "lineage statement"
-        data_dict["distribution_format-0-name"] = "distribution format"
-        data_dict["distribution_format-0-version"] = "1.0"
-        data_dict["spatial"] = item1.bbox
-        data_dict["spatial_parameters-0-equivalent_scale"] = "equivalent scale"
-        data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
-        data_dict["spatial_parameters-0-spatial_reference_system"] = "EPSG:3456"
-        data_dict["metadata_date"] = "metadata"
-        data_dict["resources"] = []
-        for link in item1.links:
-            if link.rel == "thumbnail":
-                data_dict["resources"].append({"name":link.target,"url":link.target, "format": "jpg", "format_version": "1.0"})
+    logger.info(
+        f"Creating ISO Topic Categories CKAN tag vocabulary and adding "
+        f"the relevant categories..."
+    )
 
-        with futures.ThreadPoolExecutor(3) as executor:
+    user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {})
+    context = {"user": user["name"]}
+    vocab_list = toolkit.get_action("vocabulary_list")(context)
+    for voc in vocab_list:
+        if voc["name"] == ISO_TOPIC_CATEGOY_VOCABULARY_NAME:
+            vocabulary = voc
+            logger.info(
+                f"Vocabulary {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r} already exists, "
+                f"skipping creation..."
+            )
+            break
+    else:
+        logger.info(f"Creating vocabulary {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r}...")
+        vocabulary = toolkit.get_action("vocabulary_create")(
+            context, {"name": ISO_TOPIC_CATEGOY_VOCABULARY_NAME}
+        )
 
-            user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
-            logger.debug('stac_item:', str(data_dict))
-            future = executor.submit(utils.create_single_dataset, user, data_dict)
-            logger.debug(future.result())
+    for theme_name, _ in ISO_TOPIC_CATEGORIES:
+        if theme_name != "":
+            already_exists = theme_name in [tag["name"] for tag in vocabulary["tags"]]
+            if not already_exists:
+                logger.info(
+                    f"Adding tag {theme_name!r} to "
+                    f"vocabulary {ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r}..."
+                )
+                toolkit.get_action("tag_create")(
+                    context, {"name": theme_name, "vocabulary_id": vocabulary["id"]}
+                )
+            else:
+                logger.info(
+                    f"Tag {theme_name!r} is already part of the "
+                    f"{ISO_TOPIC_CATEGOY_VOCABULARY_NAME!r} vocabulary, skipping..."
+                )
+    logger.info("Done!")

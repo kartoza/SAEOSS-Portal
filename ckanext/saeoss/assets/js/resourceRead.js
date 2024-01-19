@@ -6,16 +6,20 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-if(ext_type == "json"){
+console.log(ext_type)
+
+if(ext_type == "json" || isValidHttpUrl(file) || stac_spec == 'item'){
     fetch(file)
     .then(response => response.json())
     .then(data => {
         
         // document.getElementById("_featuresDescription").innerHTML = '<pre>'+JSON.stringify(data, null, 2)+'</pre>';
 
+        console.log(data)
+
         var container = document.getElementsByClassName('leaflet-bottom leaflet-left')[0]
         container.innerHTML = `
-        <div style='background:white; padding:10px; margin:5px; font-size:12px; max-width:250px'>
+        <div style='background:white; padding:10px; margin:5px; font-size:12px; max-width:250px; display:none'>
             <h4>Map Viewer Logs:</h4>
             <div id='loading_tiff'> Loading tiff Image...</div>
             <div id='thumbnail_error' style='color:red;display:none'>Error: Could not load thumbnail image (Image url could not be found)</div>
@@ -106,4 +110,27 @@ else if(ext_type == "kml"){
 else if(ext_type == 'csv'){
     omnivore.csv(file).addTo(map);
 }
+// if(stac_spec == 'item'){
+    
+// }
 
+function isValidHttpUrl(string) {
+    let url;
+    
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;  
+    }
+  
+    return url.protocol === "http:" || url.protocol === "https:";
+}
+
+function isJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}

@@ -99,7 +99,7 @@ def test_get_default_spatial_search_extent(
     extent = json.dumps({"type": "Polygon", "coordinates": [coords]})
     with app.flask_app.app_context():
         monkeypatch.setitem(
-            ckan_config, "ckan.dalrrd_emc_dcpr.default_spatial_search_extent", extent
+            ckan_config, "ckan.saeoss.default_spatial_search_extent", extent
         )
         result = h.get_default_spatial_search_extent(padding_degrees=padding)
         result_geom = geometry.shape(json.loads(result))

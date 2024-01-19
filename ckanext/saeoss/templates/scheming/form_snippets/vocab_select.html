@@ -26,7 +26,7 @@
 
 #}
 {%- if data[field.field_name] -%}
-    {%- set option_selected = data[field.field_name]|first -%}
+    {%- set option_selected = data[field.field_name] -%}
 {%- else -%}
     {%- set option_selected = None -%}
 {%- endif -%}

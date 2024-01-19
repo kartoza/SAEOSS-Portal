@@ -1,0 +1,90 @@
+@media only screen and (max-width: 1176px){
+    .card{
+        min-height: 330px !important;
+    }
+}
+
+@media only screen and (max-width: 1074px){
+    .w-100{
+        width: auto !important;
+        height: auto !important;
+        object-fit: cover !important;
+    }
+}
+
+
+@media only screen and (max-width: 986px){
+    .card{
+        min-height: 420px !important;
+    }
+}
+
+@media only screen and (max-width: 766px){
+    .card{
+        min-height: 260px !important;
+    }
+
+    .dataset-content{
+        width: 90% !important;
+    }
+
+    .metadata-record-thumbnail img{
+        margin-top: 30px !important;
+        width: 100% !important;
+        height: 120px !important;
+    }
+
+    .datasets-date{
+        bottom: -20px !important;
+    }
+
+    .navbar-nav {
+        display: block !important;
+    }
+
+}
+
+@media only screen and (max-width: 466px){
+    .card{
+        min-height: 300px !important;
+    }
+}
+
+@media only screen and (max-width: 340px){
+    .card{
+        min-height: 350px !important;
+    }
+}
+
+@media only screen and (max-width: 1198px){
+    .media-organization-item{
+        min-height: 350px !important;
+    }
+}
+
+@media only screen and (max-width: 990px){
+    .media-organization-item{
+        width: 90% !important;
+        min-height: 350px !important;
+    }
+
+    .datasets-date{
+        font-size: 12px !important;
+    }
+}
+
+@media only screen and (max-width: 374px){
+    .search{
+        width: 80% !important;
+    }
+}
+
+@media only screen and (max-width: 490px){
+    #metadata-from-file-btn{
+        display: none !important;
+    }
+
+    #metadata-form-btn{
+        display: none !important;
+    }
+}

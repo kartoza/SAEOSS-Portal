@@ -1,6 +1,5 @@
-
-
 # Contributing to SAEOSS-Portal
+
 First off, thanks for taking the time to contribute! 🎉 😘 ✨
 
 The following is a set of guidelines for contributing to this project.
@@ -8,8 +7,9 @@ These are mostly guidelines, not rules. Use your best judgment, and
 feel free to propose changes to this document in a pull request.
 
 ## Reporting Bugs
+
 Bugs are tracked as GitHub issues. Search the list and try reproduce on your
-local machine with a clean profile before you create an issue. 
+local machine with a clean profile before you create an issue.
 When you create an issue, please provide the following information by filling
 in the template.
 
@@ -23,9 +23,9 @@ Explain the problem and include additional details to help maintainers reproduce
 * **Provide specific examples to demonstrate the steps.** Include links to
   files or GitHub projects, or copy/pasteable snippets, which you use in those
   examples. If you're providing snippets on the issue, use Markdown code blocks.
-* **Describe the behavior you observed after following the steps** and point
-  out what exactly is the problem with that behavior.
-* **Explain which behavior you expected to see instead and why.**
+* **Describe the behaviour you observed after following the steps** and point
+  out what exactly is the problem with that behaviour.
+* **Explain which behaviour you expected to see instead and why.**
 * **Include screenshots and animated GIFs** which show you following the
   described steps and clearly demonstrate the problem.
 
@@ -68,33 +68,38 @@ through these `document`, `good first issue` and `help wanted` issues:
 ## Pull Requests
 
 ### Development workFlow
-- Set up your development environment
-- Make change from a right branch
-- Be sure the code passes tests
-- Make a pull request
+
+* Set up your development environment
+* Make change from a right branch
+* Be sure the code passes tests
+* Make a pull request
 
 ### Development environment
 
-- Prepare your machine and it's packages installed.
-- Checkout our repository
-- Install dependencies by `pip install -r REQUIREMENTS-dev.txt`
-
+* Prepare your machine and it's packages installed.
+* Checkout our repository
+* Install dependencies by `pip install -r REQUIREMENTS-dev.txt`
 
 ### Make changes
+
 #### Checkout a branch
-- **master**: PR Base branch.
-- **production**: lastest release branch with distribution files. Never make a PR on this.
-- **gh-pages**: API docs, examples and demo
+
+* **master**: PR Base branch.
+* **production**: latest release branch with distribution files. Never make a PR on this.
+* **gh-pages**: API docs, examples and demo
 
 #### Check Code Style
+
 Run the pylance extension and make sure all the tests pass.
 
 #### Test
+
 Run `TODO` and verify all the tests pass.
 If you are adding new commands or features, they must include tests.
 If you are changing functionality, update the tests if you need to.
 
 #### Commit
+
 Follow our [commit message conventions](../developer/guide/templates/commit-message-convention.md).
 
 ### Yes! Pull request
@@ -102,12 +107,14 @@ Follow our [commit message conventions](../developer/guide/templates/commit-mess
 Make your pull request, then describe your changes.
 
 #### Title
+
 Follow other PR title format on below.
 ```
     <Type>: Short Description (fix #111)
     <Type>: Short Description (fix #123, #111, #122)
     <Type>: Short Description (ref #111)
 ```
+
 * capitalize first letter of Type
 * use present tense: 'change' not 'changed' or 'changes'
 
@@ -120,7 +127,7 @@ Fill in the [Pull Request Template](../developer/guide/templates/pull-request-te
 
 This project and everyone participating in it is governed by the [Code of
 Conduct](code-of-conduct.md). By participating, you are expected to uphold this
-code. Please report unacceptable behavior to tim@kartoza.com.
+code. Please report unacceptable behaviour to tim@kartoza.com.
 
 > This guide is based on [atom contributing
 guide](https://github.com/atom/atom/blob/master/CONTRIBUTING.md),

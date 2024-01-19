@@ -18,7 +18,6 @@ from ckan.common import c
 from flask import Blueprint
 from sqlalchemy import orm
 import yaml
-from xmltodict3 import XmlTextToDict
 
 from ckanext.harvest.utils import DATASET_TYPE_NAME as HARVEST_DATASET_TYPE_NAME
 from ckanext.harvest.harvesters.ckanharvester import CKANHarvester
@@ -26,15 +25,14 @@ import logging
 
 from ..logic.action import ckan_custom_actions
 
-from ..model.reporting_tool import ReportingTool
-
-
 from .. import (
     helpers,
 )
 from ..blueprints.saeoss import saeoss_blueprint
-from ..blueprints.xml_parser import xml_parser_blueprint
+from ..blueprints.file_parser import file_parser_blueprint
 from ..blueprints.map import map_blueprint
+from ..blueprints.stac_harvest import stac_blueprint
+from ..blueprints.stac_endpoint import stac_api_blueprint
 from ..blueprints.about import about_blueprint
 from ..blueprints.validator import validator_blueprint
 from ..blueprints.saved_searches import saved_searches_blueprint
@@ -232,7 +230,6 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         u'''
         Receive an object instance before that instance is UPDATEed.
         '''
-
         logger.debug(f"resource update {instance}")
 
     def before_delete(self, mapper, connection, instance):
@@ -321,6 +318,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "user_patch": ckan_actions.user_patch,
             "user_update": ckan_actions.user_update,
             "user_create": ckan_actions.user_create,
+            "organization_update": ckan_actions.organization_update,
             "user_show": ckan_actions.user_show,
             "resource_create": ckan_custom_actions.resource_create,
             "resource_update": ckan_custom_actions.resource_update,
@@ -360,6 +358,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "extent_to_bbox": helpers.convert_string_extent_to_bbox,
             # "saeoss_themes": helpers.get_saeoss_themes,
             "iso_topic_categories": helpers.get_iso_topic_categories,
+            "get_iso_topic_display": helpers.get_iso_topic_display,
             "saeoss_show_version": helpers.helper_show_version,
             "user_is_org_member": helpers.user_is_org_member,
             "org_member_list": helpers.org_member_list,
@@ -388,8 +387,10 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     def get_blueprint(self) -> typing.List[Blueprint]:
         return [
             saeoss_blueprint,
-            xml_parser_blueprint,
+            file_parser_blueprint,
             map_blueprint,
+            stac_blueprint,
+            stac_api_blueprint,
             about_blueprint,
             validator_blueprint,
             saved_searches_blueprint,

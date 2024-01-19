@@ -1,6 +1,6 @@
 # define a table and a class to hold saved searches
 # the class has a get method that returns a list of dcpr requets
-# therree is also a mapper to map relationships
+# there is also a mapper to map relationships
 
 
 import datetime

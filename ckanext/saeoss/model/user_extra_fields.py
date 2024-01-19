@@ -1,4 +1,7 @@
-"""Additional fields for the user model for storing affiliation details"""
+# -*- coding: utf-8 -*-
+"""
+Additional fields for the user model for storing affiliation details.
+"""
 
 import logging
 

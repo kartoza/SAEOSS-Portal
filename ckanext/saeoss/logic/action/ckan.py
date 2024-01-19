@@ -7,12 +7,28 @@ import typing
 import ckan.plugins.toolkit as toolkit
 from ckan.logic.action.get import package_show as _package_show
 from ckan.model.domain_object import DomainObject
-
+import ckan.logic as logic
 from .add_named_url import populate_dataset_name
 from ...model.user_extra_fields import UserExtraFields
+from ckanext.saeoss.helpers import _get_reference_date, _get_tags
+from mimetypes import MimeTypes
 
 logger = logging.getLogger(__name__)
+ValidationError = logic.ValidationError
 
+mimeNotAllowed = [
+    "text/html", 
+    "application/java", 
+    "application/java-byte-code", 
+    "application/x-javascript", 
+    "application/javascript", 
+    "application/ecmascript", 
+    "text/javascript", 
+    "text/ecmascript",
+    "application/octet-stream",
+    "text/x-server-parsed-html",
+    "text/x-server-parsed-html"
+]
 
 @toolkit.chained_action
 def user_show(original_action, context, data_dict):
@@ -42,6 +58,14 @@ def user_update(original_action, context, data_dict):
 
     """
     original_result = original_action(context, data_dict)
+
+    mime_type = mime.guess_type(original_result["image_url"])
+
+    logger.debug(f"mime_type update{mime_type}")
+    
+    if mime_type[0] in mimeNotAllowed:
+        raise ValidationError([f"Mimetype {mime_type} is not allowed!"])
+
     user_id = original_result["id"]
     model = context["model"]
     user_obj = model.Session.query(model.User).filter_by(id=user_id).first()
@@ -74,6 +98,18 @@ def user_create(original_action, context, data_dict):
     model.Session.add(extra)
     model.Session.commit()
     original_result["extra_fields"] = _dictize_user_extra_fields(extra)
+    return original_result
+
+@toolkit.chained_action
+def organization_update(original_action, context, data_dict):
+    original_result = original_action(context, data_dict)
+    mime = MimeTypes()
+    mime_type = mime.guess_type(original_result["image_url"])
+
+    logger.debug(f"mime_type update{mime_type}")
+    
+    if mime_type[0] in mimeNotAllowed:
+        raise ValidationError([f"Mimetype {mime_type} is not allowed!"])
     return original_result
 
 
@@ -112,6 +148,11 @@ def package_update(original_action, context, data_dict):
     Intercepts the core `package_update` action to check if package is being published.
     """
     logger.debug(f"inside package_update action: {data_dict=}")
+    try:
+        data_dict['tags'] = _get_tags(data_dict)
+    except KeyError:
+        data_dict['tags'] = []
+    data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 
@@ -168,20 +209,3 @@ def _act_depending_on_package_visibility(
         #     toolkit.get_action("follow_dataset")(context, result)
 
     return result
-
-
-def _get_reference_date(package_dict: typing.Dict):
-    dataset_reference_date = None
-    if 'extras' in package_dict:
-        extras = [
-            extra for extra in package_dict['extras'] if extra['key'] == 'dataset_reference_date'
-        ]
-        if extras:
-            dataset_reference_dates = json.loads(extras[0]['value'])
-            if dataset_reference_dates:
-                dataset_reference_date = dataset_reference_dates[0]['reference']
-    elif 'dataset_reference_date' in package_dict:
-        dataset_reference_dates = package_dict['dataset_reference_date']
-        if dataset_reference_dates:
-            dataset_reference_date = dataset_reference_dates[0]['reference']
-    return dataset_reference_date

@@ -18,7 +18,7 @@ x-ckan-db-published-port: &ckan-db-published-port 55432
 x-datastore-db-published-port: &datastore-db-published-port 55433
 x-ckan-test-db-published-port: &ckan-test-db-published-port 55434
 x-datastore-test-db-published-port: &datastore-test-db-published-port 55435
-x-solr-published-port: &solr-published-port 8983
+x-solr-published-port: &solr-published-port 18983
 x-csw-harvest-target-published-port: &csw-harvest-target-published-port 55436
 
 # Base volumes for all services based on CKAN (web app, harvesting, etc.)

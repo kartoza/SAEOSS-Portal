@@ -11,7 +11,7 @@ from ckan import model
 from ..logic.validators import stac_validator_admin
 import json
 import yaml
-from xmltodict3 import XmlTextToDict
+import xmltodict
 import urllib
 
 logger = logging.getLogger(__name__)
@@ -86,38 +86,32 @@ def _validate(context: typing.Dict, result: typing.List[typing.List[typing.Any]]
 
         logger.debug(f'url_type: {url_type}')
         logger.debug(f'format {format}')
-        json_data = None
 
-        if url_type == 'upload' and format in ['json', 'yaml', 'xml']:
+        if url_type == 'upload':
             file_url = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
-            file_contents = open(file_url, 'r').read()
-
-            if format.lower() == "json":
-                json_data = json.loads(file_contents)
-
-            if format.lower() == "yaml":
-                json_data = yaml.load(file_contents)
-
-            if format.lower() == "xml":
-                json_data = XmlTextToDict(file_contents, ignore_namespace=True).get_dict()
+            stac_result = stac_validator_admin(file_url)
         elif url_type not in ['upload', 'datastore']:
-            resp = urllib.request.urlopen(url)
-            json_data = json.loads(resp.read())
+            stac_result = stac_validator_admin(url)
 
-        if format not in ['json', 'yaml', 'xml']:
+        if format.lower() not in ['json', 'yaml', 'xml']:
+            result = True
+        elif "stac_specification" not in extras:
+            result = True
+        elif stac_result['valid_stac'] == True:
             result = True
         else:
-            result = stac_validator_admin(json_data, extras["stac_specification"])
-
+            logger.debug(f"extras {extras}")
+            
         if result is not True:
             context["invalid"].append(resource_id)
+            context["message"].append({"resource_id": resource_id, "message": stac_result})
         else:
             context["valid"].append(resource_id)
     return context
 
 @validator_blueprint.route("/validate_all/", methods = ['POST', 'GET'])
 def validate_all():
-    context = {"valid": [], "invalid": []}
+    context = {"valid": [], "invalid": [], "message": []}
 
     if request.method == 'POST':
 
@@ -129,7 +123,7 @@ def validate_all():
 
 @validator_blueprint.route("/validate_selection/", methods = ['POST', 'GET'])
 def validate_selection():
-    context = {"valid": [], "invalid": []}
+    context = {"valid": [], "invalid": [], "message": []}
 
     if request.method == 'POST':
         data = request.get_json()
