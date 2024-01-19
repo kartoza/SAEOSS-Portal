@@ -15,9 +15,3 @@ you may prefer to work through our [user guide](../guide/index.md).
 * **[About:](./about.md)** This is the `About` page where users can learn more about the site.
 * **[Help:](./help.md)** The help page is the documentation site.
 * **[User Roles:](./user-roles.md)** Access to data and functionalities on the SAEOSS-Portal platform is governed by user roles and permissions.
-
-## Purpose of the manual
-
-The user manual aims to assist the user in learning the fundamentals of using the SAEOSS-portal platform. The goal of 
-the documentation is to clear up any doubts or concerns related to workflows and will feature a page-by-page layout, 
-making it easy for users to follow along.
