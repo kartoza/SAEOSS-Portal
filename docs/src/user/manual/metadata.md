@@ -1,36 +1,35 @@
-# Metadata capturing and publishing
+# Metadata
 
-## Create metadata record in owned organisation using System UI
+On this page, users can view all public metadata records on the platform and users who are part of organisations can view the organisation's private records.
 
-**Applicable roles**: Metadata editor, metadata publisher and system administrator
+![Metadata ](./img/metadata-.png)
 
-### Method 1
+## Overview
 
-Navigate to `Metadata` and select `Add metadata record`.
+This section gives an overview of the number of records on the platform, records returned with the search and indicates if the user is utilising a [Saved Search](./saved-search.md)
 
-![add metadata](img/metadata-system-ui-1.png)
+![Overview ](./img/overview-.png)
 
-This will take you to the form that needs to be completed in order to create metadata record.Fill in all the necessary information about the record. All fields marked with an asterisk (*) are mandatory. The information you add will become the information that is available on the site about the record you are adding.  When adding the metadata record thumbnail, make sure the image URL is a public image link and not a private one. Remember to also make sure that the image ratio is 1:1 for the best results.
+1. **Total number of metadata records:** This is the count of all of the metadata records on the platform.
+2. **Records Returned:** This displays how many records are returned following the user's search criteria.
+3. **Saved Search:** The flag indicates if a saved search is being utilised. If the flag is hollow (![Overview ](./img/overview-.png){: style="height:15px"}) the search has not been saved and if the flag is filled (![Overview ](./img/overview-.png){: style="height:15px"}) then a saved search is being utilised.
 
-![add metadata](img/metadata-system-ui-2.png)
+## Filters
 
-### Method 2
+The filters allow users to refine the list of records that they can see to meet their criteria.
 
-Navigate to the organisation you belong to. You can do this by going to your profile and select 'Add metadata record' then fill out the form.
+![Filters ](./img/filters-.png)
 
-![add metadata](img/metadata-system-ui-3.png)
+1. **Search bar and `Search` button:** This allows users to filter records using words/terms related to desired records.
+2. **Filter by location:** This allows users to utilise spatial filters to refine the list of records by location.
+3. **Temporal range:** This allows users to refine the list of records between a date range.
+4. **Organisations:** This allows users to refine the list records by the organisations that own them.
+5. **Harvest source:** This allows users to refine the list records by the harvest sources.
+6. **Featured Metadata records:** This allows users to refine the list records by whether or not the featured flag was used in the record's creation.
+7. **Tags:** This allows users to refine the list records by keywords.
 
-#### Create metadata record in owned organisation using XML upload
+## List of Metadata Records
 
-On the metadata page, select 'Add metadata record from xml file'.
+## Add Metadata Record
 
-![add metadata xml](img/metadata-xml-upload-1.png)
-
-Then select the XML file on your local machine.
-
-The xml file should look something like this:
-![xml file standard](img/metadata-xml-upload-2.png)
-
-#### Edit metadata record using system UI
-
-Navigate to the record you want to edit and select 'manage' and make the changes as required then click on 'Update' at the bottom of the page.
+## Add Metadata Record From File
