@@ -79,7 +79,11 @@ nav:
                         - administrator/guide/index.md
                 - Manual:
                         - administrator/manual/index.md
+                        - administrator/manual/profile.md
                         - administrator/manual/harvesting-settings.md
+                        - administrator/manual/dashboard.md
+                        - administrator/manual/usage-statistics.md
+                        - administrator/manual/sysadmin-settings.md
         - Developers:
                 - developer/index.md
                 - Guide:

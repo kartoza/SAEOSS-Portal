@@ -1,4 +1,4 @@
-# Administrator Manual
+# Administrator
 <!-- Replace all of the titles with relevant titles -->
 
 This section of the documentation describes every page in the application and
@@ -10,15 +10,15 @@ The administrator manual aims to assist user in learning the fundamentals of usi
 
 ## Index
 
-- [**Dashboard**]()
+- [**Profile**](./profile.md)
 - [**Harvesting Settings**](./harvesting-settings.md)
-- [**Profile**]()
+- [**Dashboard**](./dashboard.md)
+- [**Usage Statistics**](./usage-statistics.md)
 - [**Metadata**]()
 - [**Map**]()
 - [**Admin Page**]()
 - [**About**]()
 - [**Help**]()
-- [**Usage Statistics**](./usage-statistics.md)
 
 ### Error reporting
 
