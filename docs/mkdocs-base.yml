@@ -82,6 +82,7 @@ nav:
                         - Profile: administrator/manual/profile.md
                         - Dashboard: administrator/manual/dashboard.md
                         - Harvest Settings: administrator/manual/harvesting-settings.md
+                        - Usage Statistics: administrator/manual/usage-statistics.md
         - Developers:
                 - developer/index.md
                 - Guide:
