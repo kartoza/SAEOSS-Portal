@@ -18,6 +18,7 @@ The administrator manual aims to assist user in learning the fundamentals of usi
 - [**Admin Page**]()
 - [**About**]()
 - [**Help**]()
+- [**Usage Statistics**](./usage-statistics.md)
 
 ### Error reporting
 
