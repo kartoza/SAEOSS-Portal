@@ -95,3 +95,15 @@ Similarly, to edit, update or delete a dataset, go to the dataset page and use t
 ![Alt text](img/trash.png)
 5. From this page you can purge metadata records/ organisations or groups
 ![Alt text](img/purge.png)
+
+## Usage statistics
+
+To access the `Usage Statistics`, click on the profile icon in the top navigation bar. Choose the `Usage Statistics` option from the dropdown menu.
+
+*The Usage Statistics section provides valuable insights into various aspects of system usage, including dataset revisions, most edited datasets, group activities, tags, user contributions, and total dataset counts.*
+
+![usage statistics](./img/usage-statistics-1.png)
+
+**Navigation Tip:**
+
+Users can easily access detailed information by clicking on the name of the respective table in the `Usage Statistics` section. Additionally, they can scroll through the tables to explore the variety of insights available at a glance.
