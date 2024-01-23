@@ -15,7 +15,7 @@ It includes options to trigger manual harvests and view the status of ongoing or
 
 ![profile option](./img/stac-harvester-2.png)
 
-A list of created jobs for Stac Harvester will be displayed after clicking on `Stac Harvester`. In that list, 
+A list of created jobs for STAC Harvester will be displayed after clicking on `STAC Harvester`. In that list, 
 the following information is available:
 
 1. **Harvester Id**: A unique identifier for each harvest job. It helps in tracking and referencing specific harvesting processes.
