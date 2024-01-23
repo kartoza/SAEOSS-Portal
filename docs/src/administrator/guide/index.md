@@ -107,3 +107,41 @@ To access the `Usage Statistics`, click on the profile icon in the top navigatio
 **Navigation Tip:**
 
 Users can easily access detailed information by clicking on the name of the respective table in the `Usage Statistics` section. Additionally, they can scroll through the tables to explore the variety of insights available at a glance.
+
+**Creating a SuperUser:**
+
+- Open the terminal.
+
+Run ```docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add admin```
+
+![create superuser command](./img/superuser-1.png)
+
+The user is expected to input either `Y` for Yes or `n` for No based on their intention to create a superuser.
+
+![confirmation](./img/superuser-2.png)
+
+Enter the required information for creating the superuser account
+
+![enter information](./img/superuser-3.png)
+
+**Converting a Normal User to a SuperUser:**
+
+```bash
+docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add <username>
+```
+Replace the `username` with the desired user's username.
+
+![convert the normal user to a super user](./img/superuser-4.png)
+
+Before the superuser privileges
+
+![Bob002 as a normal user](./img/superuser-5.png)
+
+After the superuser privileges
+
+![Bob002 as a superuser](./img/superuser-6.png)
+
+**Security Tips:**
+
+- Keep SuperUser credentials secure.
+- Regularly update SuperUser credentials for enhanced security.
