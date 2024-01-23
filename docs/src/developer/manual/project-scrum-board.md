@@ -12,7 +12,7 @@ The SCRUM board for SAEOSS-portal can be found [Here](https://github.com/orgs/ka
 
 ![Scrum Board]()
 
-## A description of the columns making up the scrum board is as follows
+## SCRUM Board Columns
 
 - **No Status** - Tickets not ready to be worked on yet or have been reverted due to a technical blocker. This column is also referred to as the backlog and serves as a placeholder for all tickets which need to be addressed.
 
