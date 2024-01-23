@@ -1,7 +1,7 @@
 # Stac Harvester
 
 STAC, or [SpatioTemporal Asset Catalog](https://stacspec.org/en), is a standard specification for consistently organising 
-geospatial assets.It provides a common way to describe and discover geospatial data, making it easier for developers and 
+geospatial assets. It provides a common way to describe and discover geospatial data, making it easier for developers and 
 users to work with Earth observation data. CKAN supports STAC harvesting, allowing users to import metadata and datasets 
 from external STAC catalogs into their CKAN instance.
 
