@@ -26,7 +26,7 @@ Explain the problem and include additional details to help maintainers reproduce
 * **Describe the behaviour you observed after following the steps** and point
   out what exactly is the problem with that behaviour.
 * **Explain which behaviour you expected to see instead and why.**
-* **Include screenshots and animated GIFs** which show you following the
+* **Include screenshots and/or animated GIFs** which show you following the
   described steps and clearly demonstrate the problem.
 
 A template for reporting bugs can also be used. Just copy and paste the template, and then proceed to fill in all the information. The template can be found [here](../developer/guide/templates/bug-report-message-template.md)
@@ -36,7 +36,7 @@ A template for reporting bugs can also be used. Just copy and paste the template
 In case you want to suggest an enhancement, please follow this guideline to
 help maintainers and the community understand your suggestion.
 Before creating suggestions, please check [issue
-list](https://github.com/kartoza/SAEOSS-portal/labels/feature) if
+list](https://github.com/kartoza/SAEOSS-Portal/issues) if
 there's already a request.
 
 Create an issue and provide the following information:

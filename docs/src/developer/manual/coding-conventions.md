@@ -29,7 +29,6 @@ or:
 **Note:** The use of messages codes (e.g. ``disable=W1234``) should be considered deprecated.
 Any new exceptions should be added using the keyword format (e.g. ``disable=unused-exceptions``).
 
-
   .. note:: You can globally ignore messages by adding them to :file:`pylintrc`
      in the :samp:`[MESSAGES CONTROL]` section.
 
@@ -37,24 +36,25 @@ The following pylint messages have been thus globally excluded from the
 check. For a discussion of these see also github issue
 [#245](https://github.com/AIFDR/inasafe/issues/245).
 
-  * All type R: Refactor suggestions such as limiting the number of local
+* All type R: Refactor suggestions such as limiting the number of local
                 variables. We may bring some back later.
-  * All type I: Information only
-  * W0142: Allow the Python feature F(\*args, \*\*kwargs)
-  * W0201: Allow definition of class attributes outside the constructor.
-  * W0212: Allow access to protected members (e.g. _show_system_info)
-  * W0231: Allow classes without constructors.
-  * W0232: Un-instantiated classes is a feature used in this project.
-  * W0403: Relative imports are OK for modules that live in the same dir
-  * W0511: Appearance of TODO and FIXME is not a sign of poor quality
-  * E1101: Disable check for missing attributes.
-  * E1103: This one does not understand numpy variables.
-  * C0103: Allow mathematical variables such as x0 or A.
-  * C0111: Allow missing docstrings in some cases
-  * C0302: No restriction on the number of lines per module
+* All type I: Information only
+* W0142: Allow the Python feature F(\*args, \*\*kwargs)
+* W0201: Allow definition of class attributes outside the constructor.
+* W0212: Allow access to protected members (e.g. _show_system_info)
+* W0231: Allow classes without constructors.
+* W0232: Un-instantiated classes is a feature used in this project.
+* W0403: Relative imports are OK for modules that live in the same dir
+* W0511: Appearance of TODO and FIXME is not a sign of poor quality
+* E1101: Disable check for missing attributes.
+* E1103: This one does not understand numpy variables.
+* C0103: Allow mathematical variables such as x0 or A.
+* C0111: Allow missing docstrings in some cases
+* C0302: No restriction on the number of lines per module
 
 The following pylint check has been removed from Jenkins due to a bug in astroid.
-  * E1002: Use of super on an old style class.
+
+* E1002: Use of super on an old style class.
 
 It is of course possible to run all pylint checks on any part of the code
   if desired: E.g pylint safe/storage/raster.py
@@ -77,21 +77,20 @@ avoided. Here is an example of what we mean by this:
     content_of_page = 'foo'  # overly verbose
 ```
 
-**Good**
+**Good**:
 
 ```python
     current_depth = 0
     page_content = 'foo'
 ```
 
-Avoid 'yoda speak' in variable names. 
+Avoid 'yoda speak' in variable names.
 
 **Bad**:
 
 ```python
     title_dialog = self.tr('Save Scenario')
 ```
-
 
 **Good**:
 
@@ -154,18 +153,20 @@ continuation management we have to do.
 
 When importing please adhere to the following rules:
 
-Do not do ``*`` imports e.g. 
+Do not do ``*`` imports e.g.
 
 ```python
 from PyQt4.QtGui import *
 ```
+
 is bad.
 
 Either import the individual modules you need e.g.
 
 ```python
 from PyQt4.QtGui import QProgressDialog
-``` 
+```
+
 or import the whole package and use the namespace to reference a module e.g.:
 
 ```python
@@ -224,7 +225,7 @@ class MyObject(object):
 
 Another example:
 
-```
+```python
 class MyObject(object):
 
    """My new class."""
@@ -271,9 +272,6 @@ Note the following in the above examples:
 * If a function or method returns a tuple it should be be documented as
   ``:rtype: (<type>, <type>, ..)`` e.g. ``:rtype: (int, int)``.
 
-  
-
-
 ## Strings and internationalisation
 
 * Simple strings in source code should be quoted with `'`
@@ -286,7 +284,7 @@ Note the following in the above examples:
 
 And this is **good**:
 
-```
+```python
     world = 'World'
     food = 'Hello %s' % world
 ```
@@ -323,9 +321,9 @@ And this is **good**:
 Each source file should include a standard header containing copyright,
 authorship and version metadata as shown in the exampled below.
 
-**Example standard header**
+**Example standard header**:
 
-```
+```python
 # -*- coding: utf-8 -*-
 """One line description.
 
@@ -347,9 +345,8 @@ __revision__ = '$Format:%H$'
 **Note**:: Please see [faq_developer] for details on how the revision tag
 is replaced with the SHA1 for the file when the release packages are made.
 
-
-
 ## Landscape
+
 ```python
 # coding=utf-8-
 

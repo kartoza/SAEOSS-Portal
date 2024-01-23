@@ -31,7 +31,7 @@ We take pride and care to ensure our work is factual, accurate and informative. 
 <!-- we need permission to do this before implementing the mails
 
 - info@kartoza.com
-- example@sansa.cm
+- example@sansa.com
 - exanple@saeonn.com -->
 
 **Administrator:** Alternatively users can report errors to the administrators who can report the error though one of the above mentioned channels if they are unable to resolve the issue.
