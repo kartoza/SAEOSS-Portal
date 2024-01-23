@@ -20,22 +20,6 @@ you may prefer to work through our [user guide](../guide/index.md).
 
 ## Purpose of the manual
 
-The user manual aims to assist the user in learning the fundamentals of using the SAEOSS-portal platform. The goal of the documentation is to clear up any doubts or concerns related to workflows and will feature a page-by-page layout, making it easy for users to follow along.
-
-## Error Reporting
-
-We take pride and care to ensure our work is factual, accurate, and informative. In the highly unlikely event that an error or bug is found, please report it through one of the following channels:
-
-**GitHub Issues:** GitHub is the preferred method of error reporting, ensuring reported errors are addressed in the quickest turnaround time possible. Read more about opening issues in the [Developer Workflows](../../developer/guide/workflows.md)
-
-**Email:** Errors can be raised via email through the following channels. However, this is not a recommended path as it has long turnaround times.
-
-<!-- We need permission to do this before implementing the mails
-
-- info@kartoza.com
-- example@sansa.com
-- example@saeonn.com -->
-
-**Administrator:** Errors can be raised with your administrator if affiliated with an organization. Administrators can escalate the error to developers if required.
-
-**Crisp Interface:** You can report errors directly through the Crisp interface. [Read More](./home.md#crisp-interface)
+The user manual aims to assist the user in learning the fundamentals of using the SAEOSS-portal platform. The goal of 
+the documentation is to clear up any doubts or concerns related to workflows and will feature a page-by-page layout, 
+making it easy for users to follow along.

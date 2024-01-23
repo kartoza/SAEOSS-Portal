@@ -13,22 +13,6 @@ The guide section of the documentation provides short narrative/workflow based t
 * **[Upload Metadata:](./create-metadata.md)** This page will show you how to upload metadata to the platform.
 * **[Edit Metadata:](./edit-metadata.md)** This page will show you how to edit metadata on the platform.
 
-## Error reporting
-
-We take pride and care to ensure our work is factual, accurate and informative. In the highly unlikely event that an error or bug is found please report it through one of the following channels:
-
-**Github Issues:** Github is the preferred method of error reporting ensuring reported errors are addressed in the quickest turnaround time possible. [Read more...](opening-issues.md)
-
-**Email:** Errors can be raised via email through the following channels. However this is not a recommended path as it has long turn around times.
-
-<!-- we need permission to do this before implementing the mails
-
-- info@kartoza.com
-- example@sansa.cm
-- example@saeonn.com -->
-
-**Administrator:** Errors can be raised with your administrator if affiliated with an organisation. Administrators can escalate the the error to developers if required.
-
 ## Contributing
 
 If you would like to contribute to the documentation, please review the [contributing section](../../about/contributing.md)
