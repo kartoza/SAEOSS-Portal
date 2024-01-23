@@ -10,7 +10,7 @@ from external STAC catalogs into their CKAN instance.
 
 ![profile option](./img/stac-harvester-1.png)
 
-1. `Stac Harvester` is a user interface for administrators to configure and monitor the STAC harvesting process. 
+1. `STAC Harvester` is a user interface for administrators to configure and monitor the STAC harvesting process. 
 It includes options to trigger manual harvests and view the status of ongoing or completed harvest jobs.
 
 ![profile option](./img/stac-harvester-2.png)
