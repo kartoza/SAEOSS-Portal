@@ -6,7 +6,7 @@ To create a superuser, open the terminal.
 Use the following command to add a superuser with the username `admin`:
 
 ```bash
-docker exec -it saeoss_ckan-web_1 poetry run ckan sysadmin add admin
+docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add admin
 ```
 - Replace `admin` with the desired username for the superuser.
 
@@ -26,7 +26,7 @@ Existing users can be elevated to superuser status through the terminal.
 Use the following command, replacing <username> with the username of the registered user:
 
 ```bash
-docker exec -it saeoss_ckan-web_1 poetry run ckan sysadmin add <username>
+docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add <username>
 ```
 
 ![convert the normal user to a superuser](./img/super-user-4.png)
