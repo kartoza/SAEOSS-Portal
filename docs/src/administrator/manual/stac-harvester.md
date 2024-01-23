@@ -1,4 +1,4 @@
-# Stac Harvester
+# STAC Harvester
 
 STAC, or [SpatioTemporal Asset Catalog](https://stacspec.org/en), is a standard specification for consistently organising 
 geospatial assets. It provides a common way to describe and discover geospatial data, making it easier for developers and 
