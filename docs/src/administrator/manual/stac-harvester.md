@@ -5,7 +5,7 @@ geospatial assets. It provides a common way to describe and discover geospatial 
 users to work with Earth observation data. CKAN supports STAC harvesting, allowing users to import metadata and datasets 
 from external STAC catalogs into their CKAN instance.
 
-**Stac Harvester**
+## STAC Harvester interface
 
 
 ![profile option](./img/stac-harvester-1.png)
