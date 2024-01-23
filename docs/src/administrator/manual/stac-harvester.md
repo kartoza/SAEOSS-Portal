@@ -30,7 +30,7 @@ or `Pending`.
 diagnose issues or understand the outcome of the harvest.
 
 
-**Create Job**
+## Create Job
 
 ![profile option](./img/stac-harvester-3.png)
 
