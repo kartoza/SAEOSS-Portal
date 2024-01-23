@@ -35,5 +35,5 @@ administrator to delete them permanently.
 ![sysadmin settings](./img/sysadmin-settings-5.png)
 
 1. **Purge all**: To remove permanently all deleted datasets, organisations, and groups.
-2. **Purge:** To remove permanently all deleted metadata records
-3. **Purge:** To remove permanently all deleted organisation
+2. **Purge**: To remove permanently all deleted metadata records
+3. **Purge**: To remove permanently all deleted organisation
