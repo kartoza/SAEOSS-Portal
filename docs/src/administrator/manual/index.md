@@ -14,6 +14,7 @@ The administrator manual aims to assist user in learning the fundamentals of usi
 - [**Harvesting Settings**](./harvesting-settings.md)
 - [**Profile**]()
 - [**Metadata**]()
+- [**Stac Harvesting**](./stac-harvester.md)
 - [**Map**]()
 - [**Admin Page**]()
 - [**About**]()

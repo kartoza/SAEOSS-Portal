@@ -80,6 +80,7 @@ nav:
                 - Manual:
                         - administrator/manual/index.md
                         - administrator/manual/harvesting-settings.md
+                        - administrator/manual/stac-harvester.md
         - Developers:
                 - developer/index.md
                 - Guide:
