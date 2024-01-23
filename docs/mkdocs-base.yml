@@ -66,6 +66,7 @@ nav:
                         - Profile: user/manual/profile-page.md
                         - Profile Settings: user/manual/profile-settings.md
                         - Metadata: user/manual/metadata.md
+                        - Saved Searches: user/manual/saved-search.md
                         - Map: user/manual/map.md
                         - Organisations: user/manual/organisation.md
                         - About: user/manual/about.md
@@ -80,9 +81,11 @@ nav:
                 - Manual:
                         - administrator/manual/index.md
                         - Profile: administrator/manual/profile.md
+                        - Profile Settings: administrator/manual/profile-settings.md
                         - Dashboard: administrator/manual/dashboard.md
                         - Harvest Settings: administrator/manual/harvesting-settings.md
                         - Usage Statistics: administrator/manual/usage-statistics.md
+                        - Metadata Validator: administrator/manual/metadata-validator.md
         - Developers:
                 - developer/index.md
                 - Guide:
