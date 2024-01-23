@@ -11,7 +11,7 @@ This manual covers the administration features in the web UI.
 ![sysadmin settings](./img/sysadmin-settings-2.png)
 
     
-**Sysadmins**
+## Sysadmins
 
 The first tab, `Sysadmin`, has the list of all sysadmin users. By clicking on one user, the administrator can manage 
 the user account as if it were in the [profile](profile.md).
@@ -19,7 +19,7 @@ the user account as if it were in the [profile](profile.md).
 ![sysadmin settings](./img/sysadmin-settings-3.png)
 
 
-**Config**
+## Config
 
 The second tab, `Config`,  is a page where the administrator can change some configurations from the web interface. 
 It is simple customisation to customise the `look and feel` of CKAN.
@@ -27,7 +27,7 @@ It is simple customisation to customise the `look and feel` of CKAN.
 ![sysadmin settings](./img/sysadmin-settings-4.png)
 
 
-**Config**
+## Trash
 
 The third tab, `Trash`, is a page that shows all deleted datasets, organisations, and groups. It allows the 
 administrator to delete them permanently.

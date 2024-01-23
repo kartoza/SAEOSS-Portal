@@ -85,7 +85,9 @@ nav:
                         - Dashboard: administrator/manual/dashboard.md
                         - Harvest Settings: administrator/manual/harvesting-settings.md
                         - Usage Statistics: administrator/manual/usage-statistics.md
+                        - Sysadmin Settings: administrator/manual/sysadmin-settings.md
                         - Metadata Validator: administrator/manual/metadata-validator.md
+
         - Developers:
                 - developer/index.md
                 - Guide:
