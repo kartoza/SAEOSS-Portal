@@ -1,21 +1,21 @@
-# Stac Harvester
+# STAC Harvester
 
 STAC, or [SpatioTemporal Asset Catalog](https://stacspec.org/en), is a standard specification for consistently organising 
-geospatial assets.It provides a common way to describe and discover geospatial data, making it easier for developers and 
+geospatial assets. It provides a common way to describe and discover geospatial data, making it easier for developers and 
 users to work with Earth observation data. CKAN supports STAC harvesting, allowing users to import metadata and datasets 
 from external STAC catalogs into their CKAN instance.
 
-**Stac Harvester**
+## STAC Harvester interface
 
 
 ![profile option](./img/stac-harvester-1.png)
 
-1. `Stac Harvester` is a user interface for administrators to configure and monitor the STAC harvesting process. 
+1. `STAC Harvester` is a user interface for administrators to configure and monitor the STAC harvesting process. 
 It includes options to trigger manual harvests and view the status of ongoing or completed harvest jobs.
 
 ![profile option](./img/stac-harvester-2.png)
 
-A list of created jobs for Stac Harvester will be displayed after clicking on `Stac Harvester`. In that list, 
+A list of created jobs for STAC Harvester will be displayed after clicking on `STAC Harvester`. In that list, 
 the following information is available:
 
 1. **Harvester Id**: A unique identifier for each harvest job. It helps in tracking and referencing specific harvesting processes.
@@ -30,7 +30,7 @@ or `Pending`.
 diagnose issues or understand the outcome of the harvest.
 
 
-**Create Job**
+## Create Job
 
 ![profile option](./img/stac-harvester-3.png)
 
