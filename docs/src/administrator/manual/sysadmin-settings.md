@@ -36,4 +36,4 @@ administrator to delete them permanently.
 
 1. **Purge all**: To remove permanently all deleted datasets, organisations, and groups.
 2. **Purge:** To remove permanently all deleted metadata records
-3. Purge: To remove permanently all deleted organisation
+3. **Purge:** To remove permanently all deleted organisation
