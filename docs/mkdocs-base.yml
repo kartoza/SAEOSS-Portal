@@ -13,7 +13,7 @@ copyright: Kartoza and Contributors
 
 markdown_extensions:
         - attr_list # lets us resize images see https://github.com/mkdocs/mkdocs/issues/1678#issuecomment-455500757
-        - sane_lists # lets us resize images see https://github.com/mkdocs/mkdocs/issues/1678#issuecomment-455500757
+        - sane_lists # helps make numbering in lists correct
         - pymdownx.highlight:
                   anchor_linenums: true
         - pymdownx.inlinehilite
@@ -65,9 +65,9 @@ nav:
                         - Dashboard: user/manual/dashboard.md
                         - Profile: user/manual/profile-page.md
                         - Profile Settings: user/manual/profile-settings.md
-                        - Organisation: user/manual/organisation.md
                         - Metadata: user/manual/metadata.md
                         - Map: user/manual/map.md
+                        - Organisations: user/manual/organisation.md
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
                         - User Roles: user/manual/user-roles.md
@@ -79,7 +79,10 @@ nav:
                         - administrator/guide/index.md
                 - Manual:
                         - administrator/manual/index.md
-                        - administrator/manual/harvesting-settings.md
+                        - Profile: administrator/manual/profile.md
+                        - Dashboard: administrator/manual/dashboard.md
+                        - Harvest Settings: administrator/manual/harvesting-settings.md
+                        - Usage Statistics: administrator/manual/usage-statistics.md
         - Developers:
                 - developer/index.md
                 - Guide:

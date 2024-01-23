@@ -35,7 +35,7 @@ Before making any changes, create a new branch for your feature or bug fix. This
 
 #### 4. Make and Commit Changes
 
- Make the necessary code changes in your local branch. Use Git to commit these changes with clear and descriptive commit messages.
+ Make the necessary code changes in your local branch. Use Git to commit these changes with clear and descriptive commit messages. Refer to [this section](#ticket-sizing) to understand how long you should work on a ticket/issue.
 
 #### 5. Push Changes to GitHub
 
@@ -87,3 +87,28 @@ Fill in the [Pull Request Template](./templates/pull-request-template.md) by che
 ![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){: style="height:60px"}
 
 When contributing to the development of the platform, it's **essential** to adhere to the correct workflow guidelines. Begin by configuring your [IDE](../../developer/guide/ide-setup.md) and [developer environment](../../developer/guide/building.md) and familiarizing yourself with the approved [coding standards](../manual/coding-conventions.md). Following the proper workflow guarantees high-quality development and strict adherence to endorsed code standards.
+
+### Ticket Labels
+
+Tickets (issues) have accompanying labels which will be assigned by the development team once reviewing the ticket. These labels aim to give a better description of the type of issue as well as keeping development on track with coordinated effort. During the development of the product some team members can be assigned to deal with only certain types of tickets. The team lead or technical lead on the project will upon reviewing the ticket assign the ticket to the correct team member and also add necessary labels.
+
+![image](./img/GH_labels.png)
+
+Creators of the ticket will be informed of any activity with the ticket via email notification. This includes when tickets have been resolved or being assigned to development team members. Once the ticket has been resolved and closed a final notification will be sent via email stating that the ticket has been resolved/closed.
+
+### Ticket Sizing
+
+Each issue is sized according to its expected time to accomplish. When users report issues they should not add a size label to the ticket as developers will size their own tickets. Labels are rated by size with the following labels:  
+
+| Label | Description |
+| :---: | :-----------|
+| `[N/A]`  | Applied to issues where size is not applicable. |
+| `[1]`  | It's quick I will have this done in about 1 hour.  |
+| `[2]`  | Give me 2 hours and I will have it for you.  |
+| `[5]`  | It will take between half a day and a full day.  |
+| `[8]`  | This is a full-day job.  |
+| `[13]`  | I'm going to need about a day and a half to two days.  |
+| `[20]`  | It will take at least two to three days.  |
+| `[40]`  | This will take a full week.  |
+
+Tickets larger than `SIZE [8]` are usually broken down into smaller tickets/tasks to better display development progress. `SIZE [N/A]` labels are reserved for tasks which are difficult to estimate, like debugging and complex issues.

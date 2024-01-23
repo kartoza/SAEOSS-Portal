@@ -16,6 +16,8 @@
 
 *A sysadmin user has full access to user accounts*
 
+### Method 1
+
 1. To find a user’s profile, enter the following address in your internet browser https://{sitename}/user/ ('/user/' has been appended to the website’s url)
 2. You can search for a specific profile using the search box provided
 ![Alt text](img/user-search.png)
@@ -27,11 +29,37 @@
 5. To save any changes enter your sysadmin password in the box
 ![Alt text](img/sysadmin-pass.png)
 
+### Method 2
+
+1. Navigate to an organisation's home page and then click on `Manage`.
+
+      ![non-owned profile 1](img/non-owned-profile-1.png)
+
+2. Then click on the `Members` tab.
+
+      ![non-owned profile 2](img/non-owned-profile-2.png)
+
+3. Then click on a user's name that you would like to manage.
+
+      ![non-owned profile 3](img/non-owned-profile-3.png)
+
+4. You will be redirected to the user's profile page. On this page you should click on the `Manage` button.
+
+      ![non-owned profile 4](img/non-owned-profile-4.png)
+
+5. You will be redirected to the `Change details` page, here you can manage the user's profile details. Once you have made your changes to the user's profile, scroll down and enter your `Sysadmin Password` (i.e. the password you use to log in to the administrator account), and then click on the `Update Profile` button.
+
+      ![non-owned profile 5](img/non-owned-profile-5.png)
+
+6. If you would like to remove the user, you can scroll down and enter your `Sysadmin Password` (i.e. the password you use to log in to the administrator account), and then click on the `Delete` button.
+
+      ![non-owned profile 6](img/non-owned-profile-6.png)
+
 ## Add Organisation
 
 *A sysadmin user has full access to organizations. For example, you have access to every organization as if you were a member of that organization. Thus most management operations are done in exactly the same way as in the normal web interface*
 
-1. Click on “Organisations” link in navbar
+1. Click on “Organisations” link in navigation bar
 2. Click on “Add organisation”
 3. Fill out the required fields
 4. If you do not upload a thumbnail, a predefined image will show on web portal
