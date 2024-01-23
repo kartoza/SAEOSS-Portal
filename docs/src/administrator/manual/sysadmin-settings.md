@@ -22,7 +22,7 @@ the user account as if it were in the [profile](profile.md).
 **Config**
 
 The second tab, `Config`,  is a page where the administrator can change some configurations from the web interface. 
-It is simple customisation to customise the `look and feel` of CKAN.
+It is a simple interface to quickly customise the `look and feel` of CKAN.
 
 ![sysadmin settings](./img/sysadmin-settings-4.png)
 
