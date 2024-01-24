@@ -45,9 +45,9 @@ jobs:
         run: |
           ./compose.py --compose-file docker-compose.yml --compose-file docker-compose.dev.yml up
           sleep 60
-          docker exec -ti saeoss_ckan-web_1 poetry run ckan db init
-          docker exec -ti saeoss_ckan-web-1 poetry run ckan user add user email=admin@example.com name=admin password=12345678
-          docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add admin
+          docker exec saeoss_ckan-web_1 poetry run ckan db init
+          docker exec saeoss_ckan-web-1 poetry run ckan user add user email=admin@example.com name=admin password=12345678
+          docker exec saeoss_ckan-web_1 poetry run ckan sysadmin add admin
       - name: Test App endpoint
         run: |
           curl http://localhost:5000/
