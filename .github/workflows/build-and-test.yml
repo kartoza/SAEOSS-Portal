@@ -44,6 +44,10 @@ jobs:
         working-directory: docker
         run: |
           ./compose.py --compose-file docker-compose.yml --compose-file docker-compose.dev.yml up
+          sleep 60
+          docker exec -ti saeoss_ckan-web_1 poetry run ckan db init
+          docker exec -ti saeoss_ckan-web-1 poetry run ckan user add user email=admin@example.com name=admin password=12345678
+          docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add admin
       - name: Test App endpoint
         run: |
           curl http://localhost:5000/
@@ -51,3 +55,21 @@ jobs:
             echo "Curl command failed"
             exit 1
           fi
+      - name: Update dependencies
+        working-directory: ./playwright/ci-test
+        run: npm install
+      - name: Install exact dependencies
+        working-directory: ./playwright/ci-test
+        run: npm ci
+      - name: Install Playwright Browsers
+        working-directory: ./playwright/ci-test
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        working-directory: ./playwright/ci-test
+        run: npx playwright test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright/ci-test/playwright-report/
+          retention-days: 30
