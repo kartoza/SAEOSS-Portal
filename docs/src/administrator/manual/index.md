@@ -10,15 +10,19 @@ The administrator manual aims to assist user in learning the fundamentals of usi
 
 ## Index
 
-- [**Dashboard**]()
+- [**Profile**](./profile.md)
 - [**Harvesting Settings**](./harvesting-settings.md)
-- [**Profile**]()
+- [**Dashboard**](./dashboard.md)
+- [**Usage Statistics**](./usage-statistics.md)
+- [**Sysadmin Settings**](./sysadmin-settings.md)
 - [**Metadata**]()
+- [**STAC Harvesting**](./stac-harvester.md)
 - [**Map**]()
 - [**Admin Page**]()
 - [**About**]()
 - [**Help**]()
 - [**Usage Statistics**](./usage-statistics.md)
+- [**Create SuperUser**](./super-user.md)
 
 ### Error reporting
 
