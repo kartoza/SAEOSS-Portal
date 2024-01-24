@@ -87,7 +87,8 @@ nav:
                         - Usage Statistics: administrator/manual/usage-statistics.md
                         - Sysadmin Settings: administrator/manual/sysadmin-settings.md
                         - Metadata Validator: administrator/manual/metadata-validator.md
-
+                        - STAC Harvester: administrator/manual/stac-harvester.md
+                        - Super Users: administrator/manual/super-user.md
         - Developers:
                 - developer/index.md
                 - Guide:
