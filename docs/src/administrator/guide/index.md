@@ -108,7 +108,7 @@ To access the `Usage Statistics`, click on the profile icon in the top navigatio
 
 Users can easily access detailed information by clicking on the name of the respective table in the `Usage Statistics` section. Additionally, they can scroll through the tables to explore the variety of insights available at a glance.
 
-**Creating a SuperUser:**
+## Creating a SuperUser
 
 - Open the terminal.
 
@@ -124,7 +124,7 @@ Enter the required information for creating the superuser account
 
 ![enter information](./img/superuser-3.png)
 
-**Converting a Normal User to a SuperUser:**
+## Converting a Normal User to a SuperUser
 
 ```bash
 docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add <username>

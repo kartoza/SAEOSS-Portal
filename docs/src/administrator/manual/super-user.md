@@ -1,6 +1,6 @@
 # Documentation: Creating SuperUser
 
-**Creating SuperUser from Terminal:**
+## Creating SuperUser from Terminal
 
 To create a superuser, open the terminal.
 Use the following command to add a superuser with the username `admin`:
@@ -20,7 +20,7 @@ If the user chooses `Y` then they need to provide the email and password for the
 
 ![required information](./img/super-user-3.png)
 
-**Converting Normal User to SuperUser:**
+## Converting Normal User to SuperUser
 
 Existing users can be elevated to superuser status through the terminal.
 Use the following command, replacing <username> with the username of the registered user:
