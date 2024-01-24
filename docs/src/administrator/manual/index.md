@@ -20,6 +20,7 @@ The administrator manual aims to assist user in learning the fundamentals of usi
 - [**About**]()
 - [**Help**]()
 - [**Usage Statistics**](./usage-statistics.md)
+- [**Create SuperUser**](./super-user.md)
 
 ### Error reporting
 
