@@ -8,7 +8,7 @@ let password = '12345678';
 const authFile = 'auth.json'
 
 
-setup('test', async ({ page }) => {
+setup('auth', async ({ page }) => {
   await page.goto(url);
 
   await expect(page.locator('.navbar-brand')).toBeVisible();
