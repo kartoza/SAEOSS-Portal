@@ -317,7 +317,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "saeoss_version": saeoss_actions.show_version,
             "user_patch": ckan_actions.user_patch,
             "user_update": ckan_actions.user_update,
-            "user_create": ckan_actions.user_create,
+            # "user_create": ckan_actions.user_create,
             "organization_update": ckan_actions.organization_update,
             "user_show": ckan_actions.user_show,
             "resource_create": ckan_custom_actions.resource_create,
