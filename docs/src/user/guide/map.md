@@ -47,7 +47,7 @@ Select from various Base Map Options to customise your viewing experience.
 
     ![OpenStreetMap Pioneer View](./img/map-6.png)
 
-4. **OpenStreetMap Neighbourhood View:** Emphasises localised mapping for neighborhood-level details.
+4. **OpenStreetMap Neighbourhood View:** Emphasises localised mapping for neighbourhood-level details.
 
     ![OpenStreetMap Neighbourhood View](./img/map-7.png)
 
