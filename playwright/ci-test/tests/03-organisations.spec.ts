@@ -27,13 +27,17 @@ test('create organisation', async ({ page }) => {
 
   await page.getByRole('link', { name: ' Add Organisation' }).click();
 
+  await page.waitForURL('**/organization/new');
+
+  await page.waitForLoadState('domcontentloaded');
+
   await expect(page.getByRole('heading', { name: 'Create an Organization' })).toBeVisible();
 
   await page.getByPlaceholder('My Organization', { exact: true }).click();
 
   await page.getByPlaceholder('My Organization', { exact: true }).fill('Test');
 
-  await page.waitForTimeout(5000);
+  await page.waitForTimeout(3000);
 
   await page.getByPlaceholder('A little information about my').click();
 
