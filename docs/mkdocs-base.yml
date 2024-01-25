@@ -58,6 +58,7 @@ nav:
                         - Search Metadata: user/guide/search-metadata.md
                         - Upload Metadata: user/guide/create-metadata.md
                         - Edit Metadata: user/guide/edit-metadata.md
+                        - Using the Map: user/guide/map.md
                         - Report Issues: user/guide/opening-issues.md #Linked in a document
                 - Manual: 
                         - user/manual/index.md
