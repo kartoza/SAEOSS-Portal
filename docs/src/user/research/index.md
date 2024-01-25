@@ -6,28 +6,28 @@
 
 As described in _Table 2 - Core metadata for geographic datasets_
 
-| Element | Obligation and Condition | Exists in stock CKAN | Notes |
-| ------- | ------------------------ | -------------------- | ----- |
+| Element | Obligation and Condition | Exists in stock CKAN |
+| ------- | ------------------------ | -------------------- |
 | Dataset title | Mandatory | Yes |
-| **Dataset reference date** | **Mandatory** | **No** | To be implemented |
-| **Dataset responsible party** | **Mandatory** | **Yes*** | Need to make it mandatory |
-| **Geographic location of the dataset** (by four coordinates or by geographic identifier) | **Mandatory** | **No** | (As seen on Annex D - Creating the South African community profile)<br /><br />To be implemented |
-| **Dataset language** | **Mandatory** | **No** | To be implemented |
-| **Dataset character set** | **Mandatory** | **No** | To be implemented |
-| **Dataset topic category** | **Mandatory** | **No** | To be implemented |
-| **Spatial resolution of the dataset** | **Mandatory** | **No** | (As seen on Annex D - Creating the South African community profile)<br /><br /administrator>To be implemented |
-| **Abstract describing the dataset** | **Mandatory** | **Yes*** | Need to make it mandatory |
-| **Distribution format** | **Mandatory** | **No** | To be implemented |
+| **Dataset reference date** | **Mandatory** | **No** |
+| **Dataset responsible party** | **Mandatory** | **Yes*** |
+| **Geographic location of the dataset** (by four coordinates or by geographic identifier) | **Mandatory** | **No** |
+| **Dataset language** | **Mandatory** | **No** |
+| **Dataset character set** | **Mandatory** | **No** |
+| **Dataset topic category** | **Mandatory** | **No** |
+| **Spatial resolution of the dataset** | **Mandatory** | **No** |
+| **Abstract describing the dataset** | **Mandatory** | **Yes*** |
+| **Distribution format** | **Mandatory** | **No** |
 | Additional extent information for the dataset (vertical and temporal) | Optional | No |
-| **Spatial representation type** | **Mandatory** | **No** | (As seen on Annex D - Creating the South African community profile)<br /<br />To be implemented |
-| **Reference system** | **Mandatory** | **No** | (As seen on Annex D - Creating the South African community profile)<br /><br />To be implemented |
+| **Spatial representation type** | **Mandatory** | **No** |
+| **Reference system** | **Mandatory** | **No** |
 | **Lineage statement** | **Mandatory** | **No** |
 | On-line resource | Conditional | Yes |
 | Metadata file identifier | Mandatory | Yes |
-| Metadata standard name | Conditional | **No** | To be implemented |
-| Metadata standard version | Conditional | **No** | To be implemented |
-| **Metadata language** | **Mandatory** | **No** | To be implemented |
-| **Metadata character set** | **Mandatory** | **No** | To be implemented |
+| Metadata standard name | Conditional | **No** |
+| Metadata standard version | Conditional | **No** |
+| **Metadata language** | **Mandatory** | **No** |
+| **Metadata character set** | **Mandatory** | **No** |
 | Metadata point of contact | Mandatory | Yes |
 | Metadata date stamp | Mandatory | Yes |
 
@@ -35,9 +35,9 @@ As described in _Table 2 - Core metadata for geographic datasets_
 
 As found scattered throughout the SANS 1878 document
 
-| Name | Obligation and condition | Notes |
-| ---- | ------------------------ | ----- |
-| **hierarchyLevel** | Mandatory | Unclear whether this should be implemented or not, as there is a question mark in the standard |
+| Name | Obligation and condition |
+| ---- | ------------------------ |
+| **hierarchyLevel** | Mandatory |
 | **referenceSystemInfo** | Mandatory |
 | metadataMaintenance | Optional |
 | **purpose** | Mandatory |
@@ -47,8 +47,8 @@ As found scattered throughout the SANS 1878 document
 | descriptiveKeywords | Optional |
 | resourceSpecificUsage | Optional |
 | graphicOverview | Optional |
-| resourceConstraints | Optional | These are the constraints applicable to the resource. Can be defined as either LegalConstraints or SecurityConstraints, or both |
-| MetadataConstraints | Optional | These apply to the metadata. Can be defined as either LegalConstraints or SecurityConstraints, or both |
+| resourceConstraints | Optional |
+| MetadataConstraints | Optional |
 
 ## STAC API research
 
