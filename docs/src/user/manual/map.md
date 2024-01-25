@@ -38,7 +38,7 @@ These are some of the components found on the map tab:
  
 3. **Base map options:** This allows users to choose a specific base map.
 
-![base map options](./img/map-10.png)
+![base map options](./img/map-10.png){: style="height:200px"}
 
 1. **OpenStreetMap Street View:**
 
@@ -65,5 +65,5 @@ These are some of the components found on the map tab:
 
     ![OpenStreetMap Street View](./img/map-7.png)
 
-    - Emphasizes localized mapping for neighborhood-level details.
-    - Useful for focusing on smaller-scale features, such as streets, parks, and amenities within specific neighborhoods or community areas.
+    - Emphasizes localized mapping for neighbourhood-level details.
+    - Useful for focusing on smaller-scale features, such as streets, parks, and amenities within specific neighbourhoods or community areas.
