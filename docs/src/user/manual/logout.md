@@ -8,7 +8,7 @@ The `Logout` option provides users with a seamless way to log out of the system,
 
 ![logout option](./img/logout-1.png)
 
-1. **Logout** Locate and click on the `Logout` option. After clicking on the `Logout` option, the system will initiate the logout process. Upon successful logout, the user will be redirected to the logout page.
+1. **Logout** Click on the `Logout` option. After clicking on the `Logout` option, the system will initiate the logout process. Upon successful logout, the user will be redirected to the logout page.
 
 On the logout page, the user will find several buttons to navigate to different sections.
 
