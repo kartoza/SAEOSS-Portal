@@ -11,4 +11,5 @@ The guide section of the documentation provides short narrative/workflow based t
 * **[Search Metadata:](./search-metadata.md)** This page will show you how to search for metadata on the platform.
 * **[Upload Metadata:](./create-metadata.md)** This page will show you how to upload metadata to the platform.
 * **[Edit Metadata:](./edit-metadata.md)** This page will show you how to edit metadata on the platform.
+* **[Map:](./map.md)** This page will show you how visualise metadata on the map.
 * **[Report Issues:](./opening-issues.md)** This page will show you how to open tickets about issues you may encounter.
