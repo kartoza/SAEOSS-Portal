@@ -8,7 +8,6 @@ The `Forgot Password` feature allows users to reset their password in case it is
 
 1. **Forgot Password Page:** Locate and click on the `Forgot your Password` button on the login page. When the user clicks on this button they will redirected to the `Reset Password` page.
 
-
 ## Reset Password Page
 
 ![reset password](./img/forgot-password-2.png)
@@ -21,9 +20,3 @@ The system will initiate the password reset process and send instructions to the
 ## Conclusion
 
 Initiating a password reset is a straightforward process that ensures account security. Follow these steps to request a password reset, and the user will receive instructions on how to set a new password. If you encounter any difficulties or have questions, don't hesitate to reach out to the support team for assistance.
-
-
-
-
-
-
