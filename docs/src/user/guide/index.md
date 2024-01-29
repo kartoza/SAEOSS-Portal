@@ -13,3 +13,5 @@ The guide section of the documentation provides short narrative/workflow based t
 * **[Edit Metadata:](./edit-metadata.md)** This page will show you how to edit metadata on the platform.
 * **[Map:](./map.md)** This page will show you how visualise metadata on the map.
 * **[Report Issues:](./opening-issues.md)** This page will show you how to open tickets about issues you may encounter.
+* **[Log Out:](./logout.md)** This page will help you how to logout from the site.
+* **[Forgot Password:](./forgot_password.md)** This page will help you to reset your password in case it is forgotten.
