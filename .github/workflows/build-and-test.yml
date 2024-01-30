@@ -2,9 +2,9 @@ name: Build and Test
 
 on:
   push:
-    branches: [ e2e-testing ]
+    branches: [ main ]
   pull_request:
-    branches: [ e2e-testing ]
+    branches: [ main ]
 
 jobs:
   lint:
