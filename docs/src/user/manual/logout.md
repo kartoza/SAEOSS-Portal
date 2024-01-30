@@ -22,4 +22,4 @@ On the logout page, the user will find several buttons to navigate to different 
 
 ## Conclusion
 
-The Logout option ensures a secure end to the user's session, redirecting the user to a dedicated logout page. From there, the user can conveniently navigate to different sections, including the home page, login page, and signup page, using the provided buttons. Feel free to explore the various features available after logging out and return to the system at your convenience. If you have any further questions or need assistance, please reach out to our support team.
+The Logout option ensures a secure end to the user's session, redirecting the user to a dedicated logout page. From there, the user can conveniently navigate to different sections, including the home page, login page, and sign up page, using the provided buttons. Feel free to explore the various features available after logging out and return to the system at your convenience. If you have any further questions or need assistance, please reach out to our support team.

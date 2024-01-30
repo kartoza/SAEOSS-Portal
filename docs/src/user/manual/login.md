@@ -6,13 +6,13 @@ The Login page is the gateway to accessing the features and content on the platf
 
 ![login options](./img/login-1.png)
 
-**Login Buttons:**
+### Login Buttons
 
 Users can access the login functionality from two locations on the home page.
 
-**Access Login Page:**
 
-1. **Login Button:** Click on the login button available in the middle of the home page. Alternatively, locate and click on the login button in the top right corner of the page.
+1. **Login Button:** Click on the login button available in the middle of the home page.
+2. **Other Login Button:** Alternatively, locate and click on the login button in the top right corner of the page.
 
     - Upon clicking the login button, the user will be directed to the `Login Page`.
 

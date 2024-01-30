@@ -16,7 +16,7 @@ users may prefer to work through our [user guide](../guide/index.md).
 * **[About:](./about.md)** This is the `About` page where users can learn more about the site.
 * **[Help:](./help.md)** The help page is the documentation site.
 * **[User Roles:](./user-roles.md)** Access to data and functionalities on the SAEOSS-Portal platform is governed by user roles and permissions.
-* **[SignUp:](./signup.md)** This is the `SignUp` page where the user can create an account.
+* **[Sign Up:](./signup.md)** This is the `Sign Up` page where the user can create an account.
 * **[Login:](./login.md)** This is the `Login` page from here the user can log in. 
 * **[Log Out:](./logout.md)** This is the `Log Out` page from here the user can log out. 
 * **[Forgot Password:](./forgot_password.md)** This is the `Forgot Password` page from here the user can reset their password. 

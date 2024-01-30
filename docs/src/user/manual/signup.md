@@ -1,20 +1,21 @@
-# Signup Page User Manual
+# Sign Up Page User Manual
 
 ## Overview
 
-The `Signup` page allows users to create a new account, providing access to personalised features and content on the platform. This guide will walk users through the steps to sign up, including filling out the required fields and creating their account.
+The `Sign Up` page allows users to create a new account, providing access to personalised features and content on the platform. This guide will walk users through the steps to sign up, including filling out the required fields and creating their account.
 
 ![signup](./img/signup-1.png)
 
-1. **Access Signup Page:** Click on the signup button available in the middle of the home page. Alternatively, locate and click on the login button in the top right corner of the page, where the user can find an option to create an account.
+1. **Access Sign Up Page:** Click on the `SIGN UP` button available in the middle of the home page. 
+2. **Other Access to Sign Up Page:** Alternatively, locate and click on the `SIGN UP` button in the top right corner of the page, where the user can find an option to create an account.
 
 ## Signup Page
 
 ![signup page](./img/signup-2.png)
 
-1. **Fill Out Signup Form:**
+1. **Fill Out Sign up Form:**
 
-    The signup form includes the following fields:
+    The sign up form includes the following fields:
     - Username (Required)
     - Full Name
     - Email (Required)
@@ -30,4 +31,4 @@ The system will process the user's information and create the user's account.
 
 ## Conclusion
 
-Creating a new account is a simple and essential step to unlock personalised features on our platform. Follow these steps to complete the signup process, and the user be ready to explore and engage with our community. If the user encounters any issues or has questions, feel free to contact the support team for assistance.
+Creating a new account is a simple and essential step to unlock personalised features on our platform. Follow these steps to complete the sign up process, and the user be ready to explore and engage with our community. If the user encounters any issues or has questions, feel free to contact the support team for assistance.
