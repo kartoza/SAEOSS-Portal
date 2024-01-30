@@ -50,6 +50,6 @@ After logging in, users can go to the home page, by clicking on the home option 
 
     ![metadata](./img/home-4.png)
 
-# Conclusion 
+## Conclusion 
 
 These options empower users with tools to explore, search, and analyse data effectively. If the users have any questions or need assistance while navigating the home page, feel free to contact our support team for prompt help.
