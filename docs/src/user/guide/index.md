@@ -6,6 +6,7 @@ The guide section of the documentation provides short narrative/workflow based t
 
 * **[Registering:](./registering.md)** This page will show you how to register on the platform.
 * **[Logging In:](./logging-in.md)** This page will show you how to log in to the platform.
+* **[Forgot Password:](./forgot-password.md)** This page will help you to reset your password in case it is forgotten.
 * **[Profile Settings:](./profile-management.md)** This page will show you how to manage your profile on the platform.
 * **[Organisation Management:](./organisation-management.md)** This page will show you how to manage organisations on the platform.
 * **[Search Metadata:](./search-metadata.md)** This page will show you how to search for metadata on the platform.
@@ -14,4 +15,3 @@ The guide section of the documentation provides short narrative/workflow based t
 * **[Map:](./map.md)** This page will show you how visualise metadata on the map.
 * **[Report Issues:](./opening-issues.md)** This page will show you how to open tickets about issues you may encounter.
 * **[Log Out:](./logout.md)** This page will help you how to logout from the site.
-* **[Forgot Password:](./forgot_password.md)** This page will help you to reset your password in case it is forgotten.
