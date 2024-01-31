@@ -27,7 +27,7 @@ The crisp chat interface allows you to directly contact administrators of the pl
  --- | --- |
 | ![interface](./img/crisp_chat_icon.png) | ![Crisp_chat_interface](./img/crisp_chat.png) |
 
-# Home Page User Manual (After Login)
+## Home Page User Manual (After Login)
 
 After logging in, users can go to the home page, by clicking on the home option available in the navigation offering a range of features to enhance their experience. Here is a guide to the options available:
 
