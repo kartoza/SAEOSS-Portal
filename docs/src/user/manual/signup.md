@@ -4,14 +4,14 @@
 
 The `Sign Up` page allows users to create a new account, providing access to personalised features and content on the platform. This guide will walk users through the steps to sign up, including filling out the required fields and creating their account.
 
-![signup](./img/signup-1.png)
+![sign up](./img/signup-1.png)
 
 1. **Access Sign Up Page:** Click on the `SIGN UP` button available in the middle of the home page. 
 2. **Other Access to Sign Up Page:** Alternatively, locate and click on the `SIGN UP` button in the top right corner of the page, where the user can find an option to create an account.
 
-## Signup Page
+## Sign Up Page
 
-![signup page](./img/signup-2.png)
+![sign up page](./img/signup-2.png)
 
 1. **Fill Out Sign up Form:**
 
