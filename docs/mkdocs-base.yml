@@ -53,16 +53,21 @@ nav:
                         - user/guide/index.md
                         - Registering: user/guide/registering.md
                         - Logging In: user/guide/logging-in.md
+                        - Forgot Password: user/guide/forgot-password.md
                         - Profile Settings: user/guide/profile-management.md
                         - Organisation Management: user/guide/organisation-management.md
                         - Search Metadata: user/guide/search-metadata.md
                         - Upload Metadata: user/guide/create-metadata.md
                         - Edit Metadata: user/guide/edit-metadata.md
                         - Using the Map: user/guide/map.md
+                        - Logging out: user/guide/logout.md
                         - Report Issues: user/guide/opening-issues.md #Linked in a document
                 - Manual: 
                         - user/manual/index.md
                         - Home Page: user/manual/home.md
+                        - Sign Up Page: user/manual/sign-up.md
+                        - Login Page: user/manual/login.md
+                        - Forgot Password: user/manual/forgot-password.md
                         - Dashboard: user/manual/dashboard.md
                         - Profile: user/manual/profile-page.md
                         - Profile Settings: user/manual/profile-settings.md
@@ -72,6 +77,7 @@ nav:
                         - Organisations: user/manual/organisation.md
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
+                        - Logout Page: user/manual/logout.md
                         - User Roles: user/manual/user-roles.md
                 - Metadata Standard: 
                         - user/research/index.md
