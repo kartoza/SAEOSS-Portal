@@ -38,6 +38,167 @@ const renderLayer = (map, id, source, layer, before = null) => {
   );
 }
 
+function startDate(element, collections){
+    var start_date = new Date(element)
+
+    if(element != "" && $("#end_date").val() == ""){
+        var resultArr = []
+        for(var i = 0; i < collections.length; i++){
+            var temporal_start = new Date(collections[i]["properties"]["datetime"])
+            if(temporal_start >= start_date){
+                resultArr.push(i)
+            }
+        }
+
+        $(".collection-show").each(function(){
+            var index = $(this).data('collectionnum')
+            if(!resultArr.includes(index)){
+                $(this).addClass("hide-search")
+            }
+            else{
+                if($(this).hasClass("hide-search")){
+                    $(this).removeClass("hide-search")
+                }
+            }
+        })
+
+        var el = document.getElementById("collection-search-error")
+        if(resultArr.length < 1){
+            el.style.display = "block"
+            el.innerHTML = `No results found"`
+            $(".collection-show").each(function(){
+                $(this).addClass("hide-search")
+            })
+        }
+        else{
+            el.style.display = "none"
+        }
+    }
+    else if(element != "" && $("#end_date").val() != ""){
+        var end_date = new Date($("#end_date").val())
+        var resultArr = []
+        for(var i = 0; i < collections.length; i++){
+            var temporal_start = new Date(collections[i]["extent"]["temporal"]["interval"][0][0])
+            var temporal_end = new Date(collections[i]["extent"]["temporal"]["interval"][0][1])
+            if(temporal_end <= end_date && temporal_start >= start_date){
+                resultArr.push(i)
+            }
+        }
+
+        $(".collection-show").each(function(){
+            var index = $(this).data('collectionnum')
+            if(!resultArr.includes(index)){
+                $(this).addClass("hide-search")
+            }
+            else{
+                if($(this).hasClass("hide-search")){
+                    $(this).removeClass("hide-search")
+                }
+            }
+        })
+
+        var el = document.getElementById("collection-search-error")
+        if(resultArr.length < 1){
+            el.style.display = "block"
+            el.innerHTML = `No results found"`
+            $(".collection-show").each(function(){
+                $(this).addClass("hide-search")
+            })
+        }
+        else{
+            el.style.display = "none"
+        }
+    }
+    else if(element == "" && $("#end_date").val() == ""){
+        document.getElementById("collection-search-error").style.display = "none"
+        $(".collection-show").each(function(){
+            if($(this).hasClass("hide-search")){
+                $(this).removeClass("hide-search")
+            }
+        })
+    }
+}
+
+function endDate(element, collections){
+    var end_date = new Date(element)
+    if(element != "" && $("#start_date").val() == ""){
+        var resultArr = []
+        for(var i = 0; i < collections.length; i++){
+            var temporal_end = new Date(collections[i]["properties"]["datetime"])
+            if(temporal_end <= end_date){
+                resultArr.push(i)
+            }
+        }
+
+        $(".collection-show").each(function(){
+            var index = $(this).data('collectionnum')
+            if(!resultArr.includes(index)){
+                $(this).addClass("hide-search")
+            }
+            else{
+                if($(this).hasClass("hide-search")){
+                    $(this).removeClass("hide-search")
+                }
+            }
+        })
+
+        var el = document.getElementById("collection-search-error")
+        if(resultArr.length < 1){
+            el.style.display = "block"
+            el.innerHTML = `No results found"`
+            $(".collection-show").each(function(){
+                $(this).addClass("hide-search")
+            })
+        }
+        else{
+            el.style.display = "none"
+        }
+    }
+    else if(element != "" && $("#start_date").val() != ""){
+        var start_date = new Date($("#start_date").val())
+        var resultArr = []
+        for(var i = 0; i < collections.length; i++){
+            var temporal_start = new Date(collections[i]["extent"]["temporal"]["interval"][0][0])
+            var temporal_end = new Date(collections[i]["extent"]["temporal"]["interval"][0][1])
+            if(temporal_end <= end_date && temporal_start >= start_date){
+                resultArr.push(i)
+            }
+        }
+
+        $(".collection-show").each(function(){
+            var index = $(this).data('collectionnum')
+            if(!resultArr.includes(index)){
+                $(this).addClass("hide-search")
+            }
+            else{
+                if($(this).hasClass("hide-search")){
+                    $(this).removeClass("hide-search")
+                }
+            }
+        })
+
+        var el = document.getElementById("collection-search-error")
+        if(resultArr.length < 1){
+            el.style.display = "block"
+            el.innerHTML = `No results found"`
+            $(".collection-show").each(function(){
+                $(this).addClass("hide-search")
+            })
+        }
+        else{
+            el.style.display = "none"
+        }
+    }
+    else if(element == "" && $("#start_date").val() == ""){
+        document.getElementById("collection-search-error").style.display = "none"
+        $(".collection-show").each(function(){
+            if($(this).hasClass("hide-search")){
+                $(this).removeClass("hide-search")
+            }
+        })
+    }
+}
+
 class layerSwitcherControl {
 
   constructor(options) {
@@ -243,172 +404,18 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 document.getElementById("collection-view").innerHTML = collectionHtml
 
                 $("#start_date").on('change', function(e){
-                    
-                    var start_date = new Date($(this).val())
-
-                    if($(this).val() != "" && $("#end_date").val() == ""){
-                        var resultArr = []
-                        for(var i = 0; i < collections.length; i++){
-                            var temporal_start = new Date(collections[i]["properties"]["datetime"])
-                            if(temporal_start >= start_date){
-                                resultArr.push(i)
-                            }
-                        }
-    
-                        $(".collection-show").each(function(){
-                            var index = $(this).data('collectionnum')
-                            if(!resultArr.includes(index)){
-                                $(this).addClass("hide-search")
-                            }
-                            else{
-                                if($(this).hasClass("hide-search")){
-                                    $(this).removeClass("hide-search")
-                                }
-                            }
-                        })
-    
-                        var el = document.getElementById("collection-search-error")
-                        if(resultArr.length < 1){
-                            el.style.display = "block"
-                            el.innerHTML = `No results found"`
-                            $(".collection-show").each(function(){
-                                $(this).addClass("hide-search")
-                            })
-                        }
-                        else{
-                            el.style.display = "none"
-                        }
-                    }
-                    else if($(this).val() != "" && $("#end_date").val() != ""){
-                        var end_date = new Date($("#end_date").val())
-                        var resultArr = []
-                        for(var i = 0; i < collections.length; i++){
-                            var temporal_start = new Date(collections[i]["extent"]["temporal"]["interval"][0][0])
-                            var temporal_end = new Date(collections[i]["extent"]["temporal"]["interval"][0][1])
-                            if(temporal_end <= end_date && temporal_start >= start_date){
-                                resultArr.push(i)
-                            }
-                        }
-
-                        $(".collection-show").each(function(){
-                            var index = $(this).data('collectionnum')
-                            if(!resultArr.includes(index)){
-                                $(this).addClass("hide-search")
-                            }
-                            else{
-                                if($(this).hasClass("hide-search")){
-                                    $(this).removeClass("hide-search")
-                                }
-                            }
-                        })
-
-                        var el = document.getElementById("collection-search-error")
-                        if(resultArr.length < 1){
-                            el.style.display = "block"
-                            el.innerHTML = `No results found"`
-                            $(".collection-show").each(function(){
-                                $(this).addClass("hide-search")
-                            })
-                        }
-                        else{
-                            el.style.display = "none"
-                        }
-                    }
-                    else if($(this).val() == "" && $("#end_date").val() == ""){
-                        document.getElementById("collection-search-error").style.display = "none"
-                        $(".collection-show").each(function(){
-                            if($(this).hasClass("hide-search")){
-                                $(this).removeClass("hide-search")
-                            }
-                        })
-                    }
-                    
+                    startDate($(this).val(), collections)
                 })
 
                 $("#end_date").on('change', function(e){
-                   var end_date = new Date($(this).val())
-                   if($(this).val() != "" && $("#start_date").val() == ""){
-                        var resultArr = []
-                        for(var i = 0; i < collections.length; i++){
-                            var temporal_end = new Date(collections[i]["properties"]["datetime"])
-                            if(temporal_end <= end_date){
-                                resultArr.push(i)
-                            }
-                        }
-
-                        $(".collection-show").each(function(){
-                            var index = $(this).data('collectionnum')
-                            if(!resultArr.includes(index)){
-                                $(this).addClass("hide-search")
-                            }
-                            else{
-                                if($(this).hasClass("hide-search")){
-                                    $(this).removeClass("hide-search")
-                                }
-                            }
-                        })
-
-                        var el = document.getElementById("collection-search-error")
-                        if(resultArr.length < 1){
-                            el.style.display = "block"
-                            el.innerHTML = `No results found"`
-                            $(".collection-show").each(function(){
-                                $(this).addClass("hide-search")
-                            })
-                        }
-                        else{
-                            el.style.display = "none"
-                        }
-                    }
-                    else if($(this).val() != "" && $("#start_date").val() != ""){
-                        var start_date = new Date($("#start_date").val())
-                        var resultArr = []
-                        for(var i = 0; i < collections.length; i++){
-                            var temporal_start = new Date(collections[i]["extent"]["temporal"]["interval"][0][0])
-                            var temporal_end = new Date(collections[i]["extent"]["temporal"]["interval"][0][1])
-                            if(temporal_end <= end_date && temporal_start >= start_date){
-                                resultArr.push(i)
-                            }
-                        }
-
-                        $(".collection-show").each(function(){
-                            var index = $(this).data('collectionnum')
-                            if(!resultArr.includes(index)){
-                                $(this).addClass("hide-search")
-                            }
-                            else{
-                                if($(this).hasClass("hide-search")){
-                                    $(this).removeClass("hide-search")
-                                }
-                            }
-                        })
-
-                        var el = document.getElementById("collection-search-error")
-                        if(resultArr.length < 1){
-                            el.style.display = "block"
-                            el.innerHTML = `No results found"`
-                            $(".collection-show").each(function(){
-                                $(this).addClass("hide-search")
-                            })
-                        }
-                        else{
-                            el.style.display = "none"
-                        }
-                    }
-                    else if($(this).val() == "" && $("#start_date").val() == ""){
-                        document.getElementById("collection-search-error").style.display = "none"
-                        $(".collection-show").each(function(){
-                            if($(this).hasClass("hide-search")){
-                                $(this).removeClass("hide-search")
-                            }
-                        })
-                    }
+                    endDate($(this).val(), collections)
                 })
 
                 $("#search-collection-btn").on('click', function(event){
                     document.getElementById("clear-search-btn").style.display = "block"
                     var search_string = document.getElementById("search-collection").value
                     var resultArr = []
+                    
                     for(var i = 0; i < collections.length; i++){
 
                         if(collections[i]["properties"]["name"].includes(search_string)){
@@ -420,6 +427,36 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                         if(collections[i]["properties"]["keywords"].includes(search_string)){
                             resultArr.push(i)
                         }
+
+                        if($("#start_date").val()!= "" && $("#end_date").val() != ""){
+                            for(var i = 0; i < collections.length; i++){
+                                var temporal_start = new Date(collections[i]["extent"]["temporal"]["interval"][0][0])
+                                var temporal_end = new Date(collections[i]["extent"]["temporal"]["interval"][0][1])
+                                if(temporal_end <= end_date && temporal_start >= start_date){
+                                    resultArr.push(i)
+                                }
+                            }
+
+                        }
+
+                        if($("#start_date").val()!= "" && $("#end_date").val() == ""){
+                            for(var i = 0; i < collections.length; i++){
+                                var temporal_start = new Date(collections[i]["properties"]["datetime"])
+                                if(temporal_start >= start_date){
+                                    resultArr.push(i)
+                                }
+                            }
+                        }
+
+                        if($("#start_date").val()== "" && $("#end_date").val() != ""){
+                            for(var i = 0; i < collections.length; i++){
+                                var temporal_end = new Date(collections[i]["properties"]["datetime"])
+                                if(temporal_end <= end_date){
+                                    resultArr.push(i)
+                                }
+                            }
+                        }
+                       
                     }
                     
                     $(".collection-show").each(function(){
