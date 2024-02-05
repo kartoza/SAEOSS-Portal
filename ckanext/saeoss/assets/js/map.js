@@ -38,165 +38,69 @@ const renderLayer = (map, id, source, layer, before = null) => {
   );
 }
 
-function startDate(element, collections){
-    var start_date = new Date(element)
-
-    if(element != "" && $("#end_date").val() == ""){
-        var resultArr = []
-        for(var i = 0; i < collections.length; i++){
-            var temporal_start = new Date(collections[i]["properties"]["datetime"])
-            if(temporal_start >= start_date){
-                resultArr.push(i)
-            }
-        }
-
-        $(".collection-show").each(function(){
-            var index = $(this).data('collectionnum')
-            if(!resultArr.includes(index)){
-                $(this).addClass("hide-search")
-            }
-            else{
-                if($(this).hasClass("hide-search")){
-                    $(this).removeClass("hide-search")
-                }
-            }
-        })
-
-        var el = document.getElementById("collection-search-error")
-        if(resultArr.length < 1){
-            el.style.display = "block"
-            el.innerHTML = `No results found"`
-            $(".collection-show").each(function(){
-                $(this).addClass("hide-search")
-            })
+function showData(_data, map){
+    let dataFetched = null;
+    let allFeatures = null;
+    dataFetched = _data;
+    var collections = _data["features"]
+    var collectionHtml = `
+    <div style="display:none" class="row collection-search-error" id="collection-search-error"></div>`;
+    for(var i = 0; i < collections.length; i++){
+        var image_url
+        if(collections[i]["assets"]["thumbnail"]["href"] != ""){
+            image_url = collections[i]["assets"]["thumbnail"]["href"]
         }
         else{
-            el.style.display = "none"
+            image_url = "/images/africa_preview.png"
         }
+        collectionHtml += `
+            <div class="row collection-show collection-flex" data-collectionnum=${i}>
+            <div class="img-div" style='height:100% !important'>
+            <img class='collection-thumbnail' src='${image_url}'/>
+            </div>
+            <div style="position:relative;width:100%">
+            <h4>${collections[i]["id"]}</h4>
+            <p class="bottom-date">${collections[i]["properties"]["datetime"]}</p>
+            </div>
+            </div>`;
     }
-    else if(element != "" && $("#end_date").val() != ""){
-        var end_date = new Date($("#end_date").val())
-        var resultArr = []
-        for(var i = 0; i < collections.length; i++){
-            var temporal_start = new Date(collections[i]["extent"]["temporal"]["interval"][0][0])
-            var temporal_end = new Date(collections[i]["extent"]["temporal"]["interval"][0][1])
-            if(temporal_end <= end_date && temporal_start >= start_date){
-                resultArr.push(i)
-            }
+
+    document.getElementById("collection-view").innerHTML = collectionHtml
+
+    $(".collection-show").on('click', function(event){
+        var index = $(this).data('collectionnum')
+
+        try {
+            $('.maplibregl-popup').remove();
+        } catch (error) {
+            
         }
 
-        $(".collection-show").each(function(){
-            var index = $(this).data('collectionnum')
-            if(!resultArr.includes(index)){
-                $(this).addClass("hide-search")
-            }
-            else{
-                if($(this).hasClass("hide-search")){
-                    $(this).removeClass("hide-search")
-                }
-            }
-        })
-
-        var el = document.getElementById("collection-search-error")
-        if(resultArr.length < 1){
-            el.style.display = "block"
-            el.innerHTML = `No results found"`
-            $(".collection-show").each(function(){
-                $(this).addClass("hide-search")
-            })
-        }
-        else{
-            el.style.display = "none"
-        }
-    }
-    else if(element == "" && $("#end_date").val() == ""){
-        document.getElementById("collection-search-error").style.display = "none"
-        $(".collection-show").each(function(){
-            if($(this).hasClass("hide-search")){
-                $(this).removeClass("hide-search")
-            }
-        })
-    }
-}
-
-function endDate(element, collections){
-    var end_date = new Date(element)
-    if(element != "" && $("#start_date").val() == ""){
-        var resultArr = []
-        for(var i = 0; i < collections.length; i++){
-            var temporal_end = new Date(collections[i]["properties"]["datetime"])
-            if(temporal_end <= end_date){
-                resultArr.push(i)
-            }
+        if(map.getLayer("spatial_polygons")){
+            map.removeLayer("spatial_polygons")
+            map.removeSource("spatial_polygons")
         }
 
-        $(".collection-show").each(function(){
-            var index = $(this).data('collectionnum')
-            if(!resultArr.includes(index)){
-                $(this).addClass("hide-search")
-            }
-            else{
-                if($(this).hasClass("hide-search")){
-                    $(this).removeClass("hide-search")
-                }
-            }
-        })
+        map.addSource("spatial_polygons", {
+            type: "geojson",
+            data: collections[index],
+        });
 
-        var el = document.getElementById("collection-search-error")
-        if(resultArr.length < 1){
-            el.style.display = "block"
-            el.innerHTML = `No results found"`
-            $(".collection-show").each(function(){
-                $(this).addClass("hide-search")
-            })
-        }
-        else{
-            el.style.display = "none"
-        }
-    }
-    else if(element != "" && $("#start_date").val() != ""){
-        var start_date = new Date($("#start_date").val())
-        var resultArr = []
-        for(var i = 0; i < collections.length; i++){
-            var temporal_start = new Date(collections[i]["extent"]["temporal"]["interval"][0][0])
-            var temporal_end = new Date(collections[i]["extent"]["temporal"]["interval"][0][1])
-            if(temporal_end <= end_date && temporal_start >= start_date){
-                resultArr.push(i)
+        map.addLayer({
+            'id': 'spatial_polygons',
+            'type': 'fill',
+            'source': 'spatial_polygons',
+            'layout': {},
+            'paint': {
+                'fill-color': '#088',
+                'fill-opacity': 0.5
             }
-        }
+        });
+        map.rerenderLayer = false;
 
-        $(".collection-show").each(function(){
-            var index = $(this).data('collectionnum')
-            if(!resultArr.includes(index)){
-                $(this).addClass("hide-search")
-            }
-            else{
-                if($(this).hasClass("hide-search")){
-                    $(this).removeClass("hide-search")
-                }
-            }
-        })
-
-        var el = document.getElementById("collection-search-error")
-        if(resultArr.length < 1){
-            el.style.display = "block"
-            el.innerHTML = `No results found"`
-            $(".collection-show").each(function(){
-                $(this).addClass("hide-search")
-            })
-        }
-        else{
-            el.style.display = "none"
-        }
-    }
-    else if(element == "" && $("#start_date").val() == ""){
-        document.getElementById("collection-search-error").style.display = "none"
-        $(".collection-show").each(function(){
-            if($(this).hasClass("hide-search")){
-                $(this).removeClass("hide-search")
-            }
-        })
-    }
+        var bounds = collections[index]["bbox"]
+        map.fitBounds(bounds)
+    })
 }
 
 class layerSwitcherControl {
@@ -292,8 +196,6 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
         _onReady: function () {
 
-            let dataFetched = null;
-            let allFeatures = null;
 
             const baseMaps = {
                 "STREETS": {
@@ -373,164 +275,147 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             // disable rotation
             map.touchZoomRotate.disableRotation();
 
+            // initial fetch
             let fetchRes = fetch("/stac/datasetcollection");
-            
             fetchRes.then(res => res.json()).then(_data => {
+                showData(_data, map)
+            });
 
-                dataFetched = _data;
-                var collections = _data["features"]
-                var collectionHtml = `
-                <div style="display:none" class="row collection-search-error" id="collection-search-error"></div>`;
-                for(var i = 0; i < collections.length; i++){
-                    var image_url
-                    if(collections[i]["assets"]["thumbnail"]["href"] != ""){
-                        image_url = collections[i]["assets"]["thumbnail"]["href"]
-                    }
-                    else{
-                        image_url = "/images/africa_preview.png"
-                    }
-                    collectionHtml += `
-                        <div class="row collection-show collection-flex" data-collectionnum=${i}>
-                        <div class="img-div" style='height:100% !important'>
-                        <img class='collection-thumbnail' src='${image_url}'/>
-                        </div>
-                        <div style="position:relative;width:100%">
-                        <h4>${collections[i]["id"]}</h4>
-                        <p class="bottom-date">${collections[i]["properties"]["datetime"]}</p>
-                        </div>
-                        </div>`;
+
+            $("#start_date").on('change', function(e){
+                if($(this).val() == ""){
+                    let fetchRes = fetch("/stac/datasetcollection");
+                    fetchRes.then(res => res.json()).then(_data => {
+                        showData(_data, map)
+                    });
                 }
 
-                document.getElementById("collection-view").innerHTML = collectionHtml
+                else{
+                    var start_date = $(this).val()
+                var end_date = $("#end_date").val()
+                var search_string = document.getElementById("search-collection").value
 
-                $("#start_date").on('change', function(e){
-                    startDate($(this).val(), collections)
-                })
-
-                $("#end_date").on('change', function(e){
-                    endDate($(this).val(), collections)
-                })
-
-                $("#search-collection-btn").on('click', function(event){
-                    document.getElementById("clear-search-btn").style.display = "block"
-                    var search_string = document.getElementById("search-collection").value
-                    var resultArr = []
-                    
-                    for(var i = 0; i < collections.length; i++){
-
-                        if(collections[i]["properties"]["name"].includes(search_string)){
-                            resultArr.push(i)
-                        }
-                        if(collections[i]["properties"]["description"].includes(search_string) ){
-                            resultArr.push(i)
-                        }
-                        if(collections[i]["properties"]["keywords"].includes(search_string)){
-                            resultArr.push(i)
-                        }
-
-                        if($("#start_date").val()!= "" && $("#end_date").val() != ""){
-                            for(var i = 0; i < collections.length; i++){
-                                var temporal_start = new Date(collections[i]["extent"]["temporal"]["interval"][0][0])
-                                var temporal_end = new Date(collections[i]["extent"]["temporal"]["interval"][0][1])
-                                if(temporal_end <= end_date && temporal_start >= start_date){
-                                    resultArr.push(i)
-                                }
+                var ajaxData = {"start_date": start_date, "end_date": end_date, "search_string": search_string }
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/stac/datasetcollection-search',
+                    contentType: 'application/json',
+                    data: JSON.stringify(ajaxData),
+                        success: function(resultData) { 
+                            console.log(resultData)
+                            var el_error = document.getElementById("collection-search-error")
+                            if(resultData["features"].length < 1){
+                                el_error.style.display = "block"
+                                el_error.innerHTML = `No results found`
+                                $(".collection-show").each(function(){
+                                    $(this).addClass("hide-search")
+                                })
                             }
-
-                        }
-
-                        if($("#start_date").val()!= "" && $("#end_date").val() == ""){
-                            for(var i = 0; i < collections.length; i++){
-                                var temporal_start = new Date(collections[i]["properties"]["datetime"])
-                                if(temporal_start >= start_date){
-                                    resultArr.push(i)
+                            else{
+                                try {
+                                    el_error.style.display = "none"
+                                } catch (error) {
+                                    
                                 }
+                                showData(resultData, map)
                             }
+                            
+                        },
+                        error: function(resultData){
+                            
                         }
+                    });
+                }
+            })
 
-                        if($("#start_date").val()== "" && $("#end_date").val() != ""){
-                            for(var i = 0; i < collections.length; i++){
-                                var temporal_end = new Date(collections[i]["properties"]["datetime"])
-                                if(temporal_end <= end_date){
-                                    resultArr.push(i)
-                                }
+            $("#end_date").on('change', function(e){
+                if($(this).val() == ""){
+                    let fetchRes = fetch("/stac/datasetcollection");
+                    fetchRes.then(res => res.json()).then(_data => {
+                        showData(_data, map)
+                    });
+                }
+                else{
+                    var start_date = $(this).val()
+                var end_date = $("#end_date").val()
+                var search_string = document.getElementById("search-collection").value
+
+                var ajaxData = {"start_date": start_date, "end_date": end_date, "search_string": search_string }
+                $.ajax({
+                    type: 'POST',
+                    url: '/stac/datasetcollection-search',
+                    contentType: 'application/json',
+                    data: JSON.stringify(ajaxData),
+                        success: function(resultData) { 
+                            var el_error = document.getElementById("collection-search-error")
+                            if(resultData.length < 1){
+                                el_error.style.display = "block"
+                                el_error.innerHTML = `No results found`
+                                $(".collection-show").each(function(){
+                                    $(this).addClass("hide-search")
+                                })
                             }
+                            else{
+                                try {
+                                    el_error.style.display = "none"
+                                } catch (error) {
+                                    
+                                }
+                                showData(resultData, map)
+                            }
+                            
+                        },
+                        error: function(resultData){
+                            
                         }
-                       
-                    }
-                    
-                    $(".collection-show").each(function(){
-                        var index = $(this).data('collectionnum')
-                        if(!resultArr.includes(index)){
-                            $(this).addClass("hide-search")
+                    });
+                }
+            })
+
+            $("#search-collection-btn").on('click', function(event){
+                var start_date = $(this).val()
+                var end_date = $("#end_date").val()
+                var search_string = document.getElementById("search-collection").value
+
+                var ajaxData = {"start_date": start_date, "end_date": end_date, "search_string": search_string }
+                $.ajax({
+                    type: 'POST',
+                    url: '/stac/datasetcollection-search',
+                    contentType: 'application/json',
+                    data: JSON.stringify(ajaxData),
+                    success: function(resultData) { 
+                        var el_error = document.getElementById("collection-search-error")
+                        var el_error = document.getElementById("collection-search-error")
+                        if(resultData["features"].length < 1){
+                            el_error.style.display = "block"
+                            el_error.innerHTML = `No results found`
+                            $(".collection-show").each(function(){
+                                $(this).addClass("hide-search")
+                            })
                         }
                         else{
-                            if($(this).hasClass("hide-search")){
-                                $(this).removeClass("hide-search")
+                            try {
+                                el_error.style.display = "none"
+                            } catch (error) {
+                                
                             }
+                            showData(resultData, map)
                         }
-                    })
-
-                    var el = document.getElementById("collection-search-error")
-                    if(resultArr.length < 1){
-                        el.style.display = "block"
-                        el.innerHTML = `No results found for "${search_string}"`
-                        $(".collection-show").each(function(){
-                            $(this).addClass("hide-search")
-                        })
-                    }
-                    else{
-                        el.style.display = "none"
-                    }
-                })
-
-                $("#clear-search-btn").on('click', function(event){
-                    document.getElementById("search-collection").value = ""
-                    document.getElementById("clear-search-btn").style.display = "none"
-                    document.getElementById("collection-search-error").style.display = "none"
-                    $(".collection-show").each(function(){
-                        if($(this).hasClass("hide-search")){
-                            $(this).removeClass("hide-search")
-                        }
-                    })
-                })
-
-                $(".collection-show").on('click', function(event){
-                    var index = $(this).data('collectionnum')
-
-                    try {
-                        $('.maplibregl-popup').remove();
-                    } catch (error) {
+                        
+                    },
+                    error: function(resultData){
                         
                     }
-        
-                    if(map.getLayer("spatial_polygons")){
-                        map.removeLayer("spatial_polygons")
-                        map.removeSource("spatial_polygons")
-                    }
-    
-                    map.addSource("spatial_polygons", {
-                        type: "geojson",
-                        data: collections[index],
-                    });
-        
-                    map.addLayer({
-                        'id': 'spatial_polygons',
-                        'type': 'fill',
-                        'source': 'spatial_polygons',
-                        'layout': {},
-                        'paint': {
-                            'fill-color': '#088',
-                            'fill-opacity': 0.5
-                        }
-                    });
-                    map.rerenderLayer = false;
+                });
+            })
 
-                    var bounds = collections[index]["bbox"]
-                    map.fitBounds(bounds)
-                })
-                
-            });
+            $("#clear-search-btn").on('click', function(event){
+                let fetchRes = fetch("/stac/datasetcollection");
+                fetchRes.then(res => res.json()).then(_data => {
+                    showData(_data, map)
+                });
+            })
 
             map.on('click', 'spatial_polygons', (e) => {
                 const feature = map.queryRenderedFeatures(e.point)
