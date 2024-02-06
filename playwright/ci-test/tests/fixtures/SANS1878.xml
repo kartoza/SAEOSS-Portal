@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+        <title>test xml</title>
+        <MetadataStandardName>SANS1878</MetadataStandardName>
+        <MetadataStandardVersion>1</MetadataStandardVersion>
+        <notes>Abstract from the dataset</notes>
+        <ResponsiblePartyIndividualName>Hugh Mann</ResponsiblePartyIndividualName>
+        <ResponsiblePartyPositionName>Person</ResponsiblePartyPositionName>
+        <ResponsiblePartyRole>Point of contact</ResponsiblePartyRole>
+        <ResponsiblePartyElectronicMailAddress>example@example.com</ResponsiblePartyElectronicMailAddress>
+        <IsoTopicCategory>society</IsoTopicCategory>
+        <OwnerOrg>test</OwnerOrg>
+        <private>False</private>
+        <lineage_statement>test</lineage_statement>
+        <spatial>-22.1265,16.4699,-34.8212,32.8931, -22.1265</spatial>
+        <EquivalentScale>0</EquivalentScale>
+        <SpatialRepresentationType>001</SpatialRepresentationType>
+        <SpatialReferenceSystem>EPSG:4326</SpatialReferenceSystem>
+        <ReferenceDate>2004-11-03T01:00:00</ReferenceDate>
+        <ReferenceDateType>Publication</ReferenceDateType>
+        <StampDate>2004-11-03T00:12:00</StampDate>
+        <StampDateType>Creation</StampDateType>
+        <DistributionFormatName>format name</DistributionFormatName>
+        <DistributionFormatVersion>1.0</DistributionFormatVersion>
+        <DatasetLanguage>english</DatasetLanguage>
+        <MetadataLanguage>English</MetadataLanguage>
+        <DatasetCharacterset>UCS-2</DatasetCharacterset>
+        <MetadataCharacterset>UCS-2</MetadataCharacterset>
+        <OnlineResourceLinkage>https://test.com</OnlineResourceLinkage>
+        <OnlineResourceDescription>information</OnlineResourceDescription>
+</dataset>
+
+
