@@ -49,6 +49,87 @@ def get_bbox_and_footprint(raster):
         ])
 
         return (bbox, mapping(footprint))
+    
+def fetch_data(package, items):
+    package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package})
+    logger.debug(f"package {package_dict}")
+    try:
+        package_spatial = json.loads(package_dict['spatial'])
+    except KeyError:
+        package_spatial = {"type": "Polygon", "coordinates": [[[16.4699, -34.8212], [32.8931, -34.8212], [32.8931, -22.1265], [16.4699, -22.1265], [16.4699, -34.8212]]]}
+    logger.debug(f"spatial", package_spatial)
+    package_name = package_dict["name"]
+    package_title = package_dict["title"]
+    package_description = package_dict["notes"]
+    resources = package_dict["resources"]
+    package_date = package_dict["reference_date"]
+    
+    logger.debug(f"package details {package_dict}")
+
+    keywords = []
+    for tag in package_dict["tags"]:
+        keywords.append(tag["name"])
+
+    try:
+        thumbnail = package_dict["metadata_thumbnail"]
+    except KeyError:
+        if package_dict["organization"]["image_url"] != "" :
+            thumbnail = f'/uploads/group/{package_dict["organization"]["image_url"]}'
+        else:
+            thumbnail = "/images/org.png"
+
+    if package_date is None:
+        package_date = datetime.now()
+
+    spatial_extent = pystac.SpatialExtent(bboxes=[bounding_box(package_spatial['coordinates'][0])])
+
+    date_format = '%m/%d/%Y %H:%M:%S.%f'
+    collection_interval = [pd.to_datetime(package_date, infer_datetime_format=True), datetime.now()]
+    temporal_extent = pystac.TemporalExtent(intervals=[collection_interval])
+
+    collection_extent = pystac.Extent(spatial=spatial_extent, temporal=temporal_extent)
+    
+    collection_item = pystac.Item(id=f"{package_title}",
+                            geometry=package_spatial,
+                            bbox=bounding_box(package_spatial['coordinates'][0]),
+                            datetime=pd.to_datetime(package_date, infer_datetime_format=True),
+                            properties={
+                                "name": package_title,
+                                "description": package_description,
+                                "keywords": keywords
+                            },)
+
+    collection_item.add_links([
+            pystac.Link.root(f"http://localhost:5000/stac/collection/{package_name}"),
+            pystac.Link.canonical(f"http://localhost:5000/dataset/{package_name}")
+        ])
+    
+    collection_item.add_asset(
+                key='thumbnail',
+                asset=pystac.Asset(
+                    href=thumbnail
+                )
+            )
+
+    for resource in resources:
+        resource_id = resource["id"]
+        resource_name = resource["name"]
+        resource_url = resource["url"]
+        resource_url_type = resource["url_type"]
+        resource_format = resource["format"]
+        # resource_description = resource["notes"]
+        resource_created = resource["created"]
+        mimetype = resource["mimetype"]
+        collection_item.add_asset(
+                key='resource',
+                asset=pystac.Asset(
+                    title = resource_name,
+                    href=resource_url,
+                    media_type=resource_format
+                )
+            )
+        
+    items.append(collection_item)
 
 @stac_api_blueprint.route("/catalog", methods = ['POST', 'GET'])
 def catalog():
@@ -323,85 +404,107 @@ def datasetcollection():
     items = []
     
     for package in package_list:
-        package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package})
-        logger.debug(f"package {package_dict}")
-        try:
-            package_spatial = json.loads(package_dict['spatial'])
-        except KeyError:
-            package_spatial = {"type": "Polygon", "coordinates": [[[16.4699, -34.8212], [32.8931, -34.8212], [32.8931, -22.1265], [16.4699, -22.1265], [16.4699, -34.8212]]]}
-        logger.debug(f"spatial", package_spatial)
-        package_name = package_dict["name"]
-        package_title = package_dict["title"]
-        package_description = package_dict["notes"]
-        resources = package_dict["resources"]
-        package_date = package_dict["reference_date"]
+        fetch_data(package, items)
         
-        logger.debug(f"package details {package_dict}")
+    collection = pystac.ItemCollection(items)
+    
+    return jsonify(collection.to_dict()) 
 
-        keywords = []
-        for tag in package_dict["tags"]:
-            keywords.append(tag["name"])
 
-        try:
-            thumbnail = package_dict["metadata_thumbnail"]
-        except KeyError:
-            if package_dict["organization"]["image_url"] != "" :
-                thumbnail = f'/uploads/group/{package_dict["organization"]["image_url"]}'
-            else:
-                thumbnail = "/images/org.png"
 
+@stac_api_blueprint.route("/datasetcollection-search", methods = ['POST', 'GET'])
+def datasetcollection_post():
+    data = request.get_json()
+    logger.debug(f"json data {data['search_string']}")
+
+    search_string = data['search_string']
+    start_date = data['start_date']
+    end_date = data['end_date']
+
+    logger.debug(f"start_date {start_date}")
+    
+    package_list = p.toolkit.get_action("package_list")({},{})
+
+    items = []
+    
+    for package in package_list:
+        package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package})
+        # package_date = [pd.to_datetime(package_dict["reference_date"], infer_datetime_format=True), datetime.now()]
+        package_date = package_dict["reference_date"]
         if package_date is None:
             package_date = datetime.now()
+        else:
+            package_date = pd.to_datetime(end_date, infer_datetime_format=True)
+        isFound = False
+        if search_string != "" and start_date == "" and end_date == "":
+            if search_string in package_dict["name"] or search_string in package_dict["title"]:
+                isFound = True
 
-        spatial_extent = pystac.SpatialExtent(bboxes=[bounding_box(package_spatial['coordinates'][0])])
+            for tag in package_dict["tags"]:
+                if search_string in tag["name"]:
+                    isFound = True
 
-        date_format = '%m/%d/%Y %H:%M:%S.%f'
-        collection_interval = [pd.to_datetime(package_date, infer_datetime_format=True), datetime.now()]
-        temporal_extent = pystac.TemporalExtent(intervals=[collection_interval])
+        if search_string == "" and start_date != "" and end_date == "":
+            start_date = pd.to_datetime(start_date, infer_datetime_format=True)
+            if start_date <= package_date:
+                isFound = True
+            else:
+                isFound = False
 
-        collection_extent = pystac.Extent(spatial=spatial_extent, temporal=temporal_extent)
+        if search_string == "" and start_date == "" and end_date != "":
+            end_date = pd.to_datetime(end_date, infer_datetime_format=True)
+            if end_date >= package_date:
+                isFound = True
+            else:
+                isFound = False
+
+        if search_string == "" and start_date != "" and end_date != "":
+            start_date = pd.to_datetime(start_date, infer_datetime_format=True)
+            end_date = pd.to_datetime(end_date, infer_datetime_format=True)
+            if start_date <= package_date and end_date >= package_date:
+                isFound = True
+            else:
+                isFound = False
+
+        if search_string != "" and start_date != "" and end_date == "":
+            start_date = pd.to_datetime(start_date, infer_datetime_format=True)
+            end_date = pd.to_datetime(end_date, infer_datetime_format=True)
+            if search_string in package_dict["name"] or search_string in package_dict["title"]:
+                if start_date <= package_date:
+                    isFound = True
+
+            for tag in package_dict["tags"]:
+                if search_string in tag["name"]:
+                    if start_date <= package_date:
+                        isFound = True
+
+        if search_string != "" and start_date == "" and end_date != "":
+            start_date = pd.to_datetime(start_date, infer_datetime_format=True)
+            end_date = pd.to_datetime(end_date, infer_datetime_format=True)
+            if search_string in package_dict["name"] or search_string in package_dict["title"]:
+                if end_date >= package_date:
+                    isFound = True
+
+            for tag in package_dict["tags"]:
+                if search_string in tag["name"]:
+                    if end_date >= package_date:
+                        isFound = True
+
+
+        if search_string != "" and start_date != "" and end_date != "":
+            start_date = pd.to_datetime(start_date, infer_datetime_format=True)
+            end_date = pd.to_datetime(end_date, infer_datetime_format=True)
+            if search_string in package_dict["name"] or search_string in package_dict["title"]:
+                if start_date <= package_date and end_date >= package_date:
+                    isFound = True
+
+            for tag in package_dict["tags"]:
+                if search_string in tag["name"]:
+                    if start_date <= package_date and end_date >= package_date:
+                        isFound = True
         
-        collection_item = pystac.Item(id=f"{package_title}",
-                                geometry=package_spatial,
-                                bbox=bounding_box(package_spatial['coordinates'][0]),
-                                datetime=pd.to_datetime(package_date, infer_datetime_format=True),
-                                properties={
-                                    "name": package_title,
-                                    "description": package_description,
-                                    "keywords": keywords
-                                },)
-
-        collection_item.add_links([
-                pystac.Link.root(f"http://localhost:5000/stac/collection/{package_name}"),
-                pystac.Link.canonical(f"http://localhost:5000/dataset/{package_name}")
-            ])
-        
-        collection_item.add_asset(
-                    key='thumbnail',
-                    asset=pystac.Asset(
-                        href=thumbnail
-                    )
-                )
-    
-        for resource in resources:
-            resource_id = resource["id"]
-            resource_name = resource["name"]
-            resource_url = resource["url"]
-            resource_url_type = resource["url_type"]
-            resource_format = resource["format"]
-            # resource_description = resource["notes"]
-            resource_created = resource["created"]
-            mimetype = resource["mimetype"]
-            collection_item.add_asset(
-                    key='resource',
-                    asset=pystac.Asset(
-                        title = resource_name,
-                        href=resource_url,
-                        media_type=resource_format
-                    )
-                )
-            
-        items.append(collection_item)
+        if isFound:
+            fetch_data(package, items)
         
     collection = pystac.ItemCollection(items)
     
