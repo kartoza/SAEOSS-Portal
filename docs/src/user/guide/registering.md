@@ -1,5 +1,7 @@
 # Create an Account
 
+**Applicable Roles:** Anyone one who can access the site through the internet.
+
 In order to register on the site, click on the `SIGN UP` button on the top right hand corner of the page.
 
 ![register](img/registration-1.png)
@@ -13,5 +15,7 @@ Then fill in the registration form (example below).
 Once you have successfully registered, you can request to be added to an organisation using the CRISP help-desk.
 
 ![CRISP 1](img/crisp-1.png)
+
+Type your request in the designated field and then send it for it to be processed by the help team.
 
 ![CRISP 2](img/crisp-2.png)

@@ -13,7 +13,7 @@ copyright: Kartoza and Contributors
 
 markdown_extensions:
         - attr_list # lets us resize images see https://github.com/mkdocs/mkdocs/issues/1678#issuecomment-455500757
-        - sane_lists # lets us resize images see https://github.com/mkdocs/mkdocs/issues/1678#issuecomment-455500757
+        - sane_lists # helps make numbering in lists correct
         - pymdownx.highlight:
                   anchor_linenums: true
         - pymdownx.inlinehilite
@@ -53,23 +53,31 @@ nav:
                         - user/guide/index.md
                         - Registering: user/guide/registering.md
                         - Logging In: user/guide/logging-in.md
+                        - Forgot Password: user/guide/forgot-password.md
                         - Profile Settings: user/guide/profile-management.md
                         - Organisation Management: user/guide/organisation-management.md
                         - Search Metadata: user/guide/search-metadata.md
                         - Upload Metadata: user/guide/create-metadata.md
                         - Edit Metadata: user/guide/edit-metadata.md
+                        - Using the Map: user/guide/map.md
+                        - Logging out: user/guide/logout.md
                         - Report Issues: user/guide/opening-issues.md #Linked in a document
                 - Manual: 
                         - user/manual/index.md
                         - Home Page: user/manual/home.md
+                        - Sign Up Page: user/manual/sign-up.md
+                        - Login Page: user/manual/login.md
+                        - Forgot Password: user/manual/forgot-password.md
                         - Dashboard: user/manual/dashboard.md
                         - Profile: user/manual/profile-page.md
                         - Profile Settings: user/manual/profile-settings.md
-                        - Organisation: user/manual/organisation.md
                         - Metadata: user/manual/metadata.md
+                        - Saved Searches: user/manual/saved-search.md
                         - Map: user/manual/map.md
+                        - Organisations: user/manual/organisation.md
                         - About: user/manual/about.md
                         - Help: user/manual/help.md
+                        - Logout Page: user/manual/logout.md
                         - User Roles: user/manual/user-roles.md
                 - Metadata Standard: 
                         - user/research/index.md
@@ -79,7 +87,15 @@ nav:
                         - administrator/guide/index.md
                 - Manual:
                         - administrator/manual/index.md
-                        - administrator/manual/harvesting-settings.md
+                        - Profile: administrator/manual/profile.md
+                        - Harvest Settings: administrator/manual/harvesting-settings.md
+                        - Dashboard: administrator/manual/dashboard.md
+                        - Profile Settings: administrator/manual/profile-settings.md
+                        - Usage Statistics: administrator/manual/usage-statistics.md
+                        - Sysadmin Settings: administrator/manual/sysadmin-settings.md
+                        - Metadata Validator: administrator/manual/metadata-validator.md
+                        - STAC Harvester: administrator/manual/stac-harvester.md
+                        - Super Users: administrator/manual/super-user.md
         - Developers:
                 - developer/index.md
                 - Guide:

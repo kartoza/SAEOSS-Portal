@@ -12,11 +12,11 @@ The SAEOSS-Portal is designed to be a robust, information sharing platform with 
 
 #### Contributing
 
-We would love to collaborate with you! But first, please read our [contributor guidelines](./about/contributing.md) which describe how to report issues, plan and contribute feature additions etc.
+We would love to collaborate with you! First please read our [contributor guidelines](./about/contributing.md) which describe how to report issues, plan and contribute feature additions etc.
 
 #### Code of Conduct
 
-Our community in this project is aligned with our [code of conduct](./about/code-of-conduct.md) - please be sure to read, and abide by, that document in all interactions with out community.
+Our community in this project is aligned with our [code of conduct](./about/code-of-conduct.md) - please be sure to read, and abide by, that document in all interactions with our community.
 
 #### Diversity Statement
 
@@ -28,7 +28,7 @@ While much of the work for our project is technical in nature, we value and enco
 
 ## Project Partners
 
-By partnering up with SANSA (South african National Space Agency), SAEON (South-African Environmental Observation Network) and The Department of Science & Innovation, joint interests sparked the conceptualization of the SAEOSS-portal platform.
+By partnering up with SANSA (South African National Space Agency), SAEON (South African Environmental Observation Network) and The Department of Science & Innovation, joint interests sparked the conceptualisation of the SAEOSS-portal platform.
 
 [<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/SANSA_Logo.png" alt= “” width="30%" height="auto">](https://www.sansa.org.za/)[<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/SAEONN_Logo.png" alt= “” width="30%" height="auto">](https://www.saeon.ac.za/)[<img src="https://raw.githubusercontent.com/kartoza/SAEOSS-Portal/main/docs/src/img/DSI_logo.png" alt= “” width="40%" height="auto">](https://www.dst.gov.za)
 
@@ -53,7 +53,7 @@ The software provided by this project is provided 'as is'. All information provi
 
 ### License
 
-This platform was released under the GNU Affero license. Please take a moment to review the full extent of the [License](./about/license.md).
+This platform was released under the GNU Affero License. Please take a moment to review the full extent of the [License](./about/license.md).
 
 ## Kartoza
 

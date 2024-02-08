@@ -1,0 +1,86 @@
+{
+    "aerialway": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 0,
+        "y": 0
+    },
+    "airfield": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 19,
+        "y": 0
+    },
+    "airport": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 0,
+        "y": 19
+    },
+    "alcohol-shop": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 19,
+        "y": 19
+    },
+    "american-football": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 38,
+        "y": 0
+    },
+    "amusement-park": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 57,
+        "y": 0
+    },
+    "aquarium": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 38,
+        "y": 19
+    },
+    "arrow": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 57,
+        "y": 19
+    },
+    "art-gallery": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 0,
+        "y": 38
+    },
+    "attraction": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 19,
+        "y": 38
+    },
+    "bakery": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 38,
+        "y": 38
+    },
+    "bank": {
+        "height": 19,
+        "pixelRatio": 1,
+        "width": 19,
+        "x": 57,
+        "y": 38
+    }
+}

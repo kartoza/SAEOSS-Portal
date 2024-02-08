@@ -1,6 +1,6 @@
 # Home Page
 
-When first accessing the SAEOSS-Portal, the home page is displayed. From the home page, users are able to [create an account](../guide/registering.md), [login](../guide/logging-in.md), or view metadata.
+When first accessing the SAEOSS-Portal, the home page is displayed. From the home page, users are able to [create an account](../guide/registering.md), [login](../guide/logging-in.md), or view public metadata.
 
 Users are able to view any public metadata on the platform without the need to log in. Without an account, users are not able to be affiliated with any organization or group and will not be able to see any private data of that group or receive any notifications from the platform.
 
@@ -15,7 +15,7 @@ From the home page, there are many ways to navigate to various pages on the plat
 | Home Page | ![Home_link](./img/Home_link.png) | By clicking on the SANSA logo from anywhere on the platform, the home page will be displayed. |
 | Login / Sign-Up | ![Home_link](./img/login-signup.png) | By selecting the login / sign-up button in the top right corner, users can log in or create an account. |
 | Social Media Links | ![Home_link](./img/social_media.png) | Various social media pages for SANSA can be accessed through the social media links on the left. |
-| Navbar / Navlinks / Navcards | ![Home_link](./img/nav-pane.png) <br> ![Nav_links](./img/nav-links.png) <br> ![Nav_card](./img/nav-card.png)| The navpane allows for easy access to all main pages of the platform. |
+| Navigation bar / Nav links / Nav cards | ![Home_link](./img/nav-pane.png) <br> ![Nav_links](./img/nav-links.png) <br> ![Nav_card](./img/nav-card.png)| The navigation bar allows for easy access to all main pages of the platform. |
 
 ## Crisp Interface
 
@@ -27,43 +27,29 @@ The crisp chat interface allows you to directly contact administrators of the pl
  --- | --- |
 | ![interface](./img/crisp_chat_icon.png) | ![Crisp_chat_interface](./img/crisp_chat.png) |
 
-## Workflows <!-- Workflows belong in the guide not the manual? -->
+## Home Page User Manual (After Login)
 
-### Sign Up
+After logging in, users can go to the home page, by clicking on the home option available in the navigation offering a range of features to enhance their experience. Here is a guide to the options available:
 
-Users who wish to create a user account can do so by following these steps:
+![home page](./img/home-1.png)
 
-1. From the home screen, select one of the sign up buttons:
+1. **Profile Icon with Username:** Located at the top of the page, the profile icon displays the user's username. Click on the profile icon to reveal additional options.
 
-   ![Sign up](./img/login-signup.png)
+![home page](./img/home-2.png)
 
-   or
+1. **Explore Map Link:** Access the interactive map viewer to explore metadata visually. Discover geographic data displayed on the map, providing a visual representation of available metadata records. Interact with the map interface to gain insights into spatial information for better project planning. Click on the link or the arrow to go to the `Explore Map` page.
 
-   ![sign up button](./img/sign_button.png)
+    ![explore map](./img/home-3.png)
 
-2. Complete the signup form with all the relevant details.
-   > **NOTE:** *Fields marked with an `*` are mandatory fields and cannot be left blank.*
+2. **Search Link:** Use the search functionality to filter through a vast library of public records. Apply different filter types to efficiently find the exact data needed for your projects. Accelerate your data discovery process with powerful and customizable search capabilities. Click on the link or the arrow to go to the `Metadata` page and search.
 
-   ![Sign up form](./img/register_form.png)
+    ![search](./img/home-4.png)
 
-   > **NOTE:** *Your password should contain at least `8` characters.*
 
-### Login
+3. **Metadata Browser Link:** Explore the comprehensive metadata repository through the Metadata Browser link. Access detailed information about data resources, enabling informed decision-making. Navigate through well-organised metadata, serving as your gateway to valuable and structured data. Click on the link or the arrow to go to the `Metadata` page.
 
-Once a user account has been created, users can log in to the platform by following these steps:
+    ![metadata](./img/home-4.png)
 
-1. From the home screen, select one of the following login buttons:
+## Conclusion 
 
-    ![Login](./img/login-signup.png)
-
-    or
-
-    ![login_button](./img/login_button.png)
-
-2. Complete the login form and click on login.
-
-   ![login_form](./img/login_form.png)
-
-3. When the dashboard is displayed, you have successfully logged in.
-
-   ![Dashboard](./img/Dashboard.png)
+These options empower users with tools to explore, search, and analyse data effectively. If the users have any questions or need assistance while navigating the home page, feel free to contact our support team for prompt help.

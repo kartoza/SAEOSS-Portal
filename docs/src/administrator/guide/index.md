@@ -16,6 +16,8 @@
 
 *A sysadmin user has full access to user accounts*
 
+### Method 1
+
 1. To find a user’s profile, enter the following address in your internet browser https://{sitename}/user/ ('/user/' has been appended to the website’s url)
 2. You can search for a specific profile using the search box provided
 ![Alt text](img/user-search.png)
@@ -27,11 +29,37 @@
 5. To save any changes enter your sysadmin password in the box
 ![Alt text](img/sysadmin-pass.png)
 
+### Method 2
+
+1. Navigate to an organisation's home page and then click on `Manage`.
+
+      ![non-owned profile 1](img/non-owned-profile-1.png)
+
+2. Then click on the `Members` tab.
+
+      ![non-owned profile 2](img/non-owned-profile-2.png)
+
+3. Then click on a user's name that you would like to manage.
+
+      ![non-owned profile 3](img/non-owned-profile-3.png)
+
+4. You will be redirected to the user's profile page. On this page you should click on the `Manage` button.
+
+      ![non-owned profile 4](img/non-owned-profile-4.png)
+
+5. You will be redirected to the `Change details` page, here you can manage the user's profile details. Once you have made your changes to the user's profile, scroll down and enter your `Sysadmin Password` (i.e. the password you use to log in to the administrator account), and then click on the `Update Profile` button.
+
+      ![non-owned profile 5](img/non-owned-profile-5.png)
+
+6. If you would like to remove the user, you can scroll down and enter your `Sysadmin Password` (i.e. the password you use to log in to the administrator account), and then click on the `Delete` button.
+
+      ![non-owned profile 6](img/non-owned-profile-6.png)
+
 ## Add Organisation
 
 *A sysadmin user has full access to organizations. For example, you have access to every organization as if you were a member of that organization. Thus most management operations are done in exactly the same way as in the normal web interface*
 
-1. Click on “Organisations” link in navbar
+1. Click on “Organisations” link in navigation bar
 2. Click on “Add organisation”
 3. Fill out the required fields
 4. If you do not upload a thumbnail, a predefined image will show on web portal
@@ -95,3 +123,53 @@ Similarly, to edit, update or delete a dataset, go to the dataset page and use t
 ![Alt text](img/trash.png)
 5. From this page you can purge metadata records/ organisations or groups
 ![Alt text](img/purge.png)
+
+## Usage statistics
+
+To access the `Usage Statistics`, click on the profile icon in the top navigation bar. Choose the `Usage Statistics` option from the dropdown menu.
+
+*The Usage Statistics section provides valuable insights into various aspects of system usage, including dataset revisions, most edited datasets, group activities, tags, user contributions, and total dataset counts.*
+
+![usage statistics](./img/usage-statistics-1.png)
+
+**Navigation Tip:**
+
+Users can easily access detailed information by clicking on the name of the respective table in the `Usage Statistics` section. Additionally, they can scroll through the tables to explore the variety of insights available at a glance.
+
+## Creating a SuperUser
+
+- Open the terminal.
+
+Run ```docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add admin```
+
+![create superuser command](./img/superuser-1.png)
+
+The user is expected to input either `Y` for Yes or `n` for No based on their intention to create a superuser.
+
+![confirmation](./img/superuser-2.png)
+
+Enter the required information for creating the superuser account
+
+![enter information](./img/superuser-3.png)
+
+## Converting a Normal User to a SuperUser
+
+```bash
+docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add <username>
+```
+Replace the `username` with the desired user's username.
+
+![convert the normal user to a super user](./img/superuser-4.png)
+
+Before the superuser privileges
+
+![Bob002 as a normal user](./img/superuser-5.png)
+
+After the superuser privileges
+
+![Bob002 as a superuser](./img/superuser-6.png)
+
+**Security Tips:**
+
+- Keep SuperUser credentials secure.
+- Regularly update SuperUser credentials for enhanced security.
