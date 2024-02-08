@@ -7,9 +7,6 @@ services:
   ckan-web:
     image: saeoss:${CKAN_IMAGE_TAG}
 
-  ckan-datapusher:
-    image: ckan/ckan-base-datapusher:0.0.20
-
   ckan-background-worker:
     image: saeoss:${CKAN_IMAGE_TAG}
     command: ["launch-ckan-cli", "jobs", "worker"]
@@ -35,10 +32,10 @@ services:
     image: "geopython/pycsw@sha256:84382cbbd18e9788e9b1bb75299ce24b31403f3b3a4afc036c55c4a96a78cdae"
     volumes:
       - type: bind
-        source: ./pycsw/pycsw-config.cfg
+        source: $PWD/pycsw/pycsw-config.cfg
         target: /etc/pycsw/pycsw.cfg
       - type: bind
-        source: ./pycsw/pycsw_repository_mappings.py
+        source: $PWD/pycsw/pycsw_repository_mappings.py
         target: /etc/pycsw/pycsw_repository_mappings.py
 
   # NOTE: This needs to be ran as a periodic command, check the
@@ -51,40 +48,14 @@ services:
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
 
-  datastore-db:
-    image: postgis/postgis:13-3.1
-    environment:
-      PGDATA: /var/lib/postgresql/data/pgdata
-      DATASTORE_READONLY_USER: datastore-default
-      DATASTORE_READONLY_USER_PASSWORD: datastore-default
-    volumes:
-      - type: bind
-        source: ./datastore-db
-        target: /docker-entrypoint-initdb.d
-
   solr:
-    build: https://github.com/kartoza/kartoza_ckan_solr.git#main
+    build: https://github.com/kartoza/kartoza_ckan_solr.git
     ports:
-<<<<<<< Updated upstream
       - 8983:8983
-<<<<<<< Updated upstream
     volumes:
       - type: bind
         source: $PWD/solr/schema.xml
         target: /opt/solr/server/solr/ckan/conf/schema.xml
-=======
-    # volumes:
-    #   - type: bind
-    #     source: $PWD/solr/schema.xml
-    #     target: /opt/solr/server/solr/ckan/conf/schema.xml
-=======
-      - 8977:8977
-    volumes:
-      - type: bind
-        source: ./solr/schema.xml
-        target: /opt/solr/server/solr/ckan/conf/schema.xml
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
   redis:
     image: redis:6.2
