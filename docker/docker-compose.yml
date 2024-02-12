@@ -7,6 +7,9 @@ services:
   ckan-web:
     image: saeoss:${CKAN_IMAGE_TAG}
 
+  ckan-datapusher:
+    image: ckan/ckan-base-datapusher:0.0.20
+
   ckan-background-worker:
     image: saeoss:${CKAN_IMAGE_TAG}
     command: ["launch-ckan-cli", "jobs", "worker"]
@@ -48,14 +51,25 @@ services:
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
 
-  solr:
-    build: https://github.com/kartoza/kartoza_ckan_solr.git
-    ports:
-      - 8983:8983
+  datastore-db:
+    image: postgis/postgis:13-3.1
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      DATASTORE_READONLY_USER: datastore-default
+      DATASTORE_READONLY_USER_PASSWORD: datastore-default
     volumes:
       - type: bind
-        source: $PWD/solr/schema.xml
-        target: /opt/solr/server/solr/ckan/conf/schema.xml
+        source: $PWD/datastore-db
+        target: /docker-entrypoint-initdb.d
+
+  solr:
+    build: https://github.com/kartoza/kartoza_ckan_solr.git#main
+    ports:
+      - 8983:8983
+    # volumes:
+    #   - type: bind
+    #     source: $PWD/solr/schema.xml
+    #     target: /opt/solr/server/solr/ckan/conf/schema.xml
 
   redis:
     image: redis:6.2
