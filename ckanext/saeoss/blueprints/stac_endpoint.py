@@ -429,6 +429,7 @@ def datasetcollection_post():
     
     for package in package_list:
         package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package})
+        logger.debug(f"package details {package_dict}")
         # package_date = [pd.to_datetime(package_dict["reference_date"], infer_datetime_format=True), datetime.now()]
         package_date = package_dict["reference_date"]
         if package_date is None:
@@ -448,23 +449,17 @@ def datasetcollection_post():
             start_date = pd.to_datetime(start_date, infer_datetime_format=True)
             if start_date <= package_date:
                 isFound = True
-            else:
-                isFound = False
 
         if search_string == "" and start_date == "" and end_date != "":
             end_date = pd.to_datetime(end_date, infer_datetime_format=True)
             if end_date >= package_date:
                 isFound = True
-            else:
-                isFound = False
 
         if search_string == "" and start_date != "" and end_date != "":
             start_date = pd.to_datetime(start_date, infer_datetime_format=True)
             end_date = pd.to_datetime(end_date, infer_datetime_format=True)
             if start_date <= package_date and end_date >= package_date:
                 isFound = True
-            else:
-                isFound = False
 
         if search_string != "" and start_date != "" and end_date == "":
             start_date = pd.to_datetime(start_date, infer_datetime_format=True)

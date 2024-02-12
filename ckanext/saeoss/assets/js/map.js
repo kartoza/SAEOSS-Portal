@@ -292,40 +292,40 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
                 else{
                     var start_date = $(this).val()
-                var end_date = $("#end_date").val()
-                var search_string = document.getElementById("search-collection").value
+                    var end_date = $("#end_date").val()
+                    var search_string = document.getElementById("search-collection").value
 
-                var ajaxData = {"start_date": start_date, "end_date": end_date, "search_string": search_string }
-                
-                $.ajax({
-                    type: 'POST',
-                    url: '/stac/datasetcollection-search',
-                    contentType: 'application/json',
-                    data: JSON.stringify(ajaxData),
-                        success: function(resultData) { 
-                            console.log(resultData)
-                            var el_error = document.getElementById("collection-search-error")
-                            if(resultData["features"].length < 1){
-                                el_error.style.display = "block"
-                                el_error.innerHTML = `No results found`
-                                $(".collection-show").each(function(){
-                                    $(this).addClass("hide-search")
-                                })
-                            }
-                            else{
-                                try {
-                                    el_error.style.display = "none"
-                                } catch (error) {
-                                    
+                    var ajaxData = {"start_date": start_date, "end_date": end_date, "search_string": search_string }
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: '/stac/datasetcollection-search',
+                        contentType: 'application/json',
+                        data: JSON.stringify(ajaxData),
+                            success: function(resultData) { 
+                                console.log(resultData)
+                                var el_error = document.getElementById("collection-search-error")
+                                if(resultData["features"].length < 1){
+                                    el_error.style.display = "block"
+                                    el_error.innerHTML = `No results found`
+                                    $(".collection-show").each(function(){
+                                        $(this).addClass("hide-search")
+                                    })
                                 }
-                                showData(resultData, map)
+                                else{
+                                    try {
+                                        el_error.style.display = "none"
+                                    } catch (error) {
+                                        
+                                    }
+                                    showData(resultData, map)
+                                }
+                                
+                            },
+                            error: function(resultData){
+                                
                             }
-                            
-                        },
-                        error: function(resultData){
-                            
-                        }
-                    });
+                        });
                 }
             })
 
@@ -337,8 +337,8 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     });
                 }
                 else{
-                    var start_date = $(this).val()
-                var end_date = $("#end_date").val()
+                var start_date = $('#start_date').val()
+                var end_date = $(this).val()
                 var search_string = document.getElementById("search-collection").value
 
                 var ajaxData = {"start_date": start_date, "end_date": end_date, "search_string": search_string }
@@ -412,6 +412,8 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
             $("#clear-search-btn").on('click', function(event){
                 let fetchRes = fetch("/stac/datasetcollection");
+                $("#start_date").val('')
+                $("#end_date").val('')
                 fetchRes.then(res => res.json()).then(_data => {
                     showData(_data, map)
                 });
