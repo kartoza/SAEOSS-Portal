@@ -12,7 +12,7 @@ version: "3.8"
 # Later in the file we refer to them using YAML aliases.
 
 # centralized definition of published ports, in order to avoid clashes
-x-ckan-web-published-port: &ckan-web-published-port 5005
+x-ckan-web-published-port: &ckan-web-published-port 5000
 x-pycsw-published-port: &pycsw-published-port 5001
 x-ckan-db-published-port: &ckan-db-published-port 55432
 x-datastore-db-published-port: &datastore-db-published-port 55433
