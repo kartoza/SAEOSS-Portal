@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+        <title></title>
+        <MetadataStandardName></MetadataStandardName>
+        <MetadataStandardVersion></MetadataStandardVersion>
+        <notes></notes>
+        <ResponsiblePartyIndividualName></ResponsiblePartyIndividualName>
+        <ResponsiblePartyPositionName></ResponsiblePartyPositionName>
+        <ResponsiblePartyRole></ResponsiblePartyRole>
+        <ResponsiblePartyElectronicMailAddress></ResponsiblePartyElectronicMailAddress>
+        <IsoTopicCategory></IsoTopicCategory>
+        <OwnerOrg></OwnerOrg>
+        <private></private>
+        <lineage_statement></lineage_statement>
+        <spatial></spatial>
+        <EquivalentScale></EquivalentScale>
+        <SpatialRepresentationType></SpatialRepresentationType>
+        <SpatialReferenceSystem></SpatialReferenceSystem>
+        <ReferenceDate></ReferenceDate>
+        <ReferenceDateType></ReferenceDateType>
+        <StampDate></StampDate>
+        <StampDateType></StampDateType>
+        <DistributionFormatName></DistributionFormatName>
+        <DistributionFormatVersion></DistributionFormatVersion>
+        <DatasetLanguage></DatasetLanguage>
+        <MetadataLanguage></MetadataLanguage>
+        <DatasetCharacterset></DatasetCharacterset>
+        <MetadataCharacterset></MetadataCharacterset>
+        <OnlineResourceLinkage></OnlineResourceLinkage>
+        <OnlineResourceDescription></OnlineResourceDescription>
+</dataset>
+
+
