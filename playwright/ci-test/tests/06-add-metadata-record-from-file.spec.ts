@@ -38,13 +38,27 @@ test.describe('add metadata record from file', () => {
 
     const fileChooserPromise = page.waitForEvent('filechooser');
 
-    await page.getByRole('button', { name: ' Add metadata record from' }).click();
+    const addMetadataRecord = page.getByRole('button', { name: ' Add metadata record from' });
+
+    await addMetadataRecord.click();
+
+    await expect(page.locator('#exampleModalLabel')).toBeVisible();
+
+    await expect(page.getByText('Download Template XML')).toBeVisible();
+
+    await expect(page.locator('#metadata-from-file-btn')).toBeVisible();
+
+    await page.locator('#metadata-from-file-btn').click();
 
     const fileChooser = await fileChooserPromise;
 
-    await fileChooser.setFiles('tests/fixtures/SANS1878.xml');
+    await fileChooser.setFiles('tests/fixtures/SANS1878_Test.xml');
 
     await page.waitForLoadState('load');
+
+    const closeAddMetadataFile = page.getByLabel('Breadcrumb').getByText('Close');
+
+    await closeAddMetadataFile.click();
 
     await expect(page.getByText('all packages were created×')).toBeVisible();
 
@@ -105,13 +119,27 @@ test.describe('add metadata record from file', () => {
 
     const fileChooserPromise = page.waitForEvent('filechooser');
 
-    await page.getByRole('button', { name: ' Add metadata record from' }).click();
+    const addMetadataRecord = page.getByRole('button', { name: ' Add metadata record from' });
+
+    await addMetadataRecord.click();
+
+    await expect(page.locator('#exampleModalLabel')).toBeVisible();
+
+    await expect(page.getByText('Download Template XML')).toBeVisible();
+
+    await expect(page.locator('#metadata-from-file-btn')).toBeVisible();
+
+    await page.locator('#metadata-from-file-btn').click();
 
     const fileChooser = await fileChooserPromise;
 
     await fileChooser.setFiles('tests/fixtures/SANS1878.json');
 
     await page.waitForLoadState('load');
+
+    const closeAddMetadataFile = page.getByLabel('Breadcrumb').getByText('Close');
+
+    await closeAddMetadataFile.click();
 
     await expect(page.getByText('all packages were created×')).toBeVisible();
 
@@ -172,13 +200,27 @@ test.describe('add metadata record from file', () => {
 
     const fileChooserPromise = page.waitForEvent('filechooser');
 
-    await page.getByRole('button', { name: ' Add metadata record from' }).click();
+    const addMetadataRecord = page.getByRole('button', { name: ' Add metadata record from' });
+
+    await addMetadataRecord.click();
+
+    await expect(page.locator('#exampleModalLabel')).toBeVisible();
+
+    await expect(page.getByText('Download Template XML')).toBeVisible();
+
+    await expect(page.locator('#metadata-from-file-btn')).toBeVisible();
+
+    await page.locator('#metadata-from-file-btn').click();
 
     const fileChooser = await fileChooserPromise;
 
     await fileChooser.setFiles('tests/fixtures/SANS1878.yaml');
 
     await page.waitForLoadState('load');
+
+    const closeAddMetadataFile = page.getByLabel('Breadcrumb').getByText('Close');
+
+    await closeAddMetadataFile.click();
 
     await expect(page.getByText('all packages were created×')).toBeVisible();
 
