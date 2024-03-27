@@ -26,7 +26,11 @@ The `Sign Up` page allows users to create a new account, providing access to per
 
     *Note:* Fields marked with * are required.
 
-2. **Create Account:** After filling out the required fields, click on the `Create Account` button.
+![sign up page](./img/signup-3.png)
+
+2. **Captcha:** Complete the Captcha form to verify that you are not a robot. The Captcha form serves as a security measure to differentiate between human users and automated bots attempting to access or interact with the system. It helps prevent spam, abuse, and unauthorised access by requiring users to prove their identity as a human user.
+
+3. **Create Account:** After filling out the required fields, click on the `Create Account` button.
 The system will process the user's information and create the user's account.
 
 ## Conclusion
