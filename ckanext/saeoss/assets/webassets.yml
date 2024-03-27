@@ -181,6 +181,13 @@ spatial-search-js:
     - js/spatial_search.js
   filter: rjsmin
 
+dataset-map-js:
+  output: ckanext-saeoss/%(version)s_dataset_map.js
+  contents:
+    - js/dataset_map_leaflet.js
+  filter: rjsmin
+
+
 change-dataset-word-js:
   output: ckanext-saeoss/%(version)s_rename_dataset_to_metadata_record.js
   contents:

@@ -29,6 +29,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
       python-dev \
       libxslt1-dev \
       libgeos-c1v5  \
+      libgdal-dev \
       zlib1g-dev && \
     apt-get --yes clean && \
     rm -rf /var/lib/apt/lists/*

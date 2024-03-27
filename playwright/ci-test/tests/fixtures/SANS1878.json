@@ -1,0 +1,33 @@
+{
+    "dataset": {
+      "title": "test json",
+      "MetadataStandardName": "SANS1878",
+      "MetadataStandardVersion": 1,
+      "notes": "Abstract from the dataset",
+      "ResponsiblePartyIndividualName": "Hugh Mann",
+      "ResponsiblePartyPositionName": "Person",
+      "ResponsiblePartyRole": "Point of contact",
+      "ResponsiblePartyElectronicMailAddress": "example@example.com",
+      "IsoTopicCategory": "society",
+      "OwnerOrg": "test",
+      "private": false,
+      "lineage_statement": "test",
+      "spatial": "-22.1265,16.4699,-34.8212,32.8931, -22.1265",
+      "EquivalentScale": 0,
+      "SpatialRepresentationType": "001",
+      "SpatialReferenceSystem": "EPSG:4326",
+      "ReferenceDate": "2004-11-03T01:00:00",
+      "ReferenceDateType": "Publication",
+      "StampDate": "2004-11-03T00:12:00",
+      "StampDateType": "Creation",
+      "DistributionFormatName": "format name",
+      "DistributionFormatVersion": 1.0,
+      "DatasetLanguage": "english",
+      "MetadataLanguage": "English",
+      "DatasetCharacterset": "UCS-2",
+      "MetadataCharacterset": "UCS-2",
+      "OnlineResourceLinkage": "https://test.com",
+      "OnlineResourceDescription": "information"
+    }
+  }
+  
