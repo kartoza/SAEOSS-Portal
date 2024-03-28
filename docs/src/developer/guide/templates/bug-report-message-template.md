@@ -1,3 +1,15 @@
+---
+title: SAEOSS Portal
+summary: Discover a world of data-driven possibilities at the SAEOSS-Portal, where information converges to empower data sharing and decision-making.
+    - Jeremy Prior
+    - Juanique Voot
+    - Ketan Bamniya
+date: 28-03-2024
+some_url: https://github.com/kartoza/SAEOSS-Portal
+copyright: Copyright 2024, SANSA
+contact:
+license: This program is free software; you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+---
 
 # Bug Report Template
 A standard workflow for creating tickets is advised to make sure enough information about the problem is related, cutting down on time developers would spend trying to understand the issue at hand. To mitigate this a general approach has been created to make sure users are able to create a GitHub ticket with as much detail as possible. 

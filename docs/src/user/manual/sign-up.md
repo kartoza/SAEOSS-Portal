@@ -1,3 +1,16 @@
+---
+title: SAEOSS Portal
+summary: Discover a world of data-driven possibilities at the SAEOSS-Portal, where information converges to empower data sharing and decision-making.
+    - Jeremy Prior
+    - Juanique Voot
+    - Ketan Bamniya
+date: 28-03-2024
+some_url: https://github.com/kartoza/SAEOSS-Portal
+copyright: Copyright 2024, SANSA
+contact:
+license: This program is free software; you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+---
+
 # Sign Up Page User Manual
 
 ## Overview
@@ -26,7 +39,11 @@ The `Sign Up` page allows users to create a new account, providing access to per
 
     *Note:* Fields marked with * are required.
 
-2. **Create Account:** After filling out the required fields, click on the `Create Account` button.
+![sign up page](./img/signup-3.png)
+
+2. **Captcha:** Complete the Captcha form to verify that you are not a robot. The Captcha form serves as a security measure to differentiate between human users and automated bots attempting to access or interact with the system. It helps prevent spam, abuse, and unauthorised access by requiring users to prove their identity as a human user.
+
+3. **Create Account:** After filling out the required fields, click on the `Create Account` button.
 The system will process the user's information and create the user's account.
 
 ## Conclusion

@@ -1,115 +1,36 @@
-# Prerequisites
+---
+title: SAEOSS Portal
+summary: Discover a world of data-driven possibilities at the SAEOSS-Portal, where information converges to empower data sharing and decision-making.
+    - Jeremy Prior
+    - Juanique Voot
+    - Ketan Bamniya
+date: 28-03-2024
+some_url: https://github.com/kartoza/SAEOSS-Portal
+copyright: Copyright 2024, SANSA
+contact:
+license: This program is free software; you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+---
 
-In this section we cover any tools that need to be on your system so that you can have a local development environment.
+# Project Prerequisites
 
-## Overview
+## Installation of Docker
 
-We assume in our notes that you are using the current Ubuntu LTS - though we try to keep things generic so that you can repeat on other distros or WSL2 on windows.
+Ensure that Docker is installed on the machine where the environment will be set up using Docker Compose.
+Follow the official Docker installation guide for your operating system to install Docker: [Docker Installation Guide](https://docs.docker.com/engine/install/).
 
-We recommend using the official Docker packages (not those provided by your distro) and assume membership of the docker group. See [docker.io's guide](https://docs.docker.com/engine/install/ubuntu/) for setup notes and below for adding yourself to the docker group.
+## Minimal Dependencies Outside Docker
 
-```
-sudo usermod -a -G docker $user
-```
-(Restart your computer after making this change)
+Since the environment is set up using Docker Compose, there are minimal dependencies outside Docker itself.
+Docker Compose will handle the setup and orchestration of containers, so there's no need for additional software or dependencies.
 
-You need to have docker-compose installed - version 1.29 or later should work fine.
+## Configuration in Docker Compose
 
-![image.png](img/prerequisites-docker.png)
+Define the services and configurations needed for the environment in the docker-compose.yml file.
+Specify any required Docker images, volumes, networks, ports, environment variables, and other settings in the Docker Compose configuration.
 
-You should have [Git](https://git-scm.com/) installed.
+## Sudo Rights for Docker
 
-You should have [VSCode](https://code.visualstudio.com/) installed (using PyCharm is also possible).
+Ensure that the user running Docker commands has sudo rights to execute Docker commands without requiring a password.
+Granting sudo rights to Docker commands can be done by adding the user to the Docker group. However, it's essential to understand the security implications of this action.
 
-If using VSCode (our recommended IDE), you need the the VSCode [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension installed (minimum version 0.304.0).
-
-![image.png](img/ide-dev-containers-1.png)  
-
-![image.png](img/ide-dev-containers-2.png){:height 312, :width 689}  
-
-You will also need Gnu ['make'](https://www.gnu.org/software/make/) installed.
-
-If you already have all of the above criteria met, you can move on to [Cloning](cloning.md) to check out the code, otherwise, read on for more detailed notes on setting up your system.
-
-## Dependencies installation
-
-The project provide **make** command that making setup process easier.
-To install make on your machine or virtual box server, do:
-
-```
-sudo apt install make
-```
-
-Project has recipe that you can use to run the project in one command.
-This recipe needs docker-compose to be able to use it.
-To install it, do:
-
-```
-sudo apt install docker-compose
-apt install ca-certificates curl gnup lsb-release  
-```
-
-## Docker installation
-
-The project needs docker to be able to run it. To install docker, please follow these instructions.
-
-```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg     
-```
-
-On the next prompt line:
-
-```
-echo \
-"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg]https:download.docker.com/linux/ubuntu \
-$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-```
-
-Run apt update:
-
-```
-sudo apt-get update
-```
-
-This will install docker
-```
-sudo apt-get install  docker-ce-cli containerd.io
-```
-
-This will check if installation of docker was successful
-```
-sudo docker version
-```
-And it should return like this
-
-```
-Client: Docker Engine - Community
- Version:           20.10.9
- API version:       1.41
- Go version:        go1.16.8
- Git commit:        c2ea9bc
- Built:             Mon Oct  4 16:08:29 2021
- OS/Arch:           linux/amd64
- Context:           default
- Experimental:      true
-
-```
-
-### Manage docker as non-root
-
-This will ensure that the docker can be executed without sudo.
-```
-sudo systemctl daemon-reload
-sudo systemctl start docker
-sudo usermod -a -G $USER
-sudo systemctl enable docker
-```
-
-Verify that you can run docker commands without sudo.
-```
-docker run hello-world
-```
-
-For more information how to install docker, please visit [Install Docker Engine](https://docs.docker.com/engine/install/)
-
-🪧 If you already have all of the above criteria met, you can move on to [Cloning](cloning.md) to check out the code.
+By following these points, you can ensure that Docker is installed, Docker Compose is configured, and the environment is set up smoothly within Docker containers.
