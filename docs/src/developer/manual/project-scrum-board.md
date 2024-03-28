@@ -1,3 +1,16 @@
+---
+title: SAEOSS Portal
+summary: Discover a world of data-driven possibilities at the SAEOSS-Portal, where information converges to empower data sharing and decision-making.
+    - Jeremy Prior
+    - Juanique Voot
+    - Ketan Bamniya
+date: 28-03-2024
+some_url: https://github.com/kartoza/SAEOSS-Portal
+copyright: Copyright 2024, SANSA
+contact:
+license: This program is free software; you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+---
+
 # SCRUM Board
 
 The Project SCRUM board serves a vital role in managing and tracking progress of tickets, and testing of functionalities. The & columns of the board represent the life cycle of the ticket, from creation to completion.  Teams plan weekly sprints assigning tickets to be worked on to team members, and discussing next tickets to be worked on in the following sprint.
