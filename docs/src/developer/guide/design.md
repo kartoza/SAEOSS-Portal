@@ -30,5 +30,3 @@ The following documents provide guidance for the standard visual design we use w
  -->
 
 ![Design](img/ButtonSlides.png)
-
-🪧 Once you have reviewed the design sheets, you can move on to our [Roadmap](roadmap.md).

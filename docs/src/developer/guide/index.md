@@ -22,4 +22,3 @@ In this section of the documentation, we aim to onboard developers onto the proc
 * **[Building:](./building.md)** This covers tasks related to building the application so you can test it in your browser.
 * **[Configuration:](./configuration.md)** This covers standard configuration tasks that need to be done once the site is brought online.
 * **[Workflows:](./workflows.md)** Examples of typical workflows for adding features, fixing bugs etc.
-* **[Roadmap:](./roadmap.md)** Here we outline future plans for the project.

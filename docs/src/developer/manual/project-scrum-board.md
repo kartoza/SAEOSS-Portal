@@ -23,7 +23,7 @@ The SCRUM board for SAEOSS-portal can be found [Here](https://github.com/orgs/ka
 
 > **NOTE:** *The order of issues on the SCRUM board will dictate the order of working on the tickets, meaning if the developer is blocked on a ticket he will default to working on the next ticket in the line.*
 
-![Scrum Board]()
+![Scrum Board](./img/scrum-1.png)
 
 ## SCRUM Board Columns
 

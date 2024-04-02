@@ -86,7 +86,7 @@ Go to the SAEOSS-Portal GitHub Repository: https://github.com/kartoza/SAEOSS-Por
 
 Follow the instructions for setting up a proper developer environment, which includes forking the repository.
 
-![fork]()
+![fork](./img/fork-1.png)
 
 #### 3. Navigate to Your Forked GitHub Repository
 

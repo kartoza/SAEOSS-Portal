@@ -78,5 +78,5 @@ These are some of the components found on the map tab:
 
     ![OpenStreetMap Street View](./img/map-7.png)
 
-    - Emphasizes localized mapping for neighbourhood-level details.
+    - Emphasises localised mapping for neighbourhood-level details.
     - Useful for focusing on smaller-scale features, such as streets, parks, and amenities within specific neighbourhoods or community areas.
