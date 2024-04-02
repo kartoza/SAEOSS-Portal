@@ -15,6 +15,8 @@ license: This program is free software; you can redistribute it and/or modify it
 
 ## Overview
 
+![map](./img/map-8.png)
+
 The `Map` interface on the SAEOSS-Portal provides users with a visual representation of Earth Observation datasets through polygon footprints, showcasing the boundaries covered by respective metadata records. This guide will help you navigate and utilise the various features available on the Map tab.
 
 ![map](./img/map-1.png)
