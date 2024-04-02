@@ -28,3 +28,4 @@ The guide section of the documentation provides short narrative/workflow based t
 * **[Map:](./map.md)** This page will show you how visualise metadata on the map.
 * **[Report Issues:](./opening-issues.md)** This page will show you how to open tickets about issues you may encounter.
 * **[Log Out:](./logout.md)** This page will help you how to logout from the site.
+* **[Help Page:](./help.md)** This page will show you how to access this documentation from the platform.

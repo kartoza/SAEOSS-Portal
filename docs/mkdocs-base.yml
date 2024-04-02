@@ -61,7 +61,8 @@ nav:
                         - Edit Metadata: user/guide/edit-metadata.md
                         - Using the Map: user/guide/map.md
                         - Logging out: user/guide/logout.md
-                        - Report Issues: user/guide/opening-issues.md #Linked in a document
+                        - Report Issues: user/guide/opening-issues.md
+                        - Help Page: user/guide/help.md
                 - Manual: 
                         - user/manual/index.md
                         - Home Page: user/manual/home.md
@@ -135,7 +136,6 @@ nav:
                         - CSW: developer/manual/csw.md
                 - Documentation: 
                         - developer/documentation/index.md
-                        - Setting up mkdocs: developer/documentation/make-docs.md
                         - Writing Documentation: developer/documentation/writing.md
                 - License: about/license.md
         - DevOps: 
