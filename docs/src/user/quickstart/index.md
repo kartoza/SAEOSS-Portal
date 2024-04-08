@@ -19,7 +19,7 @@ The workflows described in this section is designed to be 5 minute workflows to 
 
 ### Accessing the SAEOSS-portal
 
-1. From your browser navigate to [{TBD}](http://www..)
+1. From your browser navigate to [SAEOSS PORTAL](https://github.com/SANSA-EO/SAEOSS-PORTAL)
         ![Landing Page](./img/landing-page-1.png)
 2. If you don't have one, [register](#register-a-new-account) and create a user account.
 3. [Browse, view and download metadata](#browse-view-and-download-metadata).
