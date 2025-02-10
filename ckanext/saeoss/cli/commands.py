@@ -16,9 +16,6 @@ from pathlib import Path
 import glob
 import uuid
 from xml.dom.minidom import parse
-import ckan.plugins.toolkit as toolkit
-import ckan.lib.jobs as jobs
-
 
 # import validators
 import alembic.command
@@ -1079,93 +1076,82 @@ def cbers(source_path,
     print('===============================')
 
 
-def create_stac_dataset_func_enque(user: str, url: str, owner_org: str, number_records: int = 10):
-    """
-    Fetch data from a valid STAC catalog and create one dataset per collection,
-    with STAC items as links.
-    
-    :param user: Authorized user name to create the dataset
-    :param url: URL of the catalog
-    :param owner_org: Organization where the dataset will belong
-    :param number_records: Maximum number of STAC items to include as links
-    """
-    jobs.enqueue(create_stac_dataset_func, args=[user, url, owner_org, number_records])
-
-
 def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records: int = 10):
     """
-    Fetch data from a valid STAC catalog and create one dataset per collection,
-    with STAC items as links.
-    
-    :param user: Authorized user name to create the dataset
-    :param url: URL of the catalog
-    :param owner_org: Organization where the dataset will belong
-    :param number_records: Maximum number of STAC items to include as links
+    Fetch data from a valid STAC catalog
+    and create one dataset per collection, adding items as resource links.
     """
     catalog = Client.open(url)
     stac_collections = list(catalog.get_collections())
-    
+
     try:
         number_records = int(number_records)
-    except ValueError:
+    except:
         number_records = 10
         logger.info("number_records is not an integer, setting it to 10")
-    
-    stac_harvester_id = uuid.uuid4()
-    model.Session.execute(
-        f"""INSERT INTO stac_harvester VALUES('{stac_harvester_id}', '{user}', '{owner_org}', '{url}', 
-        '{number_records}', 'running', '', '{datetime.datetime.now()}')"""
-    )
-    model.Session.commit()
-    
-    user_details = model.Session.execute(f"SELECT name, fullname FROM \"user\" WHERE id = '{user}';").fetchone()
-    fullname = user_details.fullname if user_details else ''
-    
+
     created = 0
-    
+    processed = 0
+
+    stac_harvester_id = uuid.uuid4()
+    q = f"""INSERT INTO stac_harvester VALUES ('{stac_harvester_id}', '{user}', '{owner_org}', '{url}', '{number_records}', 'running', '', '{datetime.datetime.now()}')"""
+    model.Session.execute(q)
+    model.Session.commit()
+
     for collection in stac_collections:
-        collection_items = list(collection.get_items())[:number_records]
-        dataset_id = f"{catalog.id}-{collection.id}"
-        
+        if processed > number_records:
+            break
+
+        collection_items = list(collection.get_items())
+        meta_date = datetime.datetime.now().isoformat()
+
         data_dict = {
-            "id": dataset_id,
+            "id": f"{catalog.id}_{collection.id}",
             "title": f"{catalog.title} - {collection.title}",
             "name": collection.id,
-            "notes": collection.description or "No description available.",
+            "notes": collection.description,
             "owner_org": owner_org,
-            "responsible_party-0-individual_name": fullname,
-            "responsible_party-0-role": "distributor",
-            "lineage": "STAC Harvest",
+            "lineage_statement": "lineage statement",
             "private": False,
             "metadata_language_and_character_set-0-dataset_language": "en",
             "metadata_language_and_character_set-0-metadata_language": "en",
             "metadata_language_and_character_set-0-dataset_character_set": "utf-8",
             "metadata_language_and_character_set-0-metadata_character_set": "utf-8",
-            "distribution_format-0-name": "JSON",
-            "distribution_format-0-version": "1.0",
+            "spatial": json.dumps(collection.extent.spatial.bboxes if collection.extent else []),
+            "metadata_date": meta_date,
+            "tag_string": "general",
             "resources": []
         }
-        
+
         for item in collection_items:
-            data_dict["resources"].append({
-                "name": item.id,
-                "url": item.get_self_href(),
-                "format": "JSON",
-                "format_version": "1.0"
-            })
-        
-        user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
-        result = utils.create_single_dataset(user, data_dict)
-        
-        if str(result) != 'DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS':
-            created += 1
-    
-    model.Session.execute(f"""UPDATE stac_harvester SET message = 'finished', status = 'finished' 
-                            WHERE harvester_id = '{stac_harvester_id}'""")
+            if processed >= number_records:
+                break
+            
+            for link in item.links:
+                if link.rel in ["self", "alternate", "preview", "thumbnail"]:
+                    data_dict["resources"].append({
+                        "name": item.id,
+                        "url": link.target,
+                        "format": link.media_type.split("/")[-1] if link.media_type else "unknown",
+                        "format_version": "1.0"
+                    })
+            
+            processed += 1
+
+        with futures.ThreadPoolExecutor(3) as executor:
+            user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
+            future = executor.submit(utils.create_single_dataset, user, data_dict)
+            logger.debug(future.result())
+            if str(future.result()) != 'DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS':
+                created += 1
+
+    _q = f"""UPDATE stac_harvester SET message = 'finished', status = 'finished' WHERE harvester_id = '{stac_harvester_id}'"""
+    model.Session.execute(_q)
     model.Session.commit()
     
     logger.debug('STAC dataset creation finished')
-    logger.debug(f'{created} datasets created')
+    logger.debug(f'{created} records created')
+
 
 
 @stac.command()
