@@ -16,6 +16,9 @@ from pathlib import Path
 import glob
 import uuid
 from xml.dom.minidom import parse
+import ckan.plugins.toolkit as toolkit
+import ckan.lib.jobs as jobs
+
 
 # import validators
 import alembic.command
@@ -1076,126 +1079,93 @@ def cbers(source_path,
     print('===============================')
 
 
+def create_stac_dataset_func_enque(user: str, url: str, owner_org: str, number_records: int = 10):
+    """
+    Fetch data from a valid STAC catalog and create one dataset per collection,
+    with STAC items as links.
+    
+    :param user: Authorized user name to create the dataset
+    :param url: URL of the catalog
+    :param owner_org: Organization where the dataset will belong
+    :param number_records: Maximum number of STAC items to include as links
+    """
+    jobs.enqueue(create_stac_dataset_func, args=[user, url, owner_org, number_records])
+
+
 def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records: int = 10):
     """
-    fetch data from a valid stac catalog
-    and create datasets out of stack items
-
-    :param user: authorized user name to create the dataset
-    :type user: str
-
-    :param url: url of the catalogue
-    :type url: str
-
+    Fetch data from a valid STAC catalog and create one dataset per collection,
+    with STAC items as links.
+    
+    :param user: Authorized user name to create the dataset
+    :param url: URL of the catalog
     :param owner_org: Organization where the dataset will belong
-    :type owner_org: str
-
-    :param number_records: Maximum number of created dataset from STAC items
-    :type number_records: int
-
-    todo:
-    1. enchance the resources preview
-    2. remove the filler data
-    3. add proper checks for params (user, url, max)
+    :param number_records: Maximum number of STAC items to include as links
     """
     catalog = Client.open(url)
     stac_collections = list(catalog.get_collections())
-
+    
     try:
         number_records = int(number_records)
-    except:
+    except ValueError:
         number_records = 10
         logger.info("number_records is not an integer, setting it to 10")
-
-    created = 0
-    processed = 0
-
+    
     stac_harvester_id = uuid.uuid4()
-    owner_org = owner_org
-    q = f""" insert into stac_harvester values('{stac_harvester_id}', '{user}', '{owner_org}', '{url}', '{number_records}', 'running', '', '{datetime.datetime.now()}') """
-    model.Session.execute(q)
+    model.Session.execute(
+        f"""INSERT INTO stac_harvester VALUES('{stac_harvester_id}', '{user}', '{owner_org}', '{url}', 
+        '{number_records}', 'running', '', '{datetime.datetime.now()}')"""
+    )
     model.Session.commit()
-
+    
+    user_details = model.Session.execute(f"SELECT name, fullname FROM \"user\" WHERE id = '{user}';").fetchone()
+    fullname = user_details.fullname if user_details else ''
+    
+    created = 0
+    
     for collection in stac_collections:
-        collection_items = collection.get_items()
-
+        collection_items = list(collection.get_items())[:number_records]
+        dataset_id = f"{catalog.id}-{collection.id}"
+        
+        data_dict = {
+            "id": dataset_id,
+            "title": f"{catalog.title} - {collection.title}",
+            "name": collection.id,
+            "notes": collection.description or "No description available.",
+            "owner_org": owner_org,
+            "responsible_party-0-individual_name": fullname,
+            "responsible_party-0-role": "distributor",
+            "lineage": "STAC Harvest",
+            "private": False,
+            "metadata_language_and_character_set-0-dataset_language": "en",
+            "metadata_language_and_character_set-0-metadata_language": "en",
+            "metadata_language_and_character_set-0-dataset_character_set": "utf-8",
+            "metadata_language_and_character_set-0-metadata_character_set": "utf-8",
+            "distribution_format-0-name": "JSON",
+            "distribution_format-0-version": "1.0",
+            "resources": []
+        }
+        
         for item in collection_items:
-            if processed > number_records:
-                break
-            logger.debug(f"collection_items {collection_items}")
-            data_dict = {}
-            meta_date = item.properties.get(
-                "start_datetime",
-                item.properties.get(
-                    "datetime",
-                    datetime.datetime.now().isoformat()
-                )
-            )
-            meta_date = datetime_parse(meta_date).strftime("%Y-%m-%dT%H:%M:%S")
-
-            data_dict["id"] = catalog.id + item.id
-            data_dict["title"] = f"{catalog.title} - {collection.title} - {item.properties.get('title', item.id)}"
-            data_dict["name"] = item.id
-            # there might or might not be notes, let's take the notes of the catalog for the moment
-            data_dict["notes"] = collection.description
-            data_dict["responsible_party-0-individual_name"] = "responsible individual name"
-            data_dict["responsible_party-0-role"] = "owner"
-            data_dict["responsible_party-0-position_name"] = "position name"
-            data_dict["dataset_reference_date-0-reference"] = meta_date
-            data_dict["dataset_reference_date-0-reference_date_type"] = "1"
-            data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
-            data_dict["owner_org"] = owner_org
-            data_dict["lineage_statement"] = "lineage statement"
-            data_dict["private"] = False
-            data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
-            data_dict["metadata_language_and_character_set-0-metadata_language"] = "en"
-            data_dict["metadata_language_and_character_set-0-dataset_character_set"] = "utf-8"
-            data_dict["metadata_language_and_character_set-0-metadata_character_set"] = "utf-8"
-            data_dict["lineage"] = "lineage statement"
-            data_dict["distribution_format-0-name"] = "distribution format"
-            data_dict["distribution_format-0-version"] = "1.0"
-            data_dict["spatial"] = json.dumps(item.geometry)
-            data_dict["spatial_parameters-0-equivalent_scale"] = "equivalent scale"
-            data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
-            data_dict["spatial_parameters-0-spatial_reference_system"] = "EPSG:3456"
-            data_dict["metadata_date"] = meta_date
-            data_dict["tag_string"] = "general"
-            data_dict["resources"] = []
-            if data_dict.get('dataset_reference_date', None):
-                del data_dict['dataset_reference_date']
-            logger.debug('stac_item:', str(data_dict))
-            # TODO dataset thumbnail, tags,
-            for link in item.links:
-                if link.rel == "thumbnail":
-                    data_dict["resources"].append({
-                        "name": link.target,
-                        "url": link.target,
-                        "format": "jpg",
-                        "format_version":
-                            "1.0"
-                    })
-                if link.rel == "self":
-                    data_dict["resources"].append({
-                        "name": "STAC Item",
-                        "url": link.target,
-                        "format": "JSON",
-                        "format_version":
-                            "1.0"
-                    })
-
-            with futures.ThreadPoolExecutor(3) as executor:
-                user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
-                future = executor.submit(utils.create_single_dataset, user, data_dict)
-                logger.debug(future.result())
-                if str(future.result()) != 'DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS':
-                    created += 1
-                processed += 1
-
-    _q = f""" update stac_harvester set message = 'finished', status = 'finished' WHERE harvester_id = '{stac_harvester_id}' """
-    _result = model.Session.execute(_q)
+            data_dict["resources"].append({
+                "name": item.id,
+                "url": item.get_self_href(),
+                "format": "JSON",
+                "format_version": "1.0"
+            })
+        
+        user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
+        result = utils.create_single_dataset(user, data_dict)
+        
+        if str(result) != 'DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS':
+            created += 1
+    
+    model.Session.execute(f"""UPDATE stac_harvester SET message = 'finished', status = 'finished' 
+                            WHERE harvester_id = '{stac_harvester_id}'""")
     model.Session.commit()
+    
     logger.debug('STAC dataset creation finished')
-    logger.debug(f'{created} records created')
+    logger.debug(f'{created} datasets created')
 
 
 @stac.command()
