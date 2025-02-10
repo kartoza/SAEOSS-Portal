@@ -1126,19 +1126,24 @@ def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records
         }
 
         for item in collection_items:
-            if processed >= number_records:
-                break
-            
             for link in item.links:
-                if link.rel in ["self", "alternate", "preview", "thumbnail"]:
+                if link.rel == "thumbnail":
                     data_dict["resources"].append({
-                        "name": item.id,
+                        "name": link.target,
                         "url": link.target,
-                        "format": link.media_type.split("/")[-1] if link.media_type else "unknown",
-                        "format_version": "1.0"
+                        "format": "jpg",
+                        "format_version":
+                            "1.0"
                     })
-            
-            processed += 1
+                if link.rel == "self":
+                    data_dict["resources"].append({
+                        "name": "STAC Item",
+                        "url": link.target,
+                        "format": "JSON",
+                        "format_version":
+                            "1.0"
+                    })
+        processed = processed + 1
 
         with futures.ThreadPoolExecutor(3) as executor:
             user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
