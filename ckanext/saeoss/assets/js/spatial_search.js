@@ -151,8 +151,6 @@ ckan.module("spatial_search", function($){
                         var map = L.DomUtil.get('draw-map-container'); // Get the existing map container
                         
                         if (map && attempts < maxAttempts) {
-                            console.log("Existing map found:", map);
-                            console.log("WINDOW", window)
                             // If the map exists, you can interact with it, e.g., adding tile layer
                             if (window.map) {
                                 L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(window.map);
