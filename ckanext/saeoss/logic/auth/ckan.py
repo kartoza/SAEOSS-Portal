@@ -62,7 +62,6 @@ def package_patch(
     next_auth: typing.Callable, context: typing.Dict, data_dict: typing.Dict
 ):
     """Custom auth for the package_patch action."""
-    logger.debug("inside custom package_patch auth")
     return package_update(next_auth, context, data_dict)
 
 

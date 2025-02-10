@@ -60,8 +60,6 @@ def user_update(original_action, context, data_dict):
     original_result = original_action(context, data_dict)
 
     mime_type = mime.guess_type(original_result["image_url"])
-
-    logger.debug(f"mime_type update{mime_type}")
     
     if mime_type[0] in mimeNotAllowed:
         raise ValidationError([f"Mimetype {mime_type} is not allowed!"])

@@ -52,19 +52,17 @@ def get_bbox_and_footprint(raster):
     
 def fetch_data(package, items):
     package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package})
-    logger.debug(f"package {package_dict}")
     try:
         package_spatial = json.loads(package_dict['spatial'])
     except KeyError:
         package_spatial = {"type": "Polygon", "coordinates": [[[16.4699, -34.8212], [32.8931, -34.8212], [32.8931, -22.1265], [16.4699, -22.1265], [16.4699, -34.8212]]]}
-    logger.debug(f"spatial", package_spatial)
+    
     package_name = package_dict["name"]
     package_title = package_dict["title"]
     package_description = package_dict["notes"]
     resources = package_dict["resources"]
     package_date = package_dict["reference_date"]
     
-    logger.debug(f"package details {package_dict}")
 
     keywords = []
     for tag in package_dict["tags"]:
@@ -163,7 +161,7 @@ def catalog():
                                 license='',
                                 href=f'http://localhost:5000/stac/collection/{package_name}')
 
-        logger.debug(f"collection {json.dumps(collection.to_dict())}")
+       
 
         catalog.add_child(collection)
 
@@ -199,7 +197,7 @@ def collection():
         
         collection.add_link(pystac.Link.canonical(f"http://localhost:5000/dataset/{package_name}"))
 
-        logger.debug(f"collection {json.dumps(collection.to_dict())}")
+      
 
         collection_arr.append(collection.to_dict())
 
@@ -210,7 +208,7 @@ def collection():
 def featurecollection(package_name):
 
     package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package_name})
-    logger.debug(f"package {package_dict}")
+    
     package_spatial = json.loads(package_dict['spatial'])
     package_name = package_dict["name"]
     package_title = package_dict["title"]
@@ -333,7 +331,6 @@ def resourcecollection():
     
     for package in package_list:
         package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package})
-        logger.debug(f"package {package_dict}")
         package_spatial = json.loads(package_dict['spatial'])
         package_name = package_dict["name"]
         package_title = package_dict["title"]
@@ -415,13 +412,11 @@ def datasetcollection():
 @stac_api_blueprint.route("/datasetcollection-search", methods = ['POST', 'GET'])
 def datasetcollection_post():
     data = request.get_json()
-    logger.debug(f"json data {data['search_string']}")
 
     search_string = data['search_string']
     start_date = data['start_date']
     end_date = data['end_date']
 
-    logger.debug(f"start_date {start_date}")
     
     package_list = p.toolkit.get_action("package_list")({},{})
 
@@ -429,7 +424,6 @@ def datasetcollection_post():
     
     for package in package_list:
         package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package})
-        logger.debug(f"package details {package_dict}")
         # package_date = [pd.to_datetime(package_dict["reference_date"], infer_datetime_format=True), datetime.now()]
         package_date = package_dict["reference_date"]
         if package_date is None:
