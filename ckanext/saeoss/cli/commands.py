@@ -1105,6 +1105,8 @@ def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records
         collection_items = list(collection.get_items())
         meta_date = datetime.datetime.now().isoformat()
 
+        logger.debug(collection.extent.spatial.bboxes[0])
+
         data_dict = {
             "id": f"{catalog.id}_{collection.id}",
             "title": f"{catalog.title} - {collection.title}",
@@ -1117,7 +1119,7 @@ def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records
             "metadata_language_and_character_set-0-metadata_language": "en",
             "metadata_language_and_character_set-0-dataset_character_set": "utf-8",
             "metadata_language_and_character_set-0-metadata_character_set": "utf-8",
-            "spatial": json.dumps(collection.extent.spatial.bboxes if collection.extent else []),
+            "spatial": ",".join(map(str, collection.extent.spatial.bboxes[0])) if collection.extent else "",
             "metadata_date": meta_date,
             "tag_string": "general",
             "resources": []
