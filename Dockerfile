@@ -43,7 +43,6 @@ RUN curl --silent --show-error --location \
 # Create a normal non-root user so that we can use it to run
 RUN useradd --create-home appuser
 
-
 # Compile python stuff to bytecode to improve startup times
 RUN python -c "import compileall; compileall.compile_path(maxlevels=10)"
 
@@ -61,14 +60,13 @@ ENV PATH="$PATH:/home/appuser/.local/bin" \
 # Only copy the dependencies for now and install them
 WORKDIR /home/appuser/app
 COPY --chown=appuser:appuser pyproject.toml poetry.lock ./
-RUN poetry lock --no-update
-RUN poetry install --no-root --no-dev
+RUN poetry install --no-root --only main
 
 EXPOSE 5000
 
 # Now install our code
 COPY --chown=appuser:appuser . .
-RUN poetry install --no-dev
+RUN poetry install --only main
 
 # Write git commit identifier into the image
 ARG GIT_COMMIT
@@ -78,8 +76,6 @@ RUN echo $GIT_COMMIT > /home/appuser/git-commit.txt
 
 # Compile python stuff to bytecode to improve startup times
 RUN poetry run python -c "import compileall; compileall.compile_path(maxlevels=10)"
-
-RUN chmod 777 /home/appuser/app/ckanext/saeoss/migration/saeoss/alembic.ini
 
 # use tini as the init process
 ENTRYPOINT ["tini", "-g", "--", "poetry", "run", "docker_entrypoint"]

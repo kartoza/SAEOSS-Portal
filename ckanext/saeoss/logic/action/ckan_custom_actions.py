@@ -40,8 +40,6 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
     model = context['model']
     user = context['user']
 
-    logger.debug(f"resource_create was called {data_dict}")
-
     package_id = _get_or_bust(data_dict, 'package_id')
     if not data_dict.get('url'):
         data_dict['url'] = ''
@@ -84,8 +82,6 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
     if 'size' not in data_dict:
         if hasattr(upload, 'filesize'):
             data_dict['size'] = upload.filesize
-
-    logger.debug(f"mimetype {upload.mimetype}")
 
     if upload.mimetype == None:
         raise ValidationError(["Please upload a file or link to an online resource"])
@@ -159,15 +155,11 @@ def resource_update(original_action, context: dict, data_dict: dict):
 
     '''
 
-    logger.debug("package update", data_dict)
-
     model = context['model']
     id = _get_or_bust(data_dict, "id")
 
     if not data_dict.get('url'):
         data_dict['url'] = ''
-
-    logger.debug("resource update", data_dict)
 
     # if "http" not in data_dict["url"] and "https" not in data_dict["url"]:
     #
@@ -190,7 +182,6 @@ def resource_update(original_action, context: dict, data_dict: dict):
     old_resource_format = resource.format
 
     if not resource:
-        logger.debug('Could not find resource %s', id)
         raise NotFound(_('Resource was not found.'))
 
     _check_access('resource_update', context, data_dict)

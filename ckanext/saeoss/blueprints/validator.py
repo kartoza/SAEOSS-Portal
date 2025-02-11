@@ -83,10 +83,6 @@ def _validate(context: typing.Dict, result: typing.List[typing.List[typing.Any]]
 
         for res in package_result:
             package_name = res[0]
-
-        logger.debug(f'url_type: {url_type}')
-        logger.debug(f'format {format}')
-
         if url_type == 'upload':
             file_url = f"/home/appuser/data/resources/{first_folder}/{second_folder}/{file_name}"
             stac_result = stac_validator_admin(file_url)
@@ -127,7 +123,6 @@ def validate_selection():
 
     if request.method == 'POST':
         data = request.get_json()
-        logger.debug(f"json data {data}")
             
         for _data in data["value"]:
 

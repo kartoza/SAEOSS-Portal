@@ -143,6 +143,30 @@ ckan.module("spatial_search", function($){
                     $(this).css({"cursor":"pointer"})
                 })
 
+                $('.leaflet-control-custom-button').on('click', function(e){
+                    var attempts = 0;
+                    var maxAttempts = 3;
+
+                    function checkMap() {
+                        var map = L.DomUtil.get('draw-map-container'); // Get the existing map container
+                        
+                        if (map && attempts < maxAttempts) {
+                            // If the map exists, you can interact with it, e.g., adding tile layer
+                            if (window.map) {
+                                L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(window.map);
+                            }
+                        } else if (attempts < maxAttempts) {
+                            attempts++;
+                            console.log("Retrying to find map container, attempt " + attempts);
+                            setTimeout(checkMap, 2000); // Retry after 2 seconds
+                        } else {
+                            console.log("Map not found after " + maxAttempts + " attempts.");
+                        }
+                    }
+
+                    checkMap();
+                });
+
                 $('a.leaflet-draw-draw-circle').on('click', function(e){
                     $('body').toggleClass('dataset-map-expanded');
                     Lmap.invalidateSize();
