@@ -77,5 +77,3 @@ plugins:
             docstring_style: sphinx
             separate_signature: true
             merge_init_into_class: true
-            docstring_options:
-              ignore_init_summary: true
