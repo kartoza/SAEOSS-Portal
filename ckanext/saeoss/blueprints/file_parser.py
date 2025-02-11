@@ -49,12 +49,9 @@ def extract_files():
     global creator
     creator = c.userobj
     files = request.files.getlist("dataset_files")
-    logger.debug(f"file {files}")
     # logging the request files.
-    logger.debug("from xml parser blueprint, the files object should be:", files)
     err_msgs = []
     info_msgs = []
-    logger.debug('==============================')
     for file in files:
         check_result = check_file_fields(file)
         if check_result is None:
@@ -123,7 +120,6 @@ def check_file_fields(file) -> dict:
         root = handle_numeric_choices(root)
         root = set_language_abbreviation(root)
         # root = handle_date_fields(root)
-        logger.debug("create ckan dataset", root)
         return create_ckan_dataset(root)
 
         # things went ok
@@ -134,20 +130,16 @@ def check_file_fields(file) -> dict:
 def get_xml_string(file):
     filename = file.filename
     extension = filename.split('.')[-1]
-    logger.debug(f"extension name {extension}")
     xml_string = ''
     if extension.lower() == 'xml':
         xml_string = file.read().decode('utf-8')
-        logger.debug(f"xml_string readddd {xml_string}")
     elif extension.lower() == 'json':
         json_dict = json.load(file)
         xml_string = xmltodict.unparse(json_dict)
-        logger.debug(xml_string)
     elif extension.lower() in ['yaml', 'yml']:
         yaml_string = file.read().decode('utf-8')
         yaml_dict = yaml.load(yaml_string, Loader=SafeLoader)
         xml_string = xmltodict.unparse(yaml_dict)
-    logger.debug(xml_string)
     return xml_string
 
 def file_has_dataset(file):
@@ -163,13 +155,11 @@ def file_has_dataset(file):
     try:
         xml_string = get_xml_string(file)
         dom_ob = dom.parseString(xml_string)
-        logger.debug(f"inside try catch {xml_string}")
     except ExpatError:
         """
         this happens when the file is
         completely empty without any tags
         """
-        logger.debug(f"inside try catch {get_xml_string(file)}")
         return {"state": False, "msg": f"file {file.filename} is empty!"}
 
     root = dom_ob.firstChild
@@ -406,7 +396,6 @@ def create_ckan_dataset(root_ob):
     """Create package via ckan api's
     package_create action.
     """
-    logger.debug("from xml parser blueprint", root_ob)
     package_title = root_ob["title"]
     package_title = change_name_special_chars_to_underscore(package_title)
     slug_url_field = package_title.replace(" ", "-")

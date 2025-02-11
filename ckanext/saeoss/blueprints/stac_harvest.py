@@ -40,7 +40,6 @@ def view():
 
     """
     user = c.userobj.id
-    logger.debug(f"user {c.userobj}")
 
     return toolkit.render("stac_harvest/view.html")
 
@@ -60,7 +59,6 @@ def view_jobs():
     for job in jobs:
         context.append(dict(job))
 
-    logger.debug(f"jobs data {context}")
 
     return json.dumps(context, sort_keys=True, default=str)
 

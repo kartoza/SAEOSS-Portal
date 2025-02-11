@@ -37,7 +37,6 @@ logger = logging.getLogger(__name__)
 
 
 def get_iso_topic_categories(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
-    logger.debug(f"inside get_iso_topic_categories {args=} {kwargs=}")
     return [
         {"value": cat[0], "label": cat[1]} for cat in constants.ISO_TOPIC_CATEGORIES
     ]
@@ -138,8 +137,6 @@ def user_is_org_member(
             )
         except:
             return result
-        logger.debug(f"{user.id=}")
-        logger.debug(f"{org_members=}")
         for member_id, _, member_role in org_members:
             if user.id == member_id:
                 if role is None or member_role.lower() == role.lower():
@@ -303,7 +300,6 @@ def get_datasets_thumbnail(data_dict):
     Generate thumbnails based on metadataset
     """
     data_thumbnail = "/images/org.png"
-    logger.debug(f"data dict from helper {data_dict['organization']['image_url']}")
     if data_dict.get("metadata_thumbnail"):
         data_thumbnail = data_dict.get("metadata_thumbnail")
     else:
@@ -327,7 +323,6 @@ def get_datasets_thumbnail(data_dict):
             'uploads/group/%s' % data_dict['organization']['image_url'],
             qualified=True
             )
-            logger.debug(f"image_url {data_thumbnail}")
     return data_thumbnail
 
 

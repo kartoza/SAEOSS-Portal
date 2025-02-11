@@ -83,9 +83,6 @@ def send_notification(user, email_dict):
     import ckan.lib.mailer
 
     if not user.get("email"):
-        logger.debug(
-            f"User {user.get('name')!r} does not have an email address configured"
-        )
         # FIXME: Raise an exception.
         return
 
@@ -192,7 +189,6 @@ def get_notifications(user_dict, since):
 
     """
     notifications = []
-    logger.debug(f"Retrieving notifications for {user_dict['name']!r} since {since!r}")
     for function in _notifications_functions:
         notifications.extend(function(user_dict, since))
     return notifications

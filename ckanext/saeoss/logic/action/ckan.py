@@ -60,8 +60,6 @@ def user_update(original_action, context, data_dict):
     original_result = original_action(context, data_dict)
 
     mime_type = mime.guess_type(original_result["image_url"])
-
-    logger.debug(f"mime_type update{mime_type}")
     
     if mime_type[0] in mimeNotAllowed:
         raise ValidationError([f"Mimetype {mime_type} is not allowed!"])
@@ -79,7 +77,6 @@ def user_update(original_action, context, data_dict):
     )
     model.Session.add(extra)
     model.Session.commit()
-    logger.debug(f"{original_result=}")
     original_result["extra_fields"] = _dictize_user_extra_fields(extra)
     return original_result
 
@@ -105,8 +102,6 @@ def organization_update(original_action, context, data_dict):
     original_result = original_action(context, data_dict)
     mime = MimeTypes()
     mime_type = mime.guess_type(original_result["image_url"])
-
-    logger.debug(f"mime_type update{mime_type}")
     
     if mime_type[0] in mimeNotAllowed:
         raise ValidationError([f"Mimetype {mime_type} is not allowed!"])
@@ -138,7 +133,6 @@ def package_create(original_action, context, data_dict):
     """
     dataset_name = populate_dataset_name(data_dict, context)
     data_dict["name"] = dataset_name
-    logger.debug(f"inside package_create action: {data_dict=}")
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 
@@ -147,7 +141,6 @@ def package_update(original_action, context, data_dict):
     """
     Intercepts the core `package_update` action to check if package is being published.
     """
-    logger.debug(f"inside package_update action: {data_dict=}")
     try:
         data_dict['tags'] = _get_tags(data_dict)
     except KeyError:
@@ -172,10 +165,8 @@ def user_patch(context: typing.Dict, data_dict: typing.Dict) -> typing.Dict:
 
     """
 
-    logger.debug(f"{locals()=}")
     logger.debug("About to check access of user_update")
     toolkit.check_access("user_update", context, data_dict)
-    logger.debug("After checking access of user_update")
     show_context = {
         "model": context["model"],
         "session": context["session"],
@@ -185,10 +176,8 @@ def user_patch(context: typing.Dict, data_dict: typing.Dict) -> typing.Dict:
     user_dict = toolkit.get_action("user_show")(
         show_context, data_dict={"id": context["user"]}
     )
-    logger.debug(f"{user_dict=}")
     patched = dict(user_dict)
     patched.update(data_dict)
-    logger.debug(f"{patched=}")
     update_action = toolkit.get_action("user_update")
     return update_action(context, patched)
 

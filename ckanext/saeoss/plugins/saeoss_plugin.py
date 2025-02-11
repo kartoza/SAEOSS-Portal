@@ -117,7 +117,6 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         """IPackageController interface requires reimplementation of this method."""
 
         context = {}
-        logger.debug(f"after search {context}")
         facets = OrderedDict()
         default_facet_titles = {
             "groups": _("Groups"),
@@ -224,13 +223,11 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         :type resource: dictionary
         '''
 
-        logger.debug(f"resource create {resource}")
 
     def before_update(self, mapper, connection, instance):
         u'''
         Receive an object instance before that instance is UPDATEed.
         '''
-        logger.debug(f"resource update {instance}")
 
     def before_delete(self, mapper, connection, instance):
         u'''
@@ -241,7 +238,6 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         pass
 
     def before_search(self, search_params: typing.Dict):
-        logger.debug(f"debug search {search_params.get('extras', {})}" )
         
         
         start_date = search_params.get("extras", {}).get("ext_start_reference_date")
