@@ -66,10 +66,13 @@ services:
     build: https://github.com/kartoza/kartoza_ckan_solr.git#main
     ports:
       - 8983:8983
-    # volumes:
-    #   - type: bind
-    #     source: $PWD/solr/schema.xml
-    #     target: /opt/solr/server/solr/ckan/conf/schema.xml
+    environment:
+      - SOLR_HEAP=2g
+    volumes:
+      - solr-data:/var/solr
 
   redis:
     image: redis:6.2
+
+volumes:
+  solr-data:
