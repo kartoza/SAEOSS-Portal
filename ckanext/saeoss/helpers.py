@@ -314,6 +314,8 @@ def get_datasets_thumbnail(data_dict):
         #             urlencode(parsed_url),
         #         )
         #         break
+        if 'organization' not in data_dict or not data_dict['organization']:
+            return data_thumbnail
         image_url = data_dict['organization']['image_url']
         if image_url and not image_url.startswith('http'):
             #munge here should not have an effect only doing it incase
