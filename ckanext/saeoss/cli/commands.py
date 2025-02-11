@@ -1078,8 +1078,25 @@ def cbers(source_path,
 
 def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records: int = 10):
     """
-    Fetch data from a valid STAC catalog
-    and create one dataset per collection, adding items as resource links.
+    fetch data from a valid stac catalog
+    and create datasets out of stack items
+
+    :param user: authorized user name to create the dataset
+    :type user: str
+
+    :param url: url of the catalogue
+    :type url: str
+
+    :param owner_org: Organization where the dataset will belong
+    :type owner_org: str
+
+    :param number_records: Maximum number of created dataset from STAC items
+    :type number_records: int
+
+    todo:
+    1. enchance the resources preview
+    2. remove the filler data
+    3. add proper checks for params (user, url, max)
     """
     catalog = Client.open(url)
     stac_collections = list(catalog.get_collections())
@@ -1094,38 +1111,60 @@ def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records
     processed = 0
 
     stac_harvester_id = uuid.uuid4()
-    q = f"""INSERT INTO stac_harvester VALUES ('{stac_harvester_id}', '{user}', '{owner_org}', '{url}', '{number_records}', 'running', '', '{datetime.datetime.now()}')"""
+    owner_org = owner_org
+    q = f""" insert into stac_harvester values('{stac_harvester_id}', '{user}', '{owner_org}', '{url}', '{number_records}', 'running', '', '{datetime.datetime.now()}') """
     model.Session.execute(q)
     model.Session.commit()
 
     for collection in stac_collections:
-        if processed > number_records:
-            break
-
-        collection_items = list(collection.get_items())
-        meta_date = datetime.datetime.now().isoformat()
-
-        logger.debug(collection.extent.spatial.bboxes[0])
-
-        data_dict = {
-            "id": f"{catalog.id}_{collection.id}",
-            "title": f"{catalog.title} - {collection.title}",
-            "name": collection.id,
-            "notes": collection.description,
-            "owner_org": owner_org,
-            "lineage_statement": "lineage statement",
-            "private": False,
-            "metadata_language_and_character_set-0-dataset_language": "en",
-            "metadata_language_and_character_set-0-metadata_language": "en",
-            "metadata_language_and_character_set-0-dataset_character_set": "utf-8",
-            "metadata_language_and_character_set-0-metadata_character_set": "utf-8",
-            "spatial": ",".join(map(str, collection.extent.spatial.bboxes[0])) if collection.extent else "",
-            "metadata_date": meta_date,
-            "tag_string": "general",
-            "resources": []
-        }
+        collection_items = collection.get_items()
 
         for item in collection_items:
+            if processed > number_records:
+                break
+            logger.debug(f"collection_items {collection_items}")
+            data_dict = {}
+            meta_date = item.properties.get(
+                "start_datetime",
+                item.properties.get(
+                    "datetime",
+                    datetime.datetime.now().isoformat()
+                )
+            )
+            meta_date = datetime_parse(meta_date).strftime("%Y-%m-%dT%H:%M:%S")
+
+            data_dict["id"] = catalog.id + item.id
+            data_dict["title"] = f"{catalog.title} - {collection.title} - {item.properties.get('title', item.id)}"
+            data_dict["name"] = item.id
+            # there might or might not be notes, let's take the notes of the catalog for the moment
+            data_dict["notes"] = collection.description
+            data_dict["responsible_party-0-individual_name"] = "responsible individual name"
+            data_dict["responsible_party-0-role"] = "owner"
+            data_dict["responsible_party-0-position_name"] = "position name"
+            data_dict["dataset_reference_date-0-reference"] = meta_date
+            data_dict["dataset_reference_date-0-reference_date_type"] = "1"
+            data_dict["topic_and_sasdi_theme-0-iso_topic_category"] = "farming"
+            data_dict["owner_org"] = owner_org
+            data_dict["lineage_statement"] = "lineage statement"
+            data_dict["private"] = False
+            data_dict["metadata_language_and_character_set-0-dataset_language"] = "en"
+            data_dict["metadata_language_and_character_set-0-metadata_language"] = "en"
+            data_dict["metadata_language_and_character_set-0-dataset_character_set"] = "utf-8"
+            data_dict["metadata_language_and_character_set-0-metadata_character_set"] = "utf-8"
+            data_dict["lineage"] = "lineage statement"
+            data_dict["distribution_format-0-name"] = "distribution format"
+            data_dict["distribution_format-0-version"] = "1.0"
+            data_dict["spatial"] = json.dumps(item.geometry)
+            data_dict["spatial_parameters-0-equivalent_scale"] = "equivalent scale"
+            data_dict["spatial_parameters-0-spatial_representation_type"] = "001"
+            data_dict["spatial_parameters-0-spatial_reference_system"] = "EPSG:3456"
+            data_dict["metadata_date"] = meta_date
+            data_dict["tag_string"] = "general"
+            data_dict["resources"] = []
+            if data_dict.get('dataset_reference_date', None):
+                del data_dict['dataset_reference_date']
+            logger.debug('stac_item:', str(data_dict))
+            # TODO dataset thumbnail, tags,
             for link in item.links:
                 if link.rel == "thumbnail":
                     data_dict["resources"].append({
@@ -1143,22 +1182,20 @@ def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records
                         "format_version":
                             "1.0"
                     })
-        processed = processed + 1
 
-        with futures.ThreadPoolExecutor(3) as executor:
-            user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
-            future = executor.submit(utils.create_single_dataset, user, data_dict)
-            logger.debug(future.result())
-            if str(future.result()) != 'DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS':
-                created += 1
+            with futures.ThreadPoolExecutor(3) as executor:
+                user = toolkit.get_action("get_site_user")({"ignore_auth": True}, {'name': user})
+                future = executor.submit(utils.create_single_dataset, user, data_dict)
+                logger.debug(future.result())
+                if str(future.result()) != 'DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS':
+                    created += 1
+                processed += 1
 
-    _q = f"""UPDATE stac_harvester SET message = 'finished', status = 'finished' WHERE harvester_id = '{stac_harvester_id}'"""
-    model.Session.execute(_q)
+    _q = f""" update stac_harvester set message = 'finished', status = 'finished' WHERE harvester_id = '{stac_harvester_id}' """
+    _result = model.Session.execute(_q)
     model.Session.commit()
-    
     logger.debug('STAC dataset creation finished')
     logger.debug(f'{created} records created')
-
 
 
 @stac.command()
