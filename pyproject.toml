@@ -20,6 +20,8 @@ ckan = "ckan.lib.extract:extract_ckan"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+pyOpenSSL = "==23.0.0"
+cryptography = "==39.0.0"
 # NOTE1: When updating this file manually, also be sure to run
 # `poetry update --lock` to also update poetry's lock file
 
@@ -83,7 +85,6 @@ ckan = {git = "https://github.com/ckan/ckan.git", rev = "ckan-2.9.9"}
 # ckan harvest plugin dependencies
 ckantoolkit = "0.0.7"
 pika = "^1.1.0"
-pyOpenSSL = "18.0.0"
 redis = "3.5.3"
 six = "^1.12.0"
 

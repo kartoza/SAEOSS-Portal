@@ -45,9 +45,10 @@ def launch_gunicorn(ckan_ini):
             gunicorn_params = gunicorn_params[:-2]
             gunicorn_params.extend(
                 [
-                    "--workers=1",
+                    "--workers=2",
                     "--reload",
                     "--log-level=debug",
+                    "--timeout=120"
                 ]
             )
 
