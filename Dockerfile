@@ -61,7 +61,7 @@ ENV PATH="$PATH:/home/appuser/.local/bin" \
 # Only copy the dependencies for now and install them
 WORKDIR /home/appuser/app
 COPY --chown=appuser:appuser pyproject.toml poetry.lock ./
-RUN poetry lock --no-update
+RUN poetry lock
 RUN poetry install --no-root --no-dev
 
 EXPOSE 5000

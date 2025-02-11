@@ -148,7 +148,7 @@ unicode_backport = ["unicodedata2"]
 
 [[package]]
 name = "ckan"
-version = "2.9.5"
+version = "2.9.9"
 description = "CKAN Software"
 category = "main"
 optional = false
