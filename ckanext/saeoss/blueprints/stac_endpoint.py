@@ -71,7 +71,10 @@ def fetch_data(package, items):
     try:
         thumbnail = package_dict["metadata_thumbnail"]
     except KeyError:
-        if package_dict["organization"]["image_url"] != "" :
+        if (
+            package_dict["organization"] and 
+            package_dict["organization"]["image_url"] != "" 
+        ):
             thumbnail = f'/uploads/group/{package_dict["organization"]["image_url"]}'
         else:
             thumbnail = "/images/org.png"

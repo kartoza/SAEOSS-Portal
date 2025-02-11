@@ -1,11 +1,29 @@
 import typing
 
-from ckan.logic.schema import default_create_activity_schema
+from ckan.logic.schema import validator_args
+
 from ckan.plugins import toolkit
 
 from ...constants import (
     DatasetManagementActivityType,
 )
+
+@validator_args
+def default_create_activity_schema(
+        ignore, not_missing, not_empty, unicode_safe,
+        convert_user_name_or_id_to_id, object_id_validator,
+        activity_type_exists, ignore_empty, ignore_missing):
+    return {
+        'id': [ignore],
+        'timestamp': [ignore],
+        'user_id': [not_missing, not_empty, unicode_safe,
+                    convert_user_name_or_id_to_id],
+        'object_id': [
+            not_missing, not_empty, unicode_safe, object_id_validator],
+        'activity_type': [not_missing, not_empty, unicode_safe,
+                          activity_type_exists],
+        'data': [ignore_empty, ignore_missing],
+    }
 
 def create_dataset_management_activity(
     dataset_id: str, activity_type: DatasetManagementActivityType

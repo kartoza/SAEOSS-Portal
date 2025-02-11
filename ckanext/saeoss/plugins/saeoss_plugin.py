@@ -253,7 +253,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         search_params["fq"] = utils.handle_search(search_params)
 
         reporter_search_id = uuid.uuid4()
-        if c.userobj != None:
+        if c.userobj != None and c.userobj:
             user_id = c.userobj.id
             q = f""" insert into reporting_tool values('{reporter_search_id}', '{user_id}', '{json.dumps(search_params)}', '','{datetime.now()}') """
             result = model.Session.execute(q)
