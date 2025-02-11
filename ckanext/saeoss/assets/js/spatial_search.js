@@ -143,7 +143,7 @@ ckan.module("spatial_search", function($){
                     $(this).css({"cursor":"pointer"})
                 })
 
-                $('i.fa-pencil').on('click', function(e){
+                $('.leaflet-control-custom-button').on('click', function(e){
                     var attempts = 0;
                     var maxAttempts = 3;
 
