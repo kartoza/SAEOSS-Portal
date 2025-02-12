@@ -24,4 +24,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: kartoza/saeoss:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/saeoss:latest
