@@ -23,7 +23,7 @@ can save the search criteria for future reference when performing a complex or f
 Search historic can't be saved automatically. A user can choose to save a search or not. 
 After filtering the metadata, click on the icon circled in red.
 
-![save search](./img/saved-search-2.png)
+[![save search](./img/saved-search-2.png)](./img/saved-search-2.png)
 
 ## Saved Search
 

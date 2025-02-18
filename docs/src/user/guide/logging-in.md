@@ -25,4 +25,4 @@ On the Login Page, enter your username and password in the relevant fields. Then
 
 After that you will be redirected to your news feed on your dashboard.
 
-![Login 3](./img/login-3.png)
+[![Login 3](./img/login-3.png)](./img/login-3.png)

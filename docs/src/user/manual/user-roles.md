@@ -66,7 +66,7 @@ All users have access to the following pages:
 1. **Metadata**: Users can search and view public metadata. They can filter by title, location, time, organisation, harvest source, features and tags.
     ![search](img/search-1.png)
 2. **Map**: Users can search and view different layers.
-    ![map](img/map-1.png)
+    [![map](img/map-1.png)](./img/map-1.png)
 3. **Organisation**: Users can navigate the organisations page and view the list of organisations on the portal. When users click on the organisations, it navigates to the profile of the organisation, where the users can view the organisation's public metadata records, activity stream, information about the organisation under 'About' and social media links for the organisation.
     ![organisation](img/organisation-1.png)
 4. **About**: Users can access everything on the About page.

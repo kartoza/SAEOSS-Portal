@@ -25,7 +25,7 @@ The `Logout` option provides users with a seamless way to log out of the system,
 
 On the logout page, the user will find several buttons to navigate to different sections.
 
-![logout page](./img/logout-2.png)
+[![logout page](./img/logout-2.png)](./img/logout-2.png)
 
 1. **Back to Home Page Button:** Click on this button to return to the home page, providing a quick way to access essential information and features.
 

@@ -19,7 +19,7 @@ license: This program is free software; you can redistribute it and/or modify it
 
 The `Map` interface on the SAEOSS-Portal provides users with a visual representation of Earth Observation datasets through polygon footprints, showcasing the boundaries covered by respective metadata records. This guide will help you navigate and utilise the various features available on the Map tab.
 
-![map](./img/map-1.png)
+[![map](./img/map-1.png)](./img/map-1.png)
 
 ## Explore Metadata Records
 
@@ -34,7 +34,7 @@ Click on the Right Arrow to open a side panel with a list of available metadata 
     
 ## Visualise Geographical Areas
 
-![metadata](./img/map-3.png)
+[![metadata](./img/map-3.png)](./img/map-3.png)
 
 - Click on a metadata record to visualise its corresponding geographic area on the map.
 
@@ -52,7 +52,7 @@ Select from various Base Map Options to customise your viewing experience.
 
 1. **OpenStreetMap Street View:** Traditional street map displaying road networks and landmarks.
 
-    ![OpenStreetMap Street View](./img/map-4.png)
+    [![OpenStreetMap Street View](./img/map-4.png)](./img/map-4.png)
 
 2. **OpenStreetMap Hybrid View:** Combined satellite imagery with street map information.
 

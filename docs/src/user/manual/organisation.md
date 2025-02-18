@@ -21,7 +21,7 @@ Users can view all the organisations on the platform on this page. Users with ad
 
 Users can view an organisation's home page by clicking on an organisation on the `Organisations` page.
 
-![Organisation Home Page 1](./img/organisation-home-page-1.png)
+[![Organisation Home Page 1](./img/organisation-home-page-1.png)](./img/organisation-home-page-1.png)
 
 They will then be redirected to the organisation's home page. There are four main elements on an organisation's home page that all users can see:
 
@@ -34,13 +34,13 @@ Only the System Administrator and the Organisation's Publishers can see:
 
 5. **[Manage Button](#manage-button)**
 
-![Organisation Home Page 2](./img/organisation-home-page-2.png)
+[![Organisation Home Page 2](./img/organisation-home-page-2.png)](./img/organisation-home-page-2.png)
 
 ### Overview
 
 The overview contains information regarding the organisation. This includes the organisation's profile picture, the organisation's name, a description of the organisation, the number of followers, the number of records, and the `Follow` button. The `Organisations` and `Tags` subsections, can be populated with reference links to keywords and organisations to filter the organisation's metadata records.
 
-![Organisation Overview 1](./img/organisation-overview-1.png)
+[![Organisation Overview 1](./img/organisation-overview-1.png)](./img/organisation-overview-1.png)
 
 1. **Profile Picture:** This is an image (usually a logo) that is visually associated with the organisation.
 2. **Organisation Name:** This is the name of the organisation.
@@ -57,7 +57,7 @@ The `Metadata Records` section of an organisation's home page displays all of th
 
 If a user is a member, editor, or publisher (or system administrator) of the organisation then they will see all of the organisation's metadata records, including `Private` records.
 
-![Organisation Metadata 2](./img/organisation-metadata-2.png)
+[![Organisation Metadata 2](./img/organisation-metadata-2.png)](./img/organisation-metadata-2.png)
 
 1. **`Add metadata record` button:** Publishers and Editors within the organisation can see this button which allows them to add records to the organisation.
 2. **Search bar and `Search` button:** All users can search for public records using the search functionality while organisation members, editors, and publishers can search for all the metadata records within the organisation.
@@ -73,23 +73,23 @@ The `Activity Stream` section of an organisation's home page displays all of the
 
 The `About` section of an organisation's home page displays the full description about the organisation (if added) as some organisations may have longer descriptions that will not fully display in the overview panel.
 
-![Organisation About 1](./img/organisation-about-1.png)
+[![Organisation About 1](./img/organisation-about-1.png)](./img/organisation-about-1.png)
 
 ### Manage Button
 
 If organisation users with the necessary permissions (publishers and the system administrator), click on the `Manage` button.
 
-![Organisation Management 1](./img/organisation-managment-1.png)
+[![Organisation Management 1](./img/organisation-managment-1.png)](./img/organisation-managment-1.png)
 
 This will redirect you to the management page of the organisation.
 
-![Organisation Management 2](./img/organisation-managment-2.png)
+[![Organisation Management 2](./img/organisation-managment-2.png)](./img/organisation-managment-2.png)
 
 #### Edit Details
 
 The `Edit` tab allows users with the necessary permissions to change multiple details relating to the organisation. There is also the choice to update the organisation's details or to delete the organisation, utilising the relevant buttons at the bottom of the form.
 
-![Organisation Management 3](./img/organisation-managment-3.png)
+[![Organisation Management 3](./img/organisation-managment-3.png)](./img/organisation-managment-3.png)
 
 1. **Details:** These are fields that can be populated to change the organisation's displayed information in the [Overview](#overview) and [About](#about) sections.
 2. **`Update Organisation` button:** This button stores changes made to the organisation's details.
@@ -99,7 +99,7 @@ The `Edit` tab allows users with the necessary permissions to change multiple de
 
 The `Metadata Records` tab allows users with the necessary permissions to add/delete, publish/unpublish, or search for the organisation's metadata records.
 
-![Organisation Management 4](./img/organisation-managment-4.png)
+[![Organisation Management 4](./img/organisation-managment-4.png)](./img/organisation-managment-4.png)
 
 1. **`Add metadata record` button:** This will redirect users to the [Add metadata](./metadata.md#add-metadata-record) form.
 2. **Search bar and `Search` button:** Users can search for specific records with which they would like to interact.
@@ -112,7 +112,7 @@ The `Metadata Records` tab allows users with the necessary permissions to add/de
 
 The `Members` tab allows users with the necessary permissions to change other members' relative permissions within the organisation and to add new members to the organisation.
 
-![Organisation Management 5](./img/organisation-managment-5.png)
+[![Organisation Management 5](./img/organisation-managment-5.png)](./img/organisation-managment-5.png)
 
 1. **`Add Member` button:** This button redirects users to the [Add Member](#add-member) page.
 2. **Number of members:** This displays the total number of members within the organisation.
@@ -124,7 +124,7 @@ The `Members` tab allows users with the necessary permissions to change other me
 
 The `Add Member` page allows users with the necessary permissions to add a current user on the platform to the organisation or to invite a new user to the platform and in turn the organisation. There is a description of the various user role permissions in the overview on the left.
 
-![Organisation Management 6](./img/organisation-managment-6.png)
+[![Organisation Management 6](./img/organisation-managment-6.png)](./img/organisation-managment-6.png)
 
 1. **Existing User:** This dropdown is where a current user's username should be entered.
     ![Organisation Management 7](./img/organisation-managment-7.png)
@@ -137,7 +137,7 @@ The `Add Member` page allows users with the necessary permissions to add a curre
 
 The `Edit Member` page allows users with the necessary permissions to change a user's role within the organisation. There is a description of the various user role permissions in the overview on the left.
 
-![Organisation Management 10](./img/organisation-managment-10.png)
+[![Organisation Management 10](./img/organisation-managment-10.png)](./img/organisation-managment-10.png)
 
 1. **Role:** The user's role (member, editor, or publisher) should be selected from this dropdown.
     ![Organisation Management 9](./img/organisation-managment-9.png)
@@ -157,4 +157,4 @@ The `Delete Member` popup prompts the user to confirm their action.
 
 This button will redirect users back to the organisation's landing page.
 
-![Organisation Management 12](./img/organisation-managment-12.png)
+[![Organisation Management 12](./img/organisation-managment-12.png)](./img/organisation-managment-12.png)

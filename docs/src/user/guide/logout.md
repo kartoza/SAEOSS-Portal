@@ -21,7 +21,7 @@ Click on the user profile icon or name to reveal the user-related options.
 
 In the dropdown menu, click on the `Logout` option. After clicking Logout, the system will process the request and redirect you to the logout page.
 
-![logout page](./img/logout-1.png)
+[![logout page](./img/logout-1.png)](./img/logout-1.png)
 
 On the logout page, you will find convenient buttons to perform further actions.
 

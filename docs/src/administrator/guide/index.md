@@ -46,27 +46,27 @@ license: This program is free software; you can redistribute it and/or modify it
 
 1. Navigate to an organisation's home page and then click on `Manage`.
 
-      ![non-owned profile 1](img/non-owned-profile-1.png)
+      [![non-owned profile 1](img/non-owned-profile-1.png)](./img/non-owned-profile-1.png)
 
 2. Then click on the `Members` tab.
 
-      ![non-owned profile 2](img/non-owned-profile-2.png)
+      [![non-owned profile 2](img/non-owned-profile-2.png)](./img/non-owned-profile-2.png)
 
 3. Then click on a user's name that you would like to manage.
 
-      ![non-owned profile 3](img/non-owned-profile-3.png)
+      [![non-owned profile 3](img/non-owned-profile-3.png)](./img/non-owned-profile-3.png)
 
 4. You will be redirected to the user's profile page. On this page you should click on the `Manage` button.
 
-      ![non-owned profile 4](img/non-owned-profile-4.png)
+      [![non-owned profile 4](img/non-owned-profile-4.png)](./img/non-owned-profile-4.png)
 
 5. You will be redirected to the `Change details` page, here you can manage the user's profile details. Once you have made your changes to the user's profile, scroll down and enter your `Sysadmin Password` (i.e. the password you use to log in to the administrator account), and then click on the `Update Profile` button.
 
-      ![non-owned profile 5](img/non-owned-profile-5.png)
+      [![non-owned profile 5](img/non-owned-profile-5.png)](./img/non-owned-profile-5.png)
 
 6. If you would like to remove the user, you can scroll down and enter your `Sysadmin Password` (i.e. the password you use to log in to the administrator account), and then click on the `Delete` button.
 
-      ![non-owned profile 6](img/non-owned-profile-6.png)
+      [![non-owned profile 6](img/non-owned-profile-6.png)](./img/non-owned-profile-6.png)
 
 ## Add Organisation
 
@@ -176,11 +176,11 @@ Replace the `username` with the desired user's username.
 
 Before the superuser privileges
 
-![Bob002 as a normal user](./img/superuser-5.png)
+[![Bob002 as a normal user](./img/superuser-5.png)](./img/superuser-5.png)
 
 After the superuser privileges
 
-![Bob002 as a superuser](./img/superuser-6.png)
+[![Bob002 as a superuser](./img/superuser-6.png)](./img/superuser-6.png)
 
 **Security Tips:**
 

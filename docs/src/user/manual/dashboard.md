@@ -34,19 +34,19 @@ The activity button allows you to filter the activity by organisation, group, or
 
 The news feed provides an overview of all recent activities of groups, organisations, or metadata you follow. This allows a user who is interested in a specific dataset/organisation/group to be up to date with any new changes or assets in the system. Users can follow a group/organisation/metadata dataset to receive these notifications. Learn more here: [Following datasets/groups/organisations](./metadata.md#following-datasets)
 
-![News_feed](./img/news-feed.png)
+[![News_feed](./img/news-feed.png)](./img/news-feed.png)
 
 ## My Metadata Records
 
 This is a collection of all metadata records that you have created, published, or are working on (i.e. drafts).
 
-![My Metadata Records](./img/my-metadata-records.png)
+[![My Metadata Records](./img/my-metadata-records.png)](./img/my-metadata-records.png)
 
 ## My Organisations
 
 In this tab, you will find a list of all organisations you have been added to. Administrators can add you to an organisation, or you can be added to multiple organisations. This allows you to see any private metadata records for each individual organisation.
 
-![My Organisations](./img/my-organisations.png)
+[![My Organisations](./img/my-organisations.png)](./img/my-organisations.png)
 
 ### What is an organisation?
 
@@ -62,7 +62,7 @@ An organisation consists of users who are registered on the site and then in tur
 
 This tab displays all the groups of which you are a part. You can be added to a single group or multiple groups.
 
-![My Groups](./img/my-groups.png)
+[![My Groups](./img/my-groups.png)](./img/my-groups.png)
 
 ### What is a group?
 
