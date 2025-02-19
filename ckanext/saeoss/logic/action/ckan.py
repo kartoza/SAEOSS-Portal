@@ -58,7 +58,7 @@ def user_update(original_action, context, data_dict):
 
     """
     original_result = original_action(context, data_dict)
-
+    mime = MimeTypes()
     mime_type = mime.guess_type(original_result["image_url"])
     
     if mime_type[0] in mimeNotAllowed:
