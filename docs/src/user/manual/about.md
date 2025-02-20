@@ -37,7 +37,7 @@ At the `SAEOSS-Portal`, we envision a future where data knows no boundaries. Our
 
 2. **Create an Account:** To become a part of this transformative journey, create an account on the `SAEOSS-Portal`. By doing so, you not only become a catalyst for change in the data ecosystem but also gain access to a wealth of knowledge and insights.
 
-![revolution](img/about-page-4.png)
+    ![revolution](img/about-page-4.png)
 
 3. **Benefits of Joining:**
 

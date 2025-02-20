@@ -16,7 +16,7 @@ license: This program is free software; you can redistribute it and/or modify it
 This interface displays footprints of datasets in polygon format by displaying the boundary that is covered by the respective metadata record.
 The user is provided with a visual map to interact with to understand the extent, location and number of spatial Earth Observation datasets available.
 
-![Map](img/map-1.png)
+[![Map](img/map-1.png)](./img/map-1.png)
 
 These are some of the components found on the map tab:
 
@@ -34,7 +34,7 @@ These are some of the components found on the map tab:
 
     3. **Metadata Record:** To visualise the geographical area associated with the `Metadata Record`, users can click on the metadata, triggering its display on the map.
 
-        ![metadata on map](./img/map-9.png)
+        [![metadata on map](./img/map-9.png)](./img/map-9.png)
 
         1. **Highlighted Area:** The geographic area corresponding to the metadata is highlighted on the map, providing a visual reference for the user.
 

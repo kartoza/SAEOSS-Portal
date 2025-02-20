@@ -39,7 +39,7 @@ To ensure this, a general approach has been created to make sure users are able 
 
 To report an issue, users should first access the SAEOSS-Portal [Project Page](https://github.com/kartoza/SAEOSS-Portal). Ensure you are logged in to GitHub, as users who do not have a GitHub account will not be able to create new issues. If you do not have a GitHub account you can create a [free account](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home).
 
-![ProjectBoard](../img/Gh_project.png)
+[![ProjectBoard](../img/Gh_project.png)](../img/Gh_project.png)
 
 1. From the navigation pane select `Issues` to display all the current GitHub issue tickets.
     ![Nav](../img/Gh_issue.png)

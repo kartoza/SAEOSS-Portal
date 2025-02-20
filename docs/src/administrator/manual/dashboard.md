@@ -21,7 +21,7 @@ Welcome to the Administrator Dashboard – the centralised hub for overseeing an
 
     **News Feed**
 
-    ![dashboard news feed](./img/dashboard-1.png)
+    [![dashboard news feed](./img/dashboard-1.png)](./img/dashboard-1.png)
 
     1. **Viewing the News Feed:** The `News Feed` is the first thing the administrator sees upon accessing the Dashboard. It provides a chronological display of updates, announcements, and important events related to your system. Stay informed and up-to-date with the latest information at a glance.
 
@@ -29,11 +29,11 @@ Welcome to the Administrator Dashboard – the centralised hub for overseeing an
 
     3. **Username:** `Usernames` in the `News Feed` are clickable links. When the administrator clicks on a username, it opens a detailed profile of that particular user. Gain insights into user activities, roles, and contributions to enhance understanding of system dynamics.
 
-        ![profile](./img/dashboard-3.png)
+        [![profile](./img/dashboard-3.png)](./img/dashboard-3.png)
 
     4. **Dataset Name:** Clickable dataset names within the `News Feed` allow the administrator to delve deeper into specific datasets. By clicking on a dataset name, the administrator can open a dedicated view providing detailed information about that particular dataset. This feature facilitates quick access to essential data management insights.
 
-        ![dataset](./img/dashboard-4.png)
+        [![dataset](./img/dashboard-4.png)](./img/dashboard-4.png)
 
 
     5. **View This Version:** Discover the details of a specific version of a dataset by clicking on the `View This Version` link within the `News Feed`.
@@ -66,7 +66,7 @@ Welcome to the Administrator Dashboard – the centralised hub for overseeing an
 
     Welcome to the `My Organisations` tab, the centralised control center for managing and overseeing the various organisations within the system. This user-friendly interface provide the tools to efficiently add, explore, and view details about different organisations.
 
-    ![my organisations](./img/dashboard-9.png)
+    [![my organisations](./img/dashboard-9.png)](./img/dashboard-9.png)
 
     1. **Add Organization:** To initiate the process of adding a new organisation, click on the `Add Organisation` button. This action prompts a form where the administrator can input essential details such as organisation name, description, and any relevant attributes.
 

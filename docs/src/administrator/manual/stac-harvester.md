@@ -50,7 +50,7 @@ diagnose issues or understand the outcome of the harvest.
 1. `Create Job` is initiating a new harvesting job to fetch metadata from an external STAC catalog and import it into 
 the CKAN instance. This action involves configuring the harvester with specific parameters.
 
-![profile option](./img/stac-harvester-4.png)
+[![profile option](./img/stac-harvester-4.png)](./img/stac-harvester-4.png)
 
 1. **URL**: The URL of the STAC catalog or source from which the harvesting will perform.
 2. **Number Records**: This count indicates how many geospatial datasets or assets will be imported into CKAN during 

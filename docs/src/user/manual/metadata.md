@@ -31,7 +31,7 @@ This section gives an overview of the number of records on the platform, records
 
 The filters allow users to refine the list of records that they can see to meet their criteria.
 
-![Metadata Filters 1](./img/metadata-filters-1.png)
+[![Metadata Filters 1](./img/metadata-filters-1.png)](./img/metadata-filters-1.png)
 
 1. **Search bar and `Search` button:** This allows users to filter records using words/terms related to desired records.
 2. **Filter by location:** This allows users to utilise spatial filters to refine the list of records by location.
@@ -49,35 +49,35 @@ The Filter by location section consists of:
 
 1. **`Clear` button:** This clears all location filters currently applied.
 2. **`Zoom In` and `Zoom Out` buttons:** These buttons allow users to change their zoom levels on the map.
-3. **`Search with rectangle bounds` button:** This button expands the map to allow users to draw their preferred rectangular search area. Once the area is defined they can click on `Apply`.`
-    ![Metadata Filters 3](./img/metadata-filters-3.png)
+3. **`Search with rectangle bounds` button:** This button expands the map to allow users to draw their preferred rectangular search area. Once the area is defined they can click on `Apply`.
+    [![Metadata Filters 3](./img/metadata-filters-3.png)](./img/metadata-filters-3.png)
 4. **`Search with circular` button:** This button expands the map to allow users to draw their preferred circular search area. Once the area is defined they can click on `Apply`.
-    ![Metadata Filters 4](./img/metadata-filters-4.png)
+    [![Metadata Filters 4](./img/metadata-filters-4.png)](./img/metadata-filters-4.png)
 5. **Spatial Layer search:** Hovering over this patch opens a menu of predefined spatial layers that users can apply and then click to define a search area.
-    ![Metadata Filters 5](./img/metadata-filters-5.png)
+    [![Metadata Filters 5](./img/metadata-filters-5.png)](./img/metadata-filters-5.png)
 
     A user selects one of the four options (e.g. `Provinces`).
-    ![Metadata Filters 6](./img/metadata-filters-6.png)
+    [![Metadata Filters 6](./img/metadata-filters-6.png)](./img/metadata-filters-6.png)
 
     Then clicks on one of the polygons to define a search area.
-    ![Metadata Filters 7](./img/metadata-filters-7.png)
+    [![Metadata Filters 7](./img/metadata-filters-7.png)](./img/metadata-filters-7.png)
 
 ### Temporal range
 
 The Temporal range section consists of:
 
-![Metadata Filters 8](./img/metadata-filters-8.png)
+[![Metadata Filters 8](./img/metadata-filters-8.png)](./img/metadata-filters-8.png)
 
 1. **Start date:** This is the earliest date from which a user wants to search.
 2. **End date:** This is the latest date until which a user wants to search.
 3. **`Calendar` buttons:** These buttons allow users to set the start and end dates. They just need to click on a desired date.
-    ![Metadata Filters 9](./img/metadata-filters-9.png)
+    [![Metadata Filters 9](./img/metadata-filters-9.png)](./img/metadata-filters-9.png)
 
 ### Other Filters
 
 The Organisations section consists of:
 
-![Metadata Filters 10](./img/metadata-filters-10.png)
+[![Metadata Filters 10](./img/metadata-filters-10.png)](./img/metadata-filters-10.png)
 
 1. **List of organisations:** This is a list of all the organisations on the platform.
 2. **`x` button:** This allows users to remove the currently selected organisation(s) as a filter. It only becomes available once a user has selected an organisation.
@@ -88,16 +88,16 @@ The `Harvest source`, `Featured Metadata records`, and `Tags` sections function 
 
 This section of the page displays all public metadata records on the platform to all users and users with additional permissions (i.e. organisation members, or the system administrator) can view `private` metadata records within organisations.
 
-![List of Records 1](./img/list-of-records-1.png)
+[![List of Records 1](./img/list-of-records-1.png)](./img/list-of-records-1.png)
 
 1. **List of Records:** Users can click on a record to view details about it.
-    ![List of Records 2](./img/list-of-records-2.png)
+    [![List of Records 2](./img/list-of-records-2.png)](./img/list-of-records-2.png)
 
 ## Add Metadata Record
 
 The `Add metadata record` button is only available to Organisation Editors, Organisation Publishers, and System Administrators.
 
-![Add UI Record 1](./img/add-ui-record-1.png)
+[![Add UI Record 1](./img/add-ui-record-1.png)](./img/add-ui-record-1.png)
 
 1. **`Add metadata record` button:** This redirects users to the `Create metadata record` form.
 
@@ -105,17 +105,17 @@ The `Add metadata record` button is only available to Organisation Editors, Orga
 
 This form allows users to specify details relating to the metadata record that they are creating. It is only available to Organisation Editors, Organisation Publishers, and System Administrators.
 
-![Add UI Record 2](./img/add-ui-record-2.png)
+[![Add UI Record 2](./img/add-ui-record-2.png)](./img/add-ui-record-2.png)
 
 1. **Record Information:** These fields are based off of the SANS 1878 metadata standard and any field marked with an asterisk (`*`) is required to be populated with information. Underneath the fields is an informative description about what information is required, denoted by ![Add UI Record 3](./img/add-ui-record-3.png){: style="height:15px"}.
 
 At the bottom of the form, users will be required to click on the `Next: Add Links` button.
 
-![Add UI Record 4](./img/add-ui-record-4.png)
+[![Add UI Record 4](./img/add-ui-record-4.png)](./img/add-ui-record-4.png)
 
 Users are redirected to the `Metadata record details` form.
 
-![Add UI Record 5](./img/add-ui-record-5.png)
+[![Add UI Record 5](./img/add-ui-record-5.png)](./img/add-ui-record-5.png)
 
 1. **Details fields:** These fields relate to the associated data source of the metadata record and users will be required to fill out the fields.
 2. **`Upload` and `Link` buttons:** These buttons allow a user to choose how they would like to associate a data source with the metadata record.
@@ -127,7 +127,7 @@ Users are redirected to the `Metadata record details` form.
 
 The `Add metadata record from file` button is only available to Organisation Editors, Organisation Publishers, and System Administrators.
 
-![Add XML Record 1](./img/add-xml-record-1.png)
+[![Add XML Record 1](./img/add-xml-record-1.png)](./img/add-xml-record-1.png)
 
 1. **`Add metadata record from file`:** This button opens a file explorer on the user's machine for them to then explore and upload an `xml` file.
 

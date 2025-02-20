@@ -24,7 +24,7 @@ To access the Harvesting Settings, administrators can follow these steps:
 
 1. **Harvesting Setting** Upon clicking the `Harvest Settings` option, administrators will be automatically redirected to the `Harvest Settings` page. This page contains a range of configurable options and parameters related to the harvesting functionality.
 
-    ![Harvest setting](./img/harvesting-settings-2.png)
+    [![Harvest setting](./img/harvesting-settings-2.png)](./img/harvesting-settings-2.png)
 
     1. **Add Harvest Resource Button:** The `Add Harvest Resource` button is a key feature that enables administrators to create new harvest resources within the system. Clicking on this button opens a new harvest page, providing a user-friendly interface for entering details and configuring the new harvest resource.
 

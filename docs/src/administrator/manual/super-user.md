@@ -48,11 +48,11 @@ This command promotes the specified user to superuser status.
 
 Before the superuser privileges
 
-![Bob002 as a normal user](./img/super-user-5.png)
+[![Bob002 as a normal user](./img/super-user-5.png)](./img/super-user-5.png)
 
 After the superuser privileges
 
-![Bob002 as a superuser](./img/super-user-6.png)
+[![Bob002 as a superuser](./img/super-user-6.png)](./img/super-user-6.png)
 
 **Important Notes:**
 

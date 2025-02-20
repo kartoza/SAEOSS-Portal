@@ -27,17 +27,17 @@ Navigate to `Metadata` and click on the `Add metadata record` button.
 
 This will take you to the form that needs to be completed in order to create metadata record. Fill in all the necessary information about the record. All fields marked with an asterisk (*) are mandatory. The information you add will become the information that is available on the site about the record you are adding. When adding the metadata record thumbnail, make sure the image URL is a public image link and not a private one. Remember to also make sure that the image ratio is 1:1 for the best results.
 
-![add metadata 2](img/metadata-system-ui-2.png)
+[![add metadata 2](img/metadata-system-ui-2.png)](./img/metadata-system-ui-2.png)
 
 ### Method 2
 
 Navigate to your profile and click on the `Add metadata record` button then fill out the form.
 
-![add metadata 3](img/metadata-system-ui-3.png)
+[![add metadata 3](img/metadata-system-ui-3.png)](./img/metadata-system-ui-3.png)
 
 If you have the permissions to upload metadata records within multiple organisations, you will need to choose the `Responsible organisation Name` to ensure the record is published within the correct organisation.
 
-![add metadata 4](img/metadata-system-ui-4.png)
+[![add metadata 4](img/metadata-system-ui-4.png)](./img/metadata-system-ui-4.png)
 
 ## Create metadata record using XML upload
 
@@ -45,10 +45,10 @@ Another method to create a metadata record in an organisation is via an XML file
 
 On the metadata page, click on the `Add metadata record from xml file` button.
 
-![add metadata xml](img/metadata-xml-upload-1.png)
+[![add metadata xml](img/metadata-xml-upload-1.png)](./img/metadata-xml-upload-1.png)
 
 Then select the XML file on your local machine.
 
 The xml file should look something like this:
 
-![xml file standard](img/metadata-xml-upload-2.png)
+[![xml file standard](img/metadata-xml-upload-2.png)](./img/metadata-xml-upload-2.png)
