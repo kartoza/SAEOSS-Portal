@@ -411,93 +411,70 @@ def datasetcollection():
     return jsonify(collection.to_dict()) 
 
 
-
-@stac_api_blueprint.route("/datasetcollection-search", methods = ['POST', 'GET'])
+@stac_api_blueprint.route("/datasetcollection-search", methods=['POST', 'GET'])
 def datasetcollection_post():
-    data = request.get_json()
+    data = request.get_json() or {}
 
-    search_string = data['search_string']
-    start_date = data['start_date']
-    end_date = data['end_date']
+    search_string = data.get('search_string', '').strip()
+    start_date_str = data.get('start_date', '').strip()
+    end_date_str   = data.get('end_date', '').strip()
 
-    
-    package_list = p.toolkit.get_action("package_list")({},{})
+    def parse_date(date_str):
+        if date_str:
+            try:
+                return pd.to_datetime(date_str, infer_datetime_format=True)
+            except Exception:
+                pass
+        return None
 
+    start_date = parse_date(start_date_str)
+    end_date   = parse_date(end_date_str)
+
+    package_list = p.toolkit.get_action("package_list")({}, {})
     items = []
-    
-    for package in package_list:
-        package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package})
-        # package_date = [pd.to_datetime(package_dict["reference_date"], infer_datetime_format=True), datetime.now()]
-        package_date = package_dict["reference_date"]
-        if package_date is None:
-            package_date = datetime.now()
+
+    def matches_criteria(pkg_dict, s_string, s_dt, e_dt):
+        """
+        Checks if the given package matches:
+          - the date range constraints,
+          - the case-insensitive search string in either name, title, or tags.
+        """
+
+        ref_date_str = pkg_dict.get("reference_date")
+        if ref_date_str:
+            try:
+                pkg_date = pd.to_datetime(ref_date_str, infer_datetime_format=True)
+            except Exception:
+                pkg_date = datetime.now()
         else:
-            package_date = pd.to_datetime(end_date, infer_datetime_format=True)
-        isFound = False
-        if search_string != "" and start_date == "" and end_date == "":
-            if search_string in package_dict["name"] or search_string in package_dict["title"]:
-                isFound = True
+            pkg_date = datetime.now()
 
-            for tag in package_dict["tags"]:
-                if search_string in tag["name"]:
-                    isFound = True
+        if s_dt and pkg_date < s_dt:
+            return False
+        if e_dt and pkg_date > e_dt:
+            return False
 
-        if search_string == "" and start_date != "" and end_date == "":
-            start_date = pd.to_datetime(start_date, infer_datetime_format=True)
-            if start_date <= package_date:
-                isFound = True
+        if s_string:
+            s_string_lower = s_string.lower()
+            name_lower  = pkg_dict["name"].lower()
+            title_lower = pkg_dict["title"].lower()
 
-        if search_string == "" and start_date == "" and end_date != "":
-            end_date = pd.to_datetime(end_date, infer_datetime_format=True)
-            if end_date >= package_date:
-                isFound = True
+            if (s_string_lower in name_lower) or (s_string_lower in title_lower):
+                return True
 
-        if search_string == "" and start_date != "" and end_date != "":
-            start_date = pd.to_datetime(start_date, infer_datetime_format=True)
-            end_date = pd.to_datetime(end_date, infer_datetime_format=True)
-            if start_date <= package_date and end_date >= package_date:
-                isFound = True
+            for tag in pkg_dict.get("tags", []):
+                if s_string_lower in tag["name"].lower():
+                    return True
 
-        if search_string != "" and start_date != "" and end_date == "":
-            start_date = pd.to_datetime(start_date, infer_datetime_format=True)
-            end_date = pd.to_datetime(end_date, infer_datetime_format=True)
-            if search_string in package_dict["name"] or search_string in package_dict["title"]:
-                if start_date <= package_date:
-                    isFound = True
+            return False
+        else:
+            return True
 
-            for tag in package_dict["tags"]:
-                if search_string in tag["name"]:
-                    if start_date <= package_date:
-                        isFound = True
+    for package in package_list:
+        pkg_dict = p.toolkit.get_action("package_show")({"model": model}, {'id': package})
 
-        if search_string != "" and start_date == "" and end_date != "":
-            start_date = pd.to_datetime(start_date, infer_datetime_format=True)
-            end_date = pd.to_datetime(end_date, infer_datetime_format=True)
-            if search_string in package_dict["name"] or search_string in package_dict["title"]:
-                if end_date >= package_date:
-                    isFound = True
-
-            for tag in package_dict["tags"]:
-                if search_string in tag["name"]:
-                    if end_date >= package_date:
-                        isFound = True
-
-
-        if search_string != "" and start_date != "" and end_date != "":
-            start_date = pd.to_datetime(start_date, infer_datetime_format=True)
-            end_date = pd.to_datetime(end_date, infer_datetime_format=True)
-            if search_string in package_dict["name"] or search_string in package_dict["title"]:
-                if start_date <= package_date and end_date >= package_date:
-                    isFound = True
-
-            for tag in package_dict["tags"]:
-                if search_string in tag["name"]:
-                    if start_date <= package_date and end_date >= package_date:
-                        isFound = True
-        
-        if isFound:
+        if matches_criteria(pkg_dict, search_string, start_date, end_date):
             fetch_data(package, items)
-        
+
     collection = pystac.ItemCollection(items)
-    
-    return jsonify(collection.to_dict()) 
+    return jsonify(collection.to_dict())
