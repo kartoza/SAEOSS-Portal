@@ -246,26 +246,30 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 {basemaps: baseMaps, initialBasemap: initialStyle}
             ), 'bottom-left');
 
-            $("#collapse-collection").on('click', function(event){
-                
-                var x = document.getElementById("collapse-main")
+            $("#collapse-collection").on('click', function (event) {
+                let x = document.getElementById("collapse-main");
 
-                $('#collapse-collection-right').hide()
-                $('#collapse-collection-left').hide()
+                let isMobile = window.matchMedia("(max-width: 767px)").matches;
 
-                if(x.style.display === "none"){
-                    $('#collapse-collection-left').show()
-                    x.style.display = "block"
-                    document.getElementById("collapse-collection").style.right = "-18px"
-                    document.getElementById("collection-main").style.backgroundColor = "#fafafa"
+                $('#collapse-collection-right').hide();
+                $('#collapse-collection-left').hide();v
+
+                if (x.style.display === "none") {
+                $('#collapse-collection-left').show();
+                    x.style.display = "block";
+                    document.getElementById("collapse-collection").style.right = "-18px";
+                    document.getElementById("collection-main").style.backgroundColor = "#fafafa";
+                } else {
+                    $('#collapse-collection-right').show();
+                    x.style.display = "none";
+                    if (isMobile) {
+                      document.getElementById("collapse-collection").style.right = "80%";
+                    } else {
+                      document.getElementById("collapse-collection").style.right = "95%";
+                    }
+                    document.getElementById("collection-main").style.background = "none";
                 }
-                else{
-                    $('#collapse-collection-right').show()
-                    x.style.display = "none"
-                    document.getElementById("collapse-collection").style.right = "95%"
-                    document.getElementById("collection-main").style.background = "none"
-                }
-            })
+            });
 
             $("#collapse-feature").on('click', function(event){
                 

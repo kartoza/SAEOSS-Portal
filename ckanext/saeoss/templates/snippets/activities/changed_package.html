@@ -11,11 +11,11 @@
     <span class="date" title="{{ h.render_datetime(activity.timestamp, with_hours=True) }}">
       {{ h.time_ago_from_timestamp(activity.timestamp) }}
       {% if can_show_activity_detail %}
-        &nbsp;|&nbsp;
+        <span class="date-break">&nbsp;|&nbsp;</span>
         <a href="{{ h.url_for(dataset_type ~ '.read', id=activity.object_id, activity_id=activity.id) }}">
           {{ _('View this version') }}
         </a>
-        &nbsp;|&nbsp;
+        <span class="date-break">&nbsp;|&nbsp;</span>
         <a href="{{ h.url_for(dataset_type ~ '.changes', id=activity.id) }}">
           {{ _('Changes') }}
         </a>
