@@ -21,10 +21,20 @@
       {% endcall %}
     {% endif %}
 
-    {% set is_upload = data.image_url and not data.image_url.startswith('http') %}
-    {% set is_url = data.image_url and data.image_url.startswith('http') %}
+    {% set is_upload = True %}
+    {% set is_url = False %}
+    {% set field_url = 'image_url' %}
 
-    {{ form.image_upload(data, errors, is_upload_enabled=h.uploads_enabled(), is_url=is_url, is_upload=is_upload, upload_label=_('Profile picture'), url_label=_('Profile picture URL') ) }}
+    {{ form.image_upload(
+        data,
+        errors,
+        is_upload_enabled=h.uploads_enabled(),
+        is_url=is_url,
+        is_upload=is_upload,
+        upload_label=_('Profile picture'),
+        url_label=_('Profile picture'),
+        field_url=field_url
+    ) }}
 
   </fieldset>
     <fieldset>

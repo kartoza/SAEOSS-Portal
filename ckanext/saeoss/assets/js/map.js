@@ -308,8 +308,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                         url: '/stac/datasetcollection-search',
                         contentType: 'application/json',
                         data: JSON.stringify(ajaxData),
-                            success: function(resultData) { 
-                                console.log(resultData)
+                            success: function(resultData) {
                                 var el_error = document.getElementById("collection-search-error")
                                 if(resultData["features"].length < 1){
                                     el_error.style.display = "block"
