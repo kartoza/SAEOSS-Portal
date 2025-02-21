@@ -11718,6 +11718,12 @@ article{
   margin-top: 20px;
 }
 
+@media (max-width: 767px) {
+  .map-search{
+    margin-top: 0px;
+  }
+}
+
 /* .row {
   display: table;
 } */
@@ -11767,4 +11773,36 @@ article{
 #end_date, #start_date {
   height: 30px;
   line-height: 15px;
+}
+
+#collapse-collection {
+  width: 25px !important;
+}
+
+.data-break {
+  display: block;
+}
+.item .date {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.item .date a {
+  display: inline-block;
+  margin-left: 0.5em;
+}
+
+@media (max-width: 767px) {
+  .item .date {
+    display: block;
+    white-space: normal;
+  }
+  .item .date a {
+    display: block;
+    margin-left: 0;
+    margin-top: 0.5em;
+  }
+  .date-break {
+    display: none;
+  }
 }

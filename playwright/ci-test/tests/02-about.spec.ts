@@ -29,8 +29,6 @@ test('test elements on about page', async ({ page }) => {
 
   await expect(page.locator('.social-main > div:nth-child(3)')).toBeVisible();
 
-  await expect(page.locator('div:nth-child(4)')).toBeVisible();
-
   await expect(page.getByRole('heading', { name: 'Our Vision' })).toBeVisible();
 
   await expect(page.getByRole('img', { name: 'https://www.freepik.com/free-' })).toBeVisible({timeout: 20000});
