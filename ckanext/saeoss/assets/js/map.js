@@ -249,12 +249,18 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             $("#collapse-collection").on('click', function(event){
                 
                 var x = document.getElementById("collapse-main")
+
+                $('#collapse-collection-right').hide()
+                $('#collapse-collection-left').hide()
+
                 if(x.style.display === "none"){
+                    $('#collapse-collection-left').show()
                     x.style.display = "block"
                     document.getElementById("collapse-collection").style.right = "-18px"
                     document.getElementById("collection-main").style.backgroundColor = "#fafafa"
                 }
                 else{
+                    $('#collapse-collection-right').show()
                     x.style.display = "none"
                     document.getElementById("collapse-collection").style.right = "95%"
                     document.getElementById("collection-main").style.background = "none"
@@ -414,6 +420,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 let fetchRes = fetch("/stac/datasetcollection");
                 $("#start_date").val('')
                 $("#end_date").val('')
+                $('#search-collection').val('')
                 fetchRes.then(res => res.json()).then(_data => {
                     showData(_data, map)
                 });
