@@ -11715,6 +11715,7 @@ article{
   /* overflow-x: hidden; */
   min-width: 25%;
   border-radius: 5px ;
+  margin-top: 20px;
 }
 
 /* .row {
@@ -11759,3 +11760,11 @@ article{
   height: 100% !important;
 }
 
+#collapse-collection-right {
+  display: none;
+}
+
+#end_date, #start_date {
+  height: 30px;
+  line-height: 15px;
+}
