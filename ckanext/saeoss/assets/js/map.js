@@ -252,7 +252,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 let isMobile = window.matchMedia("(max-width: 767px)").matches;
 
                 $('#collapse-collection-right').hide();
-                $('#collapse-collection-left').hide();v
+                $('#collapse-collection-left').hide();
 
                 if (x.style.display === "none") {
                 $('#collapse-collection-left').show();
