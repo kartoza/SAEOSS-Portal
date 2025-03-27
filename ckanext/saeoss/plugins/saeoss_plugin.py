@@ -33,6 +33,7 @@ from ..blueprints.file_parser import file_parser_blueprint
 from ..blueprints.map import map_blueprint
 from ..blueprints.stac_harvest import stac_blueprint
 from ..blueprints.stac_endpoint import stac_api_blueprint
+from ..blueprints.reset_password import reset_password_blueprint
 from ..blueprints.about import about_blueprint
 from ..blueprints.validator import validator_blueprint
 from ..blueprints.saved_searches import saved_searches_blueprint
@@ -393,6 +394,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             news_blueprint,
             contact_blueprint,
             stats_blueprint,
+            reset_password_blueprint
         ]
 
     def dataset_facets(
