@@ -80,7 +80,6 @@ class RequestResetPasswordView(MethodView):
         if id in (None, u''):
             h.flash_error(_(u'Email is required'))
             return h.redirect_to(u'/user/reset')
-        # log.info(u'Password reset requested for user %s', repr_untrusted(id))
 
         context = {u'model': model, u'user': g.user, u'ignore_auth': True}
         user_objs = []
@@ -113,9 +112,6 @@ class RequestResetPasswordView(MethodView):
             if user_obj:
                 user_objs.append(user_obj)
 
-        # if not user_objs:
-            # log.info(u'User requested reset link for unknown user: %s',
-            #          repr_untrusted(id))
 
         for user_obj in user_objs:
             log.info(u'Emailing reset link to user: {}'
