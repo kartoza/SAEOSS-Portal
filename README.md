@@ -19,7 +19,7 @@ Clone the source cose
 git clone git@github.com:kartoza/SAEOSS-Portal.git
 ```
 
-Build docker images
+#### Build docker images
 
 ```
 cd SAEOSS-Portal/docker
@@ -38,6 +38,46 @@ Run down the project
 ./compose.py --compose-file docker-compose.yml --compose-file docker-compose.dev.yml down
 ```
 
+#### Initialize CKAN database
+
+The first time you launch it you will need to set up the ckan database (since
+the ckan image's entrypoint explicitly does not take care of this, as
+mentioned above). Run the following command:
+
+```
+docker exec -ti saeoss-ckan-web-1 poetry run ckan db init
+```
+
+Afterwards, proceed to run any migrations required by the ckanext-saeoss extension
+
+```
+docker exec -ti saeoss-ckan-web-1 poetry run ckan db upgrade --plugin saeoss
+```
+
+Now you should be able to go to `http://localhost:5000` and see the ckan
+landing page. If not, you may need to reload the ckan web app after
+performing the DB initialization step. This can done by sending the `HUP`
+signal to the gunicorn application server (which is running our ckan
+flask app):
+
+```
+docker exec -ti saeoss-ckan-web-1 bash -c 'kill -HUP 1'
+```
+
+#### Create sysadmin user
+
+After having initialized the database you can now create the first CKAN
+sysadmin user.
+
+```
+docker exec -ti saeoss-ckan-web-1 poetry run ckan sysadmin add admin
+```
+
+Answer the prompts in order to provide the details for this new user.
+After its successful creation you can login to the CKAN site with the `admin`
+user.
+
+
 After starting up, the project is available on your local host at http://localhost:5000 
 
 
@@ -50,7 +90,7 @@ After starting up, the project is available on your local host at http://localho
 ckan search-index check
 
 # re-index
-docker exec -it saeoss_ckan-web_1 poetry run ckan search-index rebuild
+docker exec -it saeoss-ckan-web-1 poetry run ckan search-index rebuild
 ```
 
 
@@ -70,7 +110,7 @@ docker exec -t saeoss-ckan_harvesting-runner poetry run ckan harvester job <sour
 This needs to be run periodically (once per hour is likely enough).
 
 ```
-docker exec -it saeoss_ckan-web_1 ckan saeoss send-email-notifications
+docker exec -it saeoss-ckan-web-1 ckan saeoss send-email-notifications
 ```
 
 Additionally, in order for notifications to work, there is some configuration:
@@ -88,49 +128,8 @@ Additionally, in order for notifications to work, there is some configuration:
 This needs to be run periodically (once per hour is likely enough).
 
 ```
-docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss pycsw refresh-materialized-view
+docker exec -ti saeoss-ckan-web-1 poetry run ckan saeoss pycsw refresh-materialized-view
 ```
-
-#### Create sysadmin user
-
-After having initialized the database you can now create the first CKAN
-sysadmin user.
-
-```
-docker exec -ti saeoss_ckan-web_1 poetry run ckan sysadmin add admin
-```
-
-Answer the prompts in order to provide the details for this new user.
-After its successful creation you can login to the CKAN site with the `admin`
-user.
-
-
-#### Initialize CKAN database
-
-The first time you launch it you will need to set up the ckan database (since
-the ckan image's entrypoint explicitly does not take care of this, as
-mentioned above). Run the following command:
-
-```
-docker exec -ti saeoss_ckan-web_1 poetry run ckan db init
-```
-
-Afterwards, proceed to run any migrations required by the ckanext-saeoss extension
-
-```
-docker exec -ti saeoss_ckan-web_1 poetry run ckan db upgrade --plugin saeoss
-```
-
-Now you should be able to go to `http://localhost:5000` and see the ckan
-landing page. If not, you may need to reload the ckan web app after
-performing the DB initialization step. This can done by sending the `HUP`
-signal to the gunicorn application server (which is running our ckan
-flask app):
-
-```
-docker exec -ti saeoss_ckan-web_1 bash -c 'kill -HUP 1'
-```
-
 
 #### Generate pycsw DB view
 
@@ -138,7 +137,7 @@ In order to be able to serve the system's datasets through various OGC standards
 in order to integrate with pycsw:
 
 ```bash
-docker exec -ti saeoss_ckan-web_1 poetry run ckan dalrrd-emc-dcpr pycsw create-materialized-view
+docker exec -ti saeoss-ckan-web-1 poetry run ckan dalrrd-emc-dcpr pycsw create-materialized-view
 ```
 
 
@@ -147,7 +146,7 @@ docker exec -ti saeoss_ckan-web_1 poetry run ckan dalrrd-emc-dcpr pycsw create-m
 create datasets (metadata records) from files stored in a directory
 
 ```bash
-docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss ingest cbers --source-path <path> --user <username>
+docker exec -ti saeoss-ckan-web-1 poetry run ckan saeoss ingest cbers --source-path <path> --user <username>
 ```
 m
 
@@ -156,7 +155,7 @@ m
 create datasets (metadata records) from stac endpoint
 
 ```bash
-docker exec -ti saeoss_ckan-web_1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --number-records <number_records> --owner-org <organisation_name>
+docker exec -ti saeoss-ckan-web-1 poetry run ckan saeoss stac create-stac-dataset --url <url> --user <username> --number-records <number_records> --owner-org <organisation_name>
 ```
 
 # Testing
