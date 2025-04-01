@@ -54,31 +54,36 @@ def user_show(original_action, context, data_dict):
 def user_update(original_action, context, data_dict):
     """
     Intercepts the core `user_update` action to update any extra_fields that may exist
-    for the user.
-
+    for the user. Also checks if the user is updating their image before validating MIME type.
     """
     original_result = original_action(context, data_dict)
-    mime = MimeTypes()
-    mime_type = mime.guess_type(original_result["image_url"])
     
-    if mime_type[0] in mimeNotAllowed:
-        raise ValidationError([f"Mimetype {mime_type} is not allowed!"])
-
+    # Check if image_url is being updated
+    if "image_url" in data_dict and data_dict["image_url"]:
+        mime = MimeTypes()
+        mime_type = mime.guess_type(data_dict["image_url"])
+        
+        if mime_type[0] in mimeNotAllowed:
+            raise ValidationError([f"Mimetype {mime_type[0]} is not allowed!"])
+    
     user_id = original_result["id"]
     model = context["model"]
     user_obj = model.Session.query(model.User).filter_by(id=user_id).first()
+    
     if user_obj.extra_fields is None:
         extra = UserExtraFields(user_id=user_id)
     else:
         extra = user_obj.extra_fields
+    
     extra.affiliation = data_dict.get("extra_fields_affiliation")
-    extra.professional_occupation = data_dict.get(
-        "extra_fields_professional_occupation"
-    )
+    extra.professional_occupation = data_dict.get("extra_fields_professional_occupation")
+    
     model.Session.add(extra)
     model.Session.commit()
+    
     original_result["extra_fields"] = _dictize_user_extra_fields(extra)
     return original_result
+
 
 
 @toolkit.chained_action
