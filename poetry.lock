@@ -478,7 +478,7 @@ resolved_reference = "a1a17202510c442a1f7cf95ed09d7984484d9764"
 
 [[package]]
 name = "ckanext-harvest"
-version = "1.4.0"
+version = "1.5.5"
 description = "Harvesting interface plugin for CKAN"
 category = "main"
 optional = false
@@ -489,8 +489,8 @@ develop = false
 [package.source]
 type = "git"
 url = "https://github.com/ckan/ckanext-harvest.git"
-reference = "v1.4.0"
-resolved_reference = "8874175bc9c09c40ad822df2101ce14fb957f58f"
+reference = "v1.5.5"
+resolved_reference = "e1127fa92d1aac6e7278f0e30303a576f775c4f2"
 
 [[package]]
 name = "ckanext-pages"
