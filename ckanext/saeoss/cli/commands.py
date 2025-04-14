@@ -1125,6 +1125,11 @@ def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records
             "resources": []
         }
 
+        for asset in collection.assets.values():  
+            if "thumbnail" in asset.roles:
+                data_dict["metadata_thumbnail"] = asset.href
+                break
+
         for item in collection_items:
             for link in item.links:
                 if link.rel == "thumbnail":
