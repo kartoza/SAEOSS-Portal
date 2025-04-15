@@ -18,6 +18,9 @@ $( document ).ready(function() {
         $('#headTags').tooltip({
             title: 'Filter by tags.'
         });
+        $('#headGroups').tooltip({
+            title: 'Filter by groups.'
+        });
     }
     setTimeout(setTooltip, 2000)
 });
