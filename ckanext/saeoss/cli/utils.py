@@ -2,6 +2,7 @@ import enum
 import logging
 import typing
 
+import re
 import click
 from ckan import model
 from ckan.logic import NotFound
@@ -16,6 +17,8 @@ logger = logging.getLogger(__name__)
 class DatasetCreationResult(enum.Enum):
     CREATED = "created"
     NOT_CREATED_ALREADY_EXISTS = "already_exists"
+    UPDATED = "updated"
+    FAILED_VALIDATION = "failed_validation"
 
 
 def get_jinja_env():
@@ -28,25 +31,41 @@ def get_jinja_env():
     return jinja_env
 
 
+def sanitize_dataset_name(name: str) -> str:
+    """
+    Converts a string to a CKAN-compliant dataset name.
+    """
+    # Lowercase, replace spaces with dashes, remove invalid characters
+    name = name.lower().replace(" ", "-")
+    name = re.sub(r"[^a-z0-9\-_]", "", name)
+    return name
+
+
 def create_single_dataset(
     user: typing.Dict, dataset: typing.Dict, close_session: bool = False
 ) -> DatasetCreationResult:
+    dataset = dataset.copy()
+    dataset["name"] = sanitize_dataset_name(dataset["name"])
+
+    context = {"user": user["name"]}
+
     try:
-        toolkit.get_action("package_show")(
-            {"user": user["name"]}, data_dict={"id": dataset["name"]}
-        )
+        existing = toolkit.get_action("package_show")(context, data_dict={"id": dataset["name"]})
+        dataset["id"] = existing["id"]
+        toolkit.get_action("package_update")(context, data_dict=dataset)
+        result = DatasetCreationResult.UPDATED
+        logger.debug(f"Dataset {dataset['name']!r} updated.")
     except toolkit.ObjectNotFound:
-        package_exists = False
-    else:
-        package_exists = True
-    if not package_exists:
-        toolkit.get_action("package_create")({"user": user["name"]}, data_dict=dataset)
+        toolkit.get_action("package_create")(context, data_dict=dataset)
         result = DatasetCreationResult.CREATED
-    else:
-        logger.debug(f"dataset {dataset['name']!r} already exists, skipping...")
-        result = DatasetCreationResult.NOT_CREATED_ALREADY_EXISTS
+        logger.debug(f"Dataset {dataset['name']!r} created.")
+    except toolkit.ValidationError as e:
+        logger.error(f"Validation error for dataset {dataset['name']!r}: {e.error_dict}")
+        result = DatasetCreationResult.FAILED_VALIDATION
+
     if close_session:
         model.Session.remove()
+      
     return result
 
 
