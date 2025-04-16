@@ -124,7 +124,7 @@
   <div>
     <div>
       {% for facet in facet_titles %}
-          {% if facet != 'tags' and facet!= 'groups' and facet!= 'res_format' and facet!= 'license_id' %}
+          {% if facet != 'tags' and facet!= 'res_format' and facet!= 'license_id' %}
         <div class="secondary-inner hover-content blue-text"> 
           {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets) }}
         </div>

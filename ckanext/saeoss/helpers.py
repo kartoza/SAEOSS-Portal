@@ -278,6 +278,21 @@ def get_all_datasets_count(user_obj):
     return result["count"]
 
 
+def group_package_count(group_name):
+    group = toolkit.get_action('group_show')({}, {'id': group_name})
+    group_id = group['id']
+
+    count = model.Session.query(model.Package) \
+        .join(model.Member, model.Member.table_id == model.Package.id) \
+        .filter(model.Member.group_id == group_id) \
+        .filter(model.Member.table_name == 'package') \
+        .filter(model.Member.state == 'active') \
+        .filter(model.Package.state == 'active') \
+        .count()
+
+    return count
+
+
 def get_org_public_records_count(org_id: str) -> int:
     """
     the default behavior is showing fixed
