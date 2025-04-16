@@ -10,6 +10,8 @@ services:
 
   ckan-web:
     image: saeoss:${CKAN_IMAGE_TAG}
+    environment:
+      SENTRY_DSN: ${SENTRY_DSN}
 
   ckan-datapusher:
     image: ckan/ckan-base-datapusher:0.0.20
