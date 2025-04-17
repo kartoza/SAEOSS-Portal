@@ -779,11 +779,40 @@ footer {
   padding: 0px 0;
 }
 
+.footer-left {
+  text-align: left;
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.footer-left img {
+  width: 150px;
+  height: auto;
+}
+
+.footer-right {
+  text-align: right;
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.footer-right img {
+  width: 150px;
+  height: auto;
+}
+
 .footer-text {
   text-align: center;
   color: #fff;
   font-size: 14px;
-  margin-top:10px
+  margin-top: 10px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .language form {

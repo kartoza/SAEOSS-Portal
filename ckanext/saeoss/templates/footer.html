@@ -1,28 +1,32 @@
 {% ckan_extends %}
 {% set saeoss_version = h.saeoss_show_version() %}
-{#
-    below we reimplement the default footer_links block in order to include the current version of
-    CKAN and of the Saeoss
-#}
+
 {% block footer_content %}
-    <div class="content">
+    <div class="content footer-content">
+        <!-- Logo on the left -->
+        <div class="footer-left">
+      	    <a href="https://www.sansa.org.za" target="_blank">
+      		    <img src="{{ h.url_for_static('/images/SANSA_Logo.png') }}" alt="SAEOSS Logo">
+      	    </a>
+      	</div>
+
+        <!-- Text on the right -->
         <div class="footer-text">
-            <p>Copyright ©  {{ h.get_year() }}- SAEOSS Portal {{ h.get_year() }}</p>
+            <p>Copyright © {{ h.get_year() }} - SAEOSS Portal {{ h.get_year() }}</p>
             <p>Powered by CKAN, developed by Kartoza</p>
             <p>Version: {{ h.get_release() }}</p>
         </div>
+        
+        <div class="footer-right">
+      	    <a href="https://www.saeon.ac.za/" target="_blank">
+      		    <img src="{{ h.url_for_static('/images/SAEON_Logo.png') }}" alt="SAEON Logo">
+      	    </a>
+      	</div>
 
         {% block footer_lang %}
         {% endblock %}
-
     </div>
 {% endblock %}
-{# {% set saeoss_version = h.saeoss_show_version() %} #}
-
-{#{% block footer_links %}#}
-{#    <li>Saeoss v{{ saeoss_version.version }} (git sha: {{ saeoss_version.git_sha }})</li>#}
-{#    <li>CKAN v{{ h.ckan_version() }}</li>#}
-{#{% endblock %}#}
 
 {% block footer_debug %}
 {% endblock %}
