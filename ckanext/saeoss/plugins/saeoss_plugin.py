@@ -34,6 +34,7 @@ from ..blueprints.map import map_blueprint
 from ..blueprints.stac_harvest import stac_blueprint
 from ..blueprints.stac_endpoint import stac_api_blueprint
 from ..blueprints.reset_password import reset_password_blueprint
+from ..blueprints.user_register import user_register
 from ..blueprints.about import about_blueprint
 from ..blueprints.validator import validator_blueprint
 from ..blueprints.saved_searches import saved_searches_blueprint
@@ -55,6 +56,7 @@ from ..logic.auth import saeoss as saeoss_auth
 from ..model.user_extra_fields import UserExtraFields
 import ckan.logic as logic
 import json
+from ckan.plugins.interfaces import IConfigurer, IRoutes
 
 import ckanext.saeoss.plugins.utils as utils
 import ckan.lib.uploader as uploader
@@ -74,6 +76,13 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPluginObserver)
+    plugins.implements(plugins.IRoutes, inherit=True)
+
+    def before_map(self, map):
+        # Add a redirect for an old URL
+        map.disconnect('register')  # Name of the original route
+        map.redirect('/user/register', '/user/sign-up')
+        return map
 
     def group_form(self):
         pass
@@ -395,7 +404,8 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             news_blueprint,
             contact_blueprint,
             stats_blueprint,
-            reset_password_blueprint
+            reset_password_blueprint,
+            user_register,
         ]
 
     def dataset_facets(
