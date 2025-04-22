@@ -458,18 +458,17 @@ fieldset[disabled] .btn-default.focus {
   right: 15px;
 }
 
+.panel-default > .panel-heading {
+  background-color: white !important;
+  border: none !important;
+}
+
 /* End of datasets*/
 
 /* Filters */
 .panel {
   margin-bottom: 0;
-  /* background-color: #fff;
-  border: 1px solid #ccc; */
-  border-top: 0;
-  border-bottom: 0;
-  border-radius: 0;
-  /* -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); */
+  border: none !important;
 }
 
 /* .expanded{
@@ -780,11 +779,40 @@ footer {
   padding: 0px 0;
 }
 
+.footer-left {
+  text-align: left;
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.footer-left img {
+  width: 150px;
+  height: auto;
+}
+
+.footer-right {
+  text-align: right;
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.footer-right img {
+  width: 150px;
+  height: auto;
+}
+
 .footer-text {
   text-align: center;
   color: #fff;
   font-size: 14px;
-  margin-top:10px
+  margin-top: 10px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .language form {

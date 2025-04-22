@@ -388,6 +388,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "get_year": helpers.get_year,
             "get_user_dashboard_packages": helpers.get_user_dashboard_packages,
             "get_org_public_records_count": helpers.get_org_public_records_count,
+            'group_package_count': helpers.group_package_count
         }
 
     def get_blueprint(self) -> typing.List[Blueprint]:

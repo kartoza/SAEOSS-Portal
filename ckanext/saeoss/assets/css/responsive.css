@@ -17,6 +17,10 @@
     .card{
         min-height: 420px !important;
     }
+    
+    .hide-on-small {
+    	display: none !important;
+    }
 }
 
 @media only screen and (max-width: 766px){
@@ -41,7 +45,28 @@
     .navbar-nav {
         display: block !important;
     }
+    
+    #collection-main {
+    	margin-top: -6px;
+    }
+    
+    .hide-on-small {
+    	display: block !important;
+    }
+}
 
+
+@media only screen and (max-width: 600px){
+    .footer-text {
+    	display: none;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    #collection-main {
+    	width: 400px;
+    	border-radius: 0px;
+    }
 }
 
 @media only screen and (max-width: 466px){
@@ -88,3 +113,11 @@
         display: none !important;
     }
 }
+
+
+
+
+
+
+
+
