@@ -5919,7 +5919,7 @@ button.close {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1050;
+  z-index: 1050 !important;
   display: none;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
@@ -5962,14 +5962,24 @@ button.close {
   outline: 0;
 }
 .modal-backdrop {
-  
-  /* position: fixed;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1040;
-  background-color: #000; */
+  z-index: -1 !important;
+  background-color: #000;
+}
+
+.modal-background {
+  height: 100%;
+  width: 100%;
+  background-color: #000;
+}
+
+#uploadModal{
+  z-index: 99999;
+  background-color: rgba(0, 0, 0, 0.6); /* 0.6 is the opacity */
 }
 .modal-backdrop.fade {
   filter: alpha(opacity=0);
