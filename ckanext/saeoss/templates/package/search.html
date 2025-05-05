@@ -31,7 +31,7 @@
         </div>
         {% if h.check_access('package_create') %}
         <!-- Modal -->
-        <div class="modal" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" style="margin-top: 10px;">
+        <div class="modal" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" style="margin-top: 50px;z-index: 999999 !important;">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -42,7 +42,7 @@
               </div>
               <div class="modal-body">
                 <div style="display: flex;">
-                  <a style="margin-right: 5px;" download="SANS1878" class="btn btn-primary pull-right" id="metadata-form-btn" href="/xml/SANS1878.xml" style="color: #fff">
+                  <a style="margin-right: 5px; color: white !important;" download="SANS1878" class="btn btn-primary pull-right" id="metadata-form-btn" href="/xml/SANS1878.xml" style="color: #fff">
                     <i class="fa fa-cloud-download"></i>
                     {{ _('Download Template XML') }}
                   </a>
