@@ -27,34 +27,44 @@ def cli():
 def launch_gunicorn(ckan_ini):
     click.secho(f"inside launch_gunicorn - ckan_ini is {ckan_ini}", fg="green")
     click.secho(f"Waiting for ckan environment to become available...", fg="green")
-    available = _wait_for_ckan_env(ckan_ini)
-    if available:
-        click.secho(f"About to launch gunicorn...", fg="green")
-        sys.stdout.flush()
-        sys.stderr.flush()
-        gunicorn_params = [
-            "gunicorn",
-            "ckanext.saeoss.wsgi:application",
-            f"--bind=0.0.0.0:5000",
-            f"--error-logfile=-",
-            f"--access-logfile=-",
-        ]
-        ckan_config = _get_ckan_config(ckan_ini)
-        debug = toolkit.asbool(ckan_config.get("debug", False))
-        if debug:
-            gunicorn_params = gunicorn_params[:-2]
-            gunicorn_params.extend(
-                [
-                    "--workers=2",
-                    "--reload",
-                    "--log-level=debug",
-                    "--timeout=120"
-                ]
-            )
 
-        os.execvp("gunicorn", gunicorn_params)
-    else:
-        click.secho("ckan environment is not available, aborting...", fg="red")
+    available = _wait_for_ckan_env(ckan_ini)
+    if not available:
+        click.secho("CKAN environment is not available, aborting...", fg="red")
+        return
+
+    click.secho(f"About to launch gunicorn...", fg="green")
+    sys.stdout.flush()
+    sys.stderr.flush()
+
+    # Load CKAN config
+    ckan_config = _get_ckan_config(ckan_ini)
+    debug = toolkit.asbool(ckan_config.get("debug", False))
+
+    # Read environment overrides or set defaults
+    workers = os.getenv("GUNICORN_WORKERS", "4")
+    threads = os.getenv("GUNICORN_THREADS", "2")
+    timeout = os.getenv("GUNICORN_TIMEOUT", "120")
+    worker_class = os.getenv("GUNICORN_WORKER_CLASS", "gthread")
+
+    # Base params
+    gunicorn_params = [
+        "gunicorn",
+        "ckanext.saeoss.wsgi:application",
+        "--bind=0.0.0.0:5000",
+        f"--workers={workers}",
+        f"--threads={threads}",
+        f"--worker-class={worker_class}",
+        f"--timeout={timeout}",
+        "--error-logfile=-",
+        "--access-logfile=-",
+        "--log-level=debug" if debug else "--log-level=info",
+    ]
+
+    if debug:
+        gunicorn_params.append("--reload")  # Enable autoreload in dev
+
+    os.execvp("gunicorn", gunicorn_params)
 
 
 @cli.command(context_settings={"ignore_unknown_options": True})
