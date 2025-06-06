@@ -5,7 +5,7 @@
 
     {% set hide_empty = hide_empty or false %}
 
-    {% with items = items or h.get_facet_items_dict(name, search_facets or c.search_facets) %}
+    {% with items = h.get_facet_items_dict(name, search_facets or c.search_facets, 1000000) %}
 	{% if items or not hide_empty %}
 		{% if within_tertiary %}
 			{% set nav_class = 'nav nav-pills nav-stacked' %}
@@ -82,14 +82,14 @@
 										<span class="item-count badge pull-right">{{ count }}</span>
 									</a>
 								</li>
-							{% endif %}
+							{% endif %} 
 						{% endfor %}
 				    </ul>
 				</nav>
                 {% if items|length > 10%}
-                    <p class="module-footer show-more-button">
+                    <!-- <p class="module-footer show-more-button">
                         <button class="read-more" data-module="emc-facets-pagination" data-classname="facet-inner-{{ item_id }}">{{ _('Show More {facet_type}').format(facet_type=title) }}</button>
-                    </p>
+                    </p> -->
                 {% endif %}
 			    {% else %}
 					<p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>

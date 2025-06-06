@@ -22,37 +22,28 @@ def bbox_converter(value: str) -> str:
         "Invalid bounding box. Please provide a comma-separated list of values "
         "with upper left lat, upper left lon, lower right lat, lower right lon."
     )
-    try:  # is it already a geojson?
+
+    try:
         parsed_value = json.loads(value)
+        if parsed_value.get("type") != "Polygon":
+            raise toolkit.Invalid("Only GeoJSON Polygon bounding boxes are supported.")
         coordinates = parsed_value["coordinates"][0]
         upper_lat = coordinates[2][1]
         left_lon = coordinates[0][0]
         lower_lat = coordinates[0][1]
         right_lon = coordinates[1][0]
-    except json.JSONDecodeError:  # nope, it is a bbox
+    except json.JSONDecodeError:
         try:
-            bbox_coords = [float(i) for i in value.split(",")]
+            bbox_coords = [float(i.strip()) for i in value.split(",")]
+            if len(bbox_coords) != 4:
+                raise toolkit.Invalid(error_msg)
+            upper_lat, left_lon, lower_lat, right_lon = bbox_coords
         except ValueError:
-            logger.exception(msg="something failed")
+            logger.exception("BBox parsing failed. Input was not valid float coordinates.")
             raise toolkit.Invalid(error_msg)
-        else:
-            upper_lat = bbox_coords[0]
-            left_lon = bbox_coords[1]
-            lower_lat = bbox_coords[2]
-            right_lon = bbox_coords[3]
-    except IndexError:
-        logger.exception(msg="something failed")
+    except (IndexError, TypeError, AttributeError) as e:
+        logger.exception("Invalid structure in bbox GeoJSON or string format.")
         raise toolkit.Invalid(error_msg)
-
-    except (AttributeError, TypeError):
-        if value == "" or not isinstance(value, str):
-            value = "-22.1265, 16.4699, -34.8212, 32.8931"
-        values = value.split(",")
-        bbox_coords = [float(i) for i in values]
-        upper_lat = bbox_coords[0]
-        left_lon = bbox_coords[1]
-        lower_lat = bbox_coords[2]
-        right_lon = bbox_coords[3]
 
     parsed = {
         "type": "Polygon",
@@ -67,6 +58,7 @@ def bbox_converter(value: str) -> str:
         ],
     }
     return json.dumps(parsed)
+
 
 
 def spatial_resolution_converter(value: str):

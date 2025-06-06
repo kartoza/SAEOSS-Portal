@@ -1104,7 +1104,7 @@ footer {
 }
 
 .facet-outer li:nth-child(n+10){
-  display: none;
+  /* display: none; */
 }
 
 

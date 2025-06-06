@@ -759,12 +759,12 @@ def pycsw():
 @pycsw.command()
 def create_materialized_view():
     """Create the materialized view used to map between CKAN and pycsw"""
+    logger.info("Creating materialized view")
     jinja_env = utils.get_jinja_env()
     template = jinja_env.get_template("pycsw/pycsw_view.sql")
     ddl_command = template.render(view_name=_PYCSW_MATERIALIZED_VIEW_NAME)
     with model.meta.engine.connect() as conn:
         conn.execute(sla_text(ddl_command))
-        # conn.commit()
     logger.info("Done!")
 
 
@@ -774,7 +774,7 @@ def refresh_materialized_view():
     with model.meta.engine.connect() as conn:
         conn.execute(
             sla_text(
-                f"REFRESH MATERIALIZED VIEW {_PYCSW_MATERIALIZED_VIEW_NAME} WITH DATA;"
+                f"REFRESH MATERIALIZED VIEW {_PYCSW_MATERIALIZED_VIEW_NAME};"
             )
         )
     logger.info("Done!")
@@ -1142,7 +1142,7 @@ def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records
                     })
                 if link.rel == "self":
                     data_dict["resources"].append({
-                        "name": "STAC Item",
+                        "name": item.properties.title or item.id,
                         "url": link.target,
                         "format": "JSON",
                         "format_version":
