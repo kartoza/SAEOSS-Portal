@@ -5915,7 +5915,7 @@ button.close {
 }
 .modal {
   position: fixed;
-  top: 0;
+  top: 0 !important;
   right: 0;
   bottom: 0;
   left: 0;
@@ -5924,6 +5924,7 @@ button.close {
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
   outline: 0;
+  margin-top: 0 !important;
 }
 .modal.fade .modal-dialog {
   -webkit-transform: translate(0, -25%);
