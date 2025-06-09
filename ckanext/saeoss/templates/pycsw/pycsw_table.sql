@@ -75,6 +75,27 @@ CREATE TABLE saeoss_pycsw_table(
     equivalent_scale JSON
 );
 
-INSERT INTO saeoss_pycsw_table
-SELECT *
+INSERT INTO saeoss_pycsw_table (
+    identifier, dataset_name, typename, schema, mdsource, insert_date, xml, metadata, metadata_type, anytext,
+    language, title, abstract, keywords, keywordstype, format, source, version, date_modified, type,
+    wkt_geometry, wkb_geometry, title_alternate, doi, date_revision, date_creation, date_publication, organisation,
+    securityconstraints, parentidentifier, topicategory, resourcelanguage, geodescode, denominator, distancevalue,
+    distanceuom, date, time_begin, time_end, reference_date_type, servicetype, servicetypeversion, operation,
+    couplingtype, operateson, operatesonidentifier, operatesonname, degree, accessconstraints, otherconstraints,
+    classification, conditionapplyingtoaccessanduse, edition, lineage_statement, dataset_lineage,
+    responsiblepartyrole, specificationtitle, specificationdate, specificationdatetype, creator, publisher,
+    contributor, relation, platform, instrument, sensortype, cloudcover, bands, links, bounding_geojson,
+    crs, equivalent_scale
+)
+SELECT
+    identifier, dataset_name, typename, schema, mdsource, insert_date, xml, metadata, metadata_type, anytext,
+    language, title, abstract, keywords, keywordstype, format, source, version, date_modified, type,
+    wkt_geometry, wkb_geometry, title_alternate, doi, date_revision, date_creation, date_publication, organisation,
+    securityconstraints, parentidentifier, topicategory, resourcelanguage, geodescode, denominator, distancevalue,
+    distanceuom, date, time_begin, time_end, reference_date_type, servicetype, servicetypeversion, operation,
+    couplingtype, operateson, operatesonidentifier, operatesonname, degree, accessconstraints, otherconstraints,
+    classification, conditionapplyingtoaccessanduse, edition, lineage_statement, dataset_lineage,
+    responsiblepartyrole, specificationtitle, specificationdate, specificationdatetype, creator, publisher,
+    contributor, relation, platform, instrument, sensortype, cloudcover, bands, links, bounding_geojson,
+    crs, equivalent_scale
 FROM saeoss_pycsw_view;

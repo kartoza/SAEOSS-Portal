@@ -1,4 +1,4 @@
-CREATE MATERIALIZED VIEW IF NOT EXISTS {{ view_name }} AS
+CREATE MATERIALIZED VIEW IF NOT EXISTS saeoss_pycsw_view AS
 WITH cte_extras AS (
     SELECT
         p.id,
@@ -15,10 +15,10 @@ WITH cte_extras AS (
         (
             SELECT json_agg(
                 json_build_object(
-                    'title', res.name,
-                    'description', res.description,
-                    'type', res.format,
-                    'url', res.url
+                    'title', COALESCE(res.name, ''),
+                    'description', COALESCE(res.description, ''),
+                    'type', COALESCE(res.format, ''),
+                    'url', COALESCE(res.url, '')
                 )
             )
             FROM resource res
@@ -101,7 +101,7 @@ SELECT
     NULL AS sensortype,
     NULL AS cloudcover,
     NULL AS bands,
-    c.links::text AS links,
+    c.links::TEXT AS links,
     cast(c.extras->>'spatial' AS json) AS bounding_geojson,
     cast(cast(c.extras->>'spatial_parameters' AS json)->>0 AS json)->'spatial_reference_system' AS crs,
     cast(cast(c.extras->>'spatial_parameters' AS json)->>0 AS json)->'equivalent_scale' AS equivalent_scale
