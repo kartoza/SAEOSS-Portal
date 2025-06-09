@@ -9,6 +9,7 @@ from ckan import model
 from ckan.common import c
 from ckan.plugins import toolkit
 from flask import Blueprint, request
+import threading
 
 from ckanext.saeoss.cli.commands import create_stac_dataset_func
 
@@ -79,7 +80,16 @@ def create_stac():
             number_records = 10
             logger.info("number_records is not an integer, setting it to 10")
 
-        create_stac_dataset_func(user, url, owner_org, number_records)
+        logger.debug(f"URL {url}")
+
+        thread = threading.Thread(
+            target=create_stac_dataset_func,
+            args=(user, url, owner_org, number_records),
+            daemon=False  # Optional: allows thread to exit when main program exits
+        )
+        thread.start()
+
+        # create_stac_dataset_func(user, url, owner_org, number_records)
 
         return json.dumps({"message": "finished"})
 

@@ -126,6 +126,11 @@ dataset_fields:
       required: false
       help_text: Address of the electronic mailbox of the user organisation or individual
 
+    - field_name: website
+      label: Website URL
+      help_text: URL of the responsible organisation or individual website
+      required: false
+
 
   - field_name: responsible_party_contact_info
     label: Metadata record responsible party contact info
