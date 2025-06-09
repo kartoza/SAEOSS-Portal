@@ -38,7 +38,7 @@ services:
     image: saeoss:${CKAN_IMAGE_TAG}
 
   pycsw:
-    image: "geopython/pycsw:latest"
+    image: "geopython/pycsw:2.4.2"
     volumes:
       - type: bind
         source: $PWD/pycsw/pycsw-config.cfg
