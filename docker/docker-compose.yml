@@ -38,7 +38,7 @@ services:
     image: saeoss:${CKAN_IMAGE_TAG}
 
   pycsw:
-    image: "geopython/pycsw@sha256:84382cbbd18e9788e9b1bb75299ce24b31403f3b3a4afc036c55c4a96a78cdae"
+    image: "geopython/pycsw:latest"
     volumes:
       - type: bind
         source: $PWD/pycsw/pycsw-config.cfg
@@ -46,6 +46,9 @@ services:
       - type: bind
         source: $PWD/pycsw/pycsw_repository_mappings.py
         target: /etc/pycsw/pycsw_repository_mappings.py
+      - type: bind
+        source: $PWD/pycsw/pycsw-config.yml
+        target: /etc/pycsw/pycsw.yml
 
   # NOTE: This needs to be ran as a periodic command, check the
   # docker-compose.dev.yml file for additional comment
