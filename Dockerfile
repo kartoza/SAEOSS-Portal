@@ -61,6 +61,7 @@ ENV PATH="$PATH:/home/appuser/.local/bin" \
 WORKDIR /home/appuser/app
 COPY --chown=appuser:appuser pyproject.toml poetry.lock ./
 RUN poetry install --no-root --only main
+RUN poetry add "gevent>1.4" 
 
 EXPOSE 5000
 
