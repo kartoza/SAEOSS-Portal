@@ -45,12 +45,22 @@ def launch_gunicorn(ckan_ini):
             gunicorn_params = gunicorn_params[:-2]
             gunicorn_params.extend(
                 [
-                    "--workers=2",
+                    "--worker-class=gevent",
+                    "--workers=8",
+                    "--threads=4",  
                     "--reload",
                     "--log-level=debug",
                     "--timeout=120"
                 ]
             )
+        else:
+            gunicorn_params.extend([
+                "--worker-class=gevent",
+                "--workers=8",       # or dynamically set via CPU count
+                "--threads=4",       # allows handling concurrent I/O better
+                "--log-level=info",
+                "--timeout=120"
+            ])
 
         os.execvp("gunicorn", gunicorn_params)
     else:

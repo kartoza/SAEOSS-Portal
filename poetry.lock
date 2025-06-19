@@ -1499,7 +1499,6 @@ setuptools = ">=3.0"
 
 [package.extras]
 eventlet = ["eventlet (>=0.24.1)"]
-gevent = ["gevent (>=1.4.0)"]
 setproctitle = ["setproctitle"]
 tornado = ["tornado (>=0.2)"]
 
@@ -2943,7 +2942,6 @@ files = [
 ]
 
 [package.extras]
-gevent = ["gevent"]
 tornado = ["tornado"]
 twisted = ["twisted"]
 
