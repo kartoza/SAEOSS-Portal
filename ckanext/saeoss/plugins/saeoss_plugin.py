@@ -362,7 +362,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "default_bounding_box": helpers.get_default_bounding_box,
             "convert_geojson_to_bounding_box": helpers.convert_geojson_to_bbox,
             "extent_to_bbox": helpers.convert_string_extent_to_bbox,
-            # "saeoss_themes": helpers.get_saeoss_themes,
+            "saeoss_themes": helpers.get_saeoss_themes,
             "iso_topic_categories": helpers.get_iso_topic_categories,
             "get_iso_topic_display": helpers.get_iso_topic_display,
             "saeoss_show_version": helpers.helper_show_version,
@@ -415,7 +415,9 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             # facets_dict["reference_date"] = toolkit._("Reference Date")
             facets_dict["harvest_source_title"] = toolkit._("Harvest source")
             facets_dict["featured"] = toolkit._("Featured Metadata records")
+            facets_dict["topic_and_saeoss_themes"] = toolkit._("Topic Category")
         return facets_dict
+
 
     def group_facets(
         self, facets_dict: typing.OrderedDict, group_type: str, package_type: str

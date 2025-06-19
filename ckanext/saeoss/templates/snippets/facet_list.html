@@ -23,6 +23,7 @@
 							'Harvest source': 'fa fa-cloud',
 							'Groups': 'fa fa-folder-open',
 							'Featured Metadata records': 'fa fa-star',
+							'Topic Category': 'fa fa-star',
 						} %}
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="head{{ item_id }}">
@@ -67,6 +68,33 @@
 										<span class="item-count badge pull-righ">{{ count }}</span>
 									</a>
 								</li>
+								{% elif item_id == 'TopicCategory' %}
+									{# Extract key and value from the string "{'iso_topic_category': 'boundaries'}" #}
+									{% set raw_parts = item.name.strip('{}').replace("'", "").split(":") %}
+									{% set subfield = raw_parts[0].strip() %}
+									{% set facet_value = raw_parts[1].strip() %}
+									{% set flat_param = facet_value %}
+
+									{# Create href using the flat string representation #}
+									{% if item.active %}
+										{% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) %}
+									{% else %}
+										{% set href = h.add_url_param(new_params={name: flat_param}, extras=extras, alternative_url=alternative_url) %}
+									{% endif %}
+
+									{% set label = label_function(item) if label_function else facet_value %}
+									{% set label_truncated = h.truncate(label, 22) %}
+									{% set count = count_label(item['count']) if count_label else ('%d' % item['count']) %}
+
+									<li class="{{ nav_item_class or 'nav-item' }}{% if item.active %} active{% endif %} facet-inner-{{ item_id }}">
+										<a href="/dataset/?q={{facet_value}}" title="{{ label if label != label_truncated else '' }}" data-module="emc-facets-active">
+											{% set icon_name = label.replace(' ', '-')|lower + '.svg' %}
+											<span class="item-label">{{ label_truncated }}</span>
+											<span class="hidden separator"> - </span>
+											<span class="item-count badge pull-right">{{ count }}</span>
+										</a>
+									</li>
+							
 							{% else %}
 								{% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
 								{% set label = label_function(item) if label_function else item.display_name %}
