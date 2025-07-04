@@ -23,7 +23,7 @@ dataset_fields:
   - field_name: featured
     label: Feature metadata record on SAEOSS landing page?
     required: false
-    help_text: Should this metadata record be featured on the EMC front page?
+    help_text: Should this metadata record be featured on the SAEOSS front page?
     validators: boolean_validator
     preset: saeoss_checkbox
 
@@ -171,7 +171,7 @@ dataset_fields:
       required: false
 
   - field_name: topic_and_saeoss_themes
-    label: Topic category and Saeoss theme
+    label: Topic category and SAEOSS theme
     preset: modified_repeating_subfields
     repeating_subfields:
 
