@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import requests
 import ckan.plugins.toolkit as toolkit
 from ckan.common import config
 import ckan.logic as logic
@@ -9,7 +10,7 @@ from ckan.lib.helpers import flash_notice, redirect_to, full_current_url
 from ckan.common import c
 import logging
 import ckan.plugins as plugins
-from ..validators import _stac_validator
+from ..validators import validate_stac_json, validate_stac_url
 import json
 import yaml
 import xmltodict
@@ -72,7 +73,6 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
                     "text/javascript", 
                     "text/ecmascript",
                     "application/octet-stream",
-                    "text/x-server-parsed-html",
                     "text/x-server-parsed-html"
                 ]
 
@@ -88,10 +88,9 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
             raise ValidationError(["Please upload a file or link to an online resource"])
 
     if upload:
-        if data_dict["resource_type"] == "stac":
-
+        if data_dict.get("resource_type") == "stac":
             if 'https' in data_dict['url'] or 'http' in data_dict['url']:
-                _stac_validator(data_dict['url'])
+                validate_stac_url(data_dict['url'])
                 
 
     pkg_dict['resources'].append(data_dict)
@@ -109,8 +108,6 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
 
     # Get out resource_id resource from model as it will not appear in
     # package_show until after commit
-    upload.upload(context['package'].resources[-1].id,
-                  uploader.get_max_resource_size())
 
     model.repo.commit()
 
