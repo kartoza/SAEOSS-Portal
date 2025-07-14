@@ -3,6 +3,15 @@ import re
 import ckan.plugins.toolkit as tk
 
 
+def sanitize_title(title: str) -> str:
+    # Lowercase the title
+    title = title.lower()
+    # Replace spaces with underscores
+    title = title.replace(' ', '_')
+    # Remove special characters (keeping only alphanumeric and underscores)
+    title = re.sub(r'[^a-z0-9_]', '', title)
+    return title
+
 def populate_dataset_name(data_dict: dict, context: dict, calls:int = 0):
     """Adding uuid to the named url
     , the name field was a bit

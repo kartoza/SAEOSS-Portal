@@ -8,7 +8,7 @@ import ckan.plugins.toolkit as toolkit
 from ckan.logic.action.get import package_show as _package_show
 from ckan.model.domain_object import DomainObject
 import ckan.logic as logic
-from .add_named_url import populate_dataset_name
+from .add_named_url import populate_dataset_name, sanitize_title
 from ...model.user_extra_fields import UserExtraFields
 from ckanext.saeoss.helpers import _get_reference_date, _get_tags
 from mimetypes import MimeTypes
@@ -136,8 +136,8 @@ def package_create(original_action, context, data_dict):
     Intercepts the core `package_create` action to check if package
      is being published after being created.
     """
-    dataset_name = populate_dataset_name(data_dict, context)
-    data_dict["name"] = dataset_name
+    
+    data_dict["name"] = sanitize_title(data_dict.get("title"))
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 
