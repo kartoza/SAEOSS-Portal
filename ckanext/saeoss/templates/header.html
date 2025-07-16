@@ -23,6 +23,12 @@
                   <a href="{{ url_for('home.index') }}" class="image" title="{{ _('SAEOSS Homepage') }}">{{ _('Home') }}</a>
                   <span class="hr-ver"></span>
                 </li>
+                {% if h.check_access('package_create') %}
+                <li class="li-flex"> 
+                  <a href="{{ url_for('dataset.new') }}" class="image" title="{{ _('Metadata/Dataset search page') }}">{{ _('Add Metadata') }}</a>
+                  <span class="hr-ver"></span>
+                </li>
+                {% endif %}
                 <li class="li-flex"> 
                   <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata/Dataset search page') }}">{{ _('Metadata') }}</a>
                   <span class="hr-ver"></span>
