@@ -682,6 +682,15 @@ header.masthead{
   font-weight: 700;
 }
 
+#about-header {
+  position: relative;
+  display: table;
+  width: 100%;
+  height: 700px;
+  text-align: left;
+  background-color: rgba(0,0,0,0.16);
+}
+
 .index-search {
   position: relative;
   color: #5E8DC0;

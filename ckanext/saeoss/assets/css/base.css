@@ -11840,3 +11840,33 @@ article{
   100% { transform: rotate(360deg); }
 }
 
+.thematic-item-image{
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.thematic-group-title{
+  font-size: 22px;
+  margin-bottom: 25px;
+}
+
+.thematic-item-card{
+  margin-bottom: 25px;
+}
+
+.thematic-item-card-body{
+
+}
+
+.thematic-item-card-title{
+  color: #5E8DC0;
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.thematic-item-card-text{
+  padding: 10px 0px 20px 0px !important;
+}
+
