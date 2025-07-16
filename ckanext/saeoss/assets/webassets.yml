@@ -208,6 +208,12 @@ apply-save-search-js:
     - js/save_search.js
   filter: rjsmin
 
+thematic-groups-js:
+  output: ckanext-saeoss/%(version)s_thematic_groups.js
+  contents:
+    - js/thematic_groups.js
+  filter: rjsmin
+
 vendor-plot-js:
   output: ckanext-saeoss/%(version)s_jquery_plot.js
   contents:
