@@ -79,15 +79,16 @@ dataset_fields:
 
   - field_name: embargo_status
     label: Is the dataset under embargo?
-    preset: radio
+    preset: select
+    default: "False"
     required: true
     choices:
-      - value: no
+      - value: "False"
         label: No - this dataset is not embargoed
-      - value: yes
+      - value: "True"
         label: Yes - this dataset is embargoed
     help_text: >
-      Indicate whether this dataset is currently under an embargo. Embargoed datasets may not be accessible to the public until a specified date.
+      Indicate whether this dataset is currently under an embargo.
 
 
 # vanilla ckanext-scheming too
@@ -187,9 +188,9 @@ dataset_fields:
   #   form_placeholder: eg. economy, mental health, government
 
 
-  - field_name: tag_string
+  - field_name: tag_controlled_string
     label: Tags
-    form_snippet: tag_select.html
+    form_snippet: tag_controlled_select.html
     required: true
     choices:
       - value: Earth Science

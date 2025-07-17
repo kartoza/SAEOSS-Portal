@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 import typing
 import datetime
 from urllib.parse import quote, urlparse, parse_qsl, urlencode
@@ -630,3 +631,11 @@ def _get_tags(package_dict: typing.Dict) -> str:
         # add current iso topic category to tags
         tags.add(iso_category)
     return [{'name': tag, 'state': 'active'} for tag in tags]
+
+
+def sanitize_tag(tag):
+    # Replace spaces and slashes with underscores
+    tag = tag.replace(' ', '_').replace('/', '_')
+    # Remove all characters except alphanumerics, underscores, and dashes
+    return re.sub(r'[^\w\-]', '', tag)
+
