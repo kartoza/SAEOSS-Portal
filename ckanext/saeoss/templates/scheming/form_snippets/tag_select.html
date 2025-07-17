@@ -1,23 +1,20 @@
 {% import 'macros/form.html' as form %}
 
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{# We only want to show free tags #}
 
-<div class="form-group control-medium control-select">
-    <label class="control-label" for="field-tags"><span title="This field is required" class="control-required">*</span> {{field.label}}</label>
-    <div class="controls ">
-    
-        <select style="width: 100%;" name="tags" id="tag-multiple"  multiple="multiple">
-            {% for choice in field.choices %}
-            <option value="{{choice['value']}}">{{choice['label']}}</option>
-            {% endfor %}
-        </select>
-    </div>
-</div>
+{% set free_tags_tag_string = data["tags"]|selectattr("vocabulary_id", "none")|map(attribute="display_name")|join(",") %}
 
-<script>
-    $(document).ready(function() {
-        $('#tag-multiple').select2();
-    });
-</script>
+{% call form.input(
+    field.field_name,
+    id='field-' + field.field_name,
+    label=h.scheming_language_text(field.label),
+    placeholder=h.scheming_language_text(field.form_placeholder),
+    value=free_tags_tag_string,
+    error=errors[field.field_name],
+    classes=field.classes if 'classes' in field else ['control-medium'],
+    attrs=dict({"class": "form-control"}, **(field.get('form_attrs', {}))),
+    is_required=h.scheming_field_required(field)
+    )
+        %}
+    {%- snippet 'scheming/form_snippets/help_text.html', field=field -%}
+{% endcall %}

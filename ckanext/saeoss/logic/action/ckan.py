@@ -12,6 +12,7 @@ from .add_named_url import populate_dataset_name, sanitize_title
 from ...model.user_extra_fields import UserExtraFields
 from ckanext.saeoss.helpers import _get_reference_date, _get_tags
 from mimetypes import MimeTypes
+from ...helpers import sanitize_tag
 
 logger = logging.getLogger(__name__)
 ValidationError = logic.ValidationError
@@ -127,18 +128,26 @@ def package_show(original_action, context, data_dict):
     """
     package_dict = _package_show(context, data_dict)
     package_dict['reference_date'] = _get_reference_date(package_dict)
+    package_dict.pop('tag_controlled_string', None)
     return package_dict
 
 
 @toolkit.chained_action
 def package_create(original_action, context, data_dict):
-    """
-    Intercepts the core `package_create` action to check if package
-     is being published after being created.
-    """
-    
     data_dict["name"] = sanitize_title(data_dict.get("title"))
+
+    tag_controlled = data_dict.get("tag_controlled_string")
+
+    if isinstance(tag_controlled, str):
+        tag_controlled = [tag_controlled]
+
+    if tag_controlled:
+        cleaned_tags = [sanitize_tag(tag.strip()) for tag in tag_controlled if tag.strip()]
+        data_dict["tags"] = [{"name": tag} for tag in cleaned_tags]
+        data_dict["tag_string"] = ','.join(cleaned_tags)
+
     return _act_depending_on_package_visibility(original_action, context, data_dict)
+
 
 
 @toolkit.chained_action
@@ -146,10 +155,20 @@ def package_update(original_action, context, data_dict):
     """
     Intercepts the core `package_update` action to check if package is being published.
     """
+    tag_controlled = data_dict.get("tag_controlled_string")
+
+    if isinstance(tag_controlled, str):
+        tag_controlled = [tag_controlled]
+
+    if tag_controlled:
+        cleaned_tags = [sanitize_tag(tag.strip()) for tag in tag_controlled if tag.strip()]
+        data_dict["tags"] = [{"name": tag} for tag in cleaned_tags]
+    
     try:
         data_dict['tags'] = _get_tags(data_dict)
     except KeyError:
         data_dict['tags'] = []
+    
     data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
