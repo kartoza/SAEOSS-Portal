@@ -128,7 +128,6 @@ def package_show(original_action, context, data_dict):
     """
     package_dict = _package_show(context, data_dict)
     package_dict['reference_date'] = _get_reference_date(package_dict)
-    package_dict.pop('tag_controlled_string', None)
     return package_dict
 
 
