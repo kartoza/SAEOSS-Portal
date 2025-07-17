@@ -50,7 +50,6 @@ from ..logic import (
     converters,
     validators,
 )
-
 from ..logic.auth import ckan as ckan_auth
 from ..logic.auth import pages as ckanext_pages_auth
 from ..logic.auth import saeoss as saeoss_auth
@@ -58,6 +57,7 @@ from ..model.user_extra_fields import UserExtraFields
 import ckan.logic as logic
 import json
 from ckan.plugins.interfaces import IConfigurer, IRoutes
+
 
 import ckanext.saeoss.plugins.utils as utils
 import ckan.lib.uploader as uploader
@@ -78,12 +78,16 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPluginObserver)
     plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.IDatasetForm)
 
     def before_map(self, map):
         # Add a redirect for an old URL
         map.disconnect('register')  # Name of the original route
         map.redirect('/user/register', '/user/sign-up')
         return map
+
+    def get_package_after_index(self):
+        return helpers.after_index
 
     def group_form(self):
         pass
@@ -328,7 +332,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "organization_update": ckan_actions.organization_update,
             "user_show": ckan_actions.user_show,
             "resource_create": ckan_custom_actions.resource_create,
-            "resource_update": ckan_custom_actions.resource_update,
+            "resource_update": ckan_custom_actions.resource_update
         }
 
     def get_validators(self) -> typing.Dict[str, typing.Callable]:

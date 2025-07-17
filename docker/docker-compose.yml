@@ -15,6 +15,8 @@ services:
 
   ckan-datapusher:
     image: ckan/ckan-base-datapusher:0.0.20
+    ports:
+      - "8800:8800"
 
   ckan-background-worker:
     image: saeoss:${CKAN_IMAGE_TAG}
@@ -79,6 +81,7 @@ services:
       - SOLR_HEAP=2g
     volumes:
       - solr-data:/var/solr
+      - ./solr/managed-schema:/var/solr/data/ckan/conf/managed-schema
 
   redis:
     image: redis:6.2
