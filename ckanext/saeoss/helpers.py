@@ -639,3 +639,8 @@ def sanitize_tag(tag):
     # Remove all characters except alphanumerics, underscores, and dashes
     return re.sub(r'[^\w\-]', '', tag)
 
+def after_index(data_dict):
+    responsible_parties = data_dict.get('responsible_party', [])
+    if isinstance(responsible_parties, list):
+        data_dict['responsible_party'] = json.dumps(responsible_parties)
+    return data_dict
