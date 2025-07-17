@@ -62,7 +62,7 @@
 									{% set href = h.add_url_param(new_params={"featured":"true"}) %}
 								{% endif %}
 								<li class="{{ nav_item_class or 'nav-item' }}{% if item.active %} active{% endif %} facet-inner-{{ item_id }}" style="display:list-item">
-									<a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
+									<a href="{{ href }}" title="{{ label if label != label_truncated else '' }}" target="_blank">
 										<span class="item-label">{{ label }}</span>
 										<span class="hidden separator"> - </span>
 										<span class="item-count badge pull-righ">{{ count }}</span>
