@@ -191,7 +191,7 @@ dataset_fields:
   - field_name: tag_controlled_string
     label: Tags
     form_snippet: tag_controlled_select.html
-    required: true
+    required: false
     choices:
       - value: Earth Science
         label: Earth Science
@@ -389,7 +389,7 @@ dataset_fields:
   - field_name: data_license
     label: License
     preset: select
-    required: true
+    required: false
     choices:
       - value: CC-BY-4.0
         label: Creative Commons Attribution 4.0 (CC-BY 4.0)
