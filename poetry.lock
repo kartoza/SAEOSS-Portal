@@ -513,6 +513,22 @@ reference = "v0.3.7"
 resolved_reference = "d062c9c6fb3967baebd5166ee20e6bd99056f5d7"
 
 [[package]]
+name = "ckanext-pdfview"
+version = "0.0.7"
+description = "View plugin for rendering PDFs on the browser"
+category = "main"
+optional = false
+python-versions = "*"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/ckan/ckanext-pdfview.git"
+reference = "HEAD"
+resolved_reference = "004e0471e25425b2e44ce1af4c2d21e169c64787"
+
+[[package]]
 name = "ckanext-scheming"
 version = "3.0.0"
 description = "Easy, sharable custom CKAN schemas"
@@ -550,6 +566,41 @@ type = "git"
 url = "https://github.com/ckan/ckanext-spatial"
 reference = "v2.0.0"
 resolved_reference = "77ffc2f8548eea521138777fbe91c29f97af6642"
+
+[[package]]
+name = "ckanext-tableview"
+version = "0.0.1"
+description = "Datatables view extension with custom features"
+category = "main"
+optional = false
+python-versions = "*"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/justicehub-in/ckanext-tableview"
+reference = "HEAD"
+resolved_reference = "12eafa5506a74c53b19b985db72b98c2b203af2a"
+
+[[package]]
+name = "ckanext-visualize"
+version = "1.0.0"
+description = ""
+category = "main"
+optional = false
+python-versions = "*"
+files = []
+develop = false
+
+[package.dependencies]
+natsort = "7.1.1"
+
+[package.source]
+type = "git"
+url = "https://github.com/keitaroinc/ckanext-visualize"
+reference = "HEAD"
+resolved_reference = "eb53fd00b6a99efd9d8924543ec3bb22774ec083"
 
 [[package]]
 name = "ckantoolkit"
@@ -1499,6 +1550,7 @@ setuptools = ">=3.0"
 
 [package.extras]
 eventlet = ["eventlet (>=0.24.1)"]
+gevent = ["gevent (>=1.4.0)"]
 setproctitle = ["setproctitle"]
 tornado = ["tornado (>=0.2)"]
 
@@ -2403,6 +2455,22 @@ files = [
 ]
 
 [[package]]
+name = "natsort"
+version = "7.1.1"
+description = "Simple yet flexible natural sorting in Python."
+category = "main"
+optional = false
+python-versions = ">=3.4"
+files = [
+    {file = "natsort-7.1.1-py3-none-any.whl", hash = "sha256:d0f4fc06ca163fa4a5ef638d9bf111c67f65eedcc7920f98dec08e489045b67e"},
+    {file = "natsort-7.1.1.tar.gz", hash = "sha256:00c603a42365830c4722a2eb7663a25919551217ec09a243d3399fa8dd4ac403"},
+]
+
+[package.extras]
+fast = ["fastnumbers (>=2.0.0)"]
+icu = ["PyICU (>=1.0.0)"]
+
+[[package]]
 name = "netcdf4"
 version = "1.7.2"
 description = "Provides an object-oriented python interface to the netCDF version 4 library"
@@ -2942,6 +3010,7 @@ files = [
 ]
 
 [package.extras]
+gevent = ["gevent"]
 tornado = ["tornado"]
 twisted = ["twisted"]
 
@@ -4934,4 +5003,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "81d8cc972bd94461149c0ed1f1aa85158314cd83a68dffb8ecd0a14183824c75"
+content-hash = "fd64cfd023c0adadc912d9547afb2f5188317adce89ec45c75526d1d59a2f370"

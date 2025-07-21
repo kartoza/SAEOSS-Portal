@@ -81,7 +81,7 @@ dataset_fields:
     label: Is the dataset under embargo?
     preset: select
     default: "False"
-    required: true
+    required: false
     choices:
       - value: "False"
         label: No - this dataset is not embargoed

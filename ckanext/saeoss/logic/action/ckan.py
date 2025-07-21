@@ -133,17 +133,20 @@ def package_show(original_action, context, data_dict):
 
 @toolkit.chained_action
 def package_create(original_action, context, data_dict):
-    data_dict["name"] = sanitize_title(data_dict.get("title"))
+    try:
+        data_dict["name"] = sanitize_title(data_dict.get("title"))
 
-    tag_controlled = data_dict.get("tag_controlled_string")
+        tag_controlled = data_dict.get("tag_controlled_string")
 
-    if isinstance(tag_controlled, str):
-        tag_controlled = [tag_controlled]
+        if isinstance(tag_controlled, str):
+            tag_controlled = [tag_controlled]
 
-    if tag_controlled:
-        cleaned_tags = [sanitize_tag(tag.strip()) for tag in tag_controlled if tag.strip()]
-        data_dict["tags"] = [{"name": tag} for tag in cleaned_tags]
-        data_dict["tag_string"] = ','.join(cleaned_tags)
+        if tag_controlled:
+            cleaned_tags = [sanitize_tag(tag.strip()) for tag in tag_controlled if tag.strip()]
+            data_dict["tags"] = [{"name": tag} for tag in cleaned_tags]
+            data_dict["tag_string"] = ','.join(cleaned_tags)
+    except:
+        pass
 
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
@@ -154,22 +157,25 @@ def package_update(original_action, context, data_dict):
     """
     Intercepts the core `package_update` action to check if package is being published.
     """
-    tag_controlled = data_dict.get("tag_controlled_string")
-
-    if isinstance(tag_controlled, str):
-        tag_controlled = [tag_controlled]
-
-    if tag_controlled:
-        cleaned_tags = [sanitize_tag(tag.strip()) for tag in tag_controlled if tag.strip()]
-        data_dict["tags"] = [{"name": tag} for tag in cleaned_tags]
-    
     try:
-        data_dict['tags'] = _get_tags(data_dict)
-    except KeyError:
-        data_dict['tags'] = []
-    
-    data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
-    return _act_depending_on_package_visibility(original_action, context, data_dict)
+        tag_controlled = data_dict.get("tag_controlled_string")
+
+        if isinstance(tag_controlled, str):
+            tag_controlled = [tag_controlled]
+
+        if tag_controlled:
+            cleaned_tags = [sanitize_tag(tag.strip()) for tag in tag_controlled if tag.strip()]
+            data_dict["tags"] = [{"name": tag} for tag in cleaned_tags]
+        
+        try:
+            data_dict['tags'] = _get_tags(data_dict)
+        except KeyError:
+            data_dict['tags'] = []
+        
+        data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
+        return _act_depending_on_package_visibility(original_action, context, data_dict)
+    except:
+        pass
 
 
 @toolkit.chained_action
