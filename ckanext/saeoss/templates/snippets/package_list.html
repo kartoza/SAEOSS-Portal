@@ -17,7 +17,7 @@ Example:
     <div class="row row-eq-height">
     	{% block package_list_inner %}
 	      {% for package in packages %}
-	        {% snippet 'snippets/package_item.html', package=package, item_class=item_class, hide_resources=hide_resources %}
+	        {% snippet 'snippets/package_item.html', column_class=column_class, package=package, item_class=item_class, hide_resources=hide_resources %}
 	      {% endfor %}
 	    {% endblock %}
     </div>

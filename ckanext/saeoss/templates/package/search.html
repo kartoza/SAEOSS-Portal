@@ -107,7 +107,8 @@
   {% include 'social/index.html' %}
 
   {% block package_search_results_list %}
-      {{ h.snippet('snippets/package_list.html', packages=page.items) }}
+      {{ h.snippet('snippets/package_list.html', packages=page.items, column_class='col-md-4') }}
+      
   {% endblock %}
   {% block page_pagination %}
     {{ page.pager(q=q) }}
