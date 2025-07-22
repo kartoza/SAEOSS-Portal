@@ -42,6 +42,7 @@ from ..blueprints.news import news_blueprint
 from ..blueprints.contact import contact_blueprint
 from ..blueprints.sys_stats import stats_blueprint
 from ..blueprints.thematic_groups import thematic_blueprint
+from ..blueprints.user_permissions import user_permission_blueprint
 from ..cli import commands
 from ..logic.action import ckan as ckan_actions
 from ..logic.action import saeoss as saeoss_actions
@@ -58,11 +59,14 @@ import ckan.logic as logic
 import json
 from ckan.plugins.interfaces import IConfigurer, IRoutes
 
+from ..model.user_permissions import SitewideAdminPermission
+
 
 import ckanext.saeoss.plugins.utils as utils
 import ckan.lib.uploader as uploader
 logger = logging.getLogger(__name__)
 ValidationError = logic.ValidationError
+
 
 class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IActions)
@@ -299,6 +303,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         toolkit.add_template_directory(config_, "../templates")
         toolkit.add_public_directory(config_, "../public")
         toolkit.add_resource("../assets", "ckanext-saeoss")
+        from ..model.user_permissions import sitewide_admin_permissions_table
 
     def get_commands(self):
         return [
@@ -311,12 +316,14 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "package_publish": ckan_auth.authorize_package_publish,
             "package_update": ckan_auth.package_update,
             "package_patch": ckan_auth.package_patch,
+            'organization_create': ckan_auth.organization_create,
             "ckanext_pages_update": ckanext_pages_auth.authorize_edit_page,
             "ckanext_pages_delete": ckanext_pages_auth.authorize_delete_page,
             "ckanext_pages_show": ckanext_pages_auth.authorize_show_page,
             "request_dataset_maintenance": (
                 saeoss_auth.authorize_request_dataset_maintenance
             ),
+            
         }
 
     def get_actions(self) -> typing.Dict[str, typing.Callable]:
@@ -332,7 +339,8 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "organization_update": ckan_actions.organization_update,
             "user_show": ckan_actions.user_show,
             "resource_create": ckan_custom_actions.resource_create,
-            "resource_update": ckan_custom_actions.resource_update
+            "resource_update": ckan_custom_actions.resource_update,
+            'organization_create': ckan_custom_actions.organization_create,
         }
 
     def get_validators(self) -> typing.Dict[str, typing.Callable]:
@@ -393,7 +401,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "get_year": helpers.get_year,
             "get_user_dashboard_packages": helpers.get_user_dashboard_packages,
             "get_org_public_records_count": helpers.get_org_public_records_count,
-            'group_package_count': helpers.group_package_count
+            'group_package_count': helpers.group_package_count,
         }
 
     def get_blueprint(self) -> typing.List[Blueprint]:
@@ -412,6 +420,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             reset_password_blueprint,
             user_register,
             thematic_blueprint,
+            user_permission_blueprint,
         ]
 
     def dataset_facets(
