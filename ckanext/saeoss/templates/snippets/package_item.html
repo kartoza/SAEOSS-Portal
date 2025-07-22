@@ -3,7 +3,9 @@
 {% block package_item %}
     {# this is a dcpr request #}
     
-      <div class="col-md-4">
+      {% set column_class = column_class or 'col-md-6' %}
+
+      <div class="{{column_class}}">
         {% block content %}
           {% set date_string = package['metadata_modified']|string %}
           {% set date = date_string.split('T')[0] %}
