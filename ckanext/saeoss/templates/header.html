@@ -21,25 +21,20 @@
             {% block header_site_navigation_tabs %}
                 <li class="li-flex"> 
                   <a href="{{ url_for('home.index') }}" class="image" title="{{ _('SAEOSS Homepage') }}">{{ _('Home') }}</a>
-                  <span class="hr-ver"></span>
                 </li>
                 {% if h.check_access('package_create') %}
                 <li class="li-flex"> 
                   <a href="{{ url_for('dataset.new') }}" class="image" title="{{ _('Metadata/Dataset search page') }}">{{ _('Add Metadata') }}</a>
-                  <span class="hr-ver"></span>
                 </li>
                 {% endif %}
                 <li class="li-flex"> 
                   <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata/Dataset search page') }}">{{ _('Metadata') }}</a>
-                  <span class="hr-ver"></span>
                 </li>
                 <li class="li-flex">
                    <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Metadata boundary view') }}">{{ _('Map') }}</a>
-                   <span class="hr-ver"></span>
                   </li>
                 <li class="li-flex hide-on-small"> 
                   <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('SAEOSS organization (metadata collection)') }}">{{ _('Organisations') }}</a>
-                  <span class="hr-ver"></span>
                 </li>
                 <li class = "hide-on-small"> 
                   <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" title="{{ _('SAEOSS help and documentation') }}" target="_blank" class="image" title="Help">Help</a>

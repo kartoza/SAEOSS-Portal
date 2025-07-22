@@ -130,7 +130,11 @@ saeoss-css:
     - css/saeoss.css
   filter: cssrewrite
 
-
+search-css:
+  output: ckanext-saeoss/%(version)s_search.css
+  contents:
+    - css/search.css
+  filter: cssrewrite
 
 temporal-query-js:
   output: ckanext-saeoss/%(version)s_temporalQuery.js
