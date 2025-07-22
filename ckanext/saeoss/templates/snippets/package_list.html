@@ -14,12 +14,12 @@ Example:
 #}
 {% block package_list %}
   {% if packages %}
-    <ul class="{{ list_class or 'dataset-list list-unstyled' }}">
+    <div class="row row-eq-height">
     	{% block package_list_inner %}
 	      {% for package in packages %}
 	        {% snippet 'snippets/package_item.html', package=package, item_class=item_class, hide_resources=hide_resources %}
 	      {% endfor %}
 	    {% endblock %}
-    </ul>
+    </div>
   {% endif %}
 {% endblock %}

@@ -58,11 +58,12 @@ $(document).ready(function () {
         let html = '';
         for (const ds of paginatedItems) {
             const notes = ds.notes ? `<p>${ds.notes}</p>` : '';
+            var imageUrl = ds.image_url || '/images/org.png';
             html += `<div class="col-md-6">
                 <div class="thematic-item-card mb-4">
                     <div class="thematic-item-card-body">
                         <div class="thematic-item-image-parent">
-                            <img src="${ds.image_url}" alt="${ds.title}" class="thematic-item-image">
+                            <img src="${imageUrl}" alt="${ds.title}" class="thematic-item-image">
                         </div>
                         <h5 class="thematic-item-card-title text-muted">${ds.title}</h5>
                         <div class="thematic-item-card-text text-muted">${notes}</div>

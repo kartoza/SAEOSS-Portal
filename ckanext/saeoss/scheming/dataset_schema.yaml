@@ -192,6 +192,7 @@ dataset_fields:
     label: Tags
     form_snippet: tag_controlled_select.html
     required: false
+    multiple: true
     choices:
       - value: Earth Science
         label: Earth Science
@@ -221,6 +222,7 @@ dataset_fields:
         label: Measurement Names
       - value: Chronostratigraphic Units
         label: Chronostratigraphic Units
+    
 
 
   - field_name: metadata_language_and_character_set

@@ -1,0 +1,120 @@
+
+
+
+
+.filters-row {
+background: white;
+padding: 10px 30px;
+display: flex;
+gap: 10px;
+flex-wrap: wrap;
+border-bottom: 1px solid #ddd;
+}
+
+.filter-pill {
+background-color: #dceeff;
+color: #004080;
+padding: 6px 14px;
+border-radius: 20px;
+font-size: 14px;
+}
+
+.filter-box {
+background: white;
+padding: 15px;
+border-radius: 8px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.filter-box h2 {
+font-size: 16px;
+margin-bottom: 10px;
+color: #004080;
+}
+
+
+.dataset-card {
+background: white;
+padding: 12px 14px;
+border-radius: 8px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+display: flex;
+flex-direction: column;
+gap: 8px;
+font-size: 14px;
+margin-bottom: 10px;
+height: 350px;
+}
+
+
+.dataset-card h3 {
+margin: 0;
+font-size: 15px;
+color: #003e80;
+}
+
+.dataset-card-p {
+margin: 4px 0; 
+line-height: 1.3; 
+}
+
+
+.tags {
+display: flex;
+flex-wrap: wrap;
+gap: 6px;
+margin: 6px 0;
+}
+
+.tag {
+background: #eee;
+padding: 3px 8px;
+border-radius: 12px;
+font-size: 12px;
+}
+
+
+.btn-view {
+background-color: #003e80;
+color: white;
+padding: 6px 0;
+border: none;
+border-radius: 5px;
+text-align: center;
+font-size: 13px;
+width: 100%;
+position: absolute;
+bottom: 5px;
+}
+
+.btn-view-parent{
+  position: relative;
+  height: 100%;
+}
+
+.btn-view a{
+color: white;
+text-decoration: none;
+}
+
+.heading{
+margin: 0;
+color: #004080;
+font-family: Arial, sans-serif;
+}
+
+.search-input-group input{
+border: gray 1px solid !important;
+border-radius: 5px !important;
+}   
+
+#header{
+background-color: white;
+padding: 20px !important;
+margin: 0 !important;
+border-bottom: #e7e7e7 1px solid !important;
+}
+
+.misc-search{
+  padding-right: 20px;
+}
