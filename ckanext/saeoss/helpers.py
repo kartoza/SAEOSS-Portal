@@ -627,9 +627,21 @@ def _get_tags(package_dict: typing.Dict) -> str:
         tag['name'] not in [cat[1].replace(', ', '-') for cat in constants.ISO_TOPIC_CATEGORIES]
     }
 
+    tag_controlled = package_dict.get("tag_controlled_string")
+
+    if isinstance(tag_controlled, str):
+        tag_controlled = [tag.strip() for tag in tag_controlled.split(',') if tag.strip()]
+
+    if tag_controlled:
+        for tag in tag_controlled:
+            cleaned_tag = sanitize_tag(tag)
+            tags.add(cleaned_tag)
+
+
     if iso_category:
         # add current iso topic category to tags
         tags.add(iso_category)
+        
     return [{'name': tag, 'state': 'active'} for tag in tags]
 
 
