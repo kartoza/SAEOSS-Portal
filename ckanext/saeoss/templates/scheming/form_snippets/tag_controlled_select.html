@@ -6,10 +6,11 @@
 
 {% if 'tag_controlled_string' in data %}
   {% set tag_string = data["tag_controlled_string"] %}
-  {% set tag_list = tag_string.split(',') if tag_string else [] %}
+  {% set tag_list = tag_string %}
 {% else %}
   {% set tag_list = [] %}
 {% endif %}
+
 
 <div class="form-group control-medium control-select">
     <label class="control-label" for="field-tags">{{ field.label }}</label>

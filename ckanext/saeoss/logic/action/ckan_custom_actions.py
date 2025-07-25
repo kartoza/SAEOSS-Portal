@@ -90,7 +90,8 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
 
     if upload.mimetype == None:
         if data_dict['url'] == '':
-            raise ValidationError(["Please upload a file or link to an online resource"])
+            return {} 
+            # raise ValidationError(["Please upload a file or link to an online resource"])
 
     if upload:
         if data_dict.get("resource_type") == "stac":
