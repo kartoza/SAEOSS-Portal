@@ -632,11 +632,10 @@ def _get_tags(package_dict: typing.Dict) -> str:
     if isinstance(tag_controlled, str):
         tag_controlled = [tag.strip() for tag in tag_controlled.split(',') if tag.strip()]
 
-    if tag_controlled:
+    if len(tag_controlled) > 0:
         for tag in tag_controlled:
             cleaned_tag = sanitize_tag(tag)
             tags.add(cleaned_tag)
-
 
     if iso_category:
         # add current iso topic category to tags

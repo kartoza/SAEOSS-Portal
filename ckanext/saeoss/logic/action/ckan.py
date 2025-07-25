@@ -187,18 +187,23 @@ def package_update(original_action, context, data_dict):
     """
     Intercepts the core `package_update` action to check if package is being published.
     """
+    tag_controlled = data_dict.get("tag_controlled_string")
+
+    if isinstance(tag_controlled, str):
+        tag_controlled = [tag_controlled]
+
+    if tag_controlled:
+        cleaned_tags = [sanitize_tag(tag.strip()) for tag in tag_controlled if tag.strip()]
+        data_dict["tags"] = [{"name": tag} for tag in cleaned_tags]
+
     try:
-
-        try:
-            data_dict['tags'] = _get_tags(data_dict)
-        except KeyError:
-            data_dict['tags'] = []
-        
-        data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
-
-        return _act_depending_on_package_visibility(original_action, context, data_dict)
-    except:
-        pass
+        data_dict['tags'] = _get_tags(data_dict)
+    except KeyError:
+        data_dict['tags'] = []
+    
+    data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
+    
+    return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 
 @toolkit.chained_action
