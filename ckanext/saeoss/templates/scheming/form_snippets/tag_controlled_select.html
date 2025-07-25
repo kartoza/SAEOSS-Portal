@@ -17,7 +17,7 @@
         <select style="width: 100%;" name="{{ field.field_name }}" id="tag-multiple" multiple="multiple">
             {% for choice in field.choices %}
                 <option value="{{ choice['value'] }}"
-                    {% if choice['value'] in tag_string %}selected{% endif %}>
+                    {% if choice['value'] in tag_list %}selected{% endif %}>
                     {{ choice['label'] }}
                 </option>
             {% endfor %}
