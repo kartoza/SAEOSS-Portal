@@ -384,6 +384,7 @@ dataset_fields:
 
 
   - field_name: lineage_statement
+    form_snippet: markdown.html
     label: Lineage statement
     required: true
     help_text: general explanation of the data producer's knowledge about the lineage of a metadata record - This is a SANS 1878 mandatory field
@@ -594,6 +595,18 @@ dataset_fields:
       #   help_text: Origin from which minimum and maximum elevations originated
       #   required: false
 
+  - field_name: temporal_coverage_start
+    label: Temporal Coverage Start Date
+    required: false
+    preset: date
+    help_text: The start date of the time period that the dataset covers (e.g., 2022-01-01).
+
+  - field_name: temporal_coverage_end
+    label: Temporal Coverage End Date
+    required: false
+    preset: date
+    help_text: The end date of the time period that the dataset covers (e.g., 2022-12-31).
+
   - field_name: dataset_reference_date
     label: Reference date
     repeating_subfields:
@@ -616,7 +629,7 @@ dataset_fields:
           label: Publication
         - value: 003
           label: Revision
-      help_text: Reference date type - This is a SANS 1878 mandatory field
+      help_text: Specifies the type of reference date associated with the dataset. Required by SANS 1878. Choose 'Creation' for when the data was originally created, 'Publication' for when it was published, or 'Revision' for the most recent update.
 
   - field_name: metadata_date
     label: Metadata stamp date
