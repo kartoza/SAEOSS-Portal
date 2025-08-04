@@ -1,7 +1,6 @@
 {% ckan_extends %}
 
 {% block page_primary_action %}
-{% include 'social/index.html' %}
     {% if h.check_access('package_create', {'owner_org': group_dict.id}) %}
         {% snippet 'snippets/add_dataset.html', group=group_dict.id %}
     {% endif %}

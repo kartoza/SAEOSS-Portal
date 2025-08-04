@@ -37,14 +37,37 @@ color: #004080;
 background: white;
 padding: 12px 14px;
 border-radius: 8px;
-box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 display: flex;
 flex-direction: column;
 gap: 8px;
 font-size: 14px;
 margin-bottom: 10px;
-height: 350px;
+max-width: 100%;
+height: 100%;
 }
+
+.row.display-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row.display-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* @media (max-width: 990px) {
+  .dataset-card {
+    height: 250px;
+  }
+}
+
+@media (max-width: 460px) {
+  .dataset-card {
+    height: 280px;
+  }
+} */
 
 
 .dataset-card h3 {
@@ -75,21 +98,22 @@ font-size: 12px;
 
 
 .btn-view {
-background-color: #003e80;
-color: white;
-padding: 6px 0;
-border: none;
-border-radius: 5px;
-text-align: center;
-font-size: 13px;
-width: 100%;
-position: absolute;
-bottom: 5px;
+  background-color: #003e80;
+  color: white;
+  padding: 6px 0;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 13px;
+  width: 100%;
+  position: absolute;
+  bottom: 5px;
 }
 
 .btn-view-parent{
-  position: relative;
-  height: 100%;
+    position: relative;
+    height: 100%;
+    margin-top: 25px;
 }
 
 .btn-view a{
@@ -113,6 +137,7 @@ background-color: white;
 padding: 20px !important;
 margin: 0 !important;
 border-bottom: #e7e7e7 1px solid !important;
+position: relative;
 }
 
 .misc-search{

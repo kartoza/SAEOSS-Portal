@@ -21,7 +21,7 @@
 
         <div class="col-md-4">
             <div>
-                {% snippet 'snippets/search_form.html', form_id='dataset-search-form', type=dataset_type, query=q, sorting_selected=sort_by_selected, count=page.item_count, placeholder=_('Search ' + 'metadata record' + 's') + '..', facets=facets, show_empty=request.params, error=query_error, fields=fields %}
+                {% snippet 'snippets/search_form.html', form_id='dataset-search-form', type=dataset_type, query=q, sorting_selected=sort_by_selected, count=21, placeholder=_('Search ' + 'metadata record' + 's') + '..', facets=facets, show_empty=request.params, error=query_error, fields=fields %}
             </div>
         </div>
     </div>
@@ -104,7 +104,6 @@
 {% endblock %}
 
 {% block primary_content %}
-  {% include 'social/index.html' %}
 
   {% block package_search_results_list %}
       {{ h.snippet('snippets/package_list.html', packages=page.items, column_class='col-md-4') }}

@@ -3600,6 +3600,28 @@ tbody.collapse.in {
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
+
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
 .dropdown-menu.pull-right {
   right: 0;
   left: auto;
@@ -4251,28 +4273,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-collapse.in {
   overflow-y: auto;
 }
-@media (min-width: 768px) {
-  .navbar-collapse {
-    width: auto;
-    border-top: 0;
-    box-shadow: none;
-  }
-  .navbar-collapse.collapse {
-    display: block !important;
-    height: auto !important;
-    padding-bottom: 0;
-    overflow: visible !important;
-  }
-  .navbar-collapse.in {
-    overflow-y: visible;
-  }
-  .navbar-fixed-top .navbar-collapse,
-  .navbar-static-top .navbar-collapse,
-  .navbar-fixed-bottom .navbar-collapse {
-    padding-right: 0;
-    padding-left: 0;
-  }
-}
+
 .navbar-fixed-top,
 .navbar-fixed-bottom {
   position: fixed;
@@ -4312,15 +4313,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-right: -15px;
   margin-left: -15px;
 }
-@media (min-width: 768px) {
-  .container > .navbar-header,
-  .container-fluid > .navbar-header,
-  .container > .navbar-collapse,
-  .container-fluid > .navbar-collapse {
-    margin-right: 0;
-    margin-left: 0;
-  }
-}
+
 .navbar-static-top {
   z-index: 1;
   border-width: 0 0 1px;
@@ -4374,11 +4367,30 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-@media (min-width: 768px) {
+
+@media (max-width: 1282px) {
+  .navbar-center{
+    left: 55% !important;
+  }
+}
+
+@media (max-width: 1128px) {
+  .navbar-center{
+    left: 60% !important;
+  }
+}
+
+@media (max-width: 1029px) {
+  .navbar-center{
+    left: 65% !important;
+  }
+}
+
+/* @media (min-width: 768px) {
   .navbar-toggle {
     display: none;
   }
-}
+} */
 .navbar-nav {
   margin: 7.5px -15px;
 }
@@ -10076,7 +10088,7 @@ h4 small {
     display: none;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 1040px) {
   .masthead .navbar-collapse {
     clear: both;
     margin-left: 0;
@@ -11453,6 +11465,7 @@ iframe {
 
 .li-flex{
   display: flex !important;
+  white-space: nowrap;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -11471,6 +11484,23 @@ iframe {
   text-align: center;
   color: white;
   font-weight: bold;
+}
+
+@media (max-width: 832px) {
+  .title-header-text {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .title-header-text {
+    font-size: 18px;
+  }
+  .home-text{
+    padding: 20px;
+    font-size: 14px;
+    max-width: 80%;
+  }
 }
 
 .img-card{
@@ -11719,15 +11749,7 @@ article{
   /* box-shadow: 5px 5px 10px #e0e0e0 */
 }
 
-@media only screen and (max-width: 767px) {
-  .navbar-center{
-    position: relative !important;
-  }
 
-  .hr-ver{
-    display: none;
-  }
-}
 
 .map-search{
   background-color: #fafafa;
@@ -11870,3 +11892,47 @@ article{
   padding: 10px 0px 20px 0px !important;
 }
 
+
+.carousel-inner > .item {
+  height: 700px !important;
+}
+
+.mobile-nav{
+  position: absolute;
+  top: -15px;
+  right: 0px;
+  display: none;
+}
+
+@media (max-width: 905px) {
+  .desktop-nav{
+    display: none;
+  }
+  .mobile-nav{
+    display: block;
+  }
+  .navbar-toggle{
+    display: block !important;
+  }
+}
+
+@media (max-width: 766px) {
+  .dropdown-menu{
+    position:  relative !important;
+  }
+}
+
+.tag {
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Further truncate when screen is small (e.g. below 600px) */
+@media (max-width: 900px) {
+  .tag {
+    max-width: 100px; /* adjust based on your layout */
+  }
+}

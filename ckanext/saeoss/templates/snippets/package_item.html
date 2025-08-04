@@ -5,7 +5,7 @@
     
       {% set column_class = column_class or 'col-md-6' %}
 
-      <div class="{{column_class}}">
+      <div class="{{column_class}} col-sm-12 col-xs-12">
         {% block content %}
           {% set date_string = package['metadata_modified']|string %}
           {% set date = date_string.split('T')[0] %}
@@ -31,7 +31,7 @@
             <div class="tags">
               {% set max_tags = 3 %}
               {% for tag in package.tags[:max_tags] %}
-                <span class="tag">{{ tag.name }}</span>
+                <span class="tag">{{ tag.name|urlize|truncate(50,True,'...',0) }}</span>
               {% endfor %}
               {% if package.tags|length > max_tags %}
                 <span class="tag">…</span>
