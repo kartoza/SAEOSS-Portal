@@ -10,6 +10,7 @@ services:
 
   ckan-web:
     image: saeoss:${CKAN_IMAGE_TAG}
+    entrypoint: ["tail", "-f", "/dev/null"]
 
   ckan-datapusher:
     image: ckan/ckan-base-datapusher:0.0.20
