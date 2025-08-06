@@ -20,7 +20,6 @@ services:
   ckan-web:
     <<: *partial-ckan-volumes
     image: saeoss:${CKAN_IMAGE_TAG}
-    entrypoint: ["tail", "-f", "/dev/null"]
     environment:
       SENTRY_DSN: ${SENTRY_DSN}
 
