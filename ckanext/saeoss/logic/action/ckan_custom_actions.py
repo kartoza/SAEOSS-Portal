@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import requests
 import ckan.plugins.toolkit as toolkit
 from ckan.common import config
 import ckan.logic as logic
@@ -6,19 +7,24 @@ import os
 import pathlib
 import ckan.lib.uploader as uploader
 from ckan.lib.helpers import flash_notice, redirect_to, full_current_url
-from ckan.common import c
+from ckan.common import c, g
 import logging
 import ckan.plugins as plugins
-from ..validators import _stac_validator
+from ..validators import validate_stac_json, validate_stac_url
 import json
 import yaml
 import xmltodict
 from urllib.request import urlopen
+from ckan.logic.action.create import _group_or_org_create
+import ckan.model as model
+
 
 logger = logging.getLogger(__name__)
 # Define some shortcuts
 # Ensure they are module-private so that they don't get loaded as available
 # actions in the action API.
+
+
 _check_access = logic.check_access
 _get_action = logic.get_action
 ValidationError = logic.ValidationError
@@ -72,7 +78,6 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
                     "text/javascript", 
                     "text/ecmascript",
                     "application/octet-stream",
-                    "text/x-server-parsed-html",
                     "text/x-server-parsed-html"
                 ]
 
@@ -84,13 +89,14 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
             data_dict['size'] = upload.filesize
 
     if upload.mimetype == None:
-        raise ValidationError(["Please upload a file or link to an online resource"])
+        if data_dict['url'] == '':
+            return {} 
+            # raise ValidationError(["Please upload a file or link to an online resource"])
 
     if upload:
-        if data_dict["resource_type"] == "stac":
-
+        if data_dict.get("resource_type") == "stac":
             if 'https' in data_dict['url'] or 'http' in data_dict['url']:
-                _stac_validator(data_dict['url'])
+                validate_stac_url(data_dict['url'])
                 
 
     pkg_dict['resources'].append(data_dict)
@@ -108,8 +114,6 @@ def resource_create(original_action, context: dict, data_dict: dict) -> dict:
 
     # Get out resource_id resource from model as it will not appear in
     # package_show until after commit
-    upload.upload(context['package'].resources[-1].id,
-                  uploader.get_max_resource_size())
 
     model.repo.commit()
 
@@ -230,3 +234,64 @@ def resource_update(original_action, context: dict, data_dict: dict):
         plugin.after_update(context, resource)
 
     return resource
+
+@toolkit.chained_action
+def organization_create(original_action, context: dict, data_dict: dict):
+    '''Create a new organization.
+
+    You must be authorized to create organizations.
+
+    Plugins may change the parameters of this function depending on the value
+    of the ``type`` parameter, see the
+    :py:class:`~ckan.plugins.interfaces.IGroupForm` plugin interface.
+
+    :param name: the name of the organization, a string between 2 and
+        100 characters long, containing only lowercase alphanumeric
+        characters, ``-`` and ``_``
+    :type name: string
+    :param id: the id of the organization (optional)
+    :type id: string
+    :param title: the title of the organization (optional)
+    :type title: string
+    :param description: the description of the organization (optional)
+    :type description: string
+    :param image_url: the URL to an image to be displayed on the
+        organization's page (optional)
+    :type image_url: string
+    :param state: the current state of the organization, e.g. ``'active'`` or
+        ``'deleted'``, only active organizations show up in search results and
+        other lists of organizations, this parameter will be ignored if you
+        are not authorized to change the state of the organization
+        (optional, default: ``'active'``)
+    :type state: string
+    :param approval_status: (optional)
+    :type approval_status: string
+    :param extras: the organization's extras (optional), extras are arbitrary
+        (key: value) metadata items that can be added to organizations,
+        each extra
+        dictionary should have keys ``'key'`` (a string), ``'value'`` (a
+        string), and optionally ``'deleted'``
+    :type extras: list of dataset extra dictionaries
+    :param packages: the datasets (packages) that belong to the organization,
+        a list of dictionaries each with keys ``'name'`` (string, the id
+        or name of the dataset) and optionally ``'title'`` (string, the
+        title of the dataset)
+    :type packages: list of dictionaries
+    :param users: the users that belong to the organization, a list
+        of dictionaries each with key ``'name'`` (string, the id or name
+        of the user) and optionally ``'capacity'`` (string, the capacity
+        in which the user is a member of the organization)
+    :type users: list of dictionaries
+
+    :returns: the newly created organization (unless 'return_id_only' is set
+              to True in the context, in which case just the organization id
+              will be returned)
+    :rtype: dictionary
+
+    '''
+    # wrapper for creating organizations
+    context['ignore_auth'] = True
+    data_dict.setdefault('type', 'organization')
+    return original_action(context, data_dict)
+
+

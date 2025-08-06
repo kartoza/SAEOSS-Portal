@@ -34,12 +34,15 @@ from ..blueprints.map import map_blueprint
 from ..blueprints.stac_harvest import stac_blueprint
 from ..blueprints.stac_endpoint import stac_api_blueprint
 from ..blueprints.reset_password import reset_password_blueprint
+from ..blueprints.user_register import user_register
 from ..blueprints.about import about_blueprint
 from ..blueprints.validator import validator_blueprint
 from ..blueprints.saved_searches import saved_searches_blueprint
 from ..blueprints.news import news_blueprint
 from ..blueprints.contact import contact_blueprint
 from ..blueprints.sys_stats import stats_blueprint
+from ..blueprints.thematic_groups import thematic_blueprint
+from ..blueprints.user_permissions import user_permission_blueprint
 from ..cli import commands
 from ..logic.action import ckan as ckan_actions
 from ..logic.action import saeoss as saeoss_actions
@@ -48,18 +51,22 @@ from ..logic import (
     converters,
     validators,
 )
-
 from ..logic.auth import ckan as ckan_auth
 from ..logic.auth import pages as ckanext_pages_auth
 from ..logic.auth import saeoss as saeoss_auth
 from ..model.user_extra_fields import UserExtraFields
 import ckan.logic as logic
 import json
+from ckan.plugins.interfaces import IConfigurer, IRoutes
+
+from ..model.user_permissions import SitewideAdminPermission
+
 
 import ckanext.saeoss.plugins.utils as utils
 import ckan.lib.uploader as uploader
 logger = logging.getLogger(__name__)
 ValidationError = logic.ValidationError
+
 
 class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IActions)
@@ -74,6 +81,17 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPluginObserver)
+    plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.IDatasetForm)
+
+    def before_map(self, map):
+        # Add a redirect for an old URL
+        map.disconnect('register')  # Name of the original route
+        map.redirect('/user/register', '/user/sign-up')
+        return map
+
+    def get_package_after_index(self):
+        return helpers.after_index
 
     def group_form(self):
         pass
@@ -285,6 +303,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         toolkit.add_template_directory(config_, "../templates")
         toolkit.add_public_directory(config_, "../public")
         toolkit.add_resource("../assets", "ckanext-saeoss")
+        from ..model.user_permissions import sitewide_admin_permissions_table
 
     def get_commands(self):
         return [
@@ -297,12 +316,14 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "package_publish": ckan_auth.authorize_package_publish,
             "package_update": ckan_auth.package_update,
             "package_patch": ckan_auth.package_patch,
+            'organization_create': ckan_auth.organization_create,
             "ckanext_pages_update": ckanext_pages_auth.authorize_edit_page,
             "ckanext_pages_delete": ckanext_pages_auth.authorize_delete_page,
             "ckanext_pages_show": ckanext_pages_auth.authorize_show_page,
             "request_dataset_maintenance": (
                 saeoss_auth.authorize_request_dataset_maintenance
             ),
+            
         }
 
     def get_actions(self) -> typing.Dict[str, typing.Callable]:
@@ -314,11 +335,14 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "saeoss_version": saeoss_actions.show_version,
             "user_patch": ckan_actions.user_patch,
             "user_update": ckan_actions.user_update,
+            'tag_create': ckan_actions.tag_create,
             # "user_create": ckan_actions.user_create,
             "organization_update": ckan_actions.organization_update,
             "user_show": ckan_actions.user_show,
             "resource_create": ckan_custom_actions.resource_create,
             "resource_update": ckan_custom_actions.resource_update,
+            'organization_create': ckan_custom_actions.organization_create,
+            
         }
 
     def get_validators(self) -> typing.Dict[str, typing.Callable]:
@@ -353,7 +377,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "default_bounding_box": helpers.get_default_bounding_box,
             "convert_geojson_to_bounding_box": helpers.convert_geojson_to_bbox,
             "extent_to_bbox": helpers.convert_string_extent_to_bbox,
-            # "saeoss_themes": helpers.get_saeoss_themes,
+            "saeoss_themes": helpers.get_saeoss_themes,
             "iso_topic_categories": helpers.get_iso_topic_categories,
             "get_iso_topic_display": helpers.get_iso_topic_display,
             "saeoss_show_version": helpers.helper_show_version,
@@ -379,6 +403,7 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             "get_year": helpers.get_year,
             "get_user_dashboard_packages": helpers.get_user_dashboard_packages,
             "get_org_public_records_count": helpers.get_org_public_records_count,
+            'group_package_count': helpers.group_package_count,
         }
 
     def get_blueprint(self) -> typing.List[Blueprint]:
@@ -394,7 +419,10 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             news_blueprint,
             contact_blueprint,
             stats_blueprint,
-            reset_password_blueprint
+            reset_password_blueprint,
+            user_register,
+            thematic_blueprint,
+            user_permission_blueprint,
         ]
 
     def dataset_facets(
@@ -404,7 +432,9 @@ class SaeossPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             # facets_dict["reference_date"] = toolkit._("Reference Date")
             facets_dict["harvest_source_title"] = toolkit._("Harvest source")
             facets_dict["featured"] = toolkit._("Featured Metadata records")
+            facets_dict["topic_and_saeoss_themes"] = toolkit._("Topic Category")
         return facets_dict
+
 
     def group_facets(
         self, facets_dict: typing.OrderedDict, group_type: str, package_type: str

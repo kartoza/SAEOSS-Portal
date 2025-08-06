@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 import typing
 import datetime
 from urllib.parse import quote, urlparse, parse_qsl, urlencode
@@ -25,15 +26,15 @@ from ckan.lib.dictization import table_dictize
 logger = logging.getLogger(__name__)
 
 
-# def get_saeoss_themes(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
-#     logger.debug(f"inside get_saeoss_themes {args=} {kwargs=}")
-#     try:
-#         saeoss_themes = toolkit.get_action("tag_list")(
-#             data_dict={"vocabulary_id": constants.SAEOSS_THEMES_VOCABULARY_NAME}
-#         )
-#     except toolkit.ObjectNotFound:
-#         saeoss_themes = []
-#     return [{"value": t, "label": t} for t in saeoss_themes]
+def get_saeoss_themes(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
+    logger.debug(f"inside get_saeoss_themes {args=} {kwargs=}")
+    try:
+        saeoss_themes = toolkit.get_action("tag_list")(
+            data_dict={"vocabulary_id": constants.SAEOSS_THEMES_VOCABULARY_NAME}
+        )
+    except toolkit.ObjectNotFound:
+        saeoss_themes = []
+    return [{"value": t, "label": t} for t in saeoss_themes]
 
 
 def get_iso_topic_categories(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
@@ -276,6 +277,21 @@ def get_all_datasets_count(user_obj):
         data_dict={"q": "*:*", "include_private": True}
     )
     return result["count"]
+
+
+def group_package_count(group_name):
+    group = toolkit.get_action('group_show')({}, {'id': group_name})
+    group_id = group['id']
+
+    count = model.Session.query(model.Package) \
+        .join(model.Member, model.Member.table_id == model.Package.id) \
+        .filter(model.Member.group_id == group_id) \
+        .filter(model.Member.table_name == 'package') \
+        .filter(model.Member.state == 'active') \
+        .filter(model.Package.state == 'active') \
+        .count()
+
+    return count
 
 
 def get_org_public_records_count(org_id: str) -> int:
@@ -611,7 +627,31 @@ def _get_tags(package_dict: typing.Dict) -> str:
         tag['name'] not in [cat[1].replace(', ', '-') for cat in constants.ISO_TOPIC_CATEGORIES]
     }
 
+    tag_controlled = package_dict.get("tag_controlled_string")
+
+    if isinstance(tag_controlled, str):
+        tag_controlled = [tag.strip() for tag in tag_controlled.split(',') if tag.strip()]
+
+    if len(tag_controlled) > 0:
+        for tag in tag_controlled:
+            cleaned_tag = sanitize_tag(tag)
+            tags.add(cleaned_tag)
+
     if iso_category:
         # add current iso topic category to tags
         tags.add(iso_category)
+        
     return [{'name': tag, 'state': 'active'} for tag in tags]
+
+
+def sanitize_tag(tag):
+    # Replace spaces and slashes with underscores
+    tag = tag.replace(' ', '_').replace('/', '_')
+    # Remove all characters except alphanumerics, underscores, and dashes
+    return re.sub(r'[^\w\-]', '', tag)
+
+def after_index(data_dict):
+    responsible_parties = data_dict.get('responsible_party', [])
+    if isinstance(responsible_parties, list):
+        data_dict['responsible_party'] = json.dumps(responsible_parties)
+    return data_dict

@@ -513,6 +513,22 @@ reference = "v0.3.7"
 resolved_reference = "d062c9c6fb3967baebd5166ee20e6bd99056f5d7"
 
 [[package]]
+name = "ckanext-pdfview"
+version = "0.0.7"
+description = "View plugin for rendering PDFs on the browser"
+category = "main"
+optional = false
+python-versions = "*"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/ckan/ckanext-pdfview.git"
+reference = "HEAD"
+resolved_reference = "004e0471e25425b2e44ce1af4c2d21e169c64787"
+
+[[package]]
 name = "ckanext-scheming"
 version = "3.0.0"
 description = "Easy, sharable custom CKAN schemas"
@@ -550,6 +566,41 @@ type = "git"
 url = "https://github.com/ckan/ckanext-spatial"
 reference = "v2.0.0"
 resolved_reference = "77ffc2f8548eea521138777fbe91c29f97af6642"
+
+[[package]]
+name = "ckanext-tableview"
+version = "0.0.1"
+description = "Datatables view extension with custom features"
+category = "main"
+optional = false
+python-versions = "*"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/justicehub-in/ckanext-tableview"
+reference = "HEAD"
+resolved_reference = "12eafa5506a74c53b19b985db72b98c2b203af2a"
+
+[[package]]
+name = "ckanext-visualize"
+version = "1.0.0"
+description = ""
+category = "main"
+optional = false
+python-versions = "*"
+files = []
+develop = false
+
+[package.dependencies]
+natsort = "7.1.1"
+
+[package.source]
+type = "git"
+url = "https://github.com/keitaroinc/ckanext-visualize"
+reference = "HEAD"
+resolved_reference = "eb53fd00b6a99efd9d8924543ec3bb22774ec083"
 
 [[package]]
 name = "ckantoolkit"
@@ -2404,6 +2455,22 @@ files = [
 ]
 
 [[package]]
+name = "natsort"
+version = "7.1.1"
+description = "Simple yet flexible natural sorting in Python."
+category = "main"
+optional = false
+python-versions = ">=3.4"
+files = [
+    {file = "natsort-7.1.1-py3-none-any.whl", hash = "sha256:d0f4fc06ca163fa4a5ef638d9bf111c67f65eedcc7920f98dec08e489045b67e"},
+    {file = "natsort-7.1.1.tar.gz", hash = "sha256:00c603a42365830c4722a2eb7663a25919551217ec09a243d3399fa8dd4ac403"},
+]
+
+[package.extras]
+fast = ["fastnumbers (>=2.0.0)"]
+icu = ["PyICU (>=1.0.0)"]
+
+[[package]]
 name = "netcdf4"
 version = "1.7.2"
 description = "Provides an object-oriented python interface to the netCDF version 4 library"
@@ -3994,6 +4061,63 @@ doc = ["matplotlib (>2)", "numpydoc", "pydata-sphinx-theme (==0.9.0)", "sphinx (
 test = ["asv", "gmpy2", "mpmath", "pytest", "pytest-cov", "pytest-xdist", "scikit-umfpack", "threadpoolctl"]
 
 [[package]]
+name = "sentry-sdk"
+version = "2.26.1"
+description = "Python client for Sentry (https://sentry.io)"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "sentry_sdk-2.26.1-py2.py3-none-any.whl", hash = "sha256:e99390e3f217d13ddcbaeaed08789f1ca614d663b345b9da42e35ad6b60d696a"},
+    {file = "sentry_sdk-2.26.1.tar.gz", hash = "sha256:759e019c41551a21519a95e6cef6d91fb4af1054761923dadaee2e6eca9c02c7"},
+]
+
+[package.dependencies]
+certifi = "*"
+urllib3 = ">=1.26.11"
+
+[package.extras]
+aiohttp = ["aiohttp (>=3.5)"]
+anthropic = ["anthropic (>=0.16)"]
+arq = ["arq (>=0.23)"]
+asyncpg = ["asyncpg (>=0.23)"]
+beam = ["apache-beam (>=2.12)"]
+bottle = ["bottle (>=0.12.13)"]
+celery = ["celery (>=3)"]
+celery-redbeat = ["celery-redbeat (>=2)"]
+chalice = ["chalice (>=1.16.0)"]
+clickhouse-driver = ["clickhouse-driver (>=0.2.0)"]
+django = ["django (>=1.8)"]
+falcon = ["falcon (>=1.4)"]
+fastapi = ["fastapi (>=0.79.0)"]
+flask = ["blinker (>=1.1)", "flask (>=0.11)", "markupsafe"]
+grpcio = ["grpcio (>=1.21.1)", "protobuf (>=3.8.0)"]
+http2 = ["httpcore[http2] (>=1.0.0,<2.0.0)"]
+httpx = ["httpx (>=0.16.0)"]
+huey = ["huey (>=2)"]
+huggingface-hub = ["huggingface_hub (>=0.22)"]
+langchain = ["langchain (>=0.0.210)"]
+launchdarkly = ["launchdarkly-server-sdk (>=9.8.0)"]
+litestar = ["litestar (>=2.0.0)"]
+loguru = ["loguru (>=0.5)"]
+openai = ["openai (>=1.0.0)", "tiktoken (>=0.3.0)"]
+openfeature = ["openfeature-sdk (>=0.7.1)"]
+opentelemetry = ["opentelemetry-distro (>=0.35b0)"]
+opentelemetry-experimental = ["opentelemetry-distro"]
+pure-eval = ["asttokens", "executing", "pure_eval"]
+pymongo = ["pymongo (>=3.1)"]
+pyspark = ["pyspark (>=2.4.4)"]
+quart = ["blinker (>=1.1)", "quart (>=0.16.1)"]
+rq = ["rq (>=0.6)"]
+sanic = ["sanic (>=0.8)"]
+sqlalchemy = ["sqlalchemy (>=1.2)"]
+starlette = ["starlette (>=0.19.1)"]
+starlite = ["starlite (>=1.48)"]
+statsig = ["statsig (>=0.55.3)"]
+tornado = ["tornado (>=6)"]
+unleash = ["UnleashClient (>=6.0.1)"]
+
+[[package]]
 name = "setuptools"
 version = "75.3.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
@@ -4879,4 +5003,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "1fd3f9576341e77e1e329ae77439837bde36d38d19a2f31c49e694cc0ed9228b"
+content-hash = "fd64cfd023c0adadc912d9547afb2f5188317adce89ec45c75526d1d59a2f370"

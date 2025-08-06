@@ -1,0 +1,33 @@
+{% import 'macros/form.html' as form %}
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+{% if 'tag_controlled_string' in data %}
+  {% set tag_string = data["tag_controlled_string"] %}
+  {% set tag_list = tag_string %}
+{% else %}
+  {% set tag_list = [] %}
+{% endif %}
+
+
+<div class="form-group control-medium control-select">
+    <label class="control-label" for="field-tags">{{ field.label }}</label>
+    <div class="controls">
+        <select style="width: 100%;" name="{{ field.field_name }}" id="tag-multiple" multiple="multiple">
+            {% for choice in field.choices %}
+                <option value="{{ choice['value'] }}"
+                    {% if choice['value'] in tag_list %}selected{% endif %}>
+                    {{ choice['label'] }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#tag-multiple').select2();
+    });
+</script>

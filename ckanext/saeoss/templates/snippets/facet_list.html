@@ -5,7 +5,7 @@
 
     {% set hide_empty = hide_empty or false %}
 
-    {% with items = items or h.get_facet_items_dict(name, search_facets or c.search_facets) %}
+    {% with items = h.get_facet_items_dict(name, search_facets or c.search_facets, 1000000) %}
 	{% if items or not hide_empty %}
 		{% if within_tertiary %}
 			{% set nav_class = 'nav nav-pills nav-stacked' %}
@@ -16,12 +16,14 @@
 		<section class="{{ wrapper_class or 'module module-narrow module-shallow' }}">
 		    {% block facet_list_heading %}
                 {% set item_id = title.replace(' ', '') %}
-                {% if title not in ["Reference Date", "Licenses", "Groups", "Formats"] %}
+                {% if title not in ["Reference Date", "Licenses", "Formats"] %}
 						{% set filters = {
 							'Organizations': 'fa fa-users',
 							'Tags': 'fa fa-tags',
 							'Harvest source': 'fa fa-cloud',
+							'Groups': 'fa fa-folder-open',
 							'Featured Metadata records': 'fa fa-star',
+							'Topic Category': 'fa fa-star',
 						} %}
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="head{{ item_id }}">
@@ -60,12 +62,41 @@
 									{% set href = h.add_url_param(new_params={"featured":"true"}) %}
 								{% endif %}
 								<li class="{{ nav_item_class or 'nav-item' }}{% if item.active %} active{% endif %} facet-inner-{{ item_id }}" style="display:list-item">
-									<a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
+									<a href="{{ href }}" title="{{ label if label != label_truncated else '' }}" target="_blank">
 										<span class="item-label">{{ label }}</span>
 										<span class="hidden separator"> - </span>
 										<span class="item-count badge pull-righ">{{ count }}</span>
 									</a>
 								</li>
+								{% elif item_id == 'TopicCategory' %}
+									{# Extract key and value from the string "{'iso_topic_category': 'boundaries'}" #}
+									{% set raw_parts = item.name.strip('{}').replace("'", "").split(":") %}
+									{% set subfield = raw_parts[0].strip() %}
+									{% set facet_value = raw_parts[1].strip() %}
+									{% set flat_param = facet_value %}
+
+									{# Create href using the flat string representation #}
+									{% if item.active %}
+										{% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) %}
+									{% else %}
+										{% set href = h.add_url_param(new_params={name: flat_param}, extras=extras, alternative_url=alternative_url) %}
+									{% endif %}
+
+									{% set label = label_function(item) if label_function else facet_value %}
+									{% set label_truncated = h.truncate(label, 22) %}
+									{% set count = count_label(item['count']) if count_label else ('%d' % item['count']) %}
+
+									{% if label_truncated != ''%}
+									<li class="{{ nav_item_class or 'nav-item' }}{% if item.active %} active{% endif %} facet-inner-{{ item_id }}">
+										<a href="/dataset/?q={{facet_value}}" title="{{ label if label != label_truncated else '' }}" data-module="emc-facets-active">
+											{% set icon_name = label.replace(' ', '-')|lower + '.svg' %}
+											<span class="item-label">{{ label_truncated }}</span>
+											<span class="hidden separator"> - </span>
+											<span class="item-count badge pull-right">{{ count }}</span>
+										</a>
+									</li>
+									{% endif %}
+							
 							{% else %}
 								{% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
 								{% set label = label_function(item) if label_function else item.display_name %}
@@ -81,14 +112,14 @@
 										<span class="item-count badge pull-right">{{ count }}</span>
 									</a>
 								</li>
-							{% endif %}
+							{% endif %} 
 						{% endfor %}
 				    </ul>
 				</nav>
                 {% if items|length > 10%}
-                    <p class="module-footer show-more-button">
+                    <!-- <p class="module-footer show-more-button">
                         <button class="read-more" data-module="emc-facets-pagination" data-classname="facet-inner-{{ item_id }}">{{ _('Show More {facet_type}').format(facet_type=title) }}</button>
-                    </p>
+                    </p> -->
                 {% endif %}
 			    {% else %}
 					<p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>

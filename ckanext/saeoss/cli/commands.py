@@ -756,36 +756,53 @@ def pycsw():
     """Commands related to integration between CKAN and pycsw"""
 
 
-@pycsw.command()
+@saeoss.command()
 def create_materialized_view():
-    """Create the materialized view used to map between CKAN and pycsw"""
+    """Create the materialized and table views used to map between CKAN and pycsw"""
+    logger.info("Creating materialized view")
     jinja_env = utils.get_jinja_env()
-    template = jinja_env.get_template("pycsw/pycsw_view.sql")
-    ddl_command = template.render(view_name=_PYCSW_MATERIALIZED_VIEW_NAME)
+    
+    # Create materialized view
+    materialized_template = jinja_env.get_template("pycsw/pycsw_view.sql")
+    materialized_ddl = materialized_template.render(view_name=_PYCSW_MATERIALIZED_VIEW_NAME)
     with model.meta.engine.connect() as conn:
-        conn.execute(sla_text(ddl_command))
-        # conn.commit()
-    logger.info("Done!")
+        conn.execute(sla_text(materialized_ddl))
+    logger.info("Materialized view created")
+
+    # Create table view
+    logger.info("Creating table view")
+    table_template = jinja_env.get_template("pycsw/pycsw_table.sql")
+    table_ddl = table_template.render(table_name='saeoss_pycsw_table')
+    with model.meta.engine.connect() as conn:
+        conn.execute(sla_text(table_ddl))
+    logger.info("Table view created")
+
+    logger.info("Done creating pycsw views!")
 
 
-@pycsw.command()
+@saeoss.command()
 def refresh_materialized_view():
     """Refresh the materialized view used to map between CKAN and pycsw"""
     with model.meta.engine.connect() as conn:
         conn.execute(
             sla_text(
-                f"REFRESH MATERIALIZED VIEW {_PYCSW_MATERIALIZED_VIEW_NAME} WITH DATA;"
+                f"REFRESH MATERIALIZED VIEW {_PYCSW_MATERIALIZED_VIEW_NAME};"
+                f"DELETE FROM saeoss_pycsw_table;"
+                f"INSERT INTO saeoss_pycsw_table SELECT * FROM saeoss_pycsw_view;"
             )
         )
     logger.info("Done!")
 
 
-@pycsw.command()
+@saeoss.command()
 def drop_materialized_view():
     """Delete the materialized view used to map between CKAN and pycsw"""
     with model.meta.engine.connect() as conn:
         conn.execute(
-            sla_text(f"DROP MATERIALIZED VIEW {_PYCSW_MATERIALIZED_VIEW_NAME}")
+            sla_text(
+                f"DROP MATERIALIZED VIEW {_PYCSW_MATERIALIZED_VIEW_NAME};"
+                f"DROP TABLE saeoss_pycsw_table;"
+            )
         )
     logger.info("Done!")
 
@@ -1142,7 +1159,7 @@ def create_stac_dataset_func(user: str, url: str, owner_org: str, number_records
                     })
                 if link.rel == "self":
                     data_dict["resources"].append({
-                        "name": "STAC Item",
+                        "name": item.properties.title or item.id,
                         "url": link.target,
                         "format": "JSON",
                         "format_version":

@@ -43,6 +43,7 @@ function showData(_data, map){
     let allFeatures = null;
     dataFetched = _data;
     var collections = _data["features"]
+    document.getElementById('loader').style.display = "none"
     var collectionHtml = `
     <div style="display:none" class="row collection-search-error" id="collection-search-error"></div>`;
     for(var i = 0; i < collections.length; i++){
@@ -287,6 +288,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
             // initial fetch
             let fetchRes = fetch("/stac/datasetcollection");
+            document.getElementById('loader').style.display = "block"
             fetchRes.then(res => res.json()).then(_data => {
                 showData(_data, map)
             });
@@ -295,6 +297,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             $("#start_date").on('change', function(e){
                 if($(this).val() == ""){
                     let fetchRes = fetch("/stac/datasetcollection");
+                    document.getElementById('loader').style.display = "block"
                     fetchRes.then(res => res.json()).then(_data => {
                         showData(_data, map)
                     });
@@ -306,6 +309,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     var search_string = document.getElementById("search-collection").value
 
                     var ajaxData = {"start_date": start_date, "end_date": end_date, "search_string": search_string }
+                    document.getElementById('loader').style.display = "block"
                     
                     $.ajax({
                         type: 'POST',
@@ -327,6 +331,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                                     } catch (error) {
                                         
                                     }
+                                    
                                     showData(resultData, map)
                                 }
                                 
@@ -341,7 +346,9 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             $("#end_date").on('change', function(e){
                 if($(this).val() == ""){
                     let fetchRes = fetch("/stac/datasetcollection");
+                    document.getElementById('loader').style.display = "block"
                     fetchRes.then(res => res.json()).then(_data => {
+                        
                         showData(_data, map)
                     });
                 }
@@ -349,7 +356,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 var start_date = $('#start_date').val()
                 var end_date = $(this).val()
                 var search_string = document.getElementById("search-collection").value
-
+                document.getElementById('loader').style.display = "block"
                 var ajaxData = {"start_date": start_date, "end_date": end_date, "search_string": search_string }
                 $.ajax({
                     type: 'POST',
@@ -387,6 +394,8 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 var end_date = $("#end_date").val()
                 var search_string = document.getElementById("search-collection").value
 
+                document.getElementById('loader').style.display = "block"
+
                 var ajaxData = {"start_date": start_date, "end_date": end_date, "search_string": search_string }
                 $.ajax({
                     type: 'POST',
@@ -396,6 +405,8 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     success: function(resultData) { 
                         var el_error = document.getElementById("collection-search-error")
                         var el_error = document.getElementById("collection-search-error")
+
+                        document.getElementById('loader').style.display = "none"
                         if(resultData["features"].length < 1){
                             el_error.style.display = "block"
                             el_error.innerHTML = `No results found`
@@ -424,6 +435,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 $("#start_date").val('')
                 $("#end_date").val('')
                 $('#search-collection').val('')
+                document.getElementById('loader').style.display = "block"
                 fetchRes.then(res => res.json()).then(_data => {
                     showData(_data, map)
                 });

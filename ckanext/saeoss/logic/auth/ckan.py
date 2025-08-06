@@ -5,7 +5,12 @@ import ckan.plugins.toolkit as toolkit
 from ckan.logic.auth import get_package_object
 
 from ckanext.harvest.utils import DATASET_TYPE_NAME as CKANEXT_HARVEST_DATASET_TYPE_NAME
-
+import ckan.logic as logic
+import ckan.authz as authz
+from ...model.user_permissions import SitewideAdminPermission 
+from ckan.model import User, meta
+from sqlalchemy.orm import Session
+from sqlalchemy import and_
 logger = logging.getLogger(__name__)
 
 
@@ -98,3 +103,39 @@ def authorize_package_publish(
             if user.id in admin_member_ids:
                 result = {"success": True}
     return result
+
+
+def organization_create(context, data_dict=None):
+    user_context = context['user']
+    
+    # Get User model
+    user = User.get(user_context)
+    logger.debug(f"Checking if user {user.name} is authorized to create organizations")
+    if not user:
+        # No user found - deny or fallback
+        return False
+
+    user_id = user.id
+
+
+    # Access the SQLAlchemy session
+    session: Session = meta.Session()
+
+    # Query sitewide_admin_permission for this user and permission
+    permission = session.query(SitewideAdminPermission).filter(
+        and_(
+            SitewideAdminPermission.user_id == user_id,
+            SitewideAdminPermission.permission == 'allow_create_orgs',
+            SitewideAdminPermission.can_edit == True  # or can_view depending on logic
+        )
+    ).first()
+
+    if permission:
+        # Permission granted
+        return {'success': True}
+    else:
+        # Permission not found - deny or fallback to original logic
+        return {'success': False,
+            'msg': ('User %s not authorized to create organizations') % user}
+
+    

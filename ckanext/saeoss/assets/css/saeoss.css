@@ -666,20 +666,31 @@ header.masthead{
 
 #title-header {
   position: absolute;
-  top: 70px;
+  top: 0px;
+  left: 0px;
   display: table;
   width: 100%;
   height: 700px;
   text-align: left;
-  background-color: rgba(0,0,0,0.16);
+  padding: 20px;
+  
 }
 
 .title-header-text {
   color: #FFFFFF;
   padding-left: 10px;
-  width: 100%;
+  /* width: 100%; */
   font-size: 47px;
   font-weight: 700;
+}
+
+#about-header {
+  position: relative;
+  display: table;
+  width: 100%;
+  height: 700px;
+  text-align: left;
+  background-color: rgba(0,0,0,0.16);
 }
 
 .index-search {
@@ -779,11 +790,40 @@ footer {
   padding: 0px 0;
 }
 
+.footer-left {
+  text-align: left;
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.footer-left img {
+  width: 150px;
+  height: auto;
+}
+
+.footer-right {
+  text-align: right;
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.footer-right img {
+  width: 150px;
+  height: auto;
+}
+
 .footer-text {
   text-align: center;
   color: #fff;
   font-size: 14px;
-  margin-top:10px
+  margin-top: 10px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .language form {
@@ -1075,7 +1115,7 @@ footer {
 }
 
 .facet-outer li:nth-child(n+10){
-  display: none;
+  /* display: none; */
 }
 
 

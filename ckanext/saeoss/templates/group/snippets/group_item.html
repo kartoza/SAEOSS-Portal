@@ -15,13 +15,14 @@
   {% endblock %}
   {% block datasets %}
     {% if group.package_count %}
-      <strong class="count">{{ ungettext('{num} Dataset', '{num} Datasets', group.package_count).format(num=group.package_count) }}</strong>
+      {% set actual_count = h.group_package_count(group.name) %}
+      <strong class="count">{{ ungettext('{num} Dataset', '{num} Datasets', actual_count).format(num=actual_count) }}</strong>
     {% elif group.package_count == 0 %}
       <span class="count">{{ _('0 Datasets') }}</span>
     {% endif %}
   {% endblock %}
     {% block link %}
-  <a href="{{ url }}" title="{{ _('View {name}').format(name=group.display_name) }}" class="media-view">
+  <a href="{{ url }}" target="_blank" title="{{ _('View {name}').format(name=group.display_name) }}" class="media-view">
     <span>{{ _('View {name}').format(name=group.display_name) }}</span>
   </a>
   {% endblock %}

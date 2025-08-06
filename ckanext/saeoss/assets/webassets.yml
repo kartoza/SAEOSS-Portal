@@ -130,7 +130,11 @@ saeoss-css:
     - css/saeoss.css
   filter: cssrewrite
 
-
+search-css:
+  output: ckanext-saeoss/%(version)s_search.css
+  contents:
+    - css/search.css
+  filter: cssrewrite
 
 temporal-query-js:
   output: ckanext-saeoss/%(version)s_temporalQuery.js
@@ -206,6 +210,12 @@ apply-save-search-js:
   output: ckanext-saeoss/%(version)s_save_search.js
   contents:
     - js/save_search.js
+  filter: rjsmin
+
+thematic-groups-js:
+  output: ckanext-saeoss/%(version)s_thematic_groups.js
+  contents:
+    - js/thematic_groups.js
   filter: rjsmin
 
 vendor-plot-js:

@@ -1,0 +1,131 @@
+<div class="mobile-nav">
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-testid="loggedin_user_icon">
+            <div  class="navbar-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </div>
+        </a>
+            <ul class="dropdown-menu">
+                <li class="li-flex"> 
+                    <a href="{{ url_for('home.index') }}" class="image" title="{{ _('SAEOSS Homepage') }}" target="_blank">{{ _('Home') }}</a>
+                </li>
+                {% if c.userobj %}
+                    {% if h.check_access('package_create') %}
+                    <li class="li-flex"> 
+                        <a href="{{ url_for('dataset.new') }}" class="image" title="{{ _('Metadata/Dataset search page') }}" target="_blank">{{ _('Add Metadata') }}</a>
+                    </li>
+                    {% endif %}
+                {% endif %}
+                <li class="li-flex"> 
+                    <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata/Dataset search page') }}" target="_blank">{{ _('Metadata') }}</a>
+                </li>
+                <li class="li-flex">
+                    <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Metadata boundary view') }}" target="_blank">{{ _('Map') }}</a>
+                    </li>
+                <li class="li-flex hide-on-small"> 
+                    <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('SAEOSS organization (metadata collection)') }}" target="_blank">{{ _('Organisations') }}</a>
+                </li>
+                <li class = "hide-on-small"> 
+                    <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" title="{{ _('SAEOSS help and documentation') }}" target="_blank" class="image" title="Help">Help</a>
+                </li>
+                {% if c.userobj %}
+                <li> <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span class="text">{{ _('Profile') }}</span></a></li>
+                {% set new_activities = h.new_activities() %}
+                {% if h.saeoss_org_memberships(c.userobj.id) %}
+                    <li>
+                        <a href="{{ h.url_for('harvest.search') }}" title="{{ _('Harvesting Settings') }}">
+                        <i class="fa fa-cloud" aria-hidden="true"></i>
+                        <span class="text">{{ _('Harvesting Settings') }}</span>
+                        </a>
+                    </li>
+                    
+                {% endif %}
+                <li class="notifications {% if new_activities > 0 %}notifications-important{% endif %}">
+                    {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)',
+                    new_activities)
+                    %}
+                    <a href="{{ h.url_for('dashboard.index') }}" title="{{ notifications_tooltip }}">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i>
+                    <span class="text">{{ _('Dashboard') }}</span>
+                    <span class="badge">{{ new_activities }}</span>
+                    </a>
+                </li>
+                {% block header_account_settings_link %}
+                <li>
+                    <a href="{{ h.url_for('user.edit', id=c.userobj.name) }}" title="{{ _('Profile settings') }}">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    <span class="text">{{ _('Profile settings') }}</span>
+                    </a>
+                </li>
+                {% endblock %}
+                {% block header_usage_stats_link %}
+                    <li>
+                        <a href="{{ h.url_for('stats.index') }}" title="{{ _('Usage statistics') }}">
+                            <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                            <span class="text">{{ _('Usage statistics') }}</span>
+                        </a>
+                    </li>
+                {% endblock %}
+                    {% if c.userobj.sysadmin %}
+                    <li>
+                        <a href="/user" title="{{ _('Users') }}">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span class="text">{{ _('Users') }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ h.url_for('admin.index') }}" title="{{ _('Sysadmin settings') }}">
+                        <i class="fa fa-gavel" aria-hidden="true"></i>
+                        <span class="text">{{ _('Sysadmin settings') }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ h.url_for('validator.index') }}" title="{{ _('Metadata Validator') }}">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        <span class="text">{{ _('Metadata Validator') }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ h.url_for('stac_harvest.view') }}" title="{{ _('STAC Harvester') }}">
+                        <i class="fa fa-cloud" aria-hidden="true"></i>
+                        <span class="text">{{ _('STAC Harvester') }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {#
+                This next section has been borrowed and adapted from ckanext-pages header.html template. One
+                notable difference is that we only show the pages-related nav items if the current user is allowed
+                to modify them. This means that we need to provide means for these contents to be visible elsewhere
+                like for example providing link to them via the main nav.
+                #}
+                <li>
+                    <a href="{{ h.url_for('saved_searches.index') }}" title="{{ _('Saved Search') }}" data-testid="logout">
+                            <i class="fa fa-bookmark-o" aria-hidden="true"></i>
+                            <span class="text">{{ _('Saved Search') }}</span>
+                        </a>
+                </li>
+                {% block header_account_log_out_link %}
+                   
+                    <li>
+                        <a href="{{ h.url_for('user.logout') }}" title="{{ _('Log out') }}" data-testid="logout">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            <span class="text">{{ _('Log out') }}</span>
+                        </a>
+                    </li>
+                    
+                {% endblock %}
+            {% endif %}   
+            {% block header_account_notlogged %}
+            <li data-testid="nav_login">{% link_for _('LOG IN'), named_route='user.login' %}</li>
+            {% if h.check_access('user_create') %}
+            <li class="no-hover">{% link_for _('SIGN UP'), named_route='sign-up.sign-up-landing', class_='blue-btn' %}</li>
+            {% endif %} {% endblock %}
+        </ul>
+    </li>
+    </ul>
+</div>

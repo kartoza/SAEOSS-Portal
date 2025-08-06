@@ -8,11 +8,17 @@ import ckan.plugins.toolkit as toolkit
 from ckan.logic.action.get import package_show as _package_show
 from ckan.model.domain_object import DomainObject
 import ckan.logic as logic
-from .add_named_url import populate_dataset_name
+from .add_named_url import populate_dataset_name, sanitize_title
 from ...model.user_extra_fields import UserExtraFields
 from ckanext.saeoss.helpers import _get_reference_date, _get_tags
 from mimetypes import MimeTypes
+from ...helpers import sanitize_tag
+import ckan.lib.dictization.model_save as model_save
+import ckan.lib.dictization.model_dictize as model_dictize
+import ckan as ckan
 
+_validate = ckan.lib.navl.dictization_functions.validate
+_check_access = logic.check_access
 logger = logging.getLogger(__name__)
 ValidationError = logic.ValidationError
 
@@ -119,6 +125,25 @@ def _dictize_user_extra_fields(user_extra_fields: UserExtraFields) -> typing.Dic
     del dictized_extra["user_id"]
     return dictized_extra
 
+@toolkit.chained_action
+def tag_create(original_action, context, data_dict):
+    model = context['model']
+
+    _check_access('tag_create', context, data_dict)
+
+    schema = context.get('schema') or \
+        ckan.logic.schema.default_create_tag_schema()
+    data, errors = _validate(data_dict, schema, context)
+    if errors:
+        raise ValidationError(errors)
+
+    tag = model_save.tag_dict_save(data_dict, context)
+
+    if not context.get('defer_commit'):
+        model.repo.commit()
+
+    logger.debug("Created tag '%s' " % tag)
+    return model_dictize.tag_dictize(tag, context)
 
 @toolkit.chained_action
 def package_show(original_action, context, data_dict):
@@ -132,13 +157,29 @@ def package_show(original_action, context, data_dict):
 
 @toolkit.chained_action
 def package_create(original_action, context, data_dict):
-    """
-    Intercepts the core `package_create` action to check if package
-     is being published after being created.
-    """
-    dataset_name = populate_dataset_name(data_dict, context)
-    data_dict["name"] = dataset_name
+    try:
+        data_dict["name"] = sanitize_title(data_dict.get("title"))
+
+        # tag_controlled = data_dict.get("tag_controlled_string")
+
+        # if isinstance(tag_controlled, str):
+        #     tag_controlled = [tag_controlled]
+
+        # if tag_controlled:
+        #     cleaned_tags = [sanitize_tag(tag.strip()) for tag in tag_controlled if tag.strip()]
+        #     data_dict["tags"] = [{"name": tag, 'state': 'active'} for tag in cleaned_tags]
+        
+        try:
+            data_dict['tags'] = _get_tags(data_dict)
+        except KeyError:
+            data_dict['tags'] = []
+
+        data_dict['tag_string'] = ', '.join([tag['name'] for tag in data_dict['tags']])
+    except:
+        pass
+    
     return _act_depending_on_package_visibility(original_action, context, data_dict)
+
 
 
 @toolkit.chained_action
@@ -146,11 +187,22 @@ def package_update(original_action, context, data_dict):
     """
     Intercepts the core `package_update` action to check if package is being published.
     """
+    tag_controlled = data_dict.get("tag_controlled_string")
+
+    if isinstance(tag_controlled, str):
+        tag_controlled = [tag_controlled]
+
+    if tag_controlled:
+        cleaned_tags = [sanitize_tag(tag.strip()) for tag in tag_controlled if tag.strip()]
+        data_dict["tags"] = [{"name": tag} for tag in cleaned_tags]
+
     try:
         data_dict['tags'] = _get_tags(data_dict)
     except KeyError:
         data_dict['tags'] = []
+    
     data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
+    
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 

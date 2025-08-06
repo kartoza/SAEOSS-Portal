@@ -2,9 +2,6 @@
 
 {% set res = resource %}
 
-{% set map_config = h.get_common_map_config() %}
-{% set default_bounding_box = h.default_bounding_box() %}
-
 {% block head_extras -%}
   {{ super() }}
   {% set description = h.markdown_extract(h.get_translated(res, 'description'), extract_length=200) if res.description else h.markdown_extract(h.get_translated(package, 'notes'), extract_length=200) %}
@@ -23,11 +20,10 @@
 
 {% block pre_primary %}
   {% block resource %}
-
-    <section class="module module-resource secondary-inner" role="complementary">
+    <section class="module module-resource" role="complementary">
       {% block resource_inner %}
-      <div class="module-content" >
-        <div class="actions" style="display: inline; padding: 10px;">
+      <div class="module-content">
+        <div class="actions">
           {% block resource_actions %}
           <ul>
             {% block resource_actions_inner %}
@@ -37,25 +33,17 @@
             {% if res.url and h.is_url(res.url) %}
               <li>
                 <div class="btn-group">
-                
+                <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
                   {% if res.resource_type in ('listing', 'service') %}
-                  <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
                     <i class="fa fa-eye"></i> {{ _('View') }}
-                  </a>
                   {% elif  res.resource_type == 'api' %}
-                  <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
                     <i class="fa fa-key"></i> {{ _('API Endpoint') }}
-                  </a>
                   {% elif not res.has_views and not res.url_type == 'upload' %}
-                  <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
                     <i class="fa fa-external-link"></i> {{ _('Go to resource') }}
-                  </a>
                   {% else %}
-                  <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}" download="download.json">
                     <i class="fa fa-arrow-circle-o-down"></i> {{ _('Download') }}
-                  </a>
                   {% endif %}
-                
+                </a>
                 {% block download_resource_button %}
                   {% if res.datastore_active %}
                 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -82,9 +70,7 @@
           </ul>
           {% endblock %}
         </div>
-
         {% block resource_content %}
-
           {% block package_archive_notice %}
             {% if is_activity_archive %}
               <div id="activity-archive-notice" class="alert alert-danger">
@@ -103,7 +89,6 @@
               <p class="text-muted break-word">{{ _('URL:') }} {{ res.url }}</p>
             {% endif %}
           {% endblock %}
-
           <div class="prose notes" property="rdfs:label">
             {% if res.description %}
               {{ h.render_markdown(res.description) }}
@@ -111,15 +96,9 @@
             {% if not res.description and package.notes %}
               <h3>{{ _('Dataset description:') }}</h3>
               <blockquote>{{ h.markdown_extract(h.get_translated(package, 'notes')) }}</blockquote>
-              
-              <div style="height: 500px;position: relative;">
-                <div class="map" id="map" >
-                </div>
-              </div>
               <p>{% trans dataset=package.title, url=h.url_for(package.type ~ '.read', id=package.id if is_activity_archive else package.name) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
           </div>
-
         {% endblock %}
       {% if not is_activity_archive %}
       {% block data_preview %}
@@ -137,28 +116,46 @@
            %}
         {% endblock %}
           {% block resource_view_content %}
-          <div class="resource-view">
-
-            {% set resource_preview = h.resource_preview(resource, package) %}
-            {% set views_created = res.has_views or resource_preview %}
-            {% if views_created %}
-              {% if resource_preview and not current_resource_view %}
-                {{ h.resource_preview(resource, package) }}
+            <div class="resource-view">
+              {% set resource_preview = h.resource_preview(resource, package) %}
+              {% set views_created = res.has_views or resource_preview %}
+              {% if views_created %}
+                {% if resource_preview and not current_resource_view %}
+                  {{ h.resource_preview(resource, package) }}
+                {% else %}
+                  {% for resource_view in resource_views %}
+                    {% if resource_view == current_resource_view %}
+                      {% snippet 'package/snippets/resource_view.html',
+                         resource_view=resource_view,
+                         resource=resource,
+                         package=package
+                       %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
               {% else %}
-                {% for resource_view in resource_views %}
-                  {% if resource_view == current_resource_view %}
-                    {% snippet 'package/snippets/resource_view.html',
-                       resource_view=resource_view,
-                       resource=resource,
-                       package=package
-                     %}
+                {# Views not created #}
+                <div class="data-viewer-info">
+                  <p>{{ _("There are no views created for this resource yet.") }}</p>
+                  {% if h.check_access('resource_view_create', {'resource_id': resource.id}) %}
+                    <p class="text-muted">
+                      <i class="fa fa-info-circle"></i>
+                      {{ _("Not seeing the views you were expecting?")}}
+                      <a href="javascript:void(0);" data-toggle="collapse" data-target="#data-view-info">
+                        {{ _('Click here for more information.') }}</a>
+                    </p>
+                    <div id="data-view-info" class="collapse">
+                      <p>{{ _('Here are some reasons you may not be seeing expected views:') }}</p>
+                      <ul>
+                        <li>{{ _("No view has been created that is suitable for this resource")}}</li>
+                        <li>{{ _("The site administrators may not have enabled the relevant view plugins")}}</li>
+                        <li>{{ _("If a view requires the DataStore, the DataStore plugin may not be enabled, or the data may not have been pushed to the DataStore, or the DataStore hasn't finished processing the data yet")}}</li>
+                      </ul>
+                    </div>
                   {% endif %}
-                {% endfor %}
+                </div>
               {% endif %}
-
-
-            {% endif %}
-          </div>
+            </div>
           {% endblock %}
         </div>
       {% endblock %}
@@ -172,7 +169,8 @@
 {% block primary_content %}
   {% block resource_additional_information %}
     {% if res %}
-      <section class="module secondary-inner">
+      <section class="module">
+        {% block resource_additional_information_inner %}
         <div class="module-content">
           <h2>{{ _('Additional Information') }}</h2>
           <table class="table table-striped table-bordered table-condensed" data-module="table-toggle-more">
@@ -211,6 +209,7 @@
             </tbody>
           </table>
         </div>
+        {% endblock %}
       </section>
     {% endif %}
   {% endblock %}
@@ -223,40 +222,5 @@
   {% endblock %}
 
   {% block resource_license %}
-    {% snippet "snippets/social.html" %}
   {% endblock %}
-{% endblock %}
-
-{% block scripts %}
-    <!-- jQuery -->
-    <script
-  src="https://code.jquery.com/jquery-3.7.0.min.js"
-  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
-  crossorigin="anonymous"></script>
-    <style>
-      .maplibregl-popup-content{
-        width: 450px !important;
-      }
-
-    </style>
-
-    <script>
-      var file = "{{res.url }}"
-      var stac_spec = "{{res.stac_specification }}"
-    </script>
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
-
-    <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
-    <script src="https://unpkg.com/georaster"></script>
-    <script src="https://unpkg.com/proj4"></script>
-    <script src="https://unpkg.com/georaster-layer-for-leaflet"></script>
-    {% asset 'ckanext-saeoss/csv-js' %}
-    {% asset 'ckanext-saeoss/resource-read-js' %}
-
 {% endblock %}

@@ -5,7 +5,17 @@
 <form id="user-edit-form" class="dataset-form" method="post" action="{{ action }}" enctype="multipart/form-data">
   {{ form.errors(error_summary) }}
   <fieldset>
+
     <legend>{{ _('Change details') }}</legend>
+
+    {% if is_sysadmin %}
+      <div style="float: right;">
+        <a class="btn btn-primary" href="/permissions/edit/{{data.name}}">Update permissions</a>
+      </div>
+    {% endif %}
+
+    <br>
+
     {{ form.input('name', label=_('Username'), id='field-username', value=data.name, error=errors.name, classes=['control-medium'], attrs={'readonly': '', 'class': 'form-control'}) }}
 
     {{ form.input('fullname', label=_('Full name'), id='field-fullname', value=data.fullname, error=errors.fullname, placeholder=_('eg. Joe Bloggs'), classes=['control-medium']) }}
@@ -75,3 +85,4 @@
     <button class="btn btn-primary" type="submit" name="save">{{ _('Update Profile') }}</button>
   </div>
 </form>
+

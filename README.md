@@ -128,7 +128,7 @@ Additionally, in order for notifications to work, there is some configuration:
 This needs to be run periodically (once per hour is likely enough).
 
 ```
-docker exec -ti saeoss-ckan-web-1 poetry run ckan saeoss pycsw refresh-materialized-view
+docker exec -ti saeoss-ckan-web-1 poetry run ckan saeoss refresh-materialized-view
 ```
 
 #### Generate pycsw DB view
@@ -137,7 +137,7 @@ In order to be able to serve the system's datasets through various OGC standards
 in order to integrate with pycsw:
 
 ```bash
-docker exec -ti saeoss-ckan-web-1 poetry run ckan dalrrd-emc-dcpr pycsw create-materialized-view
+docker exec -ti saeoss-ckan-web-1 poetry run ckan saeoss create-materialized-view
 ```
 
 
