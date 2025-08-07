@@ -69,6 +69,8 @@ function showData(_data, map){
     document.getElementById("collection-view").innerHTML = collectionHtml
 
     $(".collection-show").on('click', function(event){
+        $(".collection-show").removeClass("selected");
+        $(this).addClass("selected");
         var index = $(this).data('collectionnum')
 
         try {
@@ -295,6 +297,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
 
             $("#start_date").on('change', function(e){
+                document.getElementById("collection-view").innerHTML = "";
                 if($(this).val() == ""){
                     let fetchRes = fetch("/stac/datasetcollection");
                     document.getElementById('loader').style.display = "block"
@@ -344,6 +347,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             })
 
             $("#end_date").on('change', function(e){
+                document.getElementById("collection-view").innerHTML = "";
                 if($(this).val() == ""){
                     let fetchRes = fetch("/stac/datasetcollection");
                     document.getElementById('loader').style.display = "block"
@@ -395,6 +399,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 var search_string = document.getElementById("search-collection").value
 
                 document.getElementById('loader').style.display = "block"
+                document.getElementById("collection-view").innerHTML = "";
 
                 var ajaxData = {"start_date": start_date, "end_date": end_date, "search_string": search_string }
                 $.ajax({
@@ -428,7 +433,14 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                         
                     }
                 });
-            })
+            });
+
+            $("#search-collection").on('keypress', function(event) {
+                if (event.which === 13) {
+                    event.preventDefault();
+                    $("#search-collection-btn").click();
+                }
+            });
 
             $("#clear-search-btn").on('click', function(event){
                 let fetchRes = fetch("/stac/datasetcollection");
@@ -436,6 +448,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 $("#end_date").val('')
                 $('#search-collection').val('')
                 document.getElementById('loader').style.display = "block"
+                document.getElementById("collection-view").innerHTML = "";
                 fetchRes.then(res => res.json()).then(_data => {
                     showData(_data, map)
                 });

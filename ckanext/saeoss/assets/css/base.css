@@ -11395,6 +11395,7 @@ iframe {
   max-height: 50vh;
   overflow-y: scroll;
   overflow-x: scroll;
+  padding-left: 15px;
 }
 
 #collapse-collection svg {
@@ -11418,6 +11419,16 @@ iframe {
   margin-bottom: 5px;
   background: white;
   cursor: grab;
+}
+
+.collection-show:hover {
+  cursor: pointer;
+  background-color: color(srgb 0.0215 0.4864 0.715 / 0.075);
+}
+
+.collection-show.selected {
+  border: 2px solid #3498db;
+  background-color: #eef6fc;
 }
 
 #collection-main {
@@ -11753,10 +11764,27 @@ article{
 
 .map-search{
   background-color: #fafafa;
-  /* overflow-x: hidden; */
-  min-width: 25%;
+  width: 25%;
   border-radius: 5px ;
   margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+  .map-search {
+    width: 40%;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-search {
+    width: 60%;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-search {
+    width: 90%;
+  }
 }
 
 @media (max-width: 767px) {
@@ -11852,9 +11880,14 @@ article{
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   animation: spin 2s linear infinite;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 @keyframes spin {
