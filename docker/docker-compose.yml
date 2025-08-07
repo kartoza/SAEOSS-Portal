@@ -2,6 +2,15 @@
 
 version: "3.8"
 
+x-partial-ckan-volumes: &partial-ckan-volumes
+  volumes:
+    - type: bind
+      source: ./ckan-settings.ini
+      target: /home/appuser/ckan.ini
+    - type: bind
+      source: ./who.ini
+      target: /home/appuser/who.ini
+
 networks:
   default:
     driver: bridge
@@ -9,6 +18,7 @@ networks:
 services:
 
   ckan-web:
+    <<: *partial-ckan-volumes
     image: saeoss:${CKAN_IMAGE_TAG}
     environment:
       SENTRY_DSN: ${SENTRY_DSN}
@@ -19,20 +29,24 @@ services:
       - "8800:8800"
 
   ckan-background-worker:
+    <<: *partial-ckan-volumes
     image: saeoss:${CKAN_IMAGE_TAG}
     command: ["launch-ckan-cli", "jobs", "worker"]
 
   ckan-harvesting-gatherer:
+    <<: *partial-ckan-volumes
     image: saeoss:${CKAN_IMAGE_TAG}
     command: ["launch-ckan-cli", "harvester", "gather-consumer"]
 
   ckan-harvesting-fetcher:
+    <<: *partial-ckan-volumes
     image: saeoss:${CKAN_IMAGE_TAG}
     command: ["launch-ckan-cli", "harvester", "fetch-consumer"]
 
   # NOTE: This needs to be ran as a periodic command, check the
   # docker-compose.dev.yml file for additional comment
   ckan-harvesting-runner:
+    <<: *partial-ckan-volumes
     image: saeoss:${CKAN_IMAGE_TAG}
     command: ["launch-ckan-cli", "harvester", "run"]
 
