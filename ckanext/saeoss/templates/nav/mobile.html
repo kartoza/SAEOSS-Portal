@@ -10,26 +10,26 @@
         </a>
             <ul class="dropdown-menu">
                 <li class="li-flex"> 
-                    <a href="{{ url_for('home.index') }}" class="image" title="{{ _('SAEOSS Homepage') }}" target="_blank">{{ _('Home') }}</a>
+                    <a href="{{ url_for('home.index') }}" class="image" title="{{ _('SAEOSS Homepage') }}">{{ _('Home') }}</a>
                 </li>
                 {% if c.userobj %}
                     {% if h.check_access('package_create') %}
                     <li class="li-flex"> 
-                        <a href="{{ url_for('dataset.new') }}" class="image" title="{{ _('Metadata/Dataset search page') }}" target="_blank">{{ _('Add Metadata') }}</a>
+                        <a href="{{ url_for('dataset.new') }}" class="image" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Add Metadata') }}</a>
                     </li>
                     {% endif %}
                 {% endif %}
                 <li class="li-flex"> 
-                    <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata/Dataset search page') }}" target="_blank">{{ _('Metadata') }}</a>
+                    <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Metadata') }}</a>
                 </li>
                 <li class="li-flex">
-                    <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Metadata boundary view') }}" target="_blank">{{ _('Map') }}</a>
+                    <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Metadata boundary view') }}" >{{ _('Map') }}</a>
                     </li>
                 <li class="li-flex hide-on-small"> 
-                    <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('SAEOSS organization (metadata collection)') }}" target="_blank">{{ _('Organisations') }}</a>
+                    <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('SAEOSS organization (metadata collection)') }}" >{{ _('Organisations') }}</a>
                 </li>
                 <li class = "hide-on-small"> 
-                    <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" title="{{ _('SAEOSS help and documentation') }}" target="_blank" class="image" title="Help">Help</a>
+                    <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" title="{{ _('SAEOSS help and documentation') }}"  class="image" title="Help">Help</a>
                 </li>
                 {% if c.userobj %}
                 <li> <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">

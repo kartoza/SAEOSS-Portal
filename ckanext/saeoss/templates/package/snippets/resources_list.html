@@ -15,7 +15,7 @@
       {% block resource_list_empty %}
         {% if h.check_access('resource_create', {'package_id': pkg['id']}) %}
             {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}
-            <p class="empty">This metadata record has no links, <a target="_blank" href="{{ url }}">why not add some?</a></p>
+            <p class="empty">This metadata record has no links, <a  href="{{ url }}">why not add some?</a></p>
             {% endtrans %}
         {% else %}
             <p class="empty">{{ _('This metadata record has no links') }}</p>
