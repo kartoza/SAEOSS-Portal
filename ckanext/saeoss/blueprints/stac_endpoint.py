@@ -50,8 +50,38 @@ def get_bbox_and_footprint(raster):
 
         return (bbox, mapping(footprint))
     
-def fetch_data(package, items):
-    package_dict = p.toolkit.get_action("package_show")({"model": model},{'id': package})
+
+DATE_KEYS_PRIMARY = (
+    'reference_date', 'date', 'reference_date_dt', 'temporal_start',
+    'temporal-extent-begin', 'temporal_begin', 'temporal-start'
+)
+DATE_KEYS_FALLBACK = (
+    'date', 'metadata_created', 'metadata_modified'
+)
+
+def _extract_reference_date(pkg_dict):
+    for k in DATE_KEYS_PRIMARY:
+        v = pkg_dict.get(k)
+        if v:
+            return v
+    for ext in pkg_dict.get('extras', []) or []:
+        key = ext.get('key')
+        if key in DATE_KEYS_PRIMARY and ext.get('value'):
+            return ext.get('value')
+    for k in DATE_KEYS_FALLBACK:
+        v = pkg_dict.get(k)
+        if v:
+            return v
+    for ext in pkg_dict.get('extras', []) or []:
+        key = ext.get('key')
+        if key in DATE_KEYS_FALLBACK and ext.get('value'):
+            return ext.get('value')
+    return None
+
+
+def fetch_data(package, items, context=None):
+    ctx = context or {"model": model}
+    package_dict = p.toolkit.get_action("package_show")(ctx, {'id': package})
     try:
         package_spatial = json.loads(package_dict['spatial'])
     except KeyError:
@@ -61,7 +91,7 @@ def fetch_data(package, items):
     package_title = package_dict["title"]
     package_description = package_dict["notes"]
     resources = package_dict["resources"]
-    package_date = package_dict["reference_date"]
+    package_date = _extract_reference_date(package_dict)
     
 
     keywords = []
@@ -429,52 +459,51 @@ def datasetcollection_post():
 
     start_date = parse_date(start_date_str)
     end_date   = parse_date(end_date_str)
+    if start_date is not None:
+        start_date = pd.to_datetime(start_date).normalize()
+    if end_date is not None:
+        end_date = pd.to_datetime(end_date).normalize()
 
-    package_list = p.toolkit.get_action("package_list")({}, {})
+    context = {"model": model, "session": model.Session}
+    if getattr(c, 'user', None):
+        context["user"] = c.user
+
+    search_q = search_string or '*:*'
+    search_params = {
+        'q': search_q,
+        'include_private': True,
+        'rows': 1000,
+        'fq': 'state:active'
+    }
+
+    search_result = p.toolkit.get_action('package_search')(context, search_params)
+    results = search_result.get('results', [])
+
     items = []
 
-    def matches_criteria(pkg_dict, s_string, s_dt, e_dt):
-        """
-        Checks if the given package matches:
-          - the date range constraints,
-          - the case-insensitive search string in either name, title, or tags.
-        """
+    def matches_criteria(pkg_dict, s_dt, e_dt):
+        ref_date_str = _extract_reference_date(pkg_dict)
 
-        ref_date_str = pkg_dict.get("reference_date")
-        if ref_date_str:
+        if s_dt is not None or e_dt is not None:
+            if not ref_date_str:
+                return False
             try:
                 pkg_date = pd.to_datetime(ref_date_str, infer_datetime_format=True)
+                pkg_date = pd.to_datetime(pkg_date).normalize()
             except Exception:
-                pkg_date = datetime.now()
+                return False
         else:
-            pkg_date = datetime.now()
+            return True
 
         if s_dt and pkg_date < s_dt:
             return False
         if e_dt and pkg_date > e_dt:
             return False
+        return True
 
-        if s_string:
-            s_string_lower = s_string.lower()
-            name_lower  = pkg_dict["name"].lower()
-            title_lower = pkg_dict["title"].lower()
-
-            if (s_string_lower in name_lower) or (s_string_lower in title_lower):
-                return True
-
-            for tag in pkg_dict.get("tags", []):
-                if s_string_lower in tag["name"].lower():
-                    return True
-
-            return False
-        else:
-            return True
-
-    for package in package_list:
-        pkg_dict = p.toolkit.get_action("package_show")({"model": model}, {'id': package})
-
-        if matches_criteria(pkg_dict, search_string, start_date, end_date):
-            fetch_data(package, items)
+    for pkg in results:
+        if matches_criteria(pkg, start_date, end_date):
+            fetch_data(pkg['name'], items, context=context)
 
     collection = pystac.ItemCollection(items)
     return jsonify(collection.to_dict())
