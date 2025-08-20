@@ -287,6 +287,21 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
 
             // disable rotation
             map.touchZoomRotate.disableRotation();
+            function getOrCreateErrorEl() {
+                const parent = document.getElementById("collection-view");
+                let el = document.getElementById("collection-search-error");
+                if (!el) {
+                    el = document.createElement('div');
+                    el.id = 'collection-search-error';
+                    el.className = 'row collection-search-error';
+                    el.style.display = 'none';
+                    // insert at top
+                    if (parent) {
+                        parent.prepend(el);
+                    }
+                }
+                return el;
+            }
 
             // initial fetch
             let fetchRes = fetch("/stac/datasetcollection");
@@ -295,6 +310,9 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                 showData(_data, map)
             });
 
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById("start_date").setAttribute("max", today);
+            document.getElementById("end_date").setAttribute("max", today);
 
             $("#start_date").on('change', function(e){
                 document.getElementById("collection-view").innerHTML = "";
@@ -319,30 +337,25 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                         url: '/stac/datasetcollection-search',
                         contentType: 'application/json',
                         data: JSON.stringify(ajaxData),
-                            success: function(resultData) {
-                                var el_error = document.getElementById("collection-search-error")
-                                if(resultData["features"].length < 1){
-                                    el_error.style.display = "block"
-                                    el_error.innerHTML = `No results found`
-                                    $(".collection-show").each(function(){
-                                        $(this).addClass("hide-search")
-                                    })
-                                }
-                                else{
-                                    try {
-                                        el_error.style.display = "none"
-                                    } catch (error) {
-                                        
-                                    }
-                                    
-                                    showData(resultData, map)
-                                }
-                                
-                            },
-                            error: function(resultData){
-                                
+                        success: function(resultData) {
+                            document.getElementById('loader').style.display = "none";
+                            var el_error = getOrCreateErrorEl();
+                            if(resultData["features"].length < 1){
+                                el_error.style.display = "block";
+                                el_error.innerHTML = `No results found`;
+                                $(".collection-show").each(function(){
+                                    $(this).addClass("hide-search")
+                                })
                             }
-                        });
+                            else{
+                                el_error.style.display = "none";
+                                showData(resultData, map)
+                            }
+                        },
+                        error: function(resultData){
+                            
+                        }
+                    });
                 }
             })
 
@@ -367,34 +380,35 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     url: '/stac/datasetcollection-search',
                     contentType: 'application/json',
                     data: JSON.stringify(ajaxData),
-                        success: function(resultData) { 
-                            var el_error = document.getElementById("collection-search-error")
-                            if(resultData.length < 1){
-                                el_error.style.display = "block"
-                                el_error.innerHTML = `No results found`
-                                $(".collection-show").each(function(){
-                                    $(this).addClass("hide-search")
-                                })
-                            }
-                            else{
-                                try {
-                                    el_error.style.display = "none"
-                                } catch (error) {
-                                    
-                                }
-                                showData(resultData, map)
-                            }
-                            
-                        },
-                        error: function(resultData){
-                            
+                    success: function(resultData) { 
+                        document.getElementById('loader').style.display = "none";
+                        var el_error = getOrCreateErrorEl();
+                        if(resultData["features"].length < 1){
+                            el_error.style.display = "block"
+                            el_error.innerHTML = `No results found`
+                            $(".collection-show").each(function(){
+                                $(this).addClass("hide-search")
+                            })
                         }
-                    });
+                        else{
+                            try {
+                                el_error.style.display = "none"
+                            } catch (error) {
+                                
+                            }
+                            showData(resultData, map)
+                        }
+                        
+                    },
+                    error: function(resultData){
+                        
+                    }
+                });
                 }
             })
 
             $("#search-collection-btn").on('click', function(event){
-                var start_date = $(this).val()
+                var start_date = $("#start_date").val()
                 var end_date = $("#end_date").val()
                 var search_string = document.getElementById("search-collection").value
 
@@ -408,9 +422,7 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
                     contentType: 'application/json',
                     data: JSON.stringify(ajaxData),
                     success: function(resultData) { 
-                        var el_error = document.getElementById("collection-search-error")
-                        var el_error = document.getElementById("collection-search-error")
-
+                        var el_error = getOrCreateErrorEl();
                         document.getElementById('loader').style.display = "none"
                         if(resultData["features"].length < 1){
                             el_error.style.display = "block"
