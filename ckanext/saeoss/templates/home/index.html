@@ -5,8 +5,30 @@
 
 <style>
 .social-main{
-  z-index: 999 !important;
+  z-index: 1003 !important;
 }
+
+#home-carousel { position: relative; z-index: 1001; }
+#home-carousel .carousel-indicators { z-index: 1002; }
+#home-carousel .left.carousel-control,
+#home-carousel .right.carousel-control { z-index: 1002; width: 8%; }
+#title-header {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 900px;
+  width: auto;
+  z-index: 2000;
+}
+#header { position: relative; }
+#title-header .title-header-text {
+  display: inline-block;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+}
+#title-header .home-text {
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+}
+
 
 </style>
 
@@ -15,9 +37,9 @@
 <header class="masthead" id="header">
     <div id="home-carousel" class="carousel slide" data-ride="carousel" data-interval="5000">
         <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#home-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#home-carousel" data-slide-to="1"></li>
+            <li data-target="#home-carousel" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
             <div class="item active">
@@ -30,12 +52,12 @@
                 <img class="d-block w-100" src="/images/dam.jpg" alt="Fourth slide">
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <a class="left carousel-control" href="#home-carousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <a class="right carousel-control" href="#home-carousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
     </div>
@@ -174,6 +196,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
             crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
     {% asset "ckanext-saeoss/thematic-groups-js" %}
 {% endblock %}
 
