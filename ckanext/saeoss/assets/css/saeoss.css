@@ -367,12 +367,38 @@ fieldset[disabled] .btn-default.focus {
   padding: 10px 10px 0px 10px;
 }
 
+.dataset-heading{
+  padding: 15px 0;
+}
+
 .datasets-date {
-  float: left;
+  position: relative;
+  padding: 5px 0;
+  /* float: left;
   position: absolute;
   bottom: 0px;
-  top: 134px;
+  top: 80px; */
   /* left: 171px; */
+}
+
+.btn-view-details {
+  position: relative;
+  /* float: left;
+  position: absolute;
+  bottom: 0px;
+  top: 115px; */
+  /* left: 171px; */
+}
+
+.btn-bg{
+  width: 100%;
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.btn-bg a {
+  color: white !important;
+  text-decoration: none !important;
 }
 
 .datasets-date-actions{
@@ -412,6 +438,8 @@ fieldset[disabled] .btn-default.focus {
   text-align: justify;
   margin-bottom: -8px;
   width: 90%;
+  height: 60px;
+  padding: 5px 0px 5px 0px;
 }
 
 .dataset-heading > a:hover, .dataset-heading > a:focus {
@@ -429,7 +457,7 @@ fieldset[disabled] .btn-default.focus {
 
 .panel-title-link::after {
   content: "\f107";
-  color: #333;
+  color: white;
   right: 0px;
   position: absolute;
   cursor: pointer;
@@ -459,8 +487,9 @@ fieldset[disabled] .btn-default.focus {
 }
 
 .panel-default > .panel-heading {
-  background-color: white !important;
+  /* background-color: white !important; */
   border: none !important;
+  border-radius: 5px !important;
 }
 
 /* End of datasets*/
@@ -887,10 +916,10 @@ footer {
   margin-right: 0;
   margin-left: 10px;
   text-transform: uppercase;
-  width: 70px;
   position: absolute;
   top: 5px;
   right: 25px;
+  border-radius: 15px !important;
 }
 
 .module > .page-header {
@@ -1223,12 +1252,12 @@ footer {
 }
 
 .metadata-record-thumbnail img{
-  width: 180px;
+  width: 100%;
   height: 150px;
-  position: absolute;
+  position: relative;
   border: solid 1px #eee;
-  top: 0;
-  right: 0;
+  /* top: 0;
+  right: 0; */
   object-fit: cover !important;
 }
 
@@ -1442,4 +1471,8 @@ select[id$="field-dataset_custodian"]{
 
 #resource-edit .hidden {
   display: none;
+}
+
+.nav-item a{
+  width: 100% !important;
 }

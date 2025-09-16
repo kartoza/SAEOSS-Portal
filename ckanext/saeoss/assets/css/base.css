@@ -3200,27 +3200,27 @@ fieldset[disabled] .btn-default.focus {
 }
 .btn-primary {
   color: #fff;
-  background-color: #5E8DC0;
-  border-color: #326343;
+  background-color: #36628D;
+  border-color: #36628D;
 }
 .btn-primary:focus,
 .btn-primary.focus {
   color: #fff;
-  background-color: #295237;
-  border-color: #070e09;
+  background-color: #223f5c;
+  border-color: #223f5c;
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #295237;
-  border-color: #1d3a27;
+  background-color: #223f5c;
+  border-color: #223f5c;
 }
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
   color: #fff;
-  background-color: #295237;
+  background-color: #36628D;
   background-image: none;
-  border-color: #1d3a27;
+  border-color: #36628D;
 }
 .btn-primary:active:hover,
 .btn-primary.active:hover,
@@ -3244,8 +3244,8 @@ fieldset[disabled] .btn-primary:focus,
 .btn-primary.disabled.focus,
 .btn-primary[disabled].focus,
 fieldset[disabled] .btn-primary.focus {
-  background-color: #5E8DC0;
-  border-color: #326343;
+  background-color: #36628D;
+  border-color: #36628D;
 }
 .btn-primary .badge {
   color: #5E8DC0;
@@ -5508,7 +5508,7 @@ button.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 20px;
-  background-color: white;
+  /* background-color: white; */
   border-radius: 4px;
   /* -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); */
@@ -5529,7 +5529,7 @@ button.list-group-item-danger.active:focus {
   margin-top: 0;
   margin-bottom: 0;
   font-size: 16px;
-  color: inherit;
+  color: white;
 }
 .panel-title > a,
 .panel-title > small,
@@ -5540,7 +5540,7 @@ button.list-group-item-danger.active:focus {
 }
 .panel-footer {
   padding: 10px 15px;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
   border-top: 1px solid #ddd;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
@@ -5744,9 +5744,11 @@ button.list-group-item-danger.active:focus {
   border-color: #ddd;
 }
 .panel-default > .panel-heading {
-  color: #333333;
-  /* background-color: #f5f5f5;
-  border-color: #ddd; */
+  color: white !important;
+  background-color: #0A2642;
+}
+.panel-title-link{
+  color: white !important;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #ddd;
@@ -7433,9 +7435,9 @@ a.tag:hover {
 }
 .module-narrow .nav-item > a,
 .module-narrow .nav-aside li a {
-  padding-left: 15px;
+  /* padding-left: 15px;
   padding-right: 15px;
-  position: relative;
+  position: relative; */
 }
 .module-narrow .nav-item.image,
 .module-narrow .nav-aside li.image {
@@ -8319,6 +8321,7 @@ fieldset[disabled] .control-custom.disabled .checkbox.btn.focus {
 .dataset-private {
   margin-right: 10px;
   text-transform: uppercase;
+  z-index: 99999 !important;
 }
 .dataset-private .icon-lock {
   width: 9px;
@@ -11485,7 +11488,7 @@ iframe {
 
 .nav > li > a {
   padding: 10px !important;
-  margin-top: 5px;
+  /* margin-top: 5px; */
 }
 
 .home-text{
@@ -11633,7 +11636,26 @@ iframe {
   padding: 10px;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 3px 3px 10px #e0e0e0;
+  box-shadow: 3px 3px 10px #232324;
+}
+
+.nav-facet{
+  width: 100% !important;
+  padding: 2px 10px 2px 20px;
+}
+
+.nav-item{
+  width: 100% !important;
+}
+
+.facet-inner-Organizations a{
+  width: 100% !important;
+  margin-left:5px;
+}
+
+.panel-body{
+  border-radius: 5px;
+  box-shadow: 3px 3px 10px #878787;
 }
 
 .secondary{
@@ -11644,9 +11666,30 @@ iframe {
   text-align: left;
 }
 
+.ligt-blue-txt{
+  color: #5E8DC0
+}
+
 .blue-text{
-  color: #075192;
+  color: #0A2642;
   font-family: 'Montserrat', sans-serif;
+}
+
+.dark-blue-bg{
+  background-color: #0A2642;
+  border-radius: 5px;
+  color: white !important;
+}
+
+.light-blue-bg{
+  background-color: #36628D;
+  border-radius: 5px;
+  color: white !important;
+  margin-bottom: 8px;
+}
+
+.dark-blue-txt{
+  color: #0A2642 !important;
 }
 
 #fromTemporalQuery label{
@@ -11654,7 +11697,7 @@ iframe {
 }
 
 .panel-title-link {
-  color: #075192 !important;
+  color: white !important;
 }
 
 .module-heading{
@@ -11698,11 +11741,11 @@ iframe {
 }
 
 .hover-content{
-  transition: all 0.8s;
+  transition: all 0.4s;
 }
 
 .hover-content:hover{
-  scale:1.04
+  scale:1.03
 }
 
 @keyframes scale {
@@ -11935,6 +11978,10 @@ article{
   top: -15px;
   right: 0px;
   display: none;
+}
+
+.txt-center{
+  text-align: center;
 }
 
 @media (max-width: 905px) {

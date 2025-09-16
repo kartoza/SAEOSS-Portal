@@ -4046,7 +4046,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eeeeee;
+  color: #eeeeee;
+  background-color: unset;
 }
 .nav > li.disabled > a {
   color: #777777;
@@ -7068,9 +7069,9 @@ a.tag:hover {
 }
 .module-narrow .nav-item > a,
 .module-narrow .nav-aside li a {
-  padding-left: 15px;
+  /* padding-left: 15px;
   padding-right: 15px;
-  position: relative;
+  position: relative; */
 }
 .module-narrow .nav-item.image,
 .module-narrow .nav-aside li.image {

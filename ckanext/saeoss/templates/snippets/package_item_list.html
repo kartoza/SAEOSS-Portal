@@ -3,26 +3,13 @@
 {% block package_item %}
     {# this is a dcpr request #}
     
-      <div class="col-md-4 margin-bottom-extra">
+      <li class="{{ item_class or "dataset-item" }}">
         {% block content %}
           {% set date_string = package['metadata_modified']|string %}
           {% set date = date_string.split('T')[0] %}
-          <div class="dataset-item-card hover-content">
-
-            {% block heading_private %}
-              {% if package.private %}
-                <span class="dataset-private label label-inverse">
-                    <i class="fa fa-lock"></i>
-                    {{ _('Private') }}
-                </span>
-              {% endif %}
-            {% endblock %}
-
-            <div class="metadata-record-thumbnail">
-              <img src="{{ h.get_datasets_thumbnail(package) }}" alt="" title="{{ title }}">
-            </div>
+          <div class="row dataset-row">
             
-            <div>
+            <div class="col-sm-8 metadata-record-desc">
               <div class="dataset-content">
                 {% block heading %}
                   <h2 class="dataset-heading blue-text">
@@ -30,7 +17,14 @@
                       <div data-testid="search_item_anchor"></div>
                       {{ h.link_to(h.truncate(title, truncate_title), h.url_for('%s.read' % package.type, id=package.name)) }}
                     {% endblock %}
-                    
+                    {% block heading_private %}
+                      {% if package.private %}
+                        <span class="dataset-private label label-inverse">
+                            <i class="fa fa-lock"></i>
+                            {{ _('Private') }}
+                        </span>
+                      {% endif %}
+                    {% endblock %}
                     {% block heading_meta %}
                       {% if package.get('state', '').startswith('draft') %}
                         <span class="label label-info">{{ _('Draft') }}</span>
@@ -48,7 +42,7 @@
                 {% endblock %}
                 {% block notes %}
                   {% if notes %}
-                    <div class="dataset-desc dark-blue-txt">{{ notes|urlize|truncate(80,True,'...',0) }}</div>
+                    <div class="dataset-desc gray-text">{{ notes|urlize|truncate(80,True,'...',0) }}</div>
                   {% else %}
                     <p class="empty">{{ _("This metadata record has no description") }}</p>
                   {% endif %}
@@ -69,21 +63,21 @@
                       </a>
                   </div>
               </div>
-              <div class="datasets-date ligt-blue-txt" style="margin-bottom: 10px;">
-                <span>Metadata Record Updated</span>
-                <br>
-                <span>{{ date }}</span>
+              <div class="datasets-date ligt-blue-txt">
+                Metadata Record Updated {{ date }}
               </div>
               <div class="btn-view-details">
-                <div  class="btn light-blue-bg btn-bg">
+                <div  class="btn dark-blue-bg btn-bg">
                   {{ h.link_to('View Details', h.url_for('%s.read' % package.type, id=package.name)) }}
                 </div>
               </div>
             </div>
-            
+            <div class="col-sm-4 metadata-record-thumbnail">
+              <img src="{{ h.get_datasets_thumbnail(package) }}" alt="" title="{{ title }}">
+            </div>
             
           </div>
         {% endblock %}
-        </div>
+      </li>
   
 {% endblock %}
