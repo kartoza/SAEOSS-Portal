@@ -1,0 +1,33 @@
+{% ckan_extends %}
+
+{% block content_blue_border %}
+    <div class="page-header-blue-border-shadow">
+       <div class="manage-button-parent">
+            {% block content_action %}
+                {% if h.check_access('group_update', {'id': group_dict.id}) %}
+                    {% link_for _('Manage'), named_route=group_type+'.edit', id=group_dict.name, class_='btn btn-default', icon='wrench' %}
+                {% endif %}
+            {% endblock %}
+        </div>
+        <div class="page-header-nav-tabs">
+            {% block content_primary_nav %}
+            {{ h.build_nav_icon(group_type + '.read', ungettext('Metadata Record', 'Metadata Records', group_dict.package_count), id=group_dict.name, icon='sitemap') }}
+            {{ h.build_nav_icon(group_type + '.activity', _('Activity Stream'), id=group_dict.name, offset=0, icon='clock-o') }}
+            {{ h.build_nav_icon(group_type + '.about', _('About'), id=group_dict.name, icon='info-circle') }}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block subtitle %}{{ _('Activity Stream') }} {{ g.template_title_delimiter }} {{ super() }}{% endblock %}
+
+{% block primary_content_inner %}
+  <div class="page-header-blue-border-shadow">
+    <h1 class="hide-heading">
+      {% block page_heading -%}
+        {{ _('Activity Stream') }}
+      {%- endblock %}
+    </h1>
+    {% snippet 'snippets/activity_stream.html', activity_stream=activity_stream, id=id, object_type='organization' %}
+  </div>
+{% endblock %}

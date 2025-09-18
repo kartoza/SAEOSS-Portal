@@ -34,8 +34,9 @@
 
     .row{
         overflow: hidden;
-        margin-left: -15px;
+        margin-left: 0px;
         width: 100%;
+        padding: 0px !important;
     }
 
     [class*="col-"]{
@@ -80,24 +81,27 @@
   visibility: visible;
 }
 </style>
-
     
     <div>
+        <div id="collapse-collection-parent">
+            <button id="show-collection" data-toggle="tooltip" data-placement="right" title="Collapse Pane">
+                <svg width="30" height="22" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.12727 17L1 21V5L8.12727 1M8.12727 17L16.2727 21M8.12727 17V1M16.2727 21L23.4 17V1L16.2727 5M16.2727 21V5M16.2727 5L8.12727 1" stroke="#0A2642" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22.9555 13.7107C24.9191 13.7107 26.511 12.1188 26.511 10.1552C26.511 8.19149 24.9191 6.59961 22.9555 6.59961C20.9918 6.59961 19.3999 8.19149 19.3999 10.1552C19.3999 12.1188 20.9918 13.7107 22.9555 13.7107Z" fill="white"/>
+                <path d="M28.9999 16.1996L25.4666 12.6663M26.511 10.1552C26.511 12.1188 24.9191 13.7107 22.9555 13.7107C20.9918 13.7107 19.3999 12.1188 19.3999 10.1552C19.3999 8.19149 20.9918 6.59961 22.9555 6.59961C24.9191 6.59961 26.511 8.19149 26.511 10.1552Z" stroke="#0A2642" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
         
         <div class="search map-search" id="collection-main">
-            <div>
-               
-                <button id="collapse-collection" data-toggle="tooltip" data-placement="right" title="Collapse Pane">
-                    <svg id="collapse-collection-left" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512">
-                        <path d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L77.3 256l169.3 169.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192z"/>
-                    </svg>
-                    <svg id="collapse-collection-right" xmlns="http://www.w3.org/2000/svg"  height="1em" viewBox="0 0 320 512">
-                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>
-                    </svg>
-                </button>
-            </div>
             <div id="collapse-main">
                 <div id="toolbar">
+                    <div style="position: relative; height: 40px;margin-bottom: 5px;">
+                        <h3 class="blue-text" style="margin: 0 !important;">Search Uploaded Resources</h3>
+                        <button id="collapse-collection" class="btn btn-no-background">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+                        </button>
+                    </div>
                     <div style="position: relative;">
                         <input id="search-collection" class="form-control" placeholder="Search..."/>
                         <button id="search-collection-btn" class="search-btn">
@@ -108,24 +112,14 @@
                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 352 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg>
                         </button>
                     </div>
-                    <div class="white-block">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="label-temporal">Start Date</label>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Start Date"/>
-                            </div>
+                    <div class="flex-date-display" style="margin-top: 20px;margin-bottom: 20px;">
+                        <div class="flex-date-display">
+                            <label class="label-temporal flex-date-display-inner blue-text" style="padding-right: 5px;">Start Date</label>
+                            <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Start Date"/>
                         </div>
-                    </div>
-                    <div class="white-block">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="label-temporal">End Date</label>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="date" class="form-control" name="end_date" id="end_date" placeholder="End Date"/>
-                            </div>
+                        <div class="flex-date-display">
+                            <label class="label-temporal flex-date-display-inner blue-text" style="padding-left: 5px;padding-right: 5px;">End Date</label>
+                            <input type="date" class="form-control" name="end_date" id="end_date" placeholder="End Date"/>
                         </div>
                     </div>
                 </div>

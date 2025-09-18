@@ -3,29 +3,29 @@
     <ul class="nav navbar-nav navbar-center">
         {% block header_site_navigation_tabs %}
             <li class="li-flex"> 
-                <a href="{{ url_for('home.index') }}" class="image" title="{{ _('SAEOSS Homepage') }}" >{{ _('Home') }}</a>
+                <a href="{{ url_for('home.index') }}" class="nav-link" title="{{ _('SAEOSS Homepage') }}" >{{ _('Home') }}</a>
                 <span class="hr-ver"></span>
             </li>
             {% if h.check_access('package_create') %}
             <li class="li-flex"> 
-                <a href="{{ url_for('dataset.new') }}" class="image" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Add Metadata') }}</a>
+                <a href="{{ url_for('dataset.new') }}" class="nav-link" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Add Metadata') }}</a>
                 <span class="hr-ver"></span>
             </li>
             {% endif %}
             <li class="li-flex"> 
-                <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Metadata') }}</a>
+                <a href="{{ url_for('dataset.search') }}" class="nav-link" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Metadata') }}</a>
                 <span class="hr-ver"></span>
             </li>
             <li class="li-flex">
-                <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Metadata boundary view') }}" >{{ _('Map') }}</a>
+                <a href="{{ url_for('map.index') }}" class="nav-link" title="{{ _('Metadata boundary view') }}" >{{ _('Map') }}</a>
                 </li>
                 <span class="hr-ver"></span>
             <li class="li-flex hide-on-small"> 
-                <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('SAEOSS organization (metadata collection)') }}" >{{ _('Organisations') }}</a>
+                <a href="{{ url_for('organization.index') }}" class="nav-link" title="{{ _('SAEOSS organization (metadata collection)') }}" >{{ _('Organisations') }}</a>
                 <span class="hr-ver"></span>
             </li>
             <li class = "hide-on-small"> 
-                <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" title="{{ _('SAEOSS help and documentation') }}" target="_blank" class="image" title="Help">Help</a>
+                <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" title="{{ _('SAEOSS help and documentation') }}" target="_blank" class="nav-link" title="Help">Help</a>
             </li>
         {% endblock %}
     </ul>
@@ -36,7 +36,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-testid="loggedin_user_icon"> {{ h.user_image((c.user if c and c.user else ''), size=22) }}
         <span class="username">{{ c.userobj.display_name }}</span></a>
             <ul class="dropdown-menu">
-                <li> <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
+                <li> <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="nav-link" title="{{ _('View profile') }}">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <span class="text">{{ _('Profile') }}</span></a></li>
                 {% set new_activities = h.new_activities() %}

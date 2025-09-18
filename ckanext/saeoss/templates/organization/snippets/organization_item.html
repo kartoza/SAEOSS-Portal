@@ -9,13 +9,13 @@
 {% endif %}
 
 {% block item %}
-<div class="media-organization-item col-sm-3 ">
+<div class="media-organization-item col-md-3 ">
 {% block item_inner %}
   {% block image %}
     <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}" class="img-responsive media-image">
   {% endblock %}
   {% block title %}
-    <h2 class="media-heading">{{ organization.display_name }}</h2>
+    <h2 class="media-heading blue-text">{{ organization.display_name }}</h2>
   {% endblock %}
   {% block description %}
     {% if organization.description %}
@@ -24,9 +24,9 @@
   {% endblock %}
   {% block datasets %}
     {% if organization.package_count %}
-      <strong class="count">{{ ungettext('{num} Metadata Record', '{num} Metadata Records', organization.package_count).format(num=package_count) }}</strong>
+      <strong class="count blue-text">{{ ungettext('{num} Metadata Record', '{num} Metadata Records', organization.package_count).format(num=package_count) }}</strong>
     {% else %}
-      <span class="count">{{ _('0 Metadata Records') }}</span>
+      <span class="count blue-text">{{ _('0 Metadata Records') }}</span>
     {% endif %}
   {% endblock %}
   {% block capacity %}

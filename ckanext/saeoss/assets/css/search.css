@@ -161,6 +161,18 @@ position: relative;
   border: #0A2642 1px solid !important;
 }
 
+.secondary{
+  border: #232324 1px solid !important;
+  box-shadow: 3px 3px 10px #232324;
+  border-radius: 5px !important;
+}
+
+.blue-border-shadow{
+  border: #232324 1px solid !important;
+  box-shadow: 3px 3px 10px #232324;
+  border-radius: 5px !important
+}
+
 .module-heading {
   border-top-left-radius: 5px !important;
   border-top-right-radius: 5px !important;

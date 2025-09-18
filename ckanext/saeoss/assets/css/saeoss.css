@@ -119,6 +119,8 @@ a {
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
+  padding-right: 20px !important;
+  padding-left: 20px !important;
  }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
@@ -496,7 +498,7 @@ fieldset[disabled] .btn-default.focus {
 
 /* Filters */
 .panel {
-  margin-bottom: 0;
+  margin-bottom: 10px;
   border: none !important;
 }
 
@@ -809,7 +811,7 @@ footer {
 }
 
 [role="main"], .main {
-  min-height: 70vh;
+  min-height: 80vh;
 }
 
 .site-footer {
@@ -1129,11 +1131,16 @@ footer {
   position: relative;
   float: left;
   padding: 15px;
-  margin: 0 15px 15px 15px;
+  margin: 15px 15px 15px 0px;
   background-color: white;
   border-radius: 3px;
   min-height: 310px;
+  border: #232324 1px solid !important;
+  box-shadow: 2px 3px 10px #575758;
+  border-radius: 5px !important;
 }
+
+
 
 .list-unstyled li{
   padding: 10px !important;
@@ -1476,3 +1483,75 @@ select[id$="field-dataset_custodian"]{
 .nav-item a{
   width: 100% !important;
 }
+
+.maplibregl-ctrl-top-right{
+  top:20px !important;
+}
+
+.btn-no-background{
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  position: absolute;
+  top:-2px;
+  right: 0px;
+}
+
+.flex-date-display{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.flex-date-display-inner{
+  white-space: nowrap;
+}
+
+.page-header-blue-border-shadow{
+  background-color: white !important;
+  padding: 10px;
+  border: #232324 1px solid !important;
+  box-shadow: 3px 3px 10px #232324;
+  border-radius: 5px !important;
+  margin-left: 15px;
+  position: relative;
+}
+
+.page-header-nav-tabs{
+  list-style: none;
+  display: flex;
+}
+
+.page-header-nav-tabs li{
+  padding-left: 5px;
+  padding-right: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #0A2642 !important;
+}
+
+.page-header-nav-tabs li a{
+  color: #0A2642;
+  font-size: 16px;
+}
+
+.active a{
+  background-color: #0A2642 !important;
+  color: white !important;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+article{
+  padding: 20px;
+  background: none !important;
+}
+
+.manage-button-parent{
+  position: absolute;
+  top: 25px;
+  right: 10px;
+}
+
