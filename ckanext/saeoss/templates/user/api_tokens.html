@@ -1,0 +1,68 @@
+{% ckan_extends %}
+
+{% import 'macros/form.html' as form %}
+{% block primary_content %}
+  {% block content_blue_border %}
+      <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
+          <div class="page-header-nav-tabs">
+              {% block content_primary_nav %}
+                {{ h.build_nav_icon('user.read', ungettext('Metadata Record', 'Metadata Records', user.number_created_packages), id=user.name, icon='sitemap') }}
+                {{ h.build_nav_icon('user.activity', _('Activity Stream'), id=user.name, icon='clock-o') }}
+                {% if h.check_access('api_token_list', {'user': user['name']}) %}
+                  {{ h.build_nav_icon('user.api_tokens', _('API Tokens'), id=user.name, icon='key') }}
+                {% endif %}
+              {% endblock %}
+          </div>
+          {% block page_primary_action %}
+            {% if h.check_access('user_update', user) %}
+              <div style="position: absolute; top: 25px; right: 15px">
+                {% link_for _('Manage'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='wrench' %}
+              </div>
+            {% endif %}
+            {% if h.check_access('api_token_create', {'user': user['name']}) %}
+              <form method="POST" class="form">
+                {% block errors %}{{ form.errors(error_summary) }}{% endblock %}
+
+                {% block base_fields %}
+                  <div class="form-group ">
+                      {{ form.input('name', label='Name', is_required=True, value=data.name, error=errors.name) }}
+                  </div>
+                {% endblock base_fields %}
+                {% block additional_fields %}
+                {% endblock additional_fields %}
+                {% block form_actions %}
+                  <button class="btn btn-primary" type="submit" value="create">
+                    {{ _('Create API Token') }}
+                  </button>
+                {% endblock form_actions %}
+              </form>
+            {% endif %}
+            {% block primary_content_inner_header %}
+              <h2 class="hide-heading">
+                {% block page_heading %}{{ _('API Tokens') }}{% endblock %}
+              </h2>
+              <br>
+              <div id="api_tokens_main">
+                {% block token_list %}
+                {% if tokens %}
+                  {% snippet 'user/snippets/api_token_list.html', tokens=tokens, user=user %}
+                {% else %}
+                  <p class="empty">
+                    {{ _('You haven\'t created any API Tokens.') }}
+                  </p>
+                {% endif %}
+                {% endblock token_list %}
+              </div>
+            {% endblock %}
+          {% endblock %}
+      </div> 
+      
+  {% endblock %}
+{% endblock %}
+
+
+
+
+
+
+

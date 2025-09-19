@@ -9,8 +9,8 @@
 
 {% macro repeating_panel(index, index1) %}
   <div class="scheming-subfield-group" data-field="{{ field.field_name }}" data-group-index="{{ index }}">
-    <div class="panel panel-default" style="border-top: 1px solid #ced4da;">
-      <div class="panel-body fields-content repeating-fields-container" style="border-bottom: 1px solid #ced4da;">
+    <div class="panel-dataset panel-default-dataset" style="border-top: 1px solid #ced4da;">
+      <div class="panel-body-dataset fields-content repeating-fields-container" style="border-bottom: 1px solid #ced4da;">
         {% for subfield in field.repeating_subfields %}
           {% set sf = dict(
             subfield,

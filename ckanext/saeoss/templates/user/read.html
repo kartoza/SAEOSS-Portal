@@ -1,30 +1,72 @@
 {% ckan_extends %}
-{% block package_list %}
 
-{% if is_myself %}
-    {% set user_created_packages = h.get_user_dashboard_packages(c.userobj.id) %}
-    {% set returned_packages = user_created_packages  %}
-{% else %}
-    {% set user_name_from_url = h.get_user_name_from_url(url_for(request.endpoint, **request.view_args)) %}
-    {% set user_id = h.get_user_id(user_name_from_url)%}
-    {% set returned_packages = h.get_user_dashboard_packages(user_id)  %}
-{% endif %}
+{% block content_blue_border %}
+    <div class="page-header-blue-border-shadow">
+        <div class="page-header-nav-tabs">
+            {% block content_primary_nav %}
+              {{ h.build_nav_icon('user.read', ungettext('Metadata Record', 'Metadata Records', user.number_created_packages), id=user.name, icon='sitemap') }}
+              {{ h.build_nav_icon('user.activity', _('Activity Stream'), id=user.name, icon='clock-o') }}
+              {% if h.check_access('api_token_list', {'user': user['name']}) %}
+                {{ h.build_nav_icon('user.api_tokens', _('API Tokens'), id=user.name, icon='key') }}
+              {% endif %}
+            {% endblock %}
+        </div>
+        {% block page_primary_action %}
+          {% if h.check_access('user_update', user) %}
+            <div style="position: absolute; top: 20px; right: 15px">
+              {% link_for _('Manage'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='wrench' %}
+            </div>
+          {% endif %}
+          
+          {% if h.check_access('package_create') and user.datasets %}
+            <div>
+              <br>
+                {% block groups_search_form %}
+                {% set facets = {
+                    'fields': fields_grouped,
+                    'search': search_facets,
+                    'titles': facet_titles,
+                    'translated_fields': translated_fields,
+                    'remove_field': remove_field }
+                %}
+                {% set sorting = [
+                    (_('Relevance'), 'score desc, metadata_modified desc'),
+                    (_('Name Ascending'), 'title_string asc'),
+                    (_('Name Descending'), 'title_string desc'),
+                    (_('Last Modified'), 'metadata_modified desc'),
+                    (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
+                %}
+                {% snippet 'snippets/search_form.html', form_id='user-datasets-search-form', type='dataset', query=q, sorting=sorting, sorting_selected=sort_by_selected, count=1000, facets=facets, placeholder=_('Search datasets...'), show_empty=request.params, fields=fields %}
+                {% endblock %}
+            </div>
+            {% snippet 'snippets/add_dataset.html' %}
+          {% endif %}
+        {% endblock %}
+    </div> 
+    
+{% endblock %}
 
-{% if returned_packages | length > 1 %}
-  {% snippet 'snippets/package_list.html', packages= returned_packages %}
-{% else %}
-
-  {% if is_myself %}
-    <p class="empty">
-      {{ _('You haven\'t created any metadata records.') }}
-      {% if h.check_access('package_create') %}
-        {% link_for _('Create one now?'), named_route='dataset.new' %}
-      {% endif %}
-    </p>
+{% block primary_content_inner %}
+  <h2 class="hide-heading">
+    {% block page_heading %}{{ _('Datasets') }}{% endblock %}
+  </h2>
+  {% block package_list %}
+  {% if user.datasets %}
+    {% snippet 'snippets/package_list.html', packages=user.datasets %}
   {% else %}
-    <p class="empty">
-      {{ _('User hasn\'t created any metadata records.') }}
-    </p>
+
+    {% if is_myself %}
+      <p class="empty">
+        {{ _('You haven\'t created any datasets.') }}
+        {% if h.check_access('package_create') %}
+          {% link_for _('Create one now?'), named_route='dataset.new' %}
+        {% endif %}
+      </p>
+    {% else %}
+      <p class="empty">
+        {{ _('User hasn\'t created any datasets.') }}
+      </p>
+    {% endif %}
   {% endif %}
-{% endif %}
+  {% endblock %}
 {% endblock %}

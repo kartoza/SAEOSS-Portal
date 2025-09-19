@@ -1,0 +1,53 @@
+{% ckan_extends %}
+
+{% set logged_in = true if c.userobj else false %}
+{% set res = resource %}
+
+{% block primary_content %}
+  {% block content_blue_border %}
+  <div class="page-header-blue-border-shadow" style="margin-top: 20px; padding: 20px;">
+    {% block content_primary_nav %}
+      <div class="page-header-nav-tabs">
+        {{ h.build_nav_icon(pkg.type ~ '_resource.edit', _('Edit resource'), id=pkg.name, resource_id=res.id, icon='pencil-square-o') }}
+        {% block inner_primary_nav %}{% endblock %}
+        {{ h.build_nav_icon(pkg.type ~ '_resource.views', _('Views'), id=pkg.name, resource_id=res.id, icon='bars') }}
+      </div>
+    {% endblock %}
+
+    {% block content_action %}
+      <div style="position: absolute;top:20px;right:10px">
+        {% link_for _('All resources'), named_route=pkg.type ~ '.resources', id=pkg.name, class_='btn btn-default', icon='arrow-left' %}
+        {% if res %}
+          {% link_for _('View resource'), named_route=pkg.type ~ '_resource.read', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='eye' %}
+        {% endif %}
+      </div>
+    {% endblock %}
+
+    {% block primary_content_inner %}
+      <h1 class="hide-heading">{% block form_title %}{{ _('Edit resource') }}{% endblock %}</h1>
+      <br><br>
+      {% block form %}
+        {% snippet 'package/snippets/resource_edit_form.html',
+          data=data,
+          errors=errors,
+          error_summary=error_summary,
+          pkg_name=pkg.name,
+          form_action=form_action,
+          resource_form_snippet=resource_form_snippet,
+          dataset_type=dataset_type %}
+      {% endblock %}
+    {% endblock %}
+
+  </div>
+  {% endblock %}
+{% endblock %}
+
+{% block secondary_content %}
+  {% snippet 'package/snippets/resource_info.html', res=res %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  {% asset 'vendor/fileupload' %}
+{% endblock %}
+

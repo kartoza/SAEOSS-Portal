@@ -2,26 +2,28 @@
 
 {% set extra_fields = data.get("extra_fields") %}
 
-<form id="user-edit-form" class="dataset-form" method="post" action="{{ action }}" enctype="multipart/form-data">
-  {{ form.errors(error_summary) }}
-  <fieldset>
-    <legend>{{ _('Update Permissions') }}</legend>
-    <a style="float: right;" class="btn btn-primary" href="/user/edit/{{data.name}}">Back</a>
-    <br>
-    {{ form.input('name', label=_('Username'), id='field-username', value=data.name, error=errors.name, classes=['control-medium'], attrs={'readonly': '', 'class': 'form-control'}) }}
+<div class="page-header-blue-border-shadow">
+  <form id="user-edit-form" class="dataset-form" method="post" action="{{ action }}" enctype="multipart/form-data">
+    {{ form.errors(error_summary) }}
+    <fieldset>
+      <legend>{{ _('Update Permissions') }}</legend>
+      <a style="float: right;" class="btn btn-primary" href="/user/edit/{{data.name}}">Back</a>
+      <br>
+      {{ form.input('name', label=_('Username'), id='field-username', value=data.name, error=errors.name, classes=['control-medium'], attrs={'readonly': '', 'class': 'form-control'}) }}
 
-    <div>
-        <label>Allow user to create organization</label>
-        <select class="form-control" name="allow_create_orgs" id="field-allow-create-orgs">
-            <option value="True" {% if data.allow_create_orgs %}selected{% endif %}>Yes</option>
-            <option value="False" {% if not data.allow_create_orgs %}selected{% endif %}>No</option>
+      <div>
+          <label>Allow user to create organization</label>
+          <select class="form-control" name="allow_create_orgs" id="field-allow-create-orgs">
+              <option value="True" {% if data.allow_create_orgs %}selected{% endif %}>Yes</option>
+              <option value="False" {% if not data.allow_create_orgs %}selected{% endif %}>No</option>
 
-        </select>
+          </select>
+      </div>
+
+      <br>
+    
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit" name="save">{{ _('Update') }}</button>
     </div>
-
-    <br>
-   
-  <div class="form-actions">
-    <button class="btn btn-primary" type="submit" name="save">{{ _('Update') }}</button>
-  </div>
-</form>
+  </form>
+</div>

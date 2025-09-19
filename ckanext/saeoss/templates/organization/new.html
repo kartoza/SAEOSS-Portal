@@ -4,7 +4,11 @@
 
 {% block breadcrumb_link %}{{ h.nav_link(_('Create an Organization'), named_route=group_type+'.new') }}{% endblock %}
 
-{% block page_heading %}{{ _('Create an Organization') }}{% endblock %}
+{% block page_heading %}
+  <div class="page-header-blue-border-shadow" style="margin-top: -15px;">
+    <h2 class="blue-text" style="margin-top: 10px !important">Create an Organization</h2>
+  </div>
+{% endblock %}
 
 {% block page_header %}{% endblock %}
 
