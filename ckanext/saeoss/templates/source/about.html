@@ -1,0 +1,42 @@
+{% ckan_extends %}
+
+{% block primary_content %}
+
+  {% block content_blue_border %}
+    <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
+      {% block content_primary_nav %}
+        <div class="page-header-nav-tabs">
+          {{ h.build_nav_icon(c.dataset_type ~ '.read', _('Datasets'), id=harvest_source.name, icon='sitemap') }}
+          {{ h.build_nav_icon('harvester.about', _('About'), id=harvest_source.name, icon='info-sign') }}
+        </div>
+
+        <br>
+
+        {% block content_action %}
+          <div class="content_action" style="position: absolute; top:20px; right: 15px">
+            {% if h.check_access('harvest_source_update', {'id':harvest_source.id }) %}
+              {{ h.nav_link(_('Admin'), named_route='harvester.admin', id=harvest_source.name, class_='btn btn-primary', icon='wrench')}}
+            {% endif %}
+          </div>
+        {% endblock %}
+
+        {% block primary_content_inner_header %}
+          <section class="module-content">
+            <h1>{{ harvest_source.title or harvest_source.name }}</h1>
+            {% if harvest_source.notes %}
+              <p>{{ h.markdown_extract(harvest_source.notes)|urlize }}</p>
+            {% else %}
+              <p class="empty">{{ _('There is no description for this harvest source') }}</p>
+            {% endif %}
+          </section>
+          {% snippet "package/snippets/additional_info.html", pkg_dict=harvest_source %}
+        {% endblock %}
+
+      {% endblock %}
+    </div>
+  {% endblock %}
+
+{% endblock %}
+
+
+

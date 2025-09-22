@@ -1,0 +1,61 @@
+{% ckan_extends %}
+{% block primary_content %}
+  {% block content_blue_border %}
+
+  <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
+
+    <div class="page-header-nav-tabs">
+        {% block content_primary_nav %}
+        {{ h.build_nav_icon(group_type + '.read', _('Datasets'), id=group_dict.name, icon='sitemap') }}
+        {{ h.build_nav_icon(group_type + '.activity', _('Activity Stream'), id=group_dict.name, offset=0, icon='clock-o') }}
+        {{ h.build_nav_icon(group_type + '.about', _('About'), id=group_dict.name, icon='info-circle') }}
+        {% endblock %}
+
+        {% block content_action %}
+          {% if h.check_access('group_update', {'id': group_dict.id}) %}
+            <div style="position: absolute; top:20px; right:20px;">
+              {% link_for _('Manage'), named_route=group_type+'.edit', id=group_dict.name, class_='btn btn-default', icon='wrench' %}
+            </div>
+          {% endif %}
+        {% endblock %}
+        <br>
+    </div>
+
+    <br>
+
+    {% block primary_content_inner %}
+      {% block groups_search_form %}
+        {% set facets = {
+          'fields': fields_grouped,
+          'search': search_facets,
+          'titles': facet_titles,
+          'translated_fields': translated_fields,
+          'remove_field': remove_field }
+        %}
+        {% set sorting = [
+          (_('Relevance'), 'score desc, metadata_modified desc'),
+          (_('Name Ascending'), 'title_string asc'),
+          (_('Name Descending'), 'title_string desc'),
+          (_('Last Modified'), 'metadata_modified desc'),
+          (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
+        %}
+        {% snippet 'snippets/search_form.html', form_id='group-datasets-search-form', type='dataset', query=q, sorting=sorting, sorting_selected=sort_by_selected, count=page.item_count, facets=facets, placeholder=_('Search datasets...'), show_empty=request.params, fields=fields %}
+      {% endblock %}
+      {% block packages_list %}
+        {% if page.items %}
+          {{ h.snippet('snippets/package_list.html', packages=page.items) }}
+        {% endif %}
+      {% endblock %}
+      {% block page_pagination %}
+        {{ page.pager(q=q) }}
+      {% endblock %}
+    {% endblock %}
+
+  </div>
+
+  {% endblock %}
+{% endblock %}
+
+{% block secondary_content %}
+  {% snippet "group/snippets/info.html", group=group_dict, show_nums=true %}
+{% endblock %}

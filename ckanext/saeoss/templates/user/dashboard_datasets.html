@@ -1,23 +1,51 @@
 {% ckan_extends %}
-{% set user_created_packages = h.get_user_dashboard_packages(c.userobj.id) %}
 
-{% block page_primary_action %}
-  {% if h.check_access('package_create') %}
-    {% snippet 'snippets/add_dataset.html' %}
-  {% endif %}
+{% block primary_content %}
+
+  {% block content_blue_border %}
+    <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
+
+      {% block page_header %}
+        <header class="module-content page-header hug page-header-blue-border-shadow"">
+          <div class="content_action">
+            {% link_for _('Profile settings'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='cog' %}
+          </div>
+        {% block content_primary_nav %}    
+            <div class="page-header-nav-tabs">
+              {{ h.build_nav_icon('dashboard.index', _('News feed'), icon='list') }}
+              {{ h.build_nav_icon('dashboard.datasets', _('My Metadata Records'), icon='sitemap') }}
+              {{ h.build_nav_icon('dashboard.organizations', _('My Organisations'), icon='building-o') }}
+              {{ h.build_nav_icon('dashboard.groups', _('My Groups'), icon='users') }}
+            </div>
+        {% endblock %}   
+        </header>
+      {% endblock %}
+        
+      </div>
+  {% endblock %}
+
+  {% block page_primary_action %}
+    {% if h.check_access('package_create') %}
+      <div style="margin-left:15px">
+        {% snippet 'snippets/add_dataset.html' %}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block primary_content_inner_header %}
+    <h2 class="hide-heading">{{ _('My Datasets') }}</h2>
+    {% if user_dict.datasets %}
+      {% snippet 'snippets/package_list.html', packages=user_dict.datasets %}
+    {% else %}
+      <p class="empty">
+        {{ _('You haven\'t created any datasets.') }}
+        {% if h.check_access('package_create') %}
+          {% link_for _('Create one now?'), named_route='dataset.new' %}
+        {% endif %}
+      </p>
+    {% endif %}
+  {% endblock %}
+
 {% endblock %}
 
 
-
-{% block primary_content_inner %}
-  {% if user_created_packages|length>0 %}
-    {% snippet 'snippets/package_list.html', packages=user_created_packages %}
-  {% else %}
-    <p class="empty">
-      {{ _('You haven\'t created any metadata records.') }} {{ dataset_type }}
-      {% if h.check_access('package_create') %}
-        {# {% link_for _('Create one now?'), named_route=dataset_type ~ '.new' %} #}
-      {% endif %}
-    </p>
-  {% endif %}
-{% endblock %}

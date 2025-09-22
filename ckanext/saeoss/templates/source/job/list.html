@@ -1,0 +1,114 @@
+{% ckan_extends %}
+
+{% block primary_content %}
+
+  {% block content_blue_border %}
+    <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
+      {% block content_primary_nav %}
+      <div class="page-header-nav-tabs">
+        {{ h.build_nav_icon('harvester.admin', _('Dashboard'), id=harvest_source.name, icon='dashboard') }}
+        {{ h.build_nav_icon('harvester.job_list', _('Jobs'), source=harvest_source.name, icon='reorder') }}
+        {{ h.build_nav_icon(c.dataset_type ~ '.edit', _('Edit'), id=harvest_source.name, icon='edit') }}
+      </div>
+      {% endblock %}
+      {% block content_action %}
+        <br>
+        <div class="content_action btn-group">
+        {% if harvest_source.status and harvest_source.status.last_job and (harvest_source.status.last_job.status == 'New' or harvest_source.status.last_job.status == 'Running') %}
+          <a class="btn btn-default disabled" rel="tooltip" title="There already is an unrun job for this source"><i class="fa fa-lg fa-refresh icon-refresh icon-large"></i> Reharvest</a>
+        {% else %}
+          {% set locale = h.dump_json({'content': _('This will re-run the harvesting for this source. Any updates at the source will overwrite the local datasets. Sources with a large number of datasets may take a significant amount of time to finish harvesting. Please confirm you would like us to start reharvesting.')}) %}
+            <a href="{{ h.url_for('harvester.refresh', id=harvest_source.id) }}" class="btn btn-default" data-module="confirm-action" data-module-i18n="{{ locale }}"
+              title="{{ _('Start a new harvesting job for this harvest source now') }}">
+              <i class="fa fa-refresh icon-refresh"></i>
+              {{ _('Reharvest') }}
+            </a>
+        {% endif %}
+        {% if harvest_source.status and harvest_source.status.last_job and (harvest_source.status.last_job.status == 'Running') %}
+            <a href="{{ h.url_for('harvester.job_abort', source=harvest_source.name, id=harvest_source.status.last_job.id) }}" class="btn btn-default" title="Stop this Job">
+              <i class="fa fa-ban icon-ban-circle"></i>
+              {{ _('Stop') }}
+            </a>
+        {% endif %}
+          {% set locale = h.dump_json({'content': _('Warning: This will remove all datasets for this source, as well as all previous job reports. Are you sure you want to continue?')}) %}
+            <a href="{{ h.url_for('harvester.clear', id=harvest_source.id) }}" class="btn btn-default" data-module="confirm-action" data-module-i18n="{{ locale }}"
+              title="{{ _('Delete all harvest jobs and existing datasets from this source') }}">
+              {{ _('Clear') }}
+            </a>
+            <a href="{{ h.url_for('{0}.read'.format(c.dataset_type), id=harvest_source.id) }}" class="btn btn-default">
+              <i class="fa fa-eye eye-open"></i>
+              {{ _('View harvest source') }}
+            </a>
+          </div>
+      {% endblock %}
+    </div>
+    {% block primary_content_inner_header %}
+      <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
+
+        <h1 class="results">{{ _('Harvest Jobs') }}</h1>
+
+        {% if jobs|length == 0 %}
+          <p class="empty">{{ _('No jobs yet for this source') }}</p>
+        {% else %}
+          <ul class="dataset-list unstyled">
+            {% for job in jobs %}
+              <li class="dataset-item">
+                <div class="dataset-content">
+                  <h3 class="dataset-heading">
+                      <a href="{{ h.url_for('harvester.job_show', source=harvest_source.name, id=job.id) }}">
+                      {{ _('Job: ') }} {{ job.id }}
+                    </a>
+                    {% if job.status != 'Finished' %}
+                      <span class="label">{{ job.status }}</span>
+                    {% endif %}
+                  </h3>
+                  <p>
+                    {{ _('Started:') }}
+                    <span class="automatic-local-datetime" data-datetime="{{ h.render_datetime(job.gather_started, date_format='%Y-%m-%dT%H:%M:%S%z') }}">
+                      {{ h.render_datetime(job.gather_started, with_hours=True) or _('Not yet') }}
+                    </span>
+                    &mdash;
+                    {{ _('Finished:') }}
+                    <span class="automatic-local-datetime" data-datetime="{{ h.render_datetime(job.finished, date_format='%Y-%m-%dT%H:%M:%S%z') }}">
+                      {{ h.render_datetime(job.finished, with_hours=True) or _('Not yet') }}
+                    </span>
+                  </p>
+                </div>
+                {% if job.status == 'Finished' %}
+                  <ul class="dataset-resources unstyled">
+                    {% if 'errored' in job.stats and job.stats['errored'] > 0 %}
+                      <li>
+                        <span class="label label-important" data-diff="error">
+                          {{ job.stats['errored'] }} {{ _('errors') }}
+                        </span>
+                      </li>
+                    {% endif %}
+                    {% for action in ['added', 'updated', 'deleted', 'not modified'] %}
+                      <li>
+                        <span class="label" data-diff="{{ action }}" title="{{ _(action) }}">
+                          {% if action in job.stats and job.stats[action] > 0 %}
+                            {{ job.stats[action] }}
+                          {% else %}
+                            0
+                          {% endif %}
+                          {{ _(action) }}
+                        </span>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+      </div>
+      {% endblock %}
+
+  {% endblock %}
+
+{% endblock %}
+
+
+{% block subtitle %}{{ _('Harvest Jobs')}} - {{ super() }}{% endblock %}
+

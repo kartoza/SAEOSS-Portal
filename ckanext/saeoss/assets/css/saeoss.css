@@ -1365,12 +1365,12 @@ label {
 }
 
 #dataset-edit{
-  background-color: #fff;
+  /* background-color: #fff;
   padding: 20px;
   border: #232324 1px solid !important;
   box-shadow: 3px 3px 10px #232324;
   border-radius: 5px !important;
-  margin-top: 20px;
+  margin-top: 20px; */
 }
 
 #dataset-edit > div{

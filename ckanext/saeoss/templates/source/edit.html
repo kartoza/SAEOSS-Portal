@@ -1,0 +1,29 @@
+{% ckan_extends %}
+
+{% block primary_content %}
+
+  {% block content_blue_border %}
+    <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
+      {% block content_primary_nav %}
+      <div class="page-header-nav-tabs">
+        {{ h.build_nav_icon('harvester.admin', _('Dashboard'), id=harvest_source.name, icon='dashboard') }}
+        {{ h.build_nav_icon('harvester.job_list', _('Jobs'), source=harvest_source.name, icon='reorder') }}
+        {{ h.build_nav_icon(c.dataset_type ~ '.edit', _('Edit'), id=harvest_source.name, icon='edit') }}
+      </div>
+      <br>
+      {% endblock %}
+    </div>
+    {% block primary_content_inner_header %}
+
+      <div class="page-header-blue-border-shadow" style="margin-top: 20px;padding: 50px !important;">
+        {% block form %}
+          {{- h.snippet(form_snippet, c=c, **form_vars) -}}
+        {% endblock %}
+      </div>
+    {% endblock %}
+
+  {% endblock %}
+
+{% endblock %}
+
+

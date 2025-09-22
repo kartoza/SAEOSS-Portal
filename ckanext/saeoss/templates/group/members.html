@@ -1,0 +1,61 @@
+{% ckan_extends %}
+
+{% block primary_content %}
+
+{% block content_blue_border %}
+    <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
+        <div class="page-header-nav-tabs">
+            {% block content_primary_nav %}
+            {{ h.build_nav_icon(group_type + '.edit', _('Edit'), id=group_dict.name, icon='pencil-square-o') }}
+            {{ h.build_nav_icon(group_type + '.members', _('Members'), id=group_dict.name, icon='users') }}
+            {% endblock %}
+        </div>
+        {% block content_action %}
+          <div style="position: absolute; top:20px; right:20px;">
+            {% link_for _('View'), named_route=group_type+'.read', id=group_dict.name, class_='btn btn-default', icon='eye' %}
+          </div>
+        {% endblock %}
+
+        <br>
+
+        {% block page_primary_action %}
+          {% link_for _('Add Member'), named_route=group_type+'.member_new', id=group_dict.id, class_='btn btn-primary', icon='plus-square' %}
+        {% endblock %}
+
+        {% block primary_content_inner_header %}
+          <br>
+          <h3 style="margin-top: 10px;" class="page-heading">{{ _('{0} members'.format(members|length)) }}</h3>
+          <table class="table table-header table-hover table-bordered" id="member-table">
+            <thead>
+              <tr>
+                <th>{{ _('User') }}</th>
+                <th>{{ _('Role') }}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user_id, user, role in members %}
+              <tr>
+                <td class="media">
+                  {{ h.linked_user(user_id, maxlength=20) }}
+                </td>
+                <td>{{ role }}</td>
+                <td>
+                  <div class="btn-group pull-right">
+                    <a class="btn btn-default btn-sm" href="{{ h.url_for(group_type + '.member_new', id=group_dict.id, user=user_id) }}" title="{{ _('Edit') }}">
+                      <i class="fa fa-wrench"></i>
+                    </a>
+                    <a class="btn btn-danger btn-sm" href="{{ h.url_for(group_type + '.member_delete', id=group_dict.id, user=user_id) }}" data-module="confirm-action" data-module-content="{{ _('Are you sure you want to delete this member?') }}" title="{{ _('Delete') }}">{% block delete_button_text %}<i class="fa fa-times"></i>{% endblock %}</a>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endblock %}
+
+    </div>
+{% endblock %}
+
+{% endblock %}
+

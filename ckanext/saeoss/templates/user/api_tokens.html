@@ -15,11 +15,12 @@
           </div>
           {% block page_primary_action %}
             {% if h.check_access('user_update', user) %}
-              <div style="position: absolute; top: 25px; right: 15px">
+              <div style="position: absolute; top: 20px; right: 15px">
                 {% link_for _('Manage'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='wrench' %}
               </div>
             {% endif %}
             {% if h.check_access('api_token_create', {'user': user['name']}) %}
+              <br><br>
               <form method="POST" class="form">
                 {% block errors %}{{ form.errors(error_summary) }}{% endblock %}
 

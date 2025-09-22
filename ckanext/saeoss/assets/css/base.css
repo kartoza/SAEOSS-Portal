@@ -12084,3 +12084,30 @@ article{
   box-shadow: none !important;   /* remove shadows */
   border: none !important;       /* remove any border if applied */
 }
+
+.table-chunky thead{
+  background-color: #CCDBEB !important;
+  color: #0A2642 !important;
+}
+
+.module-heading-blue {
+    background-color: #CCDBEB;
+    color: #0A2642 !important;
+    margin: 0;
+    padding: 10px 25px;
+    font-size: 14px;
+    line-height: 1.3;
+    /* background-color: #f6f6f6; */
+    /* border-top: 1px solid #ddd; */
+    border-bottom: 1px solid #ddd;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.dropdown-menu li a:hover{
+  background-color: #CCDBEB !important;
+}
+
+.content_action .btn{
+  margin-right: 5px;
+}
