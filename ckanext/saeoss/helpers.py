@@ -1,5 +1,6 @@
 import json
 import logging
+from multiprocessing import context
 import re
 import typing
 import datetime
@@ -7,12 +8,12 @@ from urllib.parse import quote, urlparse, parse_qsl, urlencode
 from html import escape as html_escape
 from pathlib import Path
 from shapely import geometry
-from ckan import model
 from .model.saved_search import SavedSearches
 from ckan.plugins import toolkit
 from ckan.lib.helpers import build_nav_main as core_build_nav_main
 import ckan.lib.munge as munge
 import ckan.lib.helpers as h
+import ckan.model as model  # Correct import for model
 
 from ckan.logic import NotAuthorized
 
@@ -315,23 +316,27 @@ def get_datasets_thumbnail(data_dict):
     """
     Generate thumbnails based on metadataset
     """
+    print("DATA DICT", data_dict)
     data_thumbnail = "/images/org.png"
     if data_dict.get("metadata_thumbnail"):
         data_thumbnail = data_dict.get("metadata_thumbnail")
     else:
-        # data_resource = data_dict.get("resources")
-        # for resource in data_resource:
-        #     if resource["format"].lower() == "wms":
-        #         wms_url = resource["url"]
-        #         parsed_url = dict(parse_qsl(urlparse(wms_url).query))
-        #         parsed_url["format"] = "image/png; mode=8bit"
-        #         data_thumbnail = "%s?%s" % (
-        #             wms_url.split("?")[0],
-        #             urlencode(parsed_url),
-        #         )
-        #         break
         if 'organization' not in data_dict or not data_dict['organization']:
             return data_thumbnail
+        org_id = data_dict['organization']["id"]
+        org_image_url = None
+        context = {
+            'model': model,
+            'session': model.Session,
+            'user': toolkit.c.user
+        }
+        if org_id:
+            try:
+                org = toolkit.get_action('organization_show')(context, {'id': org_id})
+                org_image_url = org.get('image_display_url')
+                return org_image_url
+            except Exception as e:
+                logger.warning(f"Could not fetch organization {org_id}: {e}")
         image_url = data_dict['organization']['image_url']
         if image_url and not image_url.startswith('http'):
             #munge here should not have an effect only doing it incase
