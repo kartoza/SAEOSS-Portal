@@ -1,20 +1,129 @@
 {% ckan_extends %}
+{% block primary_content %}
+    {% block content_blue_border %}
+    <style>
+        .dataset-private{
+            top: -30px;
+        }
+        .module-narrow {
+        border: 2px solid lightgray;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        }
+
+        .module-heading{
+        background-color: #CCDBEB;
+        color: #0A2642 !important;
+        }
+    </style>
+        <div class="page-header-blue-border-shadow" style="margin-top: 20px; padding: 20px;">
+            {% block content_primary_nav %}
+            <div class="page-header-nav-tabs">
+            {{ h.build_nav_icon(dataset_type ~ '.read', _('Metadata'), id=pkg.id if is_activity_archive else pkg.name, icon='sitemap') }}
+            {{ h.build_nav_icon(dataset_type ~ '.groups', _('Groups'), id=pkg.id if is_activity_archive else pkg.name, icon='users') }}
+            {{ h.build_nav_icon(dataset_type ~ '.activity', _('Activity Stream'), id=pkg.id if is_activity_archive else pkg.name, icon='clock-o') }}
+            </div>
+            {% endblock %}
+            <div style="position: absolute;top:20px;right:10px">
+                {% block content_action %}
+                    {{ super() }}
+                    {#
+                        This template is overridden in order to add a button for requesting that a public package be edited
+                        Organization editors are not allowed to modify a dataset that is public.
+
+                        Ideally published datasets are immutable - any modifications would be published as a new dataset, with the
+                        corresponding version increased
+
+                        Nevertheless, it the need to modify a public dataset arises, then this must be vetted by one of the organization
+                        admins (i.e. publishers)
+
+                    #}
+                    {% set user_is_editor = h.user_is_org_member(pkg.owner_org, g.userobj, role="editor") %}
 
 
-{% block package_description  %}
-    <section class="dataset-title-description">
-     {{ super() }}
-    </section>
+                    {% if user_is_editor %}
+                        {% if pkg.private %}
+                            {% link_for _('Request publication'),
+                                named_route="saeoss.request_dataset_management",
+                                dataset_id=pkg.id,
+                                management_command="publication",
+                                class_='btn btn-default',
+                                icon='graduation-cap' %}
+                        {% elif not pkg.private and not h.check_access("package_update", {"id": pkg.id}) %}
+                            {% link_for _('Request edit'),
+                                named_route="saeoss.request_dataset_management",
+                                dataset_id=pkg.id,
+                                management_command="maintenance",
+                                class_='btn btn-default',
+                                icon='pencil' %}
+                        {% endif %}
+                    {% endif %}
+                {% endblock %}
+            </div>
+            {% block primary_content_inner_header %}
+                {{ super() }}
+                {% block package_description %}
+                    {% if pkg.private %}
+                    <span class="dataset-private label label-inverse pull-right">
+                        <i class="fa fa-lock"></i>
+                        {{ _('Private') }}
+                    </span>
+                    {% endif %}
+                    {% block package_archive_notice %}
+                    {% if is_activity_archive %}
+                        <div class="alert alert-danger">
+                        {% trans url=h.url_for(pkg.type ~ '.read', id=pkg.id) %}
+                        You're currently viewing an old version of this dataset. To see the
+                        current version, click <a href="{{ url }}">here</a>.
+                        {% endtrans %}
+                        </div>
+                    {% endif %}
+                    {% endblock %}
+                    <div style="padding-left: 10px;">
+                        <h1>
+                        {% block page_heading %}
+                            {{ h.dataset_display_name(pkg) }}
+                            {% if pkg.state.startswith('draft') %}
+                            [{{ _('Draft') }}]
+                            {% endif %}
+                            {% if pkg.state == 'deleted' %}
+                            [{{ _('Deleted') }}]
+                            {% endif %}
+                        {% endblock %}
+                        </h1>
+                        {% block package_notes %}
+                        {% if pkg.notes %}
+                            <div class="notes embedded-content">
+                            {{ h.render_markdown(h.get_translated(pkg, 'notes')) }}
+                            </div>
+                        {% endif %}
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+
+                <div class="row">
+                    <div class="col-md-6" style="padding-left: 0px !important;">
+                        {% block package_resources %}
+                            {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources, is_activity_archive=is_activity_archive %}
+                        {% endblock %}
+                    </div>
+                    <div class="col-md-6" style="padding-left: 0px !important;">
+                        {% block package_tags %}
+                            {% snippet "package/snippets/tags.html", tags=pkg.tags %}
+                        {% endblock %}
+                    </div>
+                </div>
+
+                {% block package_additional_info %}
+                    {% snippet "package/snippets/additional_info.html", pkg_dict=pkg %}
+                {% endblock %}
+
+                {% endblock %}
+        </div>
+        
+    {% endblock %}
+
 {% endblock %}
 
-{% block package_tags %}
-    {#
-        note: the package_tags block is overridden in order to only show free tags (i.e. those that did not
-        come from a vocabulary)
-    #}
-    {% set free_tags = pkg.tags|selectattr("vocabulary_id", "none")|list %}
-    {% if free_tags|length > 0 %}
-        {% snippet "package/snippets/tags.html", tags=free_tags %}
-    {% endif %}
 
-{% endblock %}

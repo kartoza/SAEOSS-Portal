@@ -115,17 +115,9 @@ class layerSwitcherControl {
     this._container.classList.add("maplibregl-ctrl-basemaps");
     this._container.classList.add("closed");
 
-    switch (this._options.expandDirection || "right") {
-      case "top":
-        this._container.classList.add("reverse");
-      case "down":
-        this._container.classList.add("column");
-        break;
-      case "left":
-        this._container.classList.add("reverse");
-      case "right":
-        this._container.classList.add("row");
-    }
+    // Always expand to the left
+    this._container.classList.add("row");
+    this._container.classList.add("expand-left");
     this._container.addEventListener("mouseenter", () => {
         this._container.classList.remove("closed");
     });
@@ -245,33 +237,45 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             ));
 
             // basemap control
+
             map.addControl(new layerSwitcherControl(
                 {basemaps: baseMaps, initialBasemap: initialStyle}
-            ), 'bottom-left');
+            ), 'bottom-right');
+
+                        // Add custom style for basemap switcher to ensure it appears above the info div
+                        const style = document.createElement('style');
+                        style.innerHTML = `
+                            .maplibregl-ctrl-basemaps {
+                                z-index: 1100 !important;
+                                position: absolute;
+                                bottom: 50px;
+                                right: 10px;
+                                display: flex;
+                                flex-direction: row-reverse;
+                            }
+                            .maplibregl-ctrl-basemaps.expand-left.closed {
+                                overflow: hidden;
+                            }
+                            .maplibregl-ctrl-basemaps.expand-left {
+                                transition: width 0.2s;
+                                flex-direction: row-reverse;
+                            }
+                            .maplibregl-ctrl-basemaps.expand-left .basemap {
+                                margin-left: 8px;
+                                margin-right: 0;
+                            }
+                            .maplibregl-ctrl-basemaps.expand-left.closed .basemap:not(.active) {
+                                display: none;
+                            }
+                        `;
+                        document.head.appendChild(style);
 
             $("#collapse-collection").on('click', function (event) {
-                let x = document.getElementById("collapse-main");
+                document.getElementById("collection-main").style.display = "none";
+            });
 
-                let isMobile = window.matchMedia("(max-width: 767px)").matches;
-
-                $('#collapse-collection-right').hide();
-                $('#collapse-collection-left').hide();
-
-                if (x.style.display === "none") {
-                $('#collapse-collection-left').show();
-                    x.style.display = "block";
-                    document.getElementById("collapse-collection").style.right = "-18px";
-                    document.getElementById("collection-main").style.backgroundColor = "#fafafa";
-                } else {
-                    $('#collapse-collection-right').show();
-                    x.style.display = "none";
-                    if (isMobile) {
-                      document.getElementById("collapse-collection").style.right = "80%";
-                    } else {
-                      document.getElementById("collapse-collection").style.right = "95%";
-                    }
-                    document.getElementById("collection-main").style.background = "none";
-                }
+            $("#show-collection").on('click', function (event) {
+                document.getElementById("collection-main").style.display = "block";
             });
 
             $("#collapse-feature").on('click', function(event){

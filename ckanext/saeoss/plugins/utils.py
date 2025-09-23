@@ -17,14 +17,14 @@ def handle_search(search_params):
     """
     # \[.*\]
     # lstrip removes leading spaces
-    search_param = search_params["fq"].lstrip()
+    search_param = search_params.get("fq", "").lstrip()
 
     fq_list = skip_brackets(search_param)
 
     # fq_list = search_param.split()  # the default is space
     fq_dict = {}
     if len(fq_list) <= 1:
-        return search_params["fq"]
+        return search_param
     for idx, item in enumerate(fq_list):
         # try:
         #     key_value_pair = item.split(":")

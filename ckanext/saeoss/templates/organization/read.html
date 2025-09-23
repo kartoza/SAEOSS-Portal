@@ -1,11 +1,73 @@
 {% ckan_extends %}
 
-{% block page_primary_action %}
-    {% if h.check_access('package_create', {'owner_org': group_dict.id}) %}
-        {% snippet 'snippets/add_dataset.html', group=group_dict.id %}
-    {% endif %}
+{% block content_blue_border %}
+    <div class="page-header-blue-border-shadow">
+        <div class="manage-button-parent">
+            {% block content_action %}
+                {% if h.check_access('group_update', {'id': group_dict.id}) %}
+                    {% link_for _('Manage'), named_route=group_type+'.edit', id=group_dict.name, class_='btn btn-default', icon='wrench' %}
+                {% endif %}
+            {% endblock %}
+        </div>
+        <div class="page-header-nav-tabs">
+            {% block content_primary_nav %}
+            {{ h.build_nav_icon(group_type + '.read', ungettext('Metadata Record', 'Metadata Records', group_dict.package_count), id=group_dict.name, icon='sitemap') }}
+            {{ h.build_nav_icon(group_type + '.activity', _('Activity Stream'), id=group_dict.name, offset=0, icon='clock-o') }}
+            {{ h.build_nav_icon(group_type + '.about', _('About'), id=group_dict.name, icon='info-circle') }}
+            {% endblock %}
+        </div>
+        
+        {% block page_primary_action %}
+          <br>
+            <div>
+                {% block groups_search_form %}
+                {% set facets = {
+                    'fields': fields_grouped,
+                    'search': search_facets,
+                    'titles': facet_titles,
+                    'translated_fields': translated_fields,
+                    'remove_field': remove_field }
+                %}
+                {% set sorting = [
+                    (_('Relevance'), 'score desc, metadata_modified desc'),
+                    (_('Name Ascending'), 'title_string asc'),
+                    (_('Name Descending'), 'title_string desc'),
+                    (_('Last Modified'), 'metadata_modified desc'),
+                    (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
+                %}
+                {% snippet 'snippets/search_form.html', form_id='organization-datasets-search-form', type='dataset', query=q, sorting=sorting, sorting_selected=sort_by_selected, count=page.item_count, facets=facets, placeholder=_('Search datasets...'), show_empty=request.params, fields=fields %}
+                {% endblock %}
+            </div>
+            {% if h.check_access('package_create', {'owner_org': group_dict.id}) %}
+                <div style="margin-top: 10px;">
+                    {% snippet 'snippets/add_dataset.html', group=group_dict.id %}
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
 {% endblock %}
 
-{% block groups_search_form %}
-      {% snippet 'snippets/search_form.html', form_id='organization-datasets-search-form', type='dataset', query=q, sorting=sorting, sorting_selected=sort_by_selected, count=page.item_count, facets=facets, placeholder=_('Search metadata records...'), show_empty=request.params, fields=fields %}
+{% block primary_content_inner %}
+    
+  {% block packages_list %}
+    {% if page.items %}
+      <div style="margin-top: 40px;">
+        {{ h.snippet('snippets/package_list.html', packages=page.items) }}
+      </div>
+    {% endif %}
+  {% endblock %}
+  {% block page_pagination %}
+    {{ page.pager(q=q) }}
+  {% endblock %}
+{% endblock %}
+
+{% block organization_facets %}
+  <div class="filters">
+    <div>
+      {% for facet in facet_titles %}
+        {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, extras={'id':group_dict.id}) }}
+      {% endfor %}
+    </div>
+    <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
+  </div>
 {% endblock %}

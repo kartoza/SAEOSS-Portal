@@ -56,9 +56,6 @@ box-shadow: 0 8px 16px rgba(0,0,0,0.7);
 z-index: 10;
 }
 
-.secondary-inner{
-  border: black 1px solid;
-}
 
 .row.display-flex {
   display: flex;
@@ -154,4 +151,55 @@ position: relative;
 
 .misc-search{
   padding-right: 20px;
+}
+
+.extra-mg-h{
+  margin: 10px 0px 10px 0px;
+}
+
+.secondary-inner{
+  border: #0A2642 1px solid !important;
+}
+
+.secondary{
+  border: #232324 1px solid !important;
+  box-shadow: 3px 3px 10px #232324;
+  border-radius: 5px !important;
+}
+
+.blue-border-shadow{
+  border: #232324 1px solid !important;
+  box-shadow: 3px 3px 10px #232324;
+  border-radius: 5px !important
+}
+
+.module-heading {
+  border-top-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.module-narrow #dataset-map-container {
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+}
+
+.dataset-private{
+  background-color: #BB0000;
+  color: white !important;
+}
+
+.dataset-item-card{
+  border: #232324 1px solid !important;
+  box-shadow: 3px 3px 10px #232324;
+  border-radius: 5px !important;
+  padding: 10px !important;
+  height: 100% !important;
+}
+
+.margin-bottom-extra{
+  margin-bottom: 10px;
 }

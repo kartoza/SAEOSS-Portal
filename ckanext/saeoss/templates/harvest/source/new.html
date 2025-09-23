@@ -8,17 +8,12 @@
 {% block actions_content %}
 {% endblock %}
 
-{% block subtitle %}{{ _('Create harvest source') }}{% endblock %}
+{% block subtitle %}{{ _('Create new harvest source') }}{% endblock %}
 
 {% block primary_content %}
   <section class="module">
     <div class="module-content">
-        {% if c.form %}
-          {# CKAN < 2.3 #}
-          {{ c.form | safe }}
-        {% else %}
-          {{- h.snippet(form_snippet, c=c, **form_vars) -}}
-        {% endif %}
+      {{- h.snippet(form_snippet, c=c, **form_vars) -}}
     </div>
   </section>
 {% endblock %}

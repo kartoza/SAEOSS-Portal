@@ -6,40 +6,29 @@
 {% block subtitle %}Metadata{% endblock %}
 {% set total =  h.get_all_datasets_count(g) %}
 
-{% block maintag %}
+{% block breadcrumb_content %}
 
-    <style>
-      #content{
-        width: 100% !important;
-      }
-    </style>
-    
-    <div id="header" class="row">
-        <div class="col-md-8">
-            <h1 class="left-align heading">{{ _("Metadata") }}</h1>
-        </div>
+<style>
+  .secondary{
+    background: none !important;
+  }
+</style>
 
-        <div class="col-md-4">
-            <div>
-                {% snippet 'snippets/search_form.html', form_id='dataset-search-form', type=dataset_type, query=q, sorting_selected=sort_by_selected, count=21, placeholder=_('Search ' + 'metadata record' + 's') + '..', facets=facets, show_empty=request.params, error=query_error, fields=fields %}
-            </div>
-        </div>
-    </div>
-
-    <div class="misc-search">
+    <div class="page-header">
         <br>
-
-        <!-- <h5 class="left-align blue-text">{{ _("Total number of metadata") }} {{ ungettext('record', 'records', total) }}: {{ total }}</h5>
+        <h1 class="left-align blue-text">{{ _("Metadata") }}</h1>
+        <h5 class="left-align blue-text">{{ _("Total number of metadata") }} {{ ungettext('record', 'records', total) }}: {{ total }}</h5>
         <div style="display: flex;">
           <h5 class="left-align blue-text">{{ page.item_count }} {{ _("metadata") }} {{ ungettext('record', 'records', page.item_count) }} {{ _("found") }}</h5>
         {% if c %}
           {% if c.userobj is not none%}
             <button class="save_search_button" title="save this search query" data-module="change_save_search_icon">
+              <!-- <i class="fa fa-circle-thin fa-stack-2x save_search_button_border"></i> -->
               <i class="fa fa-bookmark-o save_search_button_icon"></i>
             </button>
           {% endif %}
         {% endif %}
-        </div> -->
+        </div>
         {% if h.check_access('package_create') %}
         <!-- Modal -->
         <div class="modal" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" style="margin-top: 50px;z-index: 999999 !important;">
@@ -52,7 +41,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <div style="display: flex; padding-right: 50px;">
+                <div style="display: flex;">
                   <a style="margin-right: 5px; color: white !important;" download="SANS1878" class="btn btn-primary pull-right" id="metadata-form-btn" href="/xml/SANS1878.xml" style="color: #fff">
                     <i class="fa fa-cloud-download"></i>
                     {{ _('Download Template XML') }}
@@ -96,18 +85,13 @@
           <i class="fa fa-cloud-upload"></i>{{ _("Add metadata record from file") }}
         </button>
           <a class="btn btn-primary pull-right" id="metadata-form-btn" href="{{ h.url_for('dataset.new') }}" style="color: #fff">{{ _('Add metadata record') }}</a>
-          <br><br>
-          {% endif %}
-        
+        {% endif %}
     </div>
-    
 {% endblock %}
 
 {% block primary_content %}
-
   {% block package_search_results_list %}
-      {{ h.snippet('snippets/package_list.html', packages=page.items, column_class='col-md-6') }}
-      
+      {{ h.snippet('snippets/package_list.html', packages=page.items) }}
   {% endblock %}
   {% block page_pagination %}
     {{ page.pager(q=q) }}
@@ -116,8 +100,12 @@
 
 {% block secondary %}
     
-<aside class="col-sm-3" style="z-index: 9999 !important;">
-  <div class="secondary-inner">
+<aside class="col-sm-3 secondary-inner" style="z-index: 9999 !important;">
+  <div class="extra-mg-h">
+    {% snippet 'snippets/search_form.html', form_id='dataset-search-form', type=dataset_type, query=q, sorting_selected=sort_by_selected, count=page.item_count, placeholder=_('Search ' + 'metadata record' + 's') + '..', facets=facets, show_empty=request.params, error=query_error, fields=fields %}
+  </div>
+  
+  <div class="extra-mg-h">
     <div data-module="spatial_search"></div>
     {% snippet "spatial/snippets/spatial_query.html", default_extent="{ \"type\":\"Polygon\",
   \"coordinates\": [[[16.4699, -34.8212],
@@ -126,26 +114,28 @@
   [16.4699, -22.1265],
   [16.4699, -34.8212]]]}"%}
   </div>
-  <div class="secondary-inner hover-content">
+  <div class="extra-mg-h dark-blue-bg">
     {% snippet "snippets/temporal_query.html" %}
   </div>
   <div>
     <div>
       {% for facet in facet_titles %}
           {% if facet != 'tags' and facet!= 'res_format' and facet!= 'license_id' %}
-        <div class="secondary-inner hover-content blue-text"> 
+        <div class="extra-mg-h dark-blue-bg"> 
           {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets) }}
         </div>
           {% endif %}
       {% endfor %}
-    <div class="secondary-inner hover-content">
+    <div class="extra-mg-h dark-blue-bg">
       {{ h.snippet('snippets/facet_list.html', title=facet_titles['tags'], name='tags', search_facets=search_facets) }}
     </div>
-    </div>
+  </div>
   <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
 </div>
 </aside>
 {% endblock %}
+
+
 
 {% block package_search_results_api %}
 {% endblock %}

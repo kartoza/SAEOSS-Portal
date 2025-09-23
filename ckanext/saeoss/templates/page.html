@@ -86,24 +86,30 @@
                 #}
                 {% block primary_content %}
                   <article class="module">
-                    {% block page_header %}
-                      <header class="module-content page-header">
-                        {% if self.content_action() | trim %}
-                          <div class="content_action">
-                            {% block content_action %}{% endblock %}
-                          </div>
-                        {% endif %}
-                        <ul class="nav nav-tabs">
-                          {% block content_primary_nav %}{% endblock %}
-                        </ul>
-                      </header>
-                    {% endblock %}
-                    <div class="module-content">
+                    {% block content_blue_border %}
+                      {% block page_header %}
+                        <header class="module-content page-header">
+                          {% if self.content_action() | trim %}
+                            <div class="content_action">
+                              {% block content_action %}{% endblock %}
+                            </div>
+                          {% endif %}
+                          <ul class="nav nav-tabs">
+                            {% block content_primary_nav %}{% endblock %}
+                          </ul>
+                        </header>
+                      {% endblock %}
                       {% if self.page_primary_action() | trim %}
                         <div class="page_primary_action">
                           {% block page_primary_action %}{% endblock %}
                         </div>
                       {% endif %}
+                      <div class="module-content">
+                      {% block primary_content_inner_header %}
+                      {% endblock %}
+                      </div>
+                    {% endblock %}
+                    <div class="module-content">
                       {% block primary_content_inner %}
                       {% endblock %}
                     </div>

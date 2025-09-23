@@ -1,5 +1,42 @@
 {% ckan_extends %}
 
+{% block primary_content %}
+
+  {% block content_blue_border %}
+    <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
+      {% block content_primary_nav %}
+      <div class="page-header-nav-tabs">
+        {{ h.build_nav_icon('admin.index', _('Sysadmins'), icon='gavel') }}
+        {{ h.build_nav_icon('admin.config', _('Config'), icon='check-square-o') }}
+        {{ h.build_nav_icon('admin.trash', _('Trash'), icon='trash-o') }}
+        {{ h.build_extra_admin_nav() }}
+      </div>
+      {% endblock %}
+      {% block primary_content_inner_header %}
+      <br>
+        <form method="POST" action="{{ h.url_for('admin.trash') }}" id="form-purge-all">
+          <div class="form-actions">
+            <input type="hidden" name="action" value="all">
+            <a class="btn btn-danger purge-all"
+              type="submit"
+              href="{{ h.url_for('admin.trash', name='all') }}"
+              data-module="confirm-action"
+              data-module-with-data=true
+              data-module-content="{{ _('Are you sure you want to purge everything?') }}">
+              {{ _('Purge all') }}
+            </a>
+          </div>
+        </form>
+
+        {% for ent_type, entities in data.items() %}
+          {% snippet "admin/snippets/data_type.html", ent_type=ent_type, entities=entities, messages=messages %}
+        {% endfor %}
+        {% endblock %}
+    </div>
+  {% endblock %}
+
+{% endblock %}
+
 {% block secondary_content %}
 <div class="module module-narrow module-shallow">
   <h2 class="module-heading">
@@ -9,7 +46,7 @@
   <div class="module-content">
     <p>
       {% trans %}
-      Purge deleted metadata records, organisations or groups forever and irreversibly.
+      Purge deleted datasets, organizations or groups forever and irreversibly.
       {% endtrans %}
     </p>
   </div>

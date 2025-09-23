@@ -1,0 +1,57 @@
+{% ckan_extends %}
+
+{% block primary_content %}
+
+  {% block content_blue_border %}
+    <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
+
+      {% block page_header %}
+        <header class="module-content page-header hug page-header-blue-border-shadow"">
+          <div class="content_action">
+            {% link_for _('Profile settings'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='cog' %}
+          </div>
+        {% block content_primary_nav %}    
+            <div class="page-header-nav-tabs">
+              {{ h.build_nav_icon('dashboard.index', _('News feed'), icon='list') }}
+              {{ h.build_nav_icon('dashboard.datasets', _('My Metadata Records'), icon='sitemap') }}
+              {{ h.build_nav_icon('dashboard.organizations', _('My Organisations'), icon='building-o') }}
+              {{ h.build_nav_icon('dashboard.groups', _('My Groups'), icon='users') }}
+            </div>
+        {% endblock %}   
+        </header>
+      {% endblock %}
+        
+      </div>
+  {% endblock %}
+
+  {% block page_primary_action %}
+    {% if h.check_access('organization_create') %}
+      <div style="margin-left: 15px !important;">
+        {% link_for _('Add Organization'), controller='organization', action='new', class_="btn btn-primary", icon="plus-square" %}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block primary_content_inner_header %}
+    <h2 class="hide-heading">{{ _('My Organizations') }}</h2>
+    {% set organizations = h.organizations_available(permission='manage_group',
+      include_dataset_count=True) %}
+    {% if organizations %}
+      <div class="wide" style="margin-left:15px">
+        {% snippet "organization/snippets/organization_list.html", organizations=organizations, show_capacity=True %}
+      </div>
+    {% else %}
+      <p class="empty" style="margin-left:15px">
+        {{ _('You are not a member of any organizations.') }}
+        {% if h.check_access('organization_create') %}
+          {% link_for _('Create one now?'), controller='organization', action='new' %}
+        {% endif %}
+      </p>
+    {% endif %}
+  {% endblock %}
+
+{% endblock %}
+
+
+
+

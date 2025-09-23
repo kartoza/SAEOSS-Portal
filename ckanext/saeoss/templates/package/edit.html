@@ -1,0 +1,33 @@
+{% ckan_extends %}
+{% block primary_content %}
+  {% block content_blue_border %}
+  <div class="page-header-blue-border-shadow" style="margin-top: 20px; padding: 20px;">
+    {% block content_primary_nav %}
+      <div class="page-header-nav-tabs">
+        {{ h.build_nav_icon(pkg.type ~ '.edit', _('Edit metadata'), id=pkg.name, icon='pencil-square-o') }}
+        {{ h.build_nav_icon(pkg.type ~ '.resources', _('Resources'), id=pkg.name, icon='bars') }}
+        {% if h.check_config_permission('allow_dataset_collaborators') and h.check_access('package_collaborator_create', {'id': pkg_dict.id}) %}
+            {{ h.build_nav_icon(pkg.type ~ '.collaborators_read', _('Collaborators'), id=pkg.name, icon='users')}}
+        {% endif %}
+      </div>
+      <br><br>
+    {% endblock %}
+    {% block content_action %}
+        <div style="position: absolute;top:20px;right:10px">
+          {% link_for _('View metadata record'), named_route=pkg.type ~ '.read', id=pkg.name, class_='btn btn-default', icon='eye' %}
+        </div>
+    {% endblock %}
+    {% block primary_content_inner_header %}
+        {% block form %}
+      {{- h.snippet(form_snippet, pkg_dict=pkg_dict, **form_vars) -}}
+      {% endblock %}
+    {% endblock %}
+  </div>
+  {% endblock %}
+{% endblock %}
+
+{% block secondary_content %}
+    {% snippet 'package/snippets/info.html', pkg=pkg, hide_follow_button=true %}
+{% endblock %}
+
+

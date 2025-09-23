@@ -1,16 +1,52 @@
 {% ckan_extends %}
 
-{% block primary_content_inner %}
-  {% if pkg.resources %}
-    <ul class="resource-list"{% if has_reorder %} data-module="resource-reorder" data-module-id="{{ pkg.id }}"{% endif %}>
-      {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
-      {% for resource in pkg.resources %}
-        {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, url_is_edit=true, can_edit=can_edit %}
-      {% endfor %}
-    </ul>
-  {% else %}
-    {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}
-      <p class="empty">This metadata has no links, <a  href="{{ url }}">why not add some?</a></p>
-    {% endtrans %}
+{% set pkg = pkg_dict %}
+{% set dataset_type = dataset_type or pkg.type or 'dataset' %}
+
+{% set has_reorder = pkg_dict and pkg_dict.resources and pkg_dict.resources|length > 0 %}
+
+{% block primary_content %}
+  {% block content_blue_border %}
+  <div class="page-header-blue-border-shadow" style="margin-top: 20px; padding: 20px;">
+    {% block content_primary_nav %}
+      <div class="page-header-nav-tabs">
+        {{ h.build_nav_icon(pkg.type ~ '.edit', _('Edit metadata'), id=pkg.name, icon='pencil-square-o') }}
+        {{ h.build_nav_icon(pkg.type ~ '.resources', _('Resources'), id=pkg.name, icon='bars') }}
+        {% if h.check_config_permission('allow_dataset_collaborators') and h.check_access('package_collaborator_create', {'id': pkg_dict.id}) %}
+            {{ h.build_nav_icon(pkg.type ~ '.collaborators_read', _('Collaborators'), id=pkg.name, icon='users')}}
+        {% endif %}
+      </div>
+    {% endblock %}
+    {% block page_primary_action %}
+      <div style="position: absolute;top:20px;right:10px">
+        {% link_for _('Add new resource'), named_route=pkg_dict.type ~ '_resource.new', id=pkg_dict.name, class_='btn btn-primary', icon='plus' %}
+        {% link_for _('View metadata record'), named_route=pkg.type ~ '.read', id=pkg.name, class_='btn btn-default', icon='eye' %}
+      </div>
+    
+    {% endblock %}
+
+    {% block primary_content_inner_header %}
+      {% if pkg.resources %}
+      <br><br>
+        <ul class="resource-list"{% if has_reorder %} data-module="resource-reorder" data-module-id="{{ pkg.id }}"{% endif %}>
+          {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+          {% for resource in pkg.resources %}
+            {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, url_is_edit=true, can_edit=can_edit, is_activity_archive=False %}
+          {% endfor %}
+        </ul>
+      {% else %}
+        {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}
+          <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>
+        {% endtrans %}
+      {% endif %}
+    {% endblock %}
+  </div>
+  {% endblock %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  {% if has_reorder %}
+    {% asset 'vendor/reorder' %}
   {% endif %}
 {% endblock %}

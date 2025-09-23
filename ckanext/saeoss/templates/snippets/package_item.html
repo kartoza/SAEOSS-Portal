@@ -3,14 +3,12 @@
 {% block package_item %}
     {# this is a dcpr request #}
     
-      {% set column_class = column_class or 'col-md-6' %}
-
-      <div class="{{column_class}} col-sm-12 col-xs-12">
+      <div class="col-md-4 margin-bottom-extra">
         {% block content %}
           {% set date_string = package['metadata_modified']|string %}
           {% set date = date_string.split('T')[0] %}
+          <div class="dataset-item-card hover-content">
 
-          <div class="dataset-card">
             {% block heading_private %}
               {% if package.private %}
                 <span class="dataset-private label label-inverse">
@@ -19,32 +17,72 @@
                 </span>
               {% endif %}
             {% endblock %}
-            <h3>🛰️ {{title}}</h3>
-              {% block notes %}
-              {% if notes %}
-                <div class="dataset-card-p ">{{ notes|urlize|truncate(80,True,'...',0) }}</div>
-              {% else %}
-                <p class="dataset-card-p ">{{ _("This metadata record has no description") }}</p>
-              {% endif %}
-            {% endblock %}
-            <p class="dataset-card-p" style="font-size: 12px; color: #666;">Updated: {{ date }}</p>
-            <div class="tags">
-              {% set max_tags = 3 %}
-              {% for tag in package.tags[:max_tags] %}
-                <span class="tag">{{ tag.name|urlize|truncate(50,True,'...',0) }}</span>
-              {% endfor %}
-              {% if package.tags|length > max_tags %}
-                <span class="tag">…</span>
-              {% endif %}
+
+            <div class="metadata-record-thumbnail">
+              <img src="{{ h.get_datasets_thumbnail(package) }}" alt="" title="{{ title }}">
             </div>
-            <div class="btn-view-parent">
-              <div class="btn-view">
-                {{ h.link_to(h.truncate('View Details'), h.url_for('%s.read' % package.type, id=package.name)) }}
+            
+            <div>
+              <div class="dataset-content">
+                {% block heading %}
+                  <h2 class="dataset-heading blue-text">
+                    {% block heading_title %}
+                      <div data-testid="search_item_anchor"></div>
+                      {{ h.link_to(h.truncate(title, truncate_title), h.url_for('%s.read' % package.type, id=package.name)) }}
+                    {% endblock %}
+                    
+                    {% block heading_meta %}
+                      {% if package.get('state', '').startswith('draft') %}
+                        <span class="label label-info">{{ _('Draft') }}</span>
+                      {% elif package.get('state', '').startswith('deleted') %}
+                        <span class="label label-danger">{{ _('Deleted') }}</span>
+                      {% endif %}
+                      {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
+                    {% endblock %}
+                  </h2>
+                {% endblock %}
+                {% block banner %}
+                  {% if banner %}
+                    <span class="banner">{{ _('Popular') }}</span>
+                  {% endif %}
+                {% endblock %}
+                {% block notes %}
+                  {% if notes %}
+                    <div class="dataset-desc dark-blue-txt">{{ notes|urlize|truncate(80,True,'...',0) }}</div>
+                  {% else %}
+                    <p class="empty">{{ _("This metadata record has no description") }}</p>
+                  {% endif %}
+                {% endblock %}
+              </div>
+              {% block resources %}
+              {% endblock %}
+              <div class="row datasets-date-actions">
+                  <div class="dataset-action pull-right" style="display: none">
+                      <a class="dataset-action-items" href="{{ h.url_for('%s.read' % package.type, id=package.name)}}"><i class="fa fa-bars"></i>
+                          Metadata
+                      </a>
+                      <a class="dataset-action-items"><i class="fa fa-eye"></i>
+                          Preview
+                      </a>
+                      <a class="dataset-action-items"><i class="fa fa-download"></i>
+                          Download
+                      </a>
+                  </div>
+              </div>
+              <div class="datasets-date ligt-blue-txt" style="margin-bottom: 10px;">
+                <span>Metadata Record Updated</span>
+                <br>
+                <span>{{ date }}</span>
+              </div>
+              <div class="btn-view-details">
+                <div  class="btn light-blue-bg btn-bg">
+                  {{ h.link_to('View Details', h.url_for('%s.read' % package.type, id=package.name)) }}
+                </div>
               </div>
             </div>
             
+            
           </div>
-
         {% endblock %}
         </div>
   

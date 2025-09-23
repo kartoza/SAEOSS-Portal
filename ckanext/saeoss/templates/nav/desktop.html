@@ -3,29 +3,29 @@
     <ul class="nav navbar-nav navbar-center">
         {% block header_site_navigation_tabs %}
             <li class="li-flex"> 
-                <a href="{{ url_for('home.index') }}" class="image" title="{{ _('SAEOSS Homepage') }}" >{{ _('Home') }}</a>
+                <a href="{{ url_for('home.index') }}" class="nav-link" title="{{ _('SAEOSS Homepage') }}" >{{ _('Home') }}</a>
                 <span class="hr-ver"></span>
             </li>
             {% if h.check_access('package_create') %}
             <li class="li-flex"> 
-                <a href="{{ url_for('dataset.new') }}" class="image" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Add Metadata') }}</a>
+                <a href="{{ url_for('dataset.new') }}" class="nav-link" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Add Metadata') }}</a>
                 <span class="hr-ver"></span>
             </li>
             {% endif %}
             <li class="li-flex"> 
-                <a href="{{ url_for('dataset.search') }}" class="image" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Metadata') }}</a>
+                <a href="{{ url_for('dataset.search') }}" class="nav-link" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Metadata') }}</a>
                 <span class="hr-ver"></span>
             </li>
             <li class="li-flex">
-                <a href="{{ url_for('map.index') }}" class="image" title="{{ _('Metadata boundary view') }}" >{{ _('Map') }}</a>
+                <a href="{{ url_for('map.index') }}" class="nav-link" title="{{ _('Metadata boundary view') }}" >{{ _('Map') }}</a>
                 </li>
                 <span class="hr-ver"></span>
             <li class="li-flex hide-on-small"> 
-                <a href="{{ url_for('organization.index') }}" class="image" title="{{ _('SAEOSS organization (metadata collection)') }}" >{{ _('Organisations') }}</a>
+                <a href="{{ url_for('organization.index') }}" class="nav-link" title="{{ _('SAEOSS organization (metadata collection)') }}" >{{ _('Organisations') }}</a>
                 <span class="hr-ver"></span>
             </li>
             <li class = "hide-on-small"> 
-                <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" title="{{ _('SAEOSS help and documentation') }}" target="_blank" class="image" title="Help">Help</a>
+                <a href="https://kartoza.github.io/SAEOSS-Portal/user/quickstart/" title="{{ _('SAEOSS help and documentation') }}" target="_blank" class="nav-link" title="Help">Help</a>
             </li>
         {% endblock %}
     </ul>
@@ -36,14 +36,14 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-testid="loggedin_user_icon"> {{ h.user_image((c.user if c and c.user else ''), size=22) }}
         <span class="username">{{ c.userobj.display_name }}</span></a>
             <ul class="dropdown-menu">
-                <li> <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
-                    <i class="fa fa-user" aria-hidden="true"></i>
+                <li> <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="nav-link" title="{{ _('View profile') }}">
+                    <!-- <i class="fa fa-user" aria-hidden="true"></i> -->
                     <span class="text">{{ _('Profile') }}</span></a></li>
                 {% set new_activities = h.new_activities() %}
                 {% if h.saeoss_org_memberships(c.userobj.id) %}
                     <li>
                         <a href="{{ h.url_for('harvest.search') }}" title="{{ _('Harvesting Settings') }}">
-                        <i class="fa fa-cloud" aria-hidden="true"></i>
+                        <!-- <i class="fa fa-cloud" aria-hidden="true"></i> -->
                         <span class="text">{{ _('Harvesting Settings') }}</span>
                         </a>
                     </li>
@@ -54,7 +54,7 @@
                     new_activities)
                     %}
                     <a href="{{ h.url_for('dashboard.index') }}" title="{{ notifications_tooltip }}">
-                    <i class="fa fa-tachometer" aria-hidden="true"></i>
+                    <!-- <i class="fa fa-tachometer" aria-hidden="true"></i> -->
                     <span class="text">{{ _('Dashboard') }}</span>
                     <span class="badge">{{ new_activities }}</span>
                     </a>
@@ -62,7 +62,7 @@
                 {% block header_account_settings_link %}
                 <li>
                     <a href="{{ h.url_for('user.edit', id=c.userobj.name) }}" title="{{ _('Profile settings') }}">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    <!-- <i class="fa fa-cog" aria-hidden="true"></i> -->
                     <span class="text">{{ _('Profile settings') }}</span>
                     </a>
                 </li>
@@ -70,7 +70,7 @@
                 {% block header_usage_stats_link %}
                     <li>
                         <a href="{{ h.url_for('stats.index') }}" title="{{ _('Usage statistics') }}">
-                            <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                            <!-- <i class="fa fa-pie-chart" aria-hidden="true"></i> -->
                             <span class="text">{{ _('Usage statistics') }}</span>
                         </a>
                     </li>
@@ -78,25 +78,25 @@
                     {% if c.userobj.sysadmin %}
                     <li>
                         <a href="/user" title="{{ _('Users') }}">
-                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <!-- <i class="fa fa-user" aria-hidden="true"></i> -->
                         <span class="text">{{ _('Users') }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ h.url_for('admin.index') }}" title="{{ _('Sysadmin settings') }}">
-                        <i class="fa fa-gavel" aria-hidden="true"></i>
+                        <!-- <i class="fa fa-gavel" aria-hidden="true"></i> -->
                         <span class="text">{{ _('Sysadmin settings') }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ h.url_for('validator.index') }}" title="{{ _('Metadata Validator') }}">
-                        <i class="fa fa-check" aria-hidden="true"></i>
+                        <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
                         <span class="text">{{ _('Metadata Validator') }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ h.url_for('stac_harvest.view') }}" title="{{ _('STAC Harvester') }}">
-                        <i class="fa fa-cloud" aria-hidden="true"></i>
+                        <!-- <i class="fa fa-cloud" aria-hidden="true"></i> -->
                         <span class="text">{{ _('STAC Harvester') }}</span>
                         </a>
                     </li>
@@ -109,14 +109,14 @@
                 #}
                 <li>
                     <a href="{{ h.url_for('saved_searches.index') }}" title="{{ _('Saved Search') }}" data-testid="logout">
-                            <i class="fa fa-bookmark-o" aria-hidden="true"></i>
+                            <!-- <i class="fa fa-bookmark-o" aria-hidden="true"></i> -->
                             <span class="text">{{ _('Saved Search') }}</span>
                         </a>
                 </li>
                 {% block header_account_log_out_link %}
                     <li>
                         <a href="{{ h.url_for('user.logout') }}" title="{{ _('Log out') }}" data-testid="logout">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            <!-- <i class="fa fa-sign-out" aria-hidden="true"></i> -->
                             <span class="text">{{ _('Log out') }}</span>
                         </a>
                     </li>
