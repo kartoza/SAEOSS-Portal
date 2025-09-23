@@ -11466,10 +11466,9 @@ iframe {
 }
 
 .collection-search-error{
-  border-bottom: 1px solid gray;
   padding-bottom: 10px;
   margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   background: white;
   border-radius: 5px;
   padding: 20px;
@@ -12013,7 +12012,7 @@ article{
   text-align: center;
 }
 
-@media (max-width: 905px) {
+@media (max-width: 1220px) {
   .desktop-nav{
     display: none;
   }

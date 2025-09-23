@@ -1249,27 +1249,49 @@ footer {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  
+  background: white;
   padding: 0px;
   line-height: 150px;
   position: relative;
 }
 
-.metadata-record-thumbnail img{
+.thematic-item-image-parent img{
   width: 100%;
   height: 150px;
+  position: relative;
+  /* border: solid 1px #eee; */
+  /* top: 0;
+  right: 0; */
+  object-fit: contain !important;
+  background: white;
+}
+
+.org-image{
+  width: 100%;
+  height: 150px;
+  position: relative;
+  /* border: solid 1px #eee; */
+  /* top: 0;
+  right: 0; */
+  object-fit: contain !important;
+  background: white;
+}
+
+.metadata-record-thumbnail img{
+  width: 100%;
   position: relative;
   border: solid 1px #eee;
   /* top: 0;
   right: 0; */
-  object-fit: cover !important;
+  object-fit: contain !important;
+  background: white;
 }
 
 .media-organization-item img{
   /* width: 180px; */
-  height: 150px;
+  /* height: 150px;
   border: solid 1px #eee;
-  object-fit: cover !important;
+  object-fit: cover !important; */
 }
 
 .metadata-record-desc{
@@ -1371,6 +1393,8 @@ label {
   box-shadow: 3px 3px 10px #232324;
   border-radius: 5px !important;
   margin-top: 20px; */
+  background-color: white;
+  padding: 20px;
 }
 
 #dataset-edit > div{
@@ -1554,7 +1578,7 @@ article{
 
 .manage-button-parent{
   position: absolute;
-  top: 25px;
+  top: 20px;
   right: 10px;
 }
 

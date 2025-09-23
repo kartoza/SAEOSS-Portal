@@ -308,11 +308,11 @@ ckan.module("saeossWebMapping", function(jQuery, _) {
             }
 
             // initial fetch
-            let fetchRes = fetch("/stac/datasetcollection");
-            document.getElementById('loader').style.display = "block"
-            fetchRes.then(res => res.json()).then(_data => {
-                showData(_data, map)
-            });
+            // let fetchRes = fetch("/stac/datasetcollection");
+            // document.getElementById('loader').style.display = "block"
+            // fetchRes.then(res => res.json()).then(_data => {
+            //     showData(_data, map)
+            // });
 
             const today = new Date().toISOString().split('T')[0];
             document.getElementById("start_date").setAttribute("max", today);
