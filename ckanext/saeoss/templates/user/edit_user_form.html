@@ -10,7 +10,7 @@
       <legend>{{ _('Change details') }}</legend>
 
       {% if is_sysadmin %}
-        <div style="float: right;">
+        <div style="position: absolute;top: 15px; right: 20px;">
           <a class="btn btn-primary" href="/permissions/edit/{{data.name}}">Update permissions</a>
         </div>
       {% endif %}

@@ -4,23 +4,28 @@
 
   <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
 
-    <div class="page-header-nav-tabs">
-        {% block content_primary_nav %}
-        {{ h.build_nav_icon(group_type + '.read', _('Datasets'), id=group_dict.name, icon='sitemap') }}
-        {{ h.build_nav_icon(group_type + '.activity', _('Activity Stream'), id=group_dict.name, offset=0, icon='clock-o') }}
-        {{ h.build_nav_icon(group_type + '.about', _('About'), id=group_dict.name, icon='info-circle') }}
-        {% endblock %}
-
+    <div class="page-header-nav-tabs-parent">
+      <div class="left-side-inner">
+        <div class="page-header-nav-tabs">
+          {% block content_primary_nav %}
+          {{ h.build_nav_icon(group_type + '.read', _('Datasets'), id=group_dict.name, icon='sitemap') }}
+          {{ h.build_nav_icon(group_type + '.activity', _('Activity Stream'), id=group_dict.name, offset=0, icon='clock-o') }}
+          {{ h.build_nav_icon(group_type + '.about', _('About'), id=group_dict.name, icon='info-circle') }}
+          {% endblock %}
+        </div>
+        <hr class="page-header-nav-tabs-hr">
+      </div>
+      <div class="right-side-inner">
         {% block content_action %}
           {% if h.check_access('group_update', {'id': group_dict.id}) %}
-            <div style="position: absolute; top:20px; right:20px;">
+            <div class="main-edit-button-parent">
               {% link_for _('Manage'), named_route=group_type+'.edit', id=group_dict.name, class_='btn btn-default', icon='wrench' %}
             </div>
           {% endif %}
         {% endblock %}
-        <br>
+      </div>
     </div>
-
+    
     <br>
 
     {% block primary_content_inner_header %}

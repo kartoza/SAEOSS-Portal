@@ -114,19 +114,19 @@
   [16.4699, -22.1265],
   [16.4699, -34.8212]]]}"%}
   </div>
-  <div class="extra-mg-h dark-blue-bg">
+  <div class="extra-mg-h">
     {% snippet "snippets/temporal_query.html" %}
   </div>
   <div>
     <div>
       {% for facet in facet_titles %}
           {% if facet != 'tags' and facet!= 'res_format' and facet!= 'license_id' %}
-        <div class="extra-mg-h dark-blue-bg"> 
+        <div class="extra-mg-h"> 
           {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets) }}
         </div>
           {% endif %}
       {% endfor %}
-    <div class="extra-mg-h dark-blue-bg">
+    <div class="extra-mg-h">
       {{ h.snippet('snippets/facet_list.html', title=facet_titles['tags'], name='tags', search_facets=search_facets) }}
     </div>
   </div>

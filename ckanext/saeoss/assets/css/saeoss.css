@@ -118,7 +118,7 @@ a {
   color: #5E8DC0;
   cursor: pointer;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 500;
   padding-right: 20px !important;
   padding-left: 20px !important;
  }
@@ -919,7 +919,7 @@ footer {
   margin-left: 10px;
   text-transform: uppercase;
   position: absolute;
-  top: 5px;
+  top: 15px;
   right: 25px;
   border-radius: 15px !important;
 }
@@ -1090,6 +1090,17 @@ footer {
 
 }
 
+@media (max-width: 762px) {
+  .display-flex .col-md-4 {
+    padding: 0px  !important;
+    width: 100%;
+  }
+
+  .primary{
+    padding-left: 0px !important;
+  }
+}
+
 @media (max-width: 477px) {
   .new-dataset{
     margin-top: 15px;
@@ -1128,10 +1139,9 @@ footer {
   position: relative;
   float: left;
   padding: 15px;
-  margin: 15px 15px 15px 0px;
   background-color: white;
   border-radius: 3px;
-  min-height: 310px;
+  min-height: 360px;
   border: #232324 1px solid !important;
   box-shadow: 2px 3px 10px #575758;
   border-radius: 5px !important;
@@ -1394,7 +1404,7 @@ label {
   border-radius: 5px !important;
   margin-top: 20px; */
   background-color: white;
-  padding: 20px;
+  padding-top: 20px;
 }
 
 #dataset-edit > div{
@@ -1501,6 +1511,11 @@ select[id$="field-dataset_custodian"]{
   display: block;
 }
 
+#resource-edit{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 #resource-edit .hidden {
   display: none;
 }
@@ -1535,32 +1550,52 @@ select[id$="field-dataset_custodian"]{
 
 .page-header-blue-border-shadow{
   background-color: white !important;
-  padding: 10px;
-  border: #232324 1px solid !important;
-  box-shadow: 3px 3px 10px #232324;
+  padding: 20px 20px 20px 20px;
+  border: #0A2642 1px solid !important;
+  box-shadow: 2px 4px 8px 2px rgba(10, 38, 66, 0.3);
   border-radius: 5px !important;
   margin-left: 15px;
   position: relative;
 }
 
+.page-header-nav-tabs-parent{
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* optional, centers vertically */
+}
+
 .page-header-nav-tabs{
   list-style: none;
   display: flex;
-  border-bottom: #0A2642 0.5px solid !important;
+  /* border-bottom: #0A2642 0.5px solid !important; */
   padding-left: 2px;
+  margin-top: 10px;
 }
 
+.left-side-inner{
+  flex: 1;
+}
+
+.page-header-nav-tabs-hr{
+  border: none;
+  border-bottom: #0A2642 0.8px solid !important;
+  flex-grow: 1;
+  margin: 2px 10px 0 0px !important
+}
+
+
 .page-header-nav-tabs li{
-  padding-left: 5px;
+  /* padding-left: 5px; */
   padding-right: 15px;
-  padding-top: 20px;
+  /* padding-top: 20px; */
   padding-bottom: 6px;
   color: #0A2642 !important;
 }
 
 .page-header-nav-tabs li a{
   color: #0A2642;
-  font-size: 16px;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 .active a{
@@ -1587,6 +1622,7 @@ article{
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
+  padding: 5px;
 }
 
 .module-heading-dataset{
@@ -1597,6 +1633,11 @@ article{
 .table thead{
   background-color: #CCDBEB;
   color: #0A2642 !important;
+}
+
+.table-bordered{
+  border: 2px solid darkgrey !important;
+  border-radius: 5px !important;
 }
 
 /* .table thead tr:first-child th:last-child{

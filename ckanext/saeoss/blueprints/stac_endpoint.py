@@ -22,8 +22,8 @@ from shapely.geometry import Polygon, mapping
 from tempfile import TemporaryDirectory
 from shapely.geometry import shape
 import ckan.plugins as p
-from ckan import model
 from flask import jsonify, Response
+import ckan.model as model  # Correct import for model
 
 logger = logging.getLogger(__name__)
 
@@ -88,6 +88,7 @@ def fetch_data(package, items, context=None):
         package_spatial = {"type": "Polygon", "coordinates": [[[16.4699, -34.8212], [32.8931, -34.8212], [32.8931, -22.1265], [16.4699, -22.1265], [16.4699, -34.8212]]]}
     
     package_name = package_dict["name"]
+    print(f'package_name {package_dict}')
     package_title = package_dict["title"]
     package_description = package_dict["notes"]
     resources = package_dict["resources"]
@@ -98,15 +99,18 @@ def fetch_data(package, items, context=None):
     for tag in package_dict["tags"]:
         keywords.append(tag["name"])
 
-    try:
-        thumbnail = package_dict["metadata_thumbnail"]
-    except KeyError:
-        if (
-            package_dict["organization"] and 
-            package_dict["organization"]["image_url"] != "" 
-        ):
-            thumbnail = f'/uploads/group/{package_dict["organization"]["image_url"]}'
-        else:
+    org_id = package_dict['organization']["id"]
+    org_image_url = None
+    context = {
+        'model': model,
+        'session': model.Session,
+        'user': toolkit.c.user
+    }
+    if org_id:
+        try:
+            org = toolkit.get_action('organization_show')(context, {'id': org_id})
+            thumbnail = org.get('image_display_url')
+        except Exception as e:
             thumbnail = "/images/org.png"
 
     if package_date is None:

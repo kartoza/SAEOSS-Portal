@@ -7,24 +7,30 @@
 
 {% block primary_content %}
   {% block content_blue_border %}
-  <div class="page-header-blue-border-shadow" style="margin-top: 20px; padding: 20px;">
+  <div class="page-header-blue-border-shadow extra-margin-main">
     {% block content_primary_nav %}
-      <div class="page-header-nav-tabs">
-        {{ h.build_nav_icon(pkg.type ~ '.edit', _('Edit metadata'), id=pkg.name, icon='pencil-square-o') }}
-        {{ h.build_nav_icon(pkg.type ~ '.resources', _('Resources'), id=pkg.name, icon='bars') }}
-        {% if h.check_config_permission('allow_dataset_collaborators') and h.check_access('package_collaborator_create', {'id': pkg_dict.id}) %}
-            {{ h.build_nav_icon(pkg.type ~ '.collaborators_read', _('Collaborators'), id=pkg.name, icon='users')}}
-        {% endif %}
+      <div class="page-header-nav-tabs-parent">
+        <div class="left-side-inner">
+          <div class="page-header-nav-tabs">
+            {{ h.build_nav_icon(pkg.type ~ '.edit', _('Edit metadata'), id=pkg.name, icon='pencil-square-o') }}
+            {{ h.build_nav_icon(pkg.type ~ '.resources', _('Resources'), id=pkg.name, icon='bars') }}
+            {% if h.check_config_permission('allow_dataset_collaborators') and h.check_access('package_collaborator_create', {'id': pkg_dict.id}) %}
+                {{ h.build_nav_icon(pkg.type ~ '.collaborators_read', _('Collaborators'), id=pkg.name, icon='users')}}
+            {% endif %}
+          </div>
+          <hr class="page-header-nav-tabs-hr">
+        </div>
+        <div class="right-side-inner">
+          {% block page_primary_action %}
+            <div class="main-edit-button-parent">
+              {% link_for _('Add new resource'), named_route=pkg_dict.type ~ '_resource.new', id=pkg_dict.name, class_='btn btn-primary', icon='plus' %}
+              {% link_for _('View metadata record'), named_route=pkg.type ~ '.read', id=pkg.name, class_='btn btn-default', icon='eye' %}
+            </div>
+          {% endblock %}
+        </div>
       </div>
     {% endblock %}
-    {% block page_primary_action %}
-      <div style="position: absolute;top:20px;right:10px">
-        {% link_for _('Add new resource'), named_route=pkg_dict.type ~ '_resource.new', id=pkg_dict.name, class_='btn btn-primary', icon='plus' %}
-        {% link_for _('View metadata record'), named_route=pkg.type ~ '.read', id=pkg.name, class_='btn btn-default', icon='eye' %}
-      </div>
     
-    {% endblock %}
-
     {% block primary_content_inner_header %}
       {% if pkg.resources %}
       <br><br>

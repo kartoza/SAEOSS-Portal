@@ -1,4 +1,5 @@
 {% ckan_extends %}
+{% set user_is_editor = h.user_is_org_member(pkg.owner_org, g.userobj, role="editor") %}
 {% block primary_content %}
     {% block content_blue_border %}
     <style>
@@ -17,50 +18,55 @@
         color: #0A2642 !important;
         }
     </style>
-        <div class="page-header-blue-border-shadow" style="margin-top: 20px; padding: 20px;">
+        <div class="page-header-blue-border-shadow extra-margin-main">
             {% block content_primary_nav %}
-            <div class="page-header-nav-tabs">
-            {{ h.build_nav_icon(dataset_type ~ '.read', _('Metadata'), id=pkg.id if is_activity_archive else pkg.name, icon='sitemap') }}
-            {{ h.build_nav_icon(dataset_type ~ '.groups', _('Groups'), id=pkg.id if is_activity_archive else pkg.name, icon='users') }}
-            {{ h.build_nav_icon(dataset_type ~ '.activity', _('Activity Stream'), id=pkg.id if is_activity_archive else pkg.name, icon='clock-o') }}
-            </div>
+                <div class="page-header-nav-tabs-parent">
+                    <div class="left-side-inner">
+                        <div class="page-header-nav-tabs">
+                        {{ h.build_nav_icon(dataset_type ~ '.read', _('Metadata'), id=pkg.id if is_activity_archive else pkg.name, icon='sitemap') }}
+                        {{ h.build_nav_icon(dataset_type ~ '.groups', _('Groups'), id=pkg.id if is_activity_archive else pkg.name, icon='users') }}
+                        {{ h.build_nav_icon(dataset_type ~ '.activity', _('Activity Stream'), id=pkg.id if is_activity_archive else pkg.name, icon='clock-o') }}
+                        </div>
+                        <hr class="page-header-nav-tabs-hr">
+                    </div>
+                    <div class="right-side-inner">
+                        <div class="main-edit-button-parent">
+                            {% block content_action %}
+                                {{ super() }}
+                                {#
+                                    This template is overridden in order to add a button for requesting that a public package be edited
+                                    Organization editors are not allowed to modify a dataset that is public.
+
+                                    Ideally published datasets are immutable - any modifications would be published as a new dataset, with the
+                                    corresponding version increased
+
+                                    Nevertheless, it the need to modify a public dataset arises, then this must be vetted by one of the organization
+                                    admins (i.e. publishers)
+
+                                #}
+                                {% if user_is_editor %}
+                                    {% if pkg.private %}
+                                        {% link_for _('Request publication'),
+                                            named_route="saeoss.request_dataset_management",
+                                            dataset_id=pkg.id,
+                                            management_command="publication",
+                                            class_='btn btn-default',
+                                            icon='graduation-cap' %}
+                                    {% elif not pkg.private and not h.check_access("package_update", {"id": pkg.id}) %}
+                                        {% link_for _('Request edit'),
+                                            named_route="saeoss.request_dataset_management",
+                                            dataset_id=pkg.id,
+                                            management_command="maintenance",
+                                            class_='btn btn-default',
+                                            icon='pencil' %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
             {% endblock %}
-            <div style="position: absolute;top:20px;right:10px">
-                {% block content_action %}
-                    {{ super() }}
-                    {#
-                        This template is overridden in order to add a button for requesting that a public package be edited
-                        Organization editors are not allowed to modify a dataset that is public.
-
-                        Ideally published datasets are immutable - any modifications would be published as a new dataset, with the
-                        corresponding version increased
-
-                        Nevertheless, it the need to modify a public dataset arises, then this must be vetted by one of the organization
-                        admins (i.e. publishers)
-
-                    #}
-                    {% set user_is_editor = h.user_is_org_member(pkg.owner_org, g.userobj, role="editor") %}
-
-
-                    {% if user_is_editor %}
-                        {% if pkg.private %}
-                            {% link_for _('Request publication'),
-                                named_route="saeoss.request_dataset_management",
-                                dataset_id=pkg.id,
-                                management_command="publication",
-                                class_='btn btn-default',
-                                icon='graduation-cap' %}
-                        {% elif not pkg.private and not h.check_access("package_update", {"id": pkg.id}) %}
-                            {% link_for _('Request edit'),
-                                named_route="saeoss.request_dataset_management",
-                                dataset_id=pkg.id,
-                                management_command="maintenance",
-                                class_='btn btn-default',
-                                icon='pencil' %}
-                        {% endif %}
-                    {% endif %}
-                {% endblock %}
-            </div>
+            
             {% block primary_content_inner_header %}
                 {{ super() }}
                 {% block package_description %}

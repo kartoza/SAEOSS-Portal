@@ -4,21 +4,33 @@
 {% block primary_content %}
   {% block content_blue_border %}
       <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
-          <div class="page-header-nav-tabs">
-              {% block content_primary_nav %}
-                {{ h.build_nav_icon('user.read', ungettext('Metadata Record', 'Metadata Records', user.number_created_packages), id=user.name, icon='sitemap') }}
-                {{ h.build_nav_icon('user.activity', _('Activity Stream'), id=user.name, icon='clock-o') }}
-                {% if h.check_access('api_token_list', {'user': user['name']}) %}
-                  {{ h.build_nav_icon('user.api_tokens', _('API Tokens'), id=user.name, icon='key') }}
-                {% endif %}
-              {% endblock %}
+          <div class="page-header-nav-tabs-parent">
+            <div class="left-side-inner">
+              <div class="page-header-nav-tabs">
+                {% block content_primary_nav %}
+                  {{ h.build_nav_icon('user.read', ungettext('Metadata Record', 'Metadata Records', user.number_created_packages), id=user.name, icon='sitemap') }}
+                  {{ h.build_nav_icon('user.activity', _('Activity Stream'), id=user.name, icon='clock-o') }}
+                  {% if h.check_access('api_token_list', {'user': user['name']}) %}
+                    {{ h.build_nav_icon('user.api_tokens', _('API Tokens'), id=user.name, icon='key') }}
+                  {% endif %}
+                {% endblock %}
+              </div>
+              <hr class="page-header-nav-tabs-hr">
+            </div>
+            <div class="right-side-inner">
+              <div class="main-edit-button-parent">
+                {% block content_action %}
+                  {% if h.check_access('user_update', user) %}
+                    <div>
+                      {% link_for _('Manage'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='wrench' %}
+                    </div>
+                  {% endif %}
+                {% endblock %}
+              </div>
+            </div>
           </div>
           {% block page_primary_action %}
-            {% if h.check_access('user_update', user) %}
-              <div style="position: absolute; top: 20px; right: 15px">
-                {% link_for _('Manage'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='wrench' %}
-              </div>
-            {% endif %}
+            
             {% if h.check_access('api_token_create', {'user': user['name']}) %}
               <br><br>
               <form method="POST" class="form">

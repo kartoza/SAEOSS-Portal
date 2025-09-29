@@ -4,23 +4,29 @@
 
 {% block content_blue_border %}
     <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
-        <div class="page-header-nav-tabs">
-            {% block content_primary_nav %}
-            {{ h.build_nav_icon(group_type + '.edit', _('Edit'), id=group_dict.name, icon='pencil-square-o') }}
-            {{ h.build_nav_icon(group_type + '.members', _('Members'), id=group_dict.name, icon='users') }}
-            {% endblock %}
-        </div>
-        {% block content_action %}
-          <div style="position: absolute; top:20px; right:20px;">
-            {% link_for _('View'), named_route=group_type+'.read', id=group_dict.name, class_='btn btn-default', icon='eye' %}
+        <div class="page-header-nav-tabs-parent">
+          <div class="left-side-inner">
+            <div class="page-header-nav-tabs">
+              {% block content_primary_nav %}
+              {{ h.build_nav_icon(group_type + '.edit', _('Edit'), id=group_dict.name, icon='pencil-square-o') }}
+              {{ h.build_nav_icon(group_type + '.members', _('Members'), id=group_dict.name, icon='users') }}
+              {% endblock %}
+            </div>
+            <hr class="page-header-nav-tabs-hr">
           </div>
-        {% endblock %}
-
+          <div class="right-side-inner">
+            {% block page_primary_action %}
+              {% link_for _('Add Member'), named_route=group_type+'.member_new', id=group_dict.id, class_='btn btn-primary', icon='plus-square' %}
+            {% endblock %}
+            {% block content_action %}
+              {% link_for _('View'), named_route=group_type+'.read', id=group_dict.name, class_='btn btn-default', icon='eye' %}
+            {% endblock %}
+          </div>
+        </div>
+        
         <br>
 
-        {% block page_primary_action %}
-          {% link_for _('Add Member'), named_route=group_type+'.member_new', id=group_dict.id, class_='btn btn-primary', icon='plus-square' %}
-        {% endblock %}
+        
 
         {% block primary_content_inner_header %}
           <br>
