@@ -1,20 +1,28 @@
 {% ckan_extends %}
 {% block primary_content %}
   {% block content_blue_border %}
-      <div class="page-header-blue-border-shadow" style="margin-top: 20px; padding: 20px;">
+      <div class="page-header-blue-border-shadow extra-margin-main">
         {% block content_primary_nav %}
-          <div class="page-header-nav-tabs">
-            <li class="active"><a href="#"><i class="fa fa-pencil-square-o"></i> {{ _('Add view') }}</a></li>
+          <div class="page-header-nav-tabs-parent">
+            <div class="left-side-inner">
+              <div class="page-header-nav-tabs">
+                <li class="active"><a href="#"><i class="fa fa-pencil-square-o"></i> {{ _('Add view') }}</a></li>
+              </div>
+              <hr class="page-header-nav-tabs-hr">
+            </div>
+            <div class="right-side-inner">
+              <div class="main-edit-button-parent">
+                {% block content_action %}
+                  {% link_for _('All views'), named_route=pkg.type ~ '_resource.views', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='arrow-left' %}
+                  {% if res %}
+                    {% set url = h.url_for(pkg.type ~ '_resource.read', id=pkg.name, resource_id=res.id) ~ '?view_id=' ~ resource_view.id %}
+                    <a href="{{ url }}" class="btn btn-default"><i class="fa fa-eye"></i> {{ _('View view') }}</a>
+                  {% endif %}
+                {% endblock %}
+              </div>
+            </div>
           </div>
-          <div style="position: absolute;top:20px;right:10px">
-            {% block content_action %}
-              {% link_for _('All views'), named_route=pkg.type ~ '_resource.views', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='arrow-left' %}
-              {% if res %}
-                {% set url = h.url_for(pkg.type ~ '_resource.read', id=pkg.name, resource_id=res.id) ~ '?view_id=' ~ resource_view.id %}
-                <a href="{{ url }}" class="btn btn-default"><i class="fa fa-eye"></i> {{ _('View view') }}</a>
-              {% endif %}
-            {% endblock %}
-          </div>
+          
         {% endblock %}
         <br>
         {% block primary_content_inner_header %}

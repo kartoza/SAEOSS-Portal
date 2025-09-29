@@ -54,15 +54,17 @@ function showData(_data, map){
         else{
             image_url = "/images/africa_preview.png"
         }
+        console.log("collections[i]", collections[i])
         collectionHtml += `
             <div class="row collection-show collection-flex" data-collectionnum=${i}>
-            <div class="img-div" style='height:100% !important'>
-            <img class='collection-thumbnail' src='${image_url}'/>
-            </div>
-            <div style="position:relative;width:100%">
-            <h4>${collections[i]["id"]}</h4>
-            <p class="bottom-date">${collections[i]["properties"]["datetime"]}</p>
-            </div>
+                <div class='collections-inner' >
+                    <h4 class="ligt-blue-txt">${collections[i]["id"]}</h4>
+                    <p class="truncate-20">${collections[i]["properties"]["description"]}</p>
+                    <p class="bottom-date ligt-blue-txt">${collections[i]["properties"]["datetime"]}</p>
+                </div>
+                <div class="img-div" style='height:100% !important'>
+                    <img class='collection-thumbnail' src='${image_url}'/>
+                </div>
             </div>`;
     }
 

@@ -2,20 +2,28 @@
 {% set logged_in = true if c.userobj else false %}
 {% block primary_content %}
   {% block content_blue_border %}
-  <div class="page-header-blue-border-shadow" style="margin-top: 20px; padding: 20px;">
-    {% block content_primary_nav %}
-      <div class="page-header-nav-tabs">
-        <li class="active"><a href="#"><i class="fa fa-pencil-square-o"></i> {{ _('New resource') }}</a></li>
+  <div class="page-header-blue-border-shadow extra-margin-main">
+    <div class="page-header-nav-tabs-parent">
+      <div class="left-side-inner">
+         {% block content_primary_nav %}
+          <div class="page-header-nav-tabs">
+            <li class="active"><a href="#"><i class="fa fa-pencil-square-o"></i> {{ _('New resource') }}</a></li>
+          </div>
+          <hr class="page-header-nav-tabs-hr">
+        {% endblock %}
       </div>
-    {% endblock %}
-    {% block content_action %}
-      <div style="position: absolute;top:20px;right:10px">
-        {% link_for _('All resources'), named_route=pkg.type ~ '.resources', id=pkg.name, class_='btn btn-default', icon='arrow-left' %}
-        {% if res %}
-          {% link_for _('View resource'), named_route=pkg.type ~ '_resource.read', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='eye' %}
-        {% endif %}
+      <div class="right-side-inner">
+        {% block content_action %}
+          <div class="main-edit-button-parent">
+            {% link_for _('All resources'), named_route=pkg.type ~ '.resources', id=pkg.name, class_='btn btn-default', icon='arrow-left' %}
+            {% if res %}
+              {% link_for _('View resource'), named_route=pkg.type ~ '_resource.read', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='eye' %}
+            {% endif %}
+          </div>
+        {% endblock %}
       </div>
-    {% endblock %}
+    </div>
+    
     {% block primary_content_inner_header %}
       {% block form %}
       <br><br>

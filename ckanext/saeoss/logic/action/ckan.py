@@ -1,3 +1,12 @@
+def _ensure_resource_formats(data_dict):
+    """
+    Ensures every resource in data_dict['resources'] has a 'format' key.
+    """
+    resources = data_dict.get("resources", [])
+    for resource in resources:
+        if "format" not in resource:
+            resource["format"] = ""
+
 # -*- coding: utf-8 -*-
 """Override of CKAN actions"""
 import json
@@ -177,7 +186,8 @@ def package_create(original_action, context, data_dict):
         data_dict['tag_string'] = ', '.join([tag['name'] for tag in data_dict['tags']])
     except:
         pass
-    
+
+    _ensure_resource_formats(data_dict)
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 
@@ -202,7 +212,8 @@ def package_update(original_action, context, data_dict):
         data_dict['tags'] = []
     
     data_dict['tag_string'] = ','.join([tag['name'] for tag in data_dict['tags']])
-    
+
+    _ensure_resource_formats(data_dict)
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 
@@ -211,6 +222,7 @@ def package_patch(original_action, context, data_dict):
     """
     Intercepts the core `package_patch` action to check if package is being published.
     """
+    _ensure_resource_formats(data_dict)
     return _act_depending_on_package_visibility(original_action, context, data_dict)
 
 

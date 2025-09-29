@@ -2,13 +2,21 @@
 
 
 ckan.module('emc-facets-active', function (jQuery, _) {
-    var searchInput = document.querySelector("#field-giant-search")
+    var searchInput = document.querySelector("#field-giant-search");
+    var searchButton = document.querySelector('.btn-search[type="submit"]');
 
     return {
 
         initialize: function () {
             $.proxyAll(this,/_on/);
-            searchInput.addEventListener("change", this._onSearchInputValueChange)
+            if (searchInput) {
+                searchInput.addEventListener("change", this._onSearchInputValueChange);
+            }
+            // Always show and enable the search button
+            if (searchButton) {
+                searchButton.style.display = 'inline-block';
+                searchButton.disabled = false;
+            }
             const filters = {
                 'organization': 'Organizations',
                 '_organization_limit': 'Organizations',
@@ -39,10 +47,17 @@ ckan.module('emc-facets-active', function (jQuery, _) {
        }
         },
         _onSearchInputValueChange:function(e){
-            let searchUrl = this.el.get(0).href
-            let searchUrlSplit = searchUrl.split("&",2)[0]
-            let inputSearchTerm = searchUrlSplit.split("?q=",2)[1]
-            this.el.get(0).href = searchUrl.replace(inputSearchTerm, e.target.value)
+            // No logic to hide or disable the search button
+            let searchUrl = this.el.get(0).href;
+            let searchUrlSplit = searchUrl.split("&",2)[0];
+            let inputSearchTerm = searchUrlSplit.split("?q=",2)[1];
+            this.el.get(0).href = searchUrl.replace(inputSearchTerm, e.target.value);
+            // Always show and enable the search button
+            var searchButton = document.querySelector('.btn-search[type="submit"]');
+            if (searchButton) {
+                searchButton.style.display = 'inline-block';
+                searchButton.disabled = false;
+            }
         }
     }
 

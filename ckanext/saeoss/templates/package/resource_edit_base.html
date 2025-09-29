@@ -5,19 +5,26 @@
 
 {% block primary_content %}
   {% block content_blue_border %}
-      <div class="page-header-blue-border-shadow" style="margin-top: 20px; padding: 20px;">
+      <div class="page-header-blue-border-shadow extra-margin-main">
         {% block content_primary_nav %}
-          <div class="page-header-nav-tabs">
-            {{ h.build_nav_icon(pkg.type ~ '_resource.edit', _('Edit resource'), id=pkg.name, resource_id=res.id, icon='pencil-square-o') }}
-            {{ h.build_nav_icon(pkg.type ~ '_resource.views', _('Views'), id=pkg.name, resource_id=res.id, icon='bars') }}
-          </div>
-          <div style="position: absolute;top:20px;right:10px">
-            {% block content_action %}
-                {% link_for _('All resources'), named_route=pkg.type ~ '.resources', id=pkg.name, class_='btn btn-default', icon='arrow-left' %}
-                {% if res %}
-              {% link_for _('View resource'), named_route=pkg.type ~ '_resource.read', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='eye' %}
-              {% endif %}
-            {% endblock %}
+          <div class="page-header-nav-tabs-parent">
+            <div class="left-side-inner">
+              <div class="page-header-nav-tabs">
+                {{ h.build_nav_icon(pkg.type ~ '_resource.edit', _('Edit resource'), id=pkg.name, resource_id=res.id, icon='pencil-square-o') }}
+                {{ h.build_nav_icon(pkg.type ~ '_resource.views', _('Views'), id=pkg.name, resource_id=res.id, icon='bars') }}
+              </div>
+              <hr class="page-header-nav-tabs-hr">
+            </div>
+            <div class="right-side-inner">
+              <div class="main-edit-button-parent">
+                {% block content_action %}
+                    {% link_for _('All resources'), named_route=pkg.type ~ '.resources', id=pkg.name, class_='btn btn-default', icon='arrow-left' %}
+                    {% if res %}
+                  {% link_for _('View resource'), named_route=pkg.type ~ '_resource.read', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='eye' %}
+                  {% endif %}
+                {% endblock %}
+              </div>
+            </div>
           </div>
         {% endblock %}
         <br>

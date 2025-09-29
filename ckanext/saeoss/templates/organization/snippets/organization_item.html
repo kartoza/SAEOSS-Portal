@@ -9,42 +9,44 @@
 {% endif %}
 
 {% block item %}
-<div class="media-organization-item col-md-3 ">
-{% block item_inner %}
-  {% block image %}
-    <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}" class="org-image">
-  {% endblock %}
-  {% block title %}
-    <h2 class="media-heading blue-text">{{ organization.display_name }}</h2>
-  {% endblock %}
-  {% block description %}
-    {% if organization.description %}
-      <p class="media-description">{{ h.markdown_extract(organization.description, extract_length=80) }}</p>
-    {% endif %}
-  {% endblock %}
-  {% block datasets %}
-    {% if organization.package_count %}
-      <strong class="count blue-text">{{ ungettext('{num} Metadata Record', '{num} Metadata Records', organization.package_count).format(num=package_count) }}</strong>
-    {% else %}
-      <span class="count blue-text">{{ _('0 Metadata Records') }}</span>
-    {% endif %}
-  {% endblock %}
-  {% block capacity %}
-    {% if show_capacity and organization.capacity %}
+<div class="col-md-3" style="padding-left: 0px;">
+  <div class="media-organization-item">
+    {% block item_inner %}
+    {% block image %}
+      <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}" class="org-image">
+    {% endblock %}
+    {% block title %}
+      <h2 class="media-heading blue-text">{{ organization.display_name }}</h2>
+    {% endblock %}
+    {% block description %}
+      {% if organization.description %}
+        <p class="media-description">{{ h.markdown_extract(organization.description, extract_length=80) }}</p>
+      {% endif %}
+    {% endblock %}
+    {% block datasets %}
+      {% if organization.package_count %}
+        <strong class="count blue-text">{{ ungettext('{num} Metadata Record', '{num} Metadata Records', organization.package_count).format(num=package_count) }}</strong>
+      {% else %}
+        <span class="count blue-text">{{ _('0 Metadata Records') }}</span>
+      {% endif %}
+    {% endblock %}
+    {% block capacity %}
+      {% if show_capacity and organization.capacity %}
 
-    {# the client required admin to be labeled publisher #}
-    {%  set new_roles_translated = h.roles_translated()  %}
-    {% do new_roles_translated.update({"admin":"Publisher"})
-    %}
-    <p><span class="label label-default">{{ new_roles_translated.get(organization.capacity, organization.capacity) }}</span></p>
-    {% endif %}
-  {% endblock %}
-  {% block link %}
-  <a href="{{ url }}"  title="{{ _('View {organization_name}').format(organization_name=organization.display_name) }}" class="media-view">
-    <span>{{ _('View {organization_name}').format(organization_name=organization.display_name) }}</span>
-  </a>
-  {% endblock %}
-  {% endblock %}
+      {# the client required admin to be labeled publisher #}
+      {%  set new_roles_translated = h.roles_translated()  %}
+      {% do new_roles_translated.update({"admin":"Publisher"})
+      %}
+      <p><span class="label label-default">{{ new_roles_translated.get(organization.capacity, organization.capacity) }}</span></p>
+      {% endif %}
+    {% endblock %}
+    {% block link %}
+    <a href="{{ url }}"  title="{{ _('View {organization_name}').format(organization_name=organization.display_name) }}" class="media-view">
+      <span>{{ _('View {organization_name}').format(organization_name=organization.display_name) }}</span>
+    </a>
+    {% endblock %}
+    {% endblock %}
+  </div>
 </div>
 
 {% endblock %}

@@ -2,11 +2,16 @@
 {% ckan_extends %}
 {% block primary_content %}
   {% block content_blue_border %}
-    <div class="page-header-blue-border-shadow" style="margin-top: 20px; padding: 20px;">
+    <div class="page-header-blue-border-shadow extra-margin-main">
       {% block content_primary_nav %}
-        <div class="page-header-nav-tabs">
-          {{ h.build_nav_icon(pkg.type ~ '_resource.edit', _('Edit resource'), id=pkg.name, resource_id=res.id, icon='pencil-square-o') }}
-          {{ h.build_nav_icon(pkg.type ~ '_resource.views', _('Views'), id=pkg.name, resource_id=res.id, icon='bars') }}
+        <div class="page-header-nav-tabs-parent">
+          <div class="left-side-inner">
+            <div class="page-header-nav-tabs">
+              {{ h.build_nav_icon(pkg.type ~ '_resource.edit', _('Edit resource'), id=pkg.name, resource_id=res.id, icon='pencil-square-o') }}
+              {{ h.build_nav_icon(pkg.type ~ '_resource.views', _('Views'), id=pkg.name, resource_id=res.id, icon='bars') }}
+            </div>
+            <hr class="page-header-nav-tabs-hr">
+          </div>
         </div>
       {% endblock %}
       <br>

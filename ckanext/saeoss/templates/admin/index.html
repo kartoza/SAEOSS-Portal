@@ -5,16 +5,21 @@
   {% block content_blue_border %}
     <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
       {% block content_primary_nav %}
-      <div class="page-header-nav-tabs">
-        {{ h.build_nav_icon('admin.index', _('Sysadmins'), icon='gavel') }}
-        {{ h.build_nav_icon('admin.config', _('Config'), icon='check-square-o') }}
-        {{ h.build_nav_icon('admin.trash', _('Trash'), icon='trash-o') }}
-        {{ h.build_extra_admin_nav() }}
+      <div class="page-header-nav-tabs-parent">
+        <div class="left-side-inner">
+          <div class="page-header-nav-tabs">
+            {{ h.build_nav_icon('admin.index', _('Sysadmins'), icon='gavel') }}
+            {{ h.build_nav_icon('admin.config', _('Config'), icon='check-square-o') }}
+            {{ h.build_nav_icon('admin.trash', _('Trash'), icon='trash-o') }}
+            {{ h.build_extra_admin_nav() }}
+          </div>
+          <hr class="page-header-nav-tabs-hr">
+        </div>
       </div>
       {% endblock %}
       {% block primary_content_inner_header %}
       <br>
-        <ul class="user-list">
+        <ul class="user-list" style="padding: 10px;">
           {% for user in sysadmins %}
             <li>{{ h.linked_user(user) }}</li>
           {% endfor %}
