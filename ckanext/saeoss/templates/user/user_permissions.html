@@ -6,8 +6,15 @@
   <form id="user-edit-form" class="dataset-form" method="post" action="{{ action }}" enctype="multipart/form-data">
     {{ form.errors(error_summary) }}
     <fieldset>
-      <legend>{{ _('Update Permissions') }}</legend>
-        <a style="position: absolute;top: 15px; right: 20px;" class="btn btn-primary" href="/user/edit/{{data.name}}">Back</a>
+      <div class="page-header-nav-tabs-parent">
+        <div class="left-side-inner">
+          <div class="page-header-nav-tabs">
+            <p class="nav-text">{{ _('Update Permissions') }}</p>
+          </div>
+          <hr class="page-header-nav-tabs-hr">
+        </div>
+      </div>
+      
       <br>
       {{ form.input('name', label=_('Username'), id='field-username', value=data.name, error=errors.name, classes=['control-medium'], attrs={'readonly': '', 'class': 'form-control'}) }}
 
@@ -23,6 +30,7 @@
       <br>
     
     <div class="form-actions">
+      <a class="btn btn-primary" href="/user/edit/{{data.name}}">Back</a>
       <button class="btn btn-primary" type="submit" name="save">{{ _('Update') }}</button>
     </div>
   </form>

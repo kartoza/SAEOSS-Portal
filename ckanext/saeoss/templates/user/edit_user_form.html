@@ -7,13 +7,21 @@
     {{ form.errors(error_summary) }}
     <fieldset>
 
-      <legend>{{ _('Change details') }}</legend>
-
-      {% if is_sysadmin %}
-        <div style="position: absolute;top: 15px; right: 20px;">
-          <a class="btn btn-primary" href="/permissions/edit/{{data.name}}">Update permissions</a>
+      <div class="page-header-nav-tabs-parent">
+        <div class="left-side-inner">
+          <div class="page-header-nav-tabs">
+            <p class="nav-text">{{ _('Change details') }}</p>
+          </div>
+          <hr class="page-header-nav-tabs-hr">
         </div>
-      {% endif %}
+        <div class="right-side-inner">
+          <div class="main-edit-button-parent">
+            {% if is_sysadmin %}
+              <a class="btn btn-primary" style="margin-top: 10px;" href="/permissions/edit/{{data.name}}">Update permissions</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
 
       <br>
 

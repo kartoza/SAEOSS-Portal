@@ -14,9 +14,7 @@
         }
       </style>
         <header class="page-header hug page-header-blue-border-shadow">
-          <div class="content_action">
-            {% link_for _('Profile settings'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='cog' %}
-          </div>
+          
         {% block content_primary_nav %}    
             <div class="page-header-nav-tabs-parent">
               <div class="left-side-inner">
@@ -28,10 +26,16 @@
                 </div>
                 <hr class="page-header-nav-tabs-hr">
               </div>
+              <div class="right-side-inner">
+                <div class="main-edit-button-parent">
+                  {% link_for _('Profile settings'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='cog' %}
+                  {% snippet 'user/snippets/followee_dropdown.html', context=dashboard_activity_stream_context, followees=followee_list %}
+                </div>
+              </div>
             </div>
             {% block primary_content_inner_header %}
               <div data-module="dashboard-news" style="padding: 30px 30px 20px 30px;">
-                {% snippet 'user/snippets/followee_dropdown.html', context=dashboard_activity_stream_context, followees=followee_list %}
+                
                 <h2 class="page-heading">
                   {% block page_heading %}
                     {{ _('News feed') }}

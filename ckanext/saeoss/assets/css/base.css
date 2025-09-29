@@ -12139,8 +12139,10 @@ p{
 }
 
 .main-edit-button-parent a{
-  margin-left: 10px !important;
-  margin-top: 8px;
+   margin-left: 10px !important;
+  /* margin-top: 8px; */
+  height: 39px;
+  line-height: 25px;
 }
 
 @media (max-width: 991px) {
@@ -12178,4 +12180,10 @@ p{
 
 .extra-margin-main{
   margin-top: 20px;
+}
+
+.nav-text{
+  color: #0A2642;
+  font-size: 18px;
+  white-space: nowrap;
 }
