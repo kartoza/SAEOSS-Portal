@@ -17,7 +17,6 @@
         <div class="right-side-inner">
           <div class="main-edit-button-parent">
             {% block content_action %}
-            <br>
             <div class="content_action btn-group">
             {% if harvest_source.status and harvest_source.status.last_job and (harvest_source.status.last_job.status == 'New' or harvest_source.status.last_job.status == 'Running') %}
               <a class="btn btn-default disabled" rel="tooltip" title="There already is an unrun job for this source"><i class="fa fa-lg fa-refresh icon-refresh icon-large"></i> Reharvest</a>
