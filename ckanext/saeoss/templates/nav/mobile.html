@@ -9,23 +9,23 @@
             </div>
         </a>
             <ul class="dropdown-menu">
-                <li class="li-flex"> 
+                <li > 
                     <a href="{{ url_for('home.index') }}" class="nav-link" title="{{ _('SAEOSS Homepage') }}">{{ _('Home') }}</a>
                 </li>
                 {% if c.userobj %}
                     {% if h.check_access('package_create') %}
-                    <li class="li-flex"> 
+                    <li > 
                         <a href="{{ url_for('dataset.new') }}" class="nav-link" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Add Metadata') }}</a>
                     </li>
                     {% endif %}
                 
-                    <li class="li-flex"> 
+                    <li > 
                         <a href="{{ url_for('dataset.search') }}" class="nav-link" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Metadata') }}</a>
                     </li>
-                    <li class="li-flex">
+                    <li>
                         <a href="{{ url_for('map.index') }}" class="nav-link" title="{{ _('Metadata boundary view') }}" >{{ _('Map') }}</a>
                         </li>
-                    <li class="li-flex hide-on-small"> 
+                    <li hide-on-small"> 
                         <a href="{{ url_for('organization.index') }}" class="nav-link" title="{{ _('SAEOSS organization (metadata collection)') }}" >{{ _('Organisations') }}</a>
                     </li>
                     <li class = "hide-on-small"> 
@@ -37,7 +37,7 @@
                     {% set new_activities = h.new_activities() %}
                     {% if h.saeoss_org_memberships(c.userobj.id) %}
                         <li>
-                            <a href="{{ h.url_for('harvest.search') }}" title="{{ _('Harvesting Settings') }}">
+                            <a href="{{ h.url_for('harvest.search') }}" class="nav-link"  title="{{ _('Harvesting Settings') }}">
                             <!-- <i class="fa fa-cloud" aria-hidden="true"></i> -->
                             <span class="text">{{ _('Harvesting Settings') }}</span>
                             </a>
@@ -48,7 +48,7 @@
                         {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)',
                         new_activities)
                         %}
-                        <a href="{{ h.url_for('dashboard.index') }}" title="{{ notifications_tooltip }}">
+                        <a href="{{ h.url_for('dashboard.index') }}" class="nav-link"  title="{{ notifications_tooltip }}">
                         <!-- <i class="fa fa-tachometer" aria-hidden="true"></i> -->
                         <span class="text">{{ _('Dashboard') }}</span>
                         <span class="badge">{{ new_activities }}</span>
@@ -56,7 +56,7 @@
                     </li>
                     {% block header_account_settings_link %}
                     <li>
-                        <a href="{{ h.url_for('user.edit', id=c.userobj.name) }}" title="{{ _('Profile settings') }}">
+                        <a href="{{ h.url_for('user.edit', id=c.userobj.name) }}" class="nav-link"  title="{{ _('Profile settings') }}">
                         <!-- <i class="fa fa-cog" aria-hidden="true"></i> -->
                         <span class="text">{{ _('Profile settings') }}</span>
                         </a>
@@ -64,7 +64,7 @@
                     {% endblock %}
                     {% block header_usage_stats_link %}
                         <li>
-                            <a href="{{ h.url_for('stats.index') }}" title="{{ _('Usage statistics') }}">
+                            <a href="{{ h.url_for('stats.index') }}" class="nav-link"  title="{{ _('Usage statistics') }}">
                                 <!-- <i class="fa fa-pie-chart" aria-hidden="true"></i> -->
                                 <span class="text">{{ _('Usage statistics') }}</span>
                             </a>
@@ -72,25 +72,25 @@
                     {% endblock %}
                         {% if c.userobj.sysadmin %}
                         <li>
-                            <a href="/user" title="{{ _('Users') }}">
+                            <a href="/user" class="nav-link"  title="{{ _('Users') }}">
                             <!-- <i class="fa fa-user" aria-hidden="true"></i> -->
                             <span class="text">{{ _('Users') }}</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ h.url_for('admin.index') }}" title="{{ _('Sysadmin settings') }}">
+                            <a href="{{ h.url_for('admin.index') }}" class="nav-link"  title="{{ _('Sysadmin settings') }}">
                             <!-- <i class="fa fa-gavel" aria-hidden="true"></i> -->
                             <span class="text">{{ _('Sysadmin settings') }}</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ h.url_for('validator.index') }}" title="{{ _('Metadata Validator') }}">
+                            <a href="{{ h.url_for('validator.index') }}" class="nav-link"  title="{{ _('Metadata Validator') }}">
                             <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
                             <span class="text">{{ _('Metadata Validator') }}</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ h.url_for('stac_harvest.view') }}" title="{{ _('STAC Harvester') }}">
+                            <a href="{{ h.url_for('stac_harvest.view') }}" class="nav-link"  title="{{ _('STAC Harvester') }}">
                             <!-- <i class="fa fa-cloud" aria-hidden="true"></i> -->
                             <span class="text">{{ _('STAC Harvester') }}</span>
                             </a>
@@ -103,7 +103,7 @@
                     like for example providing link to them via the main nav.
                     #}
                     <li>
-                        <a href="{{ h.url_for('saved_searches.index') }}" title="{{ _('Saved Search') }}" data-testid="logout">
+                        <a href="{{ h.url_for('saved_searches.index') }}" class="nav-link"  title="{{ _('Saved Search') }}" data-testid="logout">
                                 <!-- <i class="fa fa-bookmark-o" aria-hidden="true"></i> -->
                                 <span class="text">{{ _('Saved Search') }}</span>
                             </a>
@@ -111,7 +111,7 @@
                     {% block header_account_log_out_link %}
                     
                         <li>
-                            <a href="{{ h.url_for('user.logout') }}" title="{{ _('Log out') }}" data-testid="logout">
+                            <a href="{{ h.url_for('user.logout') }}" class="nav-link"  title="{{ _('Log out') }}" data-testid="logout">
                                 <!-- <i class="fa fa-sign-out" aria-hidden="true"></i> -->
                                 <span class="text">{{ _('Log out') }}</span>
                             </a>
