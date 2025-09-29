@@ -5,7 +5,7 @@
   <div class="container">
     
     {% if h.check_access('organization_create') %}
-      <div style="float:right; margin-top: 30px;">
+      <div style="float:right; margin-top: 35px;">
         {% link_for _('Add Organisation'), named_route=group_type+'.new', class_='btn btn-primary', icon='plus-square' %}
       </div>
     {% endif %}

@@ -1255,13 +1255,13 @@ footer {
 }
 
 .metadata-record-thumbnail{
-  /* height: 150px; */
+  height: 150px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   background: white;
   padding: 0px;
-  /* line-height: 150px; */
+  line-height: 150px;
   position: relative;
 }
 
@@ -1408,7 +1408,7 @@ label {
 }
 
 #dataset-edit > div{
-  padding: 0 10px 0 10px;
+  padding: 0 0px 0 0px;
 }
 
 .repeating-fields-container{
