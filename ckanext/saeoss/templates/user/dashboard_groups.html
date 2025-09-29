@@ -6,10 +6,7 @@
     <div class="page-header-blue-border-shadow" style="margin-top: 20px;">
 
       {% block page_header %}
-        <header class="module-content page-header hug page-header-blue-border-shadow"">
-          <div class="content_action">
-            {% link_for _('Profile settings'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='cog' %}
-          </div>
+        <header class="module-content page-header hug page-header-blue-border-shadow">
         {% block content_primary_nav %}    
             <div class="page-header-nav-tabs-parent">
               <div class="left-side-inner">
@@ -20,6 +17,11 @@
                   {{ h.build_nav_icon('dashboard.groups', _('My Groups'), icon='users') }}
                 </div>
                 <hr class="page-header-nav-tabs-hr">
+              </div>
+              <div class="right-side-inner">
+                <div class="main-edit-button-parent">
+                  {% link_for _('Profile settings'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='cog' %}
+                </div>
               </div>
             </div>
         {% endblock %}   

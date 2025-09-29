@@ -1640,6 +1640,11 @@ article{
   border-radius: 5px !important;
 }
 
+.table-bordered th,
+.table-bordered td {
+  border: 2px solid darkgrey !important; 
+}
+
 /* .table thead tr:first-child th:last-child{
   border-top-right-radius: 15px;
 }
