@@ -12187,3 +12187,7 @@ p{
   font-size: 18px;
   white-space: nowrap;
 }
+.extra-padding-tb{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
