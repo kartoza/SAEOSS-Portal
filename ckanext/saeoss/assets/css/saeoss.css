@@ -1645,6 +1645,10 @@ article{
   border: 2px solid darkgrey !important; 
 }
 
+.media-organization-item{
+  margin-bottom: 10px;
+}
+
 /* .table thead tr:first-child th:last-child{
   border-top-right-radius: 15px;
 }
