@@ -12191,3 +12191,18 @@ p{
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
+.user-menu{
+  list-style: none;
+  color: #777 !important;
+}
+
+.user-menu-toggle{
+  color: #777 !important;
+  text-decoration: none;
+  padding-left: 20px;
+}
+
+.user-menu li a{
+  color: #777 !important;  
+}
