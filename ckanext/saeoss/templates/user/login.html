@@ -9,7 +9,7 @@
 {% block primary_content %}
 
   <section style="margin-top: 20px;" class="module secondary-inner">
-    <div class="module-content">
+    <div class="module-content" style="padding: 10px !important;">
       <h1 class="page-heading">{% block page_heading %}{{ _('Login') }}{% endblock %}</h1>
       {% block form %}
         {% snippet "user/snippets/login_form.html", action=g.login_handler, error_summary=error_summary %}
