@@ -12206,3 +12206,16 @@ p{
 .user-menu li a{
   color: #777 !important;  
 }
+
+@media (max-width: 764px) {
+  #header{
+    height: 780px !important;
+  }
+ #home-carousel{
+  height: 780px !important;
+ }
+
+ .carousel-inner .item {
+  height: 780px !important;
+ }
+}
