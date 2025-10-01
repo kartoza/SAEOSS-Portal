@@ -1734,6 +1734,12 @@ article{
   
 }
 
+@media (max-width: 984px) {
+  .media-organization-item{
+    width: 100% !important;
+  }
+}
+
 @media (max-width: 500px) {
   #collection-main{
     width: 90% !important;
