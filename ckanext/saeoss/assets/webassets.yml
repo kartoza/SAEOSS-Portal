@@ -112,6 +112,8 @@ ckan-base-css:
     - css/main.css
   filter: cssrewrite
 
+
+
 ckan-responsive-css:
   output: ckanext-saeoss/%(version)s_ckan_responsive.css
   contents:
@@ -122,6 +124,12 @@ base-css:
   output: ckanext-saeoss/%(version)bases.css
   contents:
     - css/base.css
+  filter: cssrewrite
+
+home-css:
+  output: ckanext-saeoss/%(version)s_home.css
+  contents:
+    - css/home.css
   filter: cssrewrite
 
 saeoss-css:
@@ -135,6 +143,12 @@ search-css:
   contents:
     - css/search.css
   filter: cssrewrite
+
+home-js:
+  output: ckanext-saeoss/%(version)s_home.js
+  contents:
+    - js/home.js
+  filter: rjsmin
 
 temporal-query-js:
   output: ckanext-saeoss/%(version)s_temporalQuery.js

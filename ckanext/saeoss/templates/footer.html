@@ -2,30 +2,24 @@
 {% set saeoss_version = h.saeoss_show_version() %}
 
 {% block footer_content %}
-    <div class="content footer-content">
-        <!-- Logo on the left -->
-        <div class="footer-left">
-      	    <a href="https://www.sansa.org.za" target="_blank">
-      		    <img src="{{ h.url_for_static('/images/SANSA_Logo.png') }}" alt="SAEOSS Logo">
-      	    </a>
-      	</div>
-
-        <!-- Text on the right -->
-        <div class="footer-text">
-            <p>Copyright © {{ h.get_year() }} - SAEOSS Portal {{ h.get_year() }}</p>
-            <p>Powered by CKAN, developed by Kartoza</p>
-            <p>Version: {{ h.get_release() }}</p>
+    <section class="topfooter">
+        <div class="">
+            <a href="https://www.facebook.com/SouthAfricanNationalSpaceAgency/" class="me-3 text-white fs-4"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com/SANSA7" class="me-3 text-white fs-4"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/south-african-national-space-agency-6a8b19a9/?originalSubdomain=za" class="me-3 text-white fs-4"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@SASpaceAgency" class="me-3 text-white fs-4"><i class="fab fa-youtube"></i></a>
         </div>
-        
-        <div class="footer-right">
-      	    <a href="https://www.saeon.ac.za/" target="_blank">
-      		    <img src="{{ h.url_for_static('/images/SAEON_Logo.png') }}" alt="SAEON Logo">
-      	    </a>
-      	</div>
+    </section>
 
-        {% block footer_lang %}
-        {% endblock %}
-    </div>
+    <footer>
+        <div class="footer-container">
+            <img src="{{ h.url_for_static('/images/SANSA_Logo.png') }}" alt="Left Logo">
+            <p class="footer-text">
+                Copyright &copy; 2025 - SAEOSS Portal 2025. All rights reserved.
+            </p>
+            <img src="{{ h.url_for_static('/images/SAEON_Logo.png') }}" alt="Right Logo">
+        </div>
+    </footer>
 {% endblock %}
 
 {% block footer_debug %}

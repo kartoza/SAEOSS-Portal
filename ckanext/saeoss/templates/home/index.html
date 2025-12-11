@@ -3,198 +3,85 @@
 {% block content %}
 {% include 'social/index.html' %}
 
-<style>
-.social-main{
-  z-index: 1003 !important;
-}
 
-#home-carousel { position: relative; z-index: 1001; }
-#home-carousel .carousel-indicators { z-index: 1002; }
-#home-carousel .left.carousel-control,
-#home-carousel .right.carousel-control { z-index: 1002; width: 8%; }
-#title-header {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 900px;
-  width: auto;
-  z-index: 2000;
-}
-#header { position: relative; }
-#title-header .title-header-text {
-  display: inline-block;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-}
-#title-header .home-text {
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-}
-
-</style>
-
-<header class="masthead" id="header">
-    <div id="home-carousel" class="carousel slide" data-ride="carousel" data-interval="5000">
-        <ol class="carousel-indicators">
-            <li data-target="#home-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#home-carousel" data-slide-to="1"></li>
-            <li data-target="#home-carousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="item active">
-                <img class="d-block w-100" src="/images/lc.jpg" alt="First slide">
-            </div>
-            <div class="item">
-                <img class="d-block w-100" src="/images/pretoria.jpg" alt="Second slide">
-            </div>
-            <div class="item">
-                <img class="d-block w-100" src="/images/dam.jpg" alt="Fourth slide">
-            </div>
+<div class="carousel-container">
+    <div class="carousel">
+        <div class="carousel-item active">
+            <img src="https://images.unsplash.com/photo-1638146463297-1352cbe7cf3b?q=80&w=1803&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Forest & Vegetation">
         </div>
-        <a class="left carousel-control" href="#home-carousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#home-carousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-    
-    <div id="title-header">
-        <div class="title-header-buttons center">
-            <div class="title-header-text ">
-                Welcome to the SAEOSS Portal
-            </div>
-            {% if not c.userobj %}
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/user/login">LOGIN</a>
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/sign-up/">SIGN UP</a>
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/dataset">METADATA</a>
-            {% else %}
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/dataset/">METADATA</a>
-            {% endif %}
-    
-            <div class="home-text">
-                <h2>Discover a world of data-driven possibilities at the SAEOSS-Portal, where information converges to empower data sharing and decision making.</h2>
-            </div>
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1567654007013-3d64876fe8dd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cape Town night view">
+        </div>
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1577948000111-9c970dfe3743?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="South African landscape">
+        </div>
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt="Table Mountain Cape Town">
+        </div>
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1632573819808-82aeb4f95fb0?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="South African coast">
+        </div>
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1744968777216-8d6d14ffa734?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Water Distribution">
         </div>
     </div>
-    </header>
-
-<div id="browserAlert" class="modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-                <label for="hideBrowserWarning">
-                    <input id="hideBrowserCompatibilityWarning" type="checkbox"/> Do not show this again!
-                </label>
-            </div>
-        </div>
+    <button class="carousel-btn prev">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="carousel-btn next">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="carousel-nav">
+        <div class="carousel-dot active" data-index="0"></div>
+        <div class="carousel-dot" data-index="1"></div>
+        <div class="carousel-dot" data-index="2"></div>
+        <div class="carousel-dot" data-index="3"></div>
+        <div class="carousel-dot" data-index="4"></div>
+        <div class="carousel-dot" data-index="5"></div>
+    </div>
+    <div class="portal-content">
+        <h1>About SAEOSS-Portal</h1>
+        <p>The SAEOSS-Portal is the result of a pioneering collaboration between SANSA (South African National Space Agency) and SAEON (South African Environmental Observation Network). United by a common vision, the SAEOSS-Portal platform was conceived to revolutionize data sharing among diverse entities, fostering synergy and knowledge exchange.</p>
     </div>
 </div>
 
-<br><br><br><br>
-
-<section class="sample-explore">
-<div class="container extra-margin-bt">
-    <div class="row gx-5 justify-content-center" data-module="check-access" data-access="{{ h.check_access('package_create') }}"
-                data-logged="{{ logged }}" style="margin-left: -15px; margin-right: -15px">
-                     <!-- Explore map -->
-                    <div class="col-sm-4 publish-action ">
-                        <div class="card blue-shadow">
-                            <div class="card-body p-5">
-                                <div class="img-card-main">
-                                    <img class="img-card" src="/images/explore.png"/>
-                                </div>
-                                <span class="text-muted">Explore our metadata through an interactive map viewer. Discover geographic data and availible metadata records displayed visually
-                                </span>
-                            </div>
-                            <div class="min-mb-3">
-                                <div class="fw-bold ">
-                                    <a class="card-action-inner" href="/map/">
-                                        <span>Explore map</span>
-                                        <img class="arrow" src="/images/arrow.svg"/>
-                                    </a>
-                                </div>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Search -->
-                    <div class="col-sm-4 publish-action">
-                        <div class="card blue-shadow">
-                            <div class="card-body p-5">
-                                <div class="img-card-main">
-                                    <img class="img-card" src="/images/search.png"/>
-                                </div>
-                                <span class="text-muted">Search and filter through a vast library of public records using different filter types to find the exact data you need quickly and efficiently.</span>
-                                
-                                <br>
-                            </div>
-                            <div class="min-mb-3">
-                                <div class="fw-bold text-muted">
-                                    <a class="card-action-inner" href="/dataset">
-                                        <span>Search</span>
-                                        <img class="arrow" src="/images/arrow.svg"/>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Metadata browser -->
-                    <div class="col-sm-4 publish-action">
-                        <div class="card blue-shadow">
-                            <div class="card-body p-5">
-                                <div class="img-card-main">
-                                    <img class="img-card" src="/images/metadata.png"/>
-                                </div>
-                                <span class="text-muted">Browse through our comprehensive metadata repository. Access detailed information about our data resources, making informed decisions for your projects. Your gateway to well-organized data.
-                                </span>
-                                
-                                <br>
-                            </div>
-                            <div class="min-mb-3">
-                                <div class="fw-bold text-muted">
-                                    <a class="card-action-inner" href="/dataset">
-                                        <span>Metadata Browser</span>
-                                        <img class="arrow" src="/images/arrow.svg"/>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-</div>
-
+<section class="content">
+    <h2 class="text-center fw-bold mb-5">Our Features</h2>
+    <div class="features">
+        <div class="feature-card">
+	  <div class="feat">
+                <a href="map">
+                    <h3 class="fw-bold">Explore Map</h3>
+                    <p>Explore our metadata through an interactive map viewer. Discover geographic data and visualized metadata records.</p>
+                    <p>Search and filter through a vast library of public records quickly and efficiently.</p>
+                </a>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feat">
+                <h3 class="fw-bold">SAEOSS Vision</h3>
+                <p>We envision a future where data enables transformative decision-making. This platform connects organizations and individuals toward a data-driven future.</p>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feat">
+                <a href="dataset">
+                    <h3 class="fw-bold">Metadata Browser</h3>
+                    <p>Browse a comprehensive metadata repository with detailed information for better project decision-making.</p>
+                </a>
+            </div>
+        </div>
+    </div>
 </section>
 
-<br><br>
 
-{% include 'home/about.html' %}
 
-<div class="container" id="thematic_groups"></div>
-<div id="pagination" class="mt-4"></div>
-
-<br><br><br><br><br>
 
 {% block scripts %}
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-    {% asset "ckanext-saeoss/thematic-groups-js" %}
+    <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+                    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+                    crossorigin="anonymous"></script> -->
 {% endblock %}
 
 {% endblock %}
