@@ -45,7 +45,7 @@ server:
     #workers=2
 
 logging:
-    level: DEBUG
+    level: INFO
     #logfile: /tmp/pycsw.log
 
 profiles:
