@@ -1,0 +1,441 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 40px;
+  background: rgba(0, 0, 0, 0.0) !important;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.navbar-brand {
+  width: 90px;
+  height: auto;
+}
+
+.navbar-brand img {
+  width: auto;
+  height: 90px;
+}
+
+.navbar-nav.center-nav {
+  margin: 0 auto;
+}
+
+.navbar .nav-link {
+  position: relative;
+  padding: 8px 0;
+  color: #FFF;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  overflow: hidden;
+}
+
+.navbar .nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background-color: #0dcaf0;
+  transition: left 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #0dcaf0;
+}
+
+.navbar .nav-link:hover::before {
+    left: 0;
+}
+
+.carousel-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    margin-top: -90px;
+}
+
+.guest-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.login-btn {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+.login-btn:hover {
+    color: white;
+    border: none;
+}
+
+.register-btn {
+    background-color: #4db8ff;
+    color: white;
+}
+
+.register-btn:hover {
+    background-color: #FFF;
+    color: #222;
+}
+
+.carousel {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-item {
+    min-width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.carousel-item.active {
+    opacity: 1;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.5rem;
+}
+
+.carousel-btn.prev {
+    left: 20px;
+}
+
+.carousel-btn.next {
+    right: 20px;
+}
+
+.carousel-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+.carousel-dot.active {
+    background: white;
+}
+
+.portal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+    color: #FFF;
+    z-index: 5; 
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.2); 
+    border-radius: 10px;
+}
+
+.portal-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.portal-content p {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.content {
+    padding: 80px 10px;
+    background-color: #E6E6E6;
+}
+
+.content h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: transform 0.3s ease;
+    border: 2px solid #eee;
+    overflow: hidden;
+    position: relative;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.feature-card:hover::before {
+    border-color: #0dcaf0;
+    box-shadow: 0 0 10px rgba(13, 202, 240, 0.5);
+}
+
+.feat {
+    padding: 30px;
+}
+
+.feat a {
+    text-decoration: none;
+}
+
+.feature-card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    object-fit: cover;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Services dropdown menu */
+.navbar-nav .dropdown-menu {
+background: #3B3B3B;
+border: 1px solid #0dcaf0;
+padding: 0;
+}
+
+.navbar-nav .dropdown-item {
+color: #fff;
+padding: 12px 18px;
+font-weight: bold;
+}
+
+.navbar-nav .dropdown-item:hover {
+background: #0dcaf0;
+color: #000;
+}
+
+/* User profile dropdown menu - different styling */
+#userProfile .dropdown-menu {
+background: #2C2C2C;
+border: 1px solid #0dcaf0;
+padding: 0;
+min-width: 250px;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#userProfile .dropdown-item {
+color: #fff;
+padding: 12px 18px;
+font-weight: bold;
+border-bottom: 1px solid rgba(255,255,255,0.1);
+transition: all 0.2s ease;
+}
+
+#userProfile .dropdown-item:last-child {
+border-bottom: none;
+}
+
+#userProfile .dropdown-item:hover {
+background: #0dcaf0;
+color: #000;
+padding-left: 22px;
+}
+
+#userProfile .dropdown-divider {
+border-color: rgba(255,255,255,0.2);
+margin: 5px 0;
+}
+
+.dropdown-menu.show {
+z-index: 3000;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+footer {
+    width: 100%;
+    background-color: #222;
+    color: #FFF;
+    padding: 10px 0;
+}
+
+.footer-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    max-width: 1200px  !important;
+    margin: auto !important; 
+    padding: 0 20px !important;
+}
+
+.footer-text {
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+}
+
+footer img {
+    height: 80px;
+    width: 170px;
+    object-fit: contain;
+}
+
+.site-footer{
+    position: absolute;
+}
+
+.site-footer .container{
+    max-width: 100% !important;
+    padding: 0 !important;
+}
+
+.topfooter {
+    background: #575757; 
+    color: white; 
+    padding: 20px 0;
+    text-align: center;
+    margin-top: -10px;
+    width: 100%;
+}
+
+/* Ensure user profile dropdown is properly positioned */
+#userProfile {
+    position: relative;
+}
+
+#userProfile .dropdown-menu {
+    position: absolute;
+    right: 0;
+    left: auto;
+}
+
+
+
+
+.user-icon-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.user-icon-wrapper img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%; /* This makes it circular */
+    object-fit: cover; /* Ensures the image fits properly in the circle */
+}
+
+/* Adjust the dropdown toggle to better align items */
+#userProfile .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Remove the margin-top inline style since we're using flexbox */
+#userProfile .nav-link[style*="margin-top"] {
+    margin-top: 0 !important;
+}

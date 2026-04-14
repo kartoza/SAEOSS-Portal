@@ -1,34 +1,106 @@
 {% ckan_extends %}
 {% block header_wrapper %}
-    <nav class="navbar navbar-default border-bottom">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" href="{{ h.url_for('home.index') }}">
-        <img
-          src="/images/saeoss-logo.png"
-          alt="Site Logo"
-          class="img-responsive".map-search/>
-      </a>
-      
-      {% include 'nav/mobile.html' %}
-    </div>
-    {% include 'nav/desktop.html' %}
-    
-</nav>
-
-<style>
-    .navbar {
-        z-index: 99999;
-    }
-    .navbar-brand img {
-      max-height: 90px;
-      height: auto;
-    }
-
-    @media (max-width: 767px) {
-      .navbar-brand img {
-        max-height: 60px;
-      }
-    }
-</style>
+	<nav class="navbar navbar-expand-lg">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="https://www.sansa.org.za/">
+				<img src="{{ h.url_for_static('/images/saeoss-logo.png') }}" alt="Logo">
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navMenu">
+				<ul class="navbar-nav center-nav">
+					<li class="nav-item">
+            <a href="{{ url_for('home.index') }}" class="nav-link" title="{{ _('SAEOSS Homepage') }}" >{{ _('Home') }}</a>
+          </li>
+					<li class="nav-item">
+            <a href="{{ url_for('map.index') }}" class="nav-link" title="{{ _('Metadata boundary view') }}" >{{ _('Map') }}</a>
+          </li>
+					<li class="nav-item">
+            <a href="{{ url_for('dataset.search') }}" class="nav-link" title="{{ _('Metadata/Dataset search page') }}" >{{ _('Metadata') }}</a>
+          </li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Services</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="{{ url_for('organization.index') }}">Organisation</a></li>
+							<li><a class="dropdown-item" href="{{ url_for('group.index') }}">Group</a></li>
+							{% if c.userobj.sysadmin %}
+								<li><a class="dropdown-item" href="user">User</a></li>
+							{% endif %}
+						</ul>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="https://www.sansa.org.za/get-in-touch/">Contact</a></li>
+				</ul>
+				<div class="auth-buttons">
+					{% if c.userobj %}
+						<div class="nav-item dropdown ms-lg-3" id="userProfile">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-testid="loggedin_user_icon" style="margin-top: 15px;">
+								<div class="user-icon-wrapper">
+									{{ h.user_image((c.user if c and c.user else ''), size=22) }}
+								</div>
+								<span class="username">{{ c.userobj.display_name }}</span>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-end">
+								<li>
+									<a class="dropdown-item" href="{{ h.url_for('user.read', id=c.userobj.name) }}">
+										<i class="fas fa-user-circle"></i> Profile
+									</a>
+								</li>
+								{% if h.saeoss_org_memberships(c.userobj.id) %}
+									<li>
+										<a class="dropdown-item" href="{{ h.url_for('harvest.search') }}">
+											<i class="fas fa-cog"></i> Harvesting Settings
+										</a>
+									</li>
+								{% endif %}
+								<li>
+									<a class="dropdown-item" href="{{ h.url_for('user.edit', id=c.userobj.name) }}">
+										<i class="fas fa-sliders-h"></i> Profile Settings
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ h.url_for('stats.index') }}">
+										<i class="fas fa-chart-bar"></i> Usage Statistics
+									</a>
+								</li>
+								{% if c.userobj.sysadmin %}
+									<li>
+										<a class="dropdown-item" href="/user">
+											<i class="fas fa-user-shield"></i> Sysadmin Settings
+										</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{ h.url_for('validator.index') }}">
+											<i class="fas fa-check-circle"></i> Metadata Validator
+										</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{ h.url_for('stac_harvest.view') }}">
+											<i class="fas fa-download"></i> STAC Harvester
+										</a>
+									</li>
+								{% endif %}
+								<li>
+									<a class="dropdown-item" href="{{ h.url_for('saved_searches.index') }}">
+										<i class="fas fa-search"></i> Saved Search
+									</a>
+								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li>
+									<a class="dropdown-item" href="{{ h.url_for('user.logout') }}">
+										<i class="fas fa-sign-out-alt"></i> Logout
+									</a>
+								</li>
+							</ul>
+						</div>
+					{% else %}
+						<div class="guest-buttons ms-lg-3" id="guestButtons">
+							<a href="/user/login" class="btn login-btn">Login</a>
+							<a href="/sign-up" class="btn register-btn">Register</a>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</nav>
 {% endblock %}
