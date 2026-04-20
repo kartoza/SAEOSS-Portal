@@ -45,7 +45,7 @@ def launch_gunicorn(ckan_ini):
             gunicorn_params = gunicorn_params[:-2]
             gunicorn_params.extend(
                 [
-                    "--worker-class=gevent",
+                    "--worker-class=gthread",
                     "--workers=8",
                     "--threads=4",  
                     "--reload",
@@ -55,7 +55,7 @@ def launch_gunicorn(ckan_ini):
             )
         else:
             gunicorn_params.extend([
-                "--worker-class=gevent",
+                "--worker-class=gthread",
                 "--workers=8",       # or dynamically set via CPU count
                 "--threads=4",       # allows handling concurrent I/O better
                 "--log-level=info",

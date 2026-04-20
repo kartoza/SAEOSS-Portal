@@ -26,6 +26,92 @@ from ckan.lib.dictization import table_dictize
 
 logger = logging.getLogger(__name__)
 
+_DEFAULT_DATASET_THUMBNAIL = "/images/org.png"
+_THUMBNAIL_CACHE_TTL_SECONDS = 300
+_THUMBNAIL_STATUS_CACHE: typing.Dict[str, typing.Tuple[bool, float]] = {}
+_ORG_THUMBNAIL_CACHE: typing.Dict[str, typing.Tuple[str, float]] = {}
+
+
+def _now_timestamp() -> float:
+    return datetime.datetime.now(datetime.timezone.utc).timestamp()
+
+
+def _is_http_url(value: str) -> bool:
+    parsed = urlparse(value)
+    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+
+
+def _is_safe_remote_thumbnail(url: str) -> bool:
+    cached = _THUMBNAIL_STATUS_CACHE.get(url)
+    now = _now_timestamp()
+    if cached is not None:
+        cached_is_safe, cached_until = cached
+        if now < cached_until:
+            return cached_is_safe
+
+    # Basic safety check only: avoid expensive network checks in list pages.
+    is_safe = _is_http_url(url) and (" " not in url)
+    _THUMBNAIL_STATUS_CACHE[url] = (is_safe, now + _THUMBNAIL_CACHE_TTL_SECONDS)
+    return is_safe
+
+
+def _normalize_org_image_url(image_url: typing.Optional[str]) -> typing.Optional[str]:
+    if not image_url:
+        return None
+    if image_url.startswith("http"):
+        return image_url if _is_safe_remote_thumbnail(image_url) else None
+    safe_name = munge.munge_filename_legacy(image_url)
+    return h.url_for_static(f"uploads/group/{safe_name}", qualified=True)
+
+
+def _get_org_thumbnail(data_dict: typing.Dict) -> typing.Optional[str]:
+    organization = data_dict.get("organization") or {}
+    org_id = organization.get("id")
+    now = _now_timestamp()
+
+    if org_id:
+        cached = _ORG_THUMBNAIL_CACHE.get(org_id)
+        if cached is not None:
+            cached_thumbnail, cached_until = cached
+            if now < cached_until:
+                return cached_thumbnail
+
+    # Prefer organization data already present in package payload.
+    candidate = _normalize_org_image_url(
+        organization.get("image_display_url") or organization.get("image_url")
+    )
+    if candidate is not None:
+        if org_id:
+            _ORG_THUMBNAIL_CACHE[org_id] = (
+                candidate,
+                now + _THUMBNAIL_CACHE_TTL_SECONDS,
+            )
+        return candidate
+
+    if not org_id:
+        return None
+
+    context = {
+        "model": model,
+        "session": model.Session,
+        "user": toolkit.c.user,
+    }
+    try:
+        org = toolkit.get_action("organization_show")(context, {"id": org_id})
+    except Exception as exc:
+        logger.warning(f"Could not fetch organization {org_id}: {exc}")
+        return None
+
+    resolved = _normalize_org_image_url(
+        org.get("image_display_url") or org.get("image_url")
+    )
+    if resolved is not None:
+        _ORG_THUMBNAIL_CACHE[org_id] = (
+            resolved,
+            now + _THUMBNAIL_CACHE_TTL_SECONDS,
+        )
+    return resolved
+
 
 def get_saeoss_themes(*args, **kwargs) -> typing.List[typing.Dict[str, str]]:
     logger.debug(f"inside get_saeoss_themes {args=} {kwargs=}")
@@ -316,37 +402,21 @@ def get_datasets_thumbnail(data_dict):
     """
     Generate thumbnails based on metadataset
     """
-    print("DATA DICT", data_dict)
-    data_thumbnail = "/images/org.png"
-    if data_dict.get("metadata_thumbnail"):
-        data_thumbnail = data_dict.get("metadata_thumbnail")
-    else:
-        if 'organization' not in data_dict or not data_dict['organization']:
-            return data_thumbnail
-        org_id = data_dict['organization']["id"]
-        org_image_url = None
-        context = {
-            'model': model,
-            'session': model.Session,
-            'user': toolkit.c.user
-        }
-        if org_id:
-            try:
-                org = toolkit.get_action('organization_show')(context, {'id': org_id})
-                org_image_url = org.get('image_display_url')
-                return org_image_url
-            except Exception as e:
-                logger.warning(f"Could not fetch organization {org_id}: {e}")
-        image_url = data_dict['organization']['image_url']
-        if image_url and not image_url.startswith('http'):
-            #munge here should not have an effect only doing it incase
-            #of potential vulnerability of dodgy api input
-            image_url = munge.munge_filename_legacy(image_url)
-            data_thumbnail = h.url_for_static(
-            'uploads/group/%s' % data_dict['organization']['image_url'],
-            qualified=True
+    metadata_thumbnail = data_dict.get("metadata_thumbnail")
+    if metadata_thumbnail:
+        if metadata_thumbnail.startswith("http"):
+            if _is_safe_remote_thumbnail(metadata_thumbnail):
+                return metadata_thumbnail
+            logger.debug(
+                "Ignoring invalid remote thumbnail URL and falling back: %s",
+                metadata_thumbnail,
             )
-    return data_thumbnail
+        else:
+            # Allow local/static thumbnail paths as-is.
+            return metadata_thumbnail
+
+    org_thumbnail = _get_org_thumbnail(data_dict)
+    return org_thumbnail or _DEFAULT_DATASET_THUMBNAIL
 
 
 def _pad_geospatial_extent(extent: typing.Dict, padding: float) -> typing.Dict:
