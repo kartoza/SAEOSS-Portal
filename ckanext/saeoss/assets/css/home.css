@@ -24,6 +24,10 @@ body {
   background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
+.navbar.solid {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
 .navbar-brand {
   width: 90px;
   height: auto;

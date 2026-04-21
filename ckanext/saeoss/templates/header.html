@@ -1,6 +1,7 @@
 {% ckan_extends %}
 {% block header_wrapper %}
-	<nav class="navbar navbar-expand-lg">
+	{% set is_homepage = request.endpoint == 'home.index' or request.path == '/' %}
+	<nav class="navbar navbar-expand-lg{% if not is_homepage %} solid{% endif %}">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="https://www.sansa.org.za/">
 				<img src="{{ h.url_for_static('/images/saeoss-logo.png') }}" alt="Logo">

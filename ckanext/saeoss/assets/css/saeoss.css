@@ -359,6 +359,16 @@ button.list-group-item-success.active:focus {
 .panel-default > .panel-heading {
   color: white !important;
   background-color: #0A2642;
+  padding: 10px ;
+}
+.fields-content{
+  padding: 10px;
+}
+.dataset-form{
+    border: #0A2642 1px solid !important;
+    box-shadow: 2px 4px 8px 2px rgba(10, 38, 66, 0.3);
+    border-radius: 5px !important;
+    margin-top: 20px;
 }
 .panel-primary {
   border-color: #5E8DC0;
