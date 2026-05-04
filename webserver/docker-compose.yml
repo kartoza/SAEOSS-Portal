@@ -1,0 +1,13 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: webservers
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/certs:/etc/ssl
+      - /2025/Projects/SAEOSS-Portal/ckanext/saeoss/public:/var/www/images

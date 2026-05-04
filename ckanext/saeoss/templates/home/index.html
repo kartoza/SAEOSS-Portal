@@ -1,202 +1,781 @@
-{% ckan_extends %}
-{% block subtitle %}{{ _("SAEOSS Portal") }}{% endblock %}
-{% block content %}
-{% include 'social/index.html' %}
-<!-- <header class="masthead" id="header">
-<div class="video-background">
-    <iframe
-            width="1813"
-            height="700"
-            src="https://www.youtube.com/embed/xuP4g7IDgDM?vq=hd720&mute=1&modestbranding=0&autoplay=1&controls=0&wmode=transparent&hd=1&rel=0&autohide=1&showinfo=0&loop=1&enablejsapi=1&widgetid=2&playlist=xuP4g7IDgDM" title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-    >
-    </iframe>
-</div>
-<div class="overlay">
-    <div id="title-header">
-        <div class="title-header-buttons center">
-            <div class="title-header-text ">
-                Welcome to the SAEOSS Portal
-            </div>
-            {% if not c.userobj %}
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/user/login">LOGIN</a>
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/user/register">SIGN UP</a>
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/dataset">METADATA</a>
-            {% else %}
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/dataset/">METADATA</a>
-            {% endif %}
-
-            <div class="home-text">
-                <h3>Discover a world of data-driven possibilities at the SAEOSS-Portal, where information converges to empower data sharing and decision making.</h3>
-            </div>
-
-        </div>
-    </div>
-</div>
-</header> -->
-
-<style>
-.social-main{
-  z-index: 999 !important;
-}
-
-</style>
-
-<header class="masthead" id="header">
-    <div id="home-carousel" class="carousel slide" data-ride="carousel" data-interval="5000">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="item active">
-                <img class="d-block w-100" src="/images/lc.jpg" alt="First slide">
-            </div>
-            <div class="item">
-                <img class="d-block w-100" src="/images/pretoria.jpg" alt="Second slide">
-            </div>
-            <div class="item">
-                <img class="d-block w-100" src="/images/dam.jpg" alt="Fourth slide">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAEOSS Portal | Home</title>
     
-    <div id="title-header">
-        <div class="title-header-buttons center">
-            <div class="title-header-text ">
-                Welcome to the SAEOSS Portal
-            </div>
-            {% if not c.userobj %}
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/user/login">LOGIN</a>
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/sign-up/">SIGN UP</a>
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/dataset">METADATA</a>
-            {% else %}
-                <a class="btn btn-account btn-l js-scroll-trigger"
-                    href="/dataset/">METADATA</a>
-            {% endif %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-            <div class="home-text">
-                <h2>Discover a world of data-driven possibilities at the SAEOSS-Portal, where information converges to empower data sharing and decision making.</h2>
-            </div>
-        </div>
-    </div>
-    </header>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<div id="browserAlert" class="modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-                <label for="hideBrowserWarning">
-                    <input id="hideBrowserCompatibilityWarning" type="checkbox"/> Do not show this again!
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<br><br><br><br>
+        body {
+            overflow-x: hidden;
+        }
 
-<section class="sample-explore">
-<div class="container extra-margin-bt">
-    <div class="row gx-5 justify-content-center" data-module="check-access" data-access="{{ h.check_access('package_create') }}"
-                data-logged="{{ logged }}" style="margin-left: -15px; margin-right: -15px">
-                     <!-- Explore map -->
-                    <div class="col-sm-4 publish-action ">
-                        <div class="card blue-shadow">
-                            <div class="card-body p-5">
-                                <div class="img-card-main">
-                                    <img class="img-card" src="/images/explore.png"/>
-                                </div>
-                                <span class="text-muted">Explore our metadata through an interactive map viewer. Discover geographic data and availible metadata records displayed visually
-                                </span>
-                            </div>
-                            <div class="min-mb-3">
-                                <div class="fw-bold ">
-                                    <a class="card-action-inner" href="/map/">
-                                        <span>Explore map</span>
-                                        <img class="arrow" src="/images/arrow.svg"/>
-                                    </a>
-                                </div>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Search -->
-                    <div class="col-sm-4 publish-action">
-                        <div class="card blue-shadow">
-                            <div class="card-body p-5">
-                                <div class="img-card-main">
-                                    <img class="img-card" src="/images/search.png"/>
-                                </div>
-                                <span class="text-muted">Search and filter through a vast library of public records using different filter types to find the exact data you need quickly and efficiently.</span>
-                                
-                                <br>
-                            </div>
-                            <div class="min-mb-3">
-                                <div class="fw-bold text-muted">
-                                    <a class="card-action-inner" href="/dataset">
-                                        <span>Search</span>
-                                        <img class="arrow" src="/images/arrow.svg"/>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Metadata browser -->
-                    <div class="col-sm-4 publish-action">
-                        <div class="card blue-shadow">
-                            <div class="card-body p-5">
-                                <div class="img-card-main">
-                                    <img class="img-card" src="/images/metadata.png"/>
-                                </div>
-                                <span class="text-muted">Browse through our comprehensive metadata repository. Access detailed information about our data resources, making informed decisions for your projects. Your gateway to well-organized data.
-                                </span>
-                                
-                                <br>
-                            </div>
-                            <div class="min-mb-3">
-                                <div class="fw-bold text-muted">
-                                    <a class="card-action-inner" href="/dataset">
-                                        <span>Metadata Browser</span>
-                                        <img class="arrow" src="/images/arrow.svg"/>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 40px;
+            background: rgba(0, 0, 0, 0.0) !important;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+        }
+
+        .navbar-brand {
+            width: 90px;
+            height: auto;
+        }
+
+        .navbar-brand img {
+            width: auto;
+            height: 90px;
+        }
+        
+        .navbar-nav.center-nav {
+            margin: 0 auto;
+        }
+        
+        .navbar .nav-link {
+            position: relative;
+            padding: 8px 0;
+            color: #FFF;
+            text-shadow: 1px 0 1px #000;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            overflow: hidden;
+        }
+
+        .navbar .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background-color: #0dcaf0;
+            transition: left 0.3s ease;
+        }
+
+        .navbar .nav-link:hover {
+            color: #0dcaf0;
+        }
+
+        .navbar .nav-link:hover::before {
+            left: 0;
+        }
+        
+        .user-icon img {
+			border-radius: 50%;
+			display: block;
+		}
+
+		.username {
+			color: #fff;
+			font-weight: bold;
+			white-space: nowrap;
+		}
+        
+        .carousel-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            margin-top: -90px;
+        }
+
+        .guest-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .login-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .login-btn:hover {
+            color: white;
+            border: none;
+        }
+
+        .register-btn {
+            background-color: #4db8ff;
+            color: white;
+        }
+
+        .register-btn:hover {
+            background-color: #FFF;
+            color: #222;
+        }
+        
+        .carousel {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        .carousel-item.active {
+            opacity: 1;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 1.5rem;
+        }
+        
+        .carousel-btn.prev {
+            left: 20px;
+        }
+        
+        .carousel-btn.next {
+            right: 20px;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+        
+        .carousel-dot.active {
+            background: white;
+        }
+        
+        .portal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+            color: #FFF;
+            z-index: 5; 
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.2); 
+            border-radius: 10px;
+        }
+
+        .portal-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .portal-content p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .content {
+            padding: 80px 10px;
+            background-color: #E6E6E6;
+        }
+
+        .content h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+            transition: transform 0.3s ease;
+            border: 2px solid #eee;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .feature-card:hover::before {
+            border-color: #0dcaf0;
+            box-shadow: 0 0 10px rgba(13, 202, 240, 0.5);
+        }
+
+        .feat {
+            padding: 30px;
+        }
+
+        .feat a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            object-fit: cover;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .navbar-nav .dropdown-menu {
+            background: #3B3B3B;
+            border: 1px solid #0dcaf0;
+            padding: 0;
+        }
+
+        .navbar-nav .dropdown-item {
+            color: #fff;
+            padding: 12px 18px;
+            font-weight: bold;
+        }
+
+        .navbar-nav .dropdown-item:hover {
+            background: #0dcaf0;
+            color: #000;
+        }
+
+        #userProfile .dropdown-menu {
+            background: #2C2C2C;
+            border: 1px solid #0dcaf0;
+            padding: 0;
+            min-width: 250px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #userProfile .dropdown-item {
+            color: #fff;
+            padding: 12px 18px;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+        }
+
+        #userProfile .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        #userProfile .dropdown-item:hover {
+            background: #0dcaf0;
+            color: #000;
+            padding-left: 22px;
+        }
+
+        #userProfile .dropdown-divider {
+            border-color: rgba(255,255,255,0.2);
+            margin: 5px 0;
+        }
+
+        .dropdown-menu.show {
+            z-index: 3000;
+        }
+        
+        .nav-item.dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+        
+        footer {
+            width: 100%;
+            background-color: #222;
+            color: #FFF;
+            padding: 10px 0;
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        .footer-text {
+            margin: 0;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        footer img {
+            height: 80px;
+            width: 170px;
+            object-fit: contain;
+        }
+        
+        .topfooter {
+            background: #575757; 
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .topfooter a {
+            margin: 0 15px;
+            color: white;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .topfooter a:hover {
+            color: #0dcaf0;
+            transform: translateY(-3px);
+        }
+
+        #userProfile {
+            position: relative;
+        }
+
+        #userProfile .dropdown-menu {
+            position: absolute;
+            right: 0;
+            left: auto;
+        }
+
+        /* Added: Fix for navbar-toggler icon color on mobile */
+        .navbar-toggler {
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Added: Mobile responsive adjustments */
+        @media (max-width: 992px) {
+            .navbar {
+                padding: 10px 20px;
+            }
+            
+            .navbar-nav.center-nav {
+                margin: 0;
+                text-align: center;
+            }
+            
+            .portal-content h1 {
+                font-size: 2rem;
+            }
+            
+            .portal-content {
+                padding: 20px;
+                width: 90%;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .topfooter a {
+                margin: 0 10px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        #flDebug {
+			    display: none !important;
+		    }
+    </style>
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="https://www.sansa.org.za/">
+                <img src="images/saeoss-logo.png" alt="Logo">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+
+                <ul class="navbar-nav center-nav">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="dataset">Metadata</a></li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Services</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="organization">Organisation</a></li>
+                            <li><a class="dropdown-item" href="group">Group</a></li>
+                            {% if c.userobj %}
+                            <li><a class="dropdown-item" href="user">User</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="https://www.sansa.org.za/get-in-touch/">Contact</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    {% if c.userobj %}
+		            <div class="nav-item dropdown ms-lg-3" id="userProfile">
+		                <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" data-bs-toggle="dropdown"
+						   role="button" aria-haspopup="true" aria-expanded="false" data-testid="loggedin_user_icon">
+
+							<span class="user-icon">
+								{{ h.user_image((c.user if c and c.user else ''), size=22) }}
+							</span>
+
+							<span class="username">
+								{{ c.userobj.display_name }}
+							</span>
+						</a>
+
+		                <ul class="dropdown-menu dropdown-menu-end">
+							<li>
+								<a class="dropdown-item" href="{{ h.url_for('user.read', id=c.userobj.name) }}">
+									<i class="fas fa-user-circle"></i> Profile
+								</a>
+							</li>
+
+							{% if h.saeoss_org_memberships(c.userobj.id) %}
+							<li>
+								<a class="dropdown-item" href="{{ h.url_for('harvest.search') }}">
+									<i class="fas fa-cog"></i> Harvesting Settings
+								</a>
+							</li>
+							{% endif %}
+
+							<li>
+								<a class="dropdown-item" href="{{ h.url_for('user.edit', id=c.userobj.name) }}">
+									<i class="fas fa-sliders-h"></i> Profile Settings
+								</a>
+							</li>
+
+							<li>
+								<a class="dropdown-item" href="{{ h.url_for('stats.index') }}">
+									<i class="fas fa-chart-bar"></i> Usage Statistics
+								</a>
+							</li>
+
+							{% if c.userobj.sysadmin %}
+							<li>
+								<a class="dropdown-item" href="/user">
+									<i class="fas fa-user-shield"></i> Sysadmin Settings
+								</a>
+							</li>
+
+							<li>
+								<a class="dropdown-item" href="{{ h.url_for('validator.index') }}">
+									<i class="fas fa-check-circle"></i> Metadata Validator
+								</a>
+							</li>
+
+							<li>
+								<a class="dropdown-item" href="{{ h.url_for('stac_harvest.view') }}">
+									<i class="fas fa-download"></i> STAC Harvester
+								</a>
+							</li>
+							{% endif %}
+
+							<li>
+								<a class="dropdown-item" href="{{ h.url_for('saved_searches.index') }}">
+									<i class="fas fa-search"></i> Saved Search
+								</a>
+							</li>
+
+							<li><hr class="dropdown-divider"></li>
+
+							<li>
+								<a class="dropdown-item" href="{{ h.url_for('user.logout') }}">
+									<i class="fas fa-sign-out-alt"></i> Logout
+								</a>
+							</li>
+
+						</ul>
+
+		            </div>
+					{% else %}
+		            <div class="guest-buttons ms-lg-3" id="guestButtons">
+		                <a href="/user/login" class="btn login-btn">Login</a>
+		                <a href="/sign-up" class="btn register-btn">Register</a>
+		            </div>
+		            {% endif %}
                 </div>
-</div>
 
-</section>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1638146463297-1352cbe7cf3b?q=80&w=1803&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Forest & Vegetation">
+            </div>
+            
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1567654007013-3d64876fe8dd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cape Town night view">
+            </div>
+            
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1577948000111-9c970dfe3743?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="South African landscape">
+            </div>
+            
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt="Table Mountain Cape Town">
+            </div>
+            
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1632573819808-82aeb4f95fb0?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="South African coast">
+            </div>
+            
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1744968777216-8d6d14ffa734?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Water Distribution">
+            </div>
+        </div>
+        
+        <button class="carousel-btn prev">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-btn next">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        
+        <div class="carousel-nav">
+            <div class="carousel-dot active" data-index="0"></div>
+            <div class="carousel-dot" data-index="1"></div>
+            <div class="carousel-dot" data-index="2"></div>
+            <div class="carousel-dot" data-index="3"></div>
+            <div class="carousel-dot" data-index="4"></div>
+            <div class="carousel-dot" data-index="5"></div>
+        </div>
+        
+        <div class="portal-content">
+            <h1>About SAEOSS-Portal</h1>
+            <p>The SAEOSS-Portal is the result of a pioneering collaboration between SANSA (South African National Space Agency) and SAEON (South African Environmental Observation Network). United by a common vision, the SAEOSS-Portal platform was conceived to revolutionize data sharing among diverse entities, fostering synergy and knowledge exchange.</p>
+        </div>
+    </div>
 
-<br><br><br><br><br>
+    <section class="content">
+        <h2 class="text-center fw-bold mb-5">Our Features</h2>
 
+        <div class="features">
+            <div class="feature-card">
+                <div class="feat">
+                    <a href="map">
+                        <h3 class="fw-bold">Explore Map</h3>
+                        <p>Explore our metadata through an interactive map viewer. Discover geographic data and visualized metadata records.</p>
+                        <p>Search and filter through a vast library of public records quickly and efficiently.</p>
+                    </a>
+                </div>
+            </div>
 
+            <div class="feature-card">
+                <div class="feat">
+                    <h3 class="fw-bold">SAEOSS Vision</h3>
+                    <p>We envision a future where data enables transformative decision-making. This platform connects organizations and individuals toward a data-driven future.</p>
+                </div>
+            </div>
 
-{% endblock %}
+            <div class="feature-card">
+                <div class="feat">
+                    <a href="dataset">
+                        <h3 class="fw-bold">Metadata Browser</h3>
+                        <p>Browse a comprehensive metadata repository with detailed information for better project decision-making.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="topfooter">
+        <div class="container">
+            <a href="#" class="text-white"><i class="fab fa-facebook fa-lg"></i></a>
+            <a href="https://twitter.com/SANSA7" class="text-white" aria-label="X (Twitter)">
+				<i class="fa-brands fa-x-twitter"></i>
+			</a>
+            <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-youtube fa-lg"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <a href="https://www.sansa.org.za/">
+                <img src="images/SANSA_Logo.png" alt="Left Logo">
+            </a>
+            
+            <p class="footer-text">
+                Copyright &copy; SAEOSS Portal 2025. All rights reserved.
+            </p>
+            
+            <a href="https://www.saeon.ac.za/">
+                <img src="images/SAEON_Logo.png" alt="Right Logo">
+            </a>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const prevBtn = document.querySelector('.carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-btn.next');
+            let currentIndex = 0;
+            
+            function updateCarousel(index) {
+                carouselItems.forEach(item => item.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                carouselItems[index].classList.add('active');
+                dots[index].classList.add('active');
+                
+                currentIndex = index;
+            }
+            
+            nextBtn.addEventListener('click', function() {
+                let nextIndex = (currentIndex + 1) % carouselItems.length;
+                updateCarousel(nextIndex);
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                let prevIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+                updateCarousel(prevIndex);
+            });
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    updateCarousel(index);
+                });
+            });
+            
+            let autoSlide = setInterval(() => {
+                let nextIndex = (currentIndex + 1) % carouselItems.length;
+                updateCarousel(nextIndex);
+            }, 5000);
+            
+            const carouselContainer = document.querySelector('.carousel-container');
+            carouselContainer.addEventListener('mouseenter', () => {
+                clearInterval(autoSlide);
+            });
+            
+            carouselContainer.addEventListener('mouseleave', () => {
+                autoSlide = setInterval(() => {
+                    let nextIndex = (currentIndex + 1) % carouselItems.length;
+                    updateCarousel(nextIndex);
+                }, 5000);
+            });
+            
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
